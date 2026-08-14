@@ -1,0 +1,5 @@
+package com.kh.wellsy.main.model.dao;
+
+public class MainDao {
+
+}

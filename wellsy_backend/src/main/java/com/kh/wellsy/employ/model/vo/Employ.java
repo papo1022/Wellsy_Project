@@ -1,0 +1,5 @@
+package com.kh.wellsy.employ.model.vo;
+
+public class Employ {
+
+}

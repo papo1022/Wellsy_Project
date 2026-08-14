@@ -1,0 +1,5 @@
+package com.kh.wellsy.chat.model.service;
+
+public interface ChatService {
+
+}

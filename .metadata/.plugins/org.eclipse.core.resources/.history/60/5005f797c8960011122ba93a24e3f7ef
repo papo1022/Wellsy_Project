@@ -1,0 +1,22 @@
+package com.kh.wellsy.main.model.vo;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Entity
+@Table(name="MAIN")
+
+@DynamicInsert
+@DynamicUpdate
+
+@NoArgsConstructor
+@Setter
+@Getter
+@ToString
+@AllArgsConstructor
+public class Main {
+
+}

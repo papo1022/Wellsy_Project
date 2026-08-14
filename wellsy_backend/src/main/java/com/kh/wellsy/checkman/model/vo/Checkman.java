@@ -1,0 +1,5 @@
+package com.kh.wellsy.checkman.model.vo;
+
+public class Checkman {
+
+}

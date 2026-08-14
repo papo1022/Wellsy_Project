@@ -1,0 +1,5 @@
+package com.kh.wellsy.check.model.dao;
+
+public class CheckDao {
+
+}

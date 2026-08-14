@@ -1,0 +1,5 @@
+package com.kh.wellsy.health.model.dao;
+
+public class MainDao {
+
+}

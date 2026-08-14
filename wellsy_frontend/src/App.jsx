@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 
+
+// TODO: 백엔드 연결 테스트를 위한 컴포넌트 (반드시 지울 것)
 function App() {
   const [message, setMessage] = useState('백엔드 연결 확인 중...')
 

@@ -1,0 +1,5 @@
+package com.kh.wellsy.chat.model.vo;
+
+public class Check {
+
+}

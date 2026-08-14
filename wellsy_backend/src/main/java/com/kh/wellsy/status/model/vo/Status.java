@@ -1,0 +1,5 @@
+package com.kh.wellsy.status.model.vo;
+
+public class Status {
+
+}

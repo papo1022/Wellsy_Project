@@ -1,0 +1,61 @@
+1786591397580	Rename type 'LoginService'
+1786591406775	Delete element
+1786591475435	Delete elements
+1786591706455	Copy packages
+1786591726235	Rename type 'BoardDao'
+1786591738644	Rename type 'LoginController'
+1786591750421	Rename type 'BoardDao'
+1786591760526	Rename type 'LoginService'
+1786591767852	Rename type 'LoginServiceImpl'
+1786591780018	Rename type 'MainImpl'
+1786591829295	Rename type 'Login'
+1786591872648	Copy packages
+1786591916706	Rename type 'MainController'
+1786591925023	Rename type 'MainDao'
+1786591935131	Rename type 'MainService'
+1786591959081	Rename type 'MainServiceImpl'
+1786592011026	Rename type 'Main'
+1786592423661	Copy packages
+1786592995258	Rename type 'Health'
+1786593007817	Rename type 'HealthService'
+1786593024613	Rename type 'HealthServiceImpl'
+1786593038174	Rename type 'HealthDao'
+1786593046168	Rename type 'HealthController'
+1786667343768	Copy packages
+1786674011271	Copy packages
+1786675077770	Copy packages
+1786675097372	Rename type 'MyController'
+1786675105168	Rename type 'MyDao'
+1786675113665	Rename type 'MyService'
+1786675122119	Rename type 'MyServiceImpl'
+1786675130861	Rename type 'My'
+1786675549501	Copy packages
+1786675563555	Rename type 'MyController'
+1786675567881	Rename type 'MyDao'
+1786675575294	Rename type 'MyService'
+1786675582405	Rename type 'MyServiceImpl'
+1786675589783	Rename type 'My'
+1786675637674	Copy packages
+1786675715083	Rename type 'TotalController'
+1786675723643	Rename type 'TotalDao'
+1786675737207	Rename type 'TotalService'
+1786675743262	Rename type 'TotalServiceImpl'
+1786675750042	Rename type 'Total'
+1786675935808	Copy packages
+1786676019139	Rename type 'TotalController'
+1786676043562	Rename type 'TotalDao'
+1786676074463	Rename type 'TotalService'
+1786676078624	Rename type 'TotalServiceImpl'
+1786676082438	Rename type 'Total'
+1786676341349	Copy packages
+1786676354849	Rename type 'Total'
+1786676362214	Rename type 'TotalServiceImpl'
+1786676846286	Rename type 'TotalService'
+1786676860861	Rename type 'TotalDao'
+1786676867377	Rename type 'TotalController'
+1786676899580	Copy packages
+1786676911497	Rename type 'Total'
+1786676919653	Rename type 'TotalServiceImpl'
+1786676927570	Rename type 'TotalService'
+1786676935170	Rename type 'TotalDao'
+1786676940717	Rename type 'TotalController'
