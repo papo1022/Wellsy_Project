@@ -1,5 +1,0 @@
-package com.kh.wellsy.employ.model.service;
-
-public interface MyService {
-
-}

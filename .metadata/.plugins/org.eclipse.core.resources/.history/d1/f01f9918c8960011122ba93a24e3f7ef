@@ -1,8 +1,0 @@
-import org.springframework.stereotype.Service;
-
-import com.kh.wellsy.main.model.service.MainService;
-
-@Service
-public class LoginServiceImpl implements LoginService{
-
-}
