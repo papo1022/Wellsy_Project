@@ -1,6 +1,10 @@
 package com.kh.wellsy.health.model.vo;
 
+<<<<<<< Updated upstream
 import java.time.LocalDateTime;
+=======
+import java.sql.Timestamp;
+>>>>>>> Stashed changes
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -18,7 +22,11 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
+<<<<<<< Updated upstream
 @Table(name = "HEALTH_RECORD")
+=======
+@Table(name = "HEALTH")
+>>>>>>> Stashed changes
 
 @DynamicInsert
 @DynamicUpdate
@@ -31,6 +39,7 @@ import lombok.ToString;
 public class Health {
 
    @Id
+<<<<<<< Updated upstream
    @Column(name = "HEALTH_RECORD_ID")
    @GeneratedValue(strategy = GenerationType.SEQUENCE)
    private int healthRecordId;
@@ -76,4 +85,24 @@ public class Health {
 
    @Column(name = "EMPLOYEE_NO")
    private int employeeNo;
+=======
+   @Column(name = "health_record_id")
+   @GeneratedValue(strategy = GenerationType.SEQUENCE)
+   private int healthRecordId;
+
+   @Column(name = "member_id")
+   private int memberId;
+   private String recordDate;
+   private double height;
+   private double weight;
+   private double bmi;
+   private int systolicBp;
+   private int diastolicBp;
+   private double bloodSugar;
+   private double caffeineAmount;
+   private int smokingCount;
+   private double alcoholAmount;
+   private Timestamp createdAt;
+   private Timestamp updatedAt;
+>>>>>>> Stashed changes
 }
