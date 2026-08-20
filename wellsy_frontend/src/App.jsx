@@ -1,34 +1,72 @@
-import { useEffect, useState } from 'react'
+import {
+  Routes,
+  Route,
+  Link
+} from "react-router-dom";
 
+import ScheduleCalendar
+  from "./jjwcomponents/ScheduleCalendar";
 
-// TODO: 백엔드 연결 테스트를 위한 컴포넌트 (반드시 지울 것)
+import BmiDashboard
+  from "./jjwcomponents/BmiDashboard";
+
 function App() {
-  const [message, setMessage] = useState('백엔드 연결 확인 중...')
-
-  useEffect(() => {
-    fetch("http://localhost:8006/wellsy/test")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP Error: ${response.status}`)
-        }
-
-        return response.text()
-      })
-      .then((data) => {
-        setMessage(data)
-      })
-      .catch((error) => {
-        console.error(error)
-        setMessage('백엔드 연결 실패')
-      })
-  }, [])
-
   return (
     <>
-      <h1>Wellsy</h1>
-      <p>{message}</p>
+      <nav
+        style={{
+          padding: "15px 30px",
+          background: "#ffffff",
+          borderBottom: "1px solid #ddd",
+          display: "flex",
+          gap: "20px"
+        }}
+      >
+        <Link to="/">
+          홈
+        </Link>
+
+        <Link to="/schedule">
+          개인 일정
+        </Link>
+
+        <Link to="/bmi">
+          BMI 변화
+        </Link>
+      </nav>
+
+      <Routes>
+
+        <Route
+          path="/"
+          element={
+            <div style={{ padding: "40px" }}>
+              <h1>Wellsy</h1>
+
+              <p>
+                Wellsy 메인 페이지입니다.
+              </p>
+            </div>
+          }
+        />
+
+        <Route
+          path="/schedule"
+          element={
+            <ScheduleCalendar />
+          }
+        />
+
+        <Route
+          path="/bmi"
+          element={
+            <BmiDashboard />
+          }
+        />
+
+      </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
