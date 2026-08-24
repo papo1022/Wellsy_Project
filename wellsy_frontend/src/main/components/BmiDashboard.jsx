@@ -16,7 +16,7 @@ import {
   ReferenceLine
 } from "recharts";
 
-import "./BmiDashboard.css";
+import "../styles/BmiDashboard.css";
 
 
 const API_URL =
