@@ -13,7 +13,8 @@ import BmiDashboard
 import WeeklyExerciseDashboard
   from "./jjwcomponents/WeeklyExerciseDashboard";
 
-
+import HealthStatsDashboard
+  from "./jjwcomponents/HealthStatsDashboard";
 
 
 function App() {
@@ -32,8 +33,6 @@ function App() {
         <Link to="/">
           홈
         </Link>
-
-
       </nav>
 
 
@@ -57,17 +56,26 @@ function App() {
               </p>
 
 
-              {/* BMI */}
+              {/* 건강 통계 */}
               <section
                 style={{
                   marginTop: "40px"
                 }}
               >
+                <HealthStatsDashboard />
+              </section>
+
+
+              {/* BMI */}
+              <section
+                style={{
+                  marginTop: "60px"
+                }}
+              >
                 <BmiDashboard />
               </section>
 
-              
-              
+
               {/* 주간 운동량 */}
               <section
                 style={{
@@ -76,7 +84,6 @@ function App() {
               >
                 <WeeklyExerciseDashboard />
               </section>
-
 
 
               {/* 개인 일정 */}
@@ -91,9 +98,6 @@ function App() {
             </div>
           }
         />
-
-
-      
 
       </Routes>
     </>

@@ -14,6 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @Entity
 @Table(name = "HEALTH_RECORD")
 @Getter
@@ -27,36 +28,53 @@ public class Bmi {
     @Column(name = "HEALTH_RECORD_ID")
     private Integer healthRecordId;
 
-    @Column(name = "RECORD_DATE", nullable = false)
+
+    @Column(
+        name = "EMPLOYEE_NO",
+        nullable = false
+    )
+    private Integer employeeNo;
+
+
+    @Column(
+        name = "RECORD_DATE",
+        nullable = false
+    )
     private LocalDate recordDate;
 
-    @Column(name = "HEIGHT", precision = 5, scale = 2)
+
+    @Column(name = "HEIGHT")
     private BigDecimal height;
 
-    @Column(name = "WEIGHT", precision = 5, scale = 2)
+
+    @Column(name = "WEIGHT")
     private BigDecimal weight;
 
-    @Column(name = "BMI", precision = 5, scale = 2)
+
+    @Column(name = "BMI")
     private BigDecimal bmi;
+
 
     @Column(name = "SYSTOLIC_BP")
     private Integer systolicBp;
 
+
     @Column(name = "DIASTOLIC_BP")
     private Integer diastolicBp;
 
-    @Column(name = "BLOOD_SUGAR", precision = 6, scale = 2)
+
+    @Column(name = "BLOOD_SUGAR")
     private BigDecimal bloodSugar;
 
-    @Column(name = "CAFFEINE_AMOUNT", precision = 4, scale = 1)
+
+    @Column(name = "CAFFEINE_AMOUNT")
     private BigDecimal caffeineAmount;
 
-    @Column(name = "ALCOHOL_AMOUNT", precision = 3, scale = 1)
-    private BigDecimal alcoholAmount;
 
     @Column(name = "SMOKING_COUNT")
     private Integer smokingCount;
 
-    @Column(name = "EMPLOYEE_NO", nullable = false)
-    private Integer employeeNo;
+
+    @Column(name = "ALCOHOL_AMOUNT")
+    private BigDecimal alcoholAmount;
 }
