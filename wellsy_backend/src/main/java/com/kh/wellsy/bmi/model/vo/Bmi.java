@@ -2,12 +2,12 @@ package com.kh.wellsy.bmi.model.vo;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,19 +27,16 @@ public class Bmi {
     @Column(name = "HEALTH_RECORD_ID")
     private Integer healthRecordId;
 
-    @Column(name = "MEMBER_ID", nullable = false)
-    private Integer memberId;
-
     @Column(name = "RECORD_DATE", nullable = false)
     private LocalDate recordDate;
 
-    @Column(name = "HEIGHT")
+    @Column(name = "HEIGHT", precision = 5, scale = 2)
     private BigDecimal height;
 
-    @Column(name = "WEIGHT")
+    @Column(name = "WEIGHT", precision = 5, scale = 2)
     private BigDecimal weight;
 
-    @Column(name = "BMI")
+    @Column(name = "BMI", precision = 5, scale = 2)
     private BigDecimal bmi;
 
     @Column(name = "SYSTOLIC_BP")
@@ -48,21 +45,18 @@ public class Bmi {
     @Column(name = "DIASTOLIC_BP")
     private Integer diastolicBp;
 
-    @Column(name = "BLOOD_SUGAR")
+    @Column(name = "BLOOD_SUGAR", precision = 6, scale = 2)
     private BigDecimal bloodSugar;
 
-    @Column(name = "CAFFEINE_AMOUNT")
+    @Column(name = "CAFFEINE_AMOUNT", precision = 4, scale = 1)
     private BigDecimal caffeineAmount;
+
+    @Column(name = "ALCOHOL_AMOUNT", precision = 3, scale = 1)
+    private BigDecimal alcoholAmount;
 
     @Column(name = "SMOKING_COUNT")
     private Integer smokingCount;
 
-    @Column(name = "ALCOHOL_AMOUNT")
-    private BigDecimal alcoholAmount;
-
-    @Column(name = "CREATED_AT")
-    private LocalDateTime createdAt;
-
-    @Column(name = "UPDATED_AT")
-    private LocalDateTime updatedAt;
+    @Column(name = "EMPLOYEE_NO", nullable = false)
+    private Integer employeeNo;
 }
