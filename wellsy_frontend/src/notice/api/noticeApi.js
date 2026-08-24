@@ -8,9 +8,7 @@ const selectNoticeListApi = () => {
 
     const response = axios({
         url : `${ BASE_URL }`,
-        method : "get",
-        headers : {
-        }
+        method : "get"
     });
 
     return response;
@@ -22,10 +20,7 @@ const insertNoticeApi = notice => {
     const response = axios({
         url : `${ BASE_URL }`,
         method : "post",
-        data : notice,
-        headers : {
-           
-        }
+        data : notice
     });
 
     return response;
@@ -36,10 +31,7 @@ const selectNoticeApi = noticeId => {
 
     const response = axios({
         url : `${ BASE_URL }/${ noticeId }`,
-        method : "get",
-        headers : {
-            
-        }
+        method : "get"
     });
 
     return response;
@@ -51,10 +43,7 @@ const updateNoticeApi = (noticeId, notice) => {
     const response = axios({
         url : `${ BASE_URL }/${ noticeId }`,
         method : "put",
-        data : notice,
-        headers : {
-            
-        }
+        data : notice
     });
 
     return response;
@@ -65,10 +54,7 @@ const deleteNoticeApi = noticeId => {
 
     const response = axios({
         url : `${ BASE_URL }/${ noticeId }`,
-        method : "delete",
-        headers : {
-            
-        }
+        method : "delete"
     });
 
     return response;
