@@ -1,0 +1,27 @@
+.navi {
+    background-color : black;
+    height : 50px;
+    text-align : center;
+}
+
+.navi>div {
+    font-weight : 600;
+    display : inline-block;
+    width : 150px;
+    height : 100%;
+    line-height : 50px;
+}
+
+.navi>div a {
+    color : white;
+    text-decoration : none;
+    font-size : 16px;
+    display : block;
+    width : 100%;
+    height : 100%;
+}
+
+.navi>div:hover {
+    cursor : pointer;
+    background-color: lightgray;
+}
