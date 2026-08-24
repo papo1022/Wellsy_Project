@@ -40,6 +40,9 @@ CREATE TABLE DEPARTMENT (
 );
 
 
+
+
+
 -- =========================================
 -- 직급
 -- =========================================
@@ -48,6 +51,9 @@ CREATE TABLE JOB (
     JOB_ID INT NOT NULL PRIMARY KEY,
     JOB_NAME VARCHAR(100) NOT NULL
 );
+
+
+
 
 
 -- =========================================
@@ -78,6 +84,9 @@ CREATE TABLE EMPLOYEE (
 );
 
 
+
+
+
 -- =========================================
 -- 건강 기록
 -- =========================================
@@ -101,6 +110,9 @@ CREATE TABLE HEALTH_RECORD (
 );
 
 
+
+
+
 -- =========================================
 -- 운동 정보
 -- =========================================
@@ -115,6 +127,9 @@ CREATE TABLE EXERCISE (
     THUMBNAIL_IMAGE_URL VARCHAR(500),
     GUIDE_IMAGE_URL VARCHAR(500)
 );
+
+
+
 
 
 -- =========================================
@@ -142,6 +157,9 @@ CREATE TABLE EXERCISE_RECORD (
 );
 
 
+
+
+
 -- =========================================
 -- 수면 기록
 -- =========================================
@@ -158,6 +176,9 @@ CREATE TABLE SLEEP_RECORD (
     FOREIGN KEY (EMPLOYEE_NO)
         REFERENCES EMPLOYEE (EMPLOYEE_NO)
 );
+
+
+
 
 
 -- =========================================
@@ -211,6 +232,9 @@ CREATE TABLE CHECKUP_RESERVATION (
 );
 
 
+
+
+
 -- =========================================
 -- 건강검진
 -- =========================================
@@ -250,6 +274,9 @@ CREATE TABLE HEALTH_ALERT (
 );
 
 
+
+
+
 -- =========================================
 -- 건강 기준
 -- =========================================
@@ -267,6 +294,9 @@ CREATE TABLE HEALTH_STANDARD (
     DESCRIPTION VARCHAR(500)
 
 );
+
+
+
 
 
 -- =========================================
@@ -320,6 +350,9 @@ CREATE TABLE HEALTH_REPORT (
 );
 
 
+
+
+
 -- =========================================
 -- 공지사항
 -- =========================================
@@ -338,6 +371,9 @@ CREATE TABLE NOTICE (
     FOREIGN KEY (EMPLOYEE_NO)
         REFERENCES EMPLOYEE (EMPLOYEE_NO)
 );
+
+
+
 
 
 -- =========================================
@@ -360,19 +396,21 @@ CREATE TABLE NOTICE_COMMENT (
         REFERENCES EMPLOYEE (EMPLOYEE_NO)
 );
 
+
 -- =========================================
 -- 일반 스케줄
 -- =========================================
 
 CREATE TABLE SCHEDULE (
-    SCHEDULE_ID INT NOT NULL PRIMARY KEY,
+    SCHEDULE_ID INT NOT NULL AUTO_INCREMENT,
     EMPLOYEE_NO INT NOT NULL,
     TITLE VARCHAR(100) NOT NULL,
     CONTENT VARCHAR(1000),
     START_DATE DATETIME NOT NULL,
     END_DATE DATETIME NOT NULL,
-    CREATED_AT DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CREATED_AT DATETIME,
     UPDATED_AT DATETIME,
-    
-    FOREIGN KEY (EMPLOYEE_NO) REFERENCES EMPLOYEE (EMPLOYEE_NO)
+
+    PRIMARY KEY (SCHEDULE_ID),
+    CONSTRAINT FK_SCHEDULE_EMPLOYEE FOREIGN KEY (EMPLOYEE_NO) REFERENCES EMPLOYEE (EMPLOYEE_NO)
 );
