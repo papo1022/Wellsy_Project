@@ -15,7 +15,7 @@ import {
   ResponsiveContainer
 } from "recharts";
 
-import "./WeeklyExerciseDashboard.css";
+import "../styles/WeeklyExerciseDashboard.css";
 
 const API_URL =
   "http://localhost:8006/wellsy/api/exercise/weekly";
