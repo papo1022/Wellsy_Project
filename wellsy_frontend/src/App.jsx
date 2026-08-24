@@ -37,32 +37,32 @@ function App() {
         <Route path="/" element={<div>대시보드</div>} />
 
         {/*사원 - 건강*/}
-        <Route path="/health" element={<div>건강 관리</div>} />
+        <Route path="/health" element={<div>사원 - 건강 관리</div>} />
 
         {/* 사원 - 건강검진 */}
-        <Route path="/check" element={<div>건강검진</div>} />
+        <Route path="/check" element={<div>사원 - 건강검진</div>} />
 
         {/* 사원 - AI 챗봇 */}
-        <Route path="/chat" element={<div>AI 챗봇</div>} />
+        <Route path="/chat" element={<div>사원 - AI 챗봇</div>} />
 
 
 
         {/* 공통 - 공지사항 */}
-        <Route path="/notice" element={<div>공지사항</div>} />
+        <Route path="/notice" element={<div>공통 - 공지사항</div>} />
 
         {/* 공통 - 마이페이지 */}
-        <Route path="/my" element={<div>마이페이지</div>} />
+        <Route path="/my" element={<div>공통 - 마이페이지</div>} />
 
 
 
         {/* 관리자 - 사원관리 */}
-        <Route path="/employ" element={<div>사원관리</div>} />
+        <Route path="/employ" element={<div>관리자 - 사원관리</div>} />
 
         {/* 관리자 - 건강 검진 */}
-        <Route path="/checkman" element={<div>건강 검진</div>} />
+        <Route path="/checkman" element={<div>관리자 - 건강 검진</div>} />
 
         {/* 관리자 - 통계 / 건강 리포트 */}
-        <Route path="/status" element={<div>통계 / 건강 리포트</div>} />
+        <Route path="/status" element={<div>관리자 - 통계 / 건강 리포트</div>} />
       </Routes>
 
       <Footer />

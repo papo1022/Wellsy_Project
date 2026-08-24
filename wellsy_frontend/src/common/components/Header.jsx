@@ -42,13 +42,13 @@ function Header() {
                     <Link to="/">HOME</Link>
                 </div>
                 <div>
-                    <Link to="/health">사원 관리</Link>
+                    <Link to="/employ">사원 관리</Link>
                 </div>
                 <div>
-                    <Link to="/check">건강검진</Link>
+                    <Link to="/checkman">건강검진</Link>
                 </div>
                 <div>
-                    <Link to="/chat">통계 / 건강 리포트</Link>
+                    <Link to="/status">통계 / 건강 리포트</Link>
                 </div>
                 <div>
                     <Link to="/notice">공지사항</Link>
