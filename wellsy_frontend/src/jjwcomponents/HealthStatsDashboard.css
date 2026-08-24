@@ -1,0 +1,57 @@
+.health-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+.health-title {
+  margin-bottom: 25px;
+}
+
+.health-title h2 {
+  margin-bottom: 8px;
+}
+
+.health-title p {
+  color: #777;
+}
+
+.health-card-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.health-card {
+  padding: 30px;
+  background: white;
+  border-radius: 14px;
+
+  box-shadow:
+    0 3px 15px
+    rgba(0, 0, 0, 0.07);
+}
+
+.health-card span {
+  display: block;
+  margin-bottom: 15px;
+  color: #777;
+}
+
+.health-card strong {
+  display: block;
+  font-size: 30px;
+}
+
+.health-card p {
+  margin: 8px 0 0;
+  color: #888;
+}
+
+@media (max-width: 700px) {
+
+  .health-card-container {
+    grid-template-columns: 1fr;
+  }
+
+}

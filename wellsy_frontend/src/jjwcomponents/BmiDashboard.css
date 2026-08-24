@@ -1,0 +1,197 @@
+.bmi-dashboard {
+  min-height: 100vh;
+
+  padding: 40px;
+
+  background: #f5f8f6;
+}
+
+.bmi-title {
+  max-width: 1200px;
+
+  margin:
+    0 auto 25px;
+}
+
+.bmi-title h2 {
+  margin:
+    0 0 8px;
+
+  font-size: 30px;
+}
+
+.bmi-title p {
+  margin: 0;
+
+  color: #777;
+}
+
+.bmi-empty {
+  max-width: 1200px;
+
+  margin: 0 auto;
+
+  padding: 30px;
+
+  background: white;
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 3px 15px
+    rgba(0, 0, 0, 0.07);
+}
+
+.bmi-card-container {
+  max-width: 1200px;
+
+  margin:
+    0 auto 25px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 20px;
+}
+
+.bmi-card {
+  padding: 25px;
+
+  background: white;
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 3px 15px
+    rgba(0, 0, 0, 0.07);
+}
+
+.bmi-card span {
+  display: block;
+
+  margin-bottom: 12px;
+
+  color: #777;
+}
+
+.bmi-card strong {
+  display: block;
+
+  margin-bottom: 8px;
+
+  font-size: 30px;
+}
+
+.bmi-card p {
+  margin: 0;
+
+  color: #888;
+
+  font-size: 14px;
+}
+
+.bmi-up {
+  color: #dc3545;
+}
+
+.bmi-down {
+  color: #198754;
+}
+
+.bmi-chart-box {
+  max-width: 1200px;
+
+  margin:
+    0 auto 25px;
+
+  padding: 30px;
+
+  background: white;
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 3px 15px
+    rgba(0, 0, 0, 0.07);
+}
+
+.bmi-chart-box h3 {
+  margin-top: 0;
+
+  margin-bottom: 30px;
+}
+
+.bmi-history {
+  max-width: 1200px;
+
+  margin: 0 auto;
+
+  padding: 30px;
+
+  background: white;
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 3px 15px
+    rgba(0, 0, 0, 0.07);
+}
+
+.bmi-history h3 {
+  margin-top: 0;
+}
+
+.bmi-history table {
+  width: 100%;
+
+  border-collapse:
+    collapse;
+}
+
+.bmi-history th,
+.bmi-history td {
+  padding: 14px;
+
+  text-align: center;
+
+  border-bottom:
+    1px solid #eee;
+}
+
+.bmi-history th {
+  background:
+    #f8f9fa;
+}
+
+@media (
+  max-width: 900px
+) {
+
+  .bmi-card-container {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+}
+
+@media (
+  max-width: 600px
+) {
+
+  .bmi-dashboard {
+    padding: 15px;
+  }
+
+  .bmi-card-container {
+    grid-template-columns:
+      1fr;
+  }
+
+  .bmi-chart-box,
+  .bmi-history {
+    padding: 20px;
+  }
+
+}
