@@ -23,7 +23,7 @@ public class NoticeServiceImpl implements NoticeService{
 	@Override
 	public List<Notice> selectNoticeList() {
 		
-		return noticeDao.findByIsDeletedOrderByIsPinnedDescCreatedAtDesc(0);
+		return noticeDao.findByStatusOrderByIsPinnedDescCreatedAtDesc("Y");
 	}
 	
 	// 공지사항 상세 조회
@@ -31,7 +31,7 @@ public class NoticeServiceImpl implements NoticeService{
 	@Override
 	public Notice selectNotice(int noticeId) {
 		
-		return noticeDao.findByNoticeIdAndIsDeleted(noticeId, 0).orElse(null);
+		return noticeDao.findByNoticeIdAndStatus(noticeId, "Y").orElse(null);
 	}
 	
 	// 공지사항 작성

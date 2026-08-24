@@ -16,18 +16,18 @@ public interface NoticeDao extends JpaRepository<Notice, Integer> {
 
 	// 공지사항 목록 조회
 	// 삭제되지 않은 공지사항만 조회
-	List<Notice> findByIsDeletedOrderByIsPinnedDescCreatedAtDesc(int isDeleted);
+	List<Notice> findByStatusOrderByIsPinnedDescCreatedAtDesc(String status);
 	
 	
 	// 공지사항 상세 조회
 	// 삭제되지 않은 공지사항만 조회
-	Optional<Notice> findByNoticeIdAndIsDeleted(int noticeId, int isDeleted);
+	Optional<Notice> findByNoticeIdAndStatus(int noticeId, String status);
 	
 	// 공지사항 삭제
-	// 실제 DELETE가 아닌 IS_DELETED = 1 처리
+	// 실제 DELETE가 아닌 STATUS = 'N' 처리
 	@Modifying
 	@Query("UPDATE Notice n "
-		 + "SET n.isDeleted = 1 "
+		 + "SET n.status= 'N' "
 		 + "WHERE n.noticeId = :noticeId")
 	int deleteNotice(@Param("noticeId") int noticeId);
 }

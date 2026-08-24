@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kh.wellsy.notice.model.service.NoticeService;
 import com.kh.wellsy.notice.model.vo.Notice;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 public class NoticeController {
 
@@ -25,7 +25,7 @@ public class NoticeController {
 	private NoticeService noticeService;
 	
 	// 공지사항 목록 조회용 컨트롤러
-	@GetMapping("/notices")
+	@GetMapping("/notice")
 	public ResponseEntity<List<Notice>> selectNoticeList() {
 		
 		// 서비스 호출
@@ -36,7 +36,7 @@ public class NoticeController {
 	}
 	
 	// 공지사항 작성용 컨트롤러
-	@PostMapping("/notices")
+	@PostMapping("/notice")
 	public ResponseEntity<String> insertNotice(@RequestBody Notice notice) {
 		
 		// 서비스 호출
@@ -49,7 +49,7 @@ public class NoticeController {
 	}
 	
 	// 공지사항 상세 조회용 컨트롤러
-	@GetMapping("/notices/{noticeId}")
+	@GetMapping("/notice/{noticeId}")
 	public ResponseEntity<Notice> selectNotice(@PathVariable int noticeId) {
 		
 		Notice notice = noticeService.selectNotice(noticeId);
@@ -59,7 +59,7 @@ public class NoticeController {
 	}
 	
 	// 공지사항 수정용 컨트롤러
-	@PutMapping("/notices/{noticeId}")
+	@PutMapping("/notice/{noticeId}")
 	public ResponseEntity<String> updateNotice(@PathVariable int noticeId,
 											   @RequestBody Notice notice) {
 		
@@ -76,7 +76,7 @@ public class NoticeController {
 	}
 	
 	// 공지사항 삭제용 컨트롤러
-	@DeleteMapping("/notices/{noticeId}")
+	@DeleteMapping("/notice/{noticeId}")
 	public ResponseEntity<String> deleteNotice(@PathVariable int noticeId) {
 		
 		// 서비스 호출

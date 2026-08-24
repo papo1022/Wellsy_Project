@@ -49,10 +49,7 @@ public class Employee {
 	@Column(name = "ROLE", nullable = false, length = 20)
 	private String role = "EMPLOYEE";	// ROLE VARCHAR(20)
 											// EMPLOYEE / ADMIN
-
-	@Column(name = "POSITION_NAME", nullable = false, length = 50)
-	private String positionName;		// POSITION_NAME VARCHAR(50)
-
+	
 	@Column(name = "HIRE_DATE", nullable = false)
 	private LocalDate hireDate;			// HIRE_DATE DATE
 

@@ -1,18 +1,20 @@
 import { Routes, Route } from 'react-router-dom';
+import NoticeList from "./notice/components/NoticeList";
 import Header from "./common/components/Header";
 import Footer from "./common/components/Footer";
 
 import ScheduleCalendar
-  from "./jjwcomponents/ScheduleCalendar";
+  from "./main/components/ScheduleCalendar";
 
 import BmiDashboard
-  from "./jjwcomponents/BmiDashboard";
+  from "./main/components/BmiDashboard";
 
 import WeeklyExerciseDashboard
-  from "./jjwcomponents/WeeklyExerciseDashboard";
+  from "./main/components/WeeklyExerciseDashboard";
 
 import HealthStatsDashboard
-  from "./jjwcomponents/HealthStatsDashboard";
+  from "./main/components/HealthStatsDashboard";
+
 
 
 function App() {
@@ -76,7 +78,7 @@ function App() {
         } />
 
         {/*사원 - 건강*/}
-        <Route path="/health" element={<div>사원 - 건강 관리</div>} />
+        <Route path="/health" element={<div>사원 - 건강관리</div>} />
 
         {/* 사원 - 건강검진 */}
         <Route path="/check" element={<div>사원 - 건강검진</div>} />
@@ -87,7 +89,7 @@ function App() {
 
 
         {/* 공통 - 공지사항 */}
-        <Route path="/notice" element={<div>공통 - 공지사항</div>} />
+        <Route path="/notice" element={<NoticeList />} />
 
         {/* 공통 - 마이페이지 */}
         <Route path="/my" element={<div>공통 - 마이페이지</div>} />
@@ -95,7 +97,7 @@ function App() {
 
 
         {/* 관리자 - 사원관리 */}
-        <Route path="/employ" element={<div>관리자 - 사원관리</div>} />
+        <Route path="/employee" element={<div>관리자 - 사원관리</div>} />
 
         {/* 관리자 - 건강 검진 */}
         <Route path="/checkman" element={<div>관리자 - 건강 검진</div>} />

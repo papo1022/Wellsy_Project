@@ -5,7 +5,7 @@ import {
 
 import axios from "axios";
 
-import "./HealthStatsDashboard.css";
+import "../styles/HealthStatsDashboard.css";
 
 
 const API_URL =

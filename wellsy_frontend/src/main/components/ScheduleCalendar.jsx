@@ -17,7 +17,7 @@ import timeGridPlugin
 import interactionPlugin
   from "@fullcalendar/interaction";
 
-import "./ScheduleCalendar.css";
+import "../styles/ScheduleCalendar.css";
 
 
 const API_URL =

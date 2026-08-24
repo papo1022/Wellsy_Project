@@ -39,11 +39,14 @@ public class Notice {
 	@Column(name = "VIEW_COUNT", nullable = false)
 	private int viewCount;				// VIEW_COUNT INT
 
-	@Column(name = "IS_DELETED", nullable = false)
-	private int isDeleted;				// IS_DELETED TINYINT
+	@Column(name = "STATUS", nullable = false)
+	private String status;				// STATUS CHAR(1)
 
 	@Column(name = "CREATED_AT", insertable = false, updatable = false)
 	private LocalDateTime createdAt;	// CREATED_AT TIMESTAMP
+
+	@Column(name = "UPDATED_AT", insertable = false, updatable = false)
+	private LocalDateTime updatedAt;	// UPDATED_AT TIMESTAMP
 
 	@Column(name = "EMPLOYEE_NO", nullable = false)
 	private int employeeNo;				// EMPLOYEE_NO INT

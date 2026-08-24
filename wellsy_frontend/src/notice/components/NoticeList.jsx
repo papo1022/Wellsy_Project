@@ -32,7 +32,7 @@ useEffect(() => {
             const trArr = items.map((item) => {
 
                 return (
-                    <NoticeItemComponent
+                    <NoticeItem
                         key={ item.noticeId }
                         item={ item }
                     />
