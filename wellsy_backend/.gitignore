@@ -33,7 +33,6 @@ build/
 .vscode/
 
 # Local Spring configuration
-application-local.properties
 application-local.yml
 application-local.yaml
 
