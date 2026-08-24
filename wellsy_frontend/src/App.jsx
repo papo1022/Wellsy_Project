@@ -21,19 +21,11 @@ function App() {
 
   return (
     <>
-      <nav
-        style={{
-          padding: "15px 30px",
-          background: "#ffffff",
-          borderBottom: "1px solid #ddd",
-          display: "flex",
-          gap: "20px"
-        }}
-      >
+      
         <Link to="/">
           홈
         </Link>
-      </nav>
+      
 
 
       <Routes>
