@@ -42,7 +42,7 @@ function Header() {
                     <Link to="/">HOME</Link>
                 </div>
                 <div>
-                    <Link to="/employ">사원 관리</Link>
+                    <Link to="/employee">사원 관리</Link>
                 </div>
                 <div>
                     <Link to="/checkman">건강검진</Link>

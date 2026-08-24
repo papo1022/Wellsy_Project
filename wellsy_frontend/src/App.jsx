@@ -95,7 +95,7 @@ function App() {
 
 
         {/* 관리자 - 사원관리 */}
-        <Route path="/employ" element={<div>관리자 - 사원관리</div>} />
+        <Route path="/employee" element={<div>관리자 - 사원관리</div>} />
 
         {/* 관리자 - 건강 검진 */}
         <Route path="/checkman" element={<div>관리자 - 건강 검진</div>} />
