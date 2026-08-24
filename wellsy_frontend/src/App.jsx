@@ -1,40 +1,79 @@
-import { useEffect, useState } from 'react'
 import { Routes, Route } from 'react-router-dom';
 import Header from "./common/components/Header";
 import Footer from "./common/components/Footer";
 
-// TODO: 백엔드 연결 테스트를 위한 컴포넌트 (반드시 지울 것)
+import ScheduleCalendar
+  from "./jjwcomponents/ScheduleCalendar";
+
+import BmiDashboard
+  from "./jjwcomponents/BmiDashboard";
+
+import WeeklyExerciseDashboard
+  from "./jjwcomponents/WeeklyExerciseDashboard";
+
+import HealthStatsDashboard
+  from "./jjwcomponents/HealthStatsDashboard";
+
+
 function App() {
-  const [message, setMessage] = useState('백엔드 연결 확인 중...')
-
-  useEffect(() => {
-    fetch("http://localhost:8006/wellsy/test")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP Error: ${response.status}`)
-        }
-
-        return response.text()
-      })
-      .then((data) => {
-        setMessage(data)
-      })
-      .catch((error) => {
-        console.error(error)
-        setMessage('백엔드 연결 실패')
-      })
-  }, [])
 
   return (
-    //로그인이 되었다면
     <div>
       <Header />
-      <h1>Wellsy</h1>
-      <p>{message}</p>
 
       <Routes>
         {/* 공통 - 대시보드 */}
-        <Route path="/" element={<div>대시보드</div>} />
+        <Route path="/" element={
+          <div style={{ padding: "40px" }}>
+                <h1>
+                  Wellsy
+                </h1>
+
+                <p>
+                  Wellsy 메인 대시보드입니다.
+                </p>
+
+
+                {/* 건강 통계 */}
+                <section
+                  style={{
+                    marginTop: "40px"
+                  }}
+                >
+                  <HealthStatsDashboard />
+                </section>
+
+
+                {/* BMI */}
+                <section
+                  style={{
+                    marginTop: "60px"
+                  }}
+                >
+                  <BmiDashboard />
+                </section>
+
+
+                {/* 주간 운동량 */}
+                <section
+                  style={{
+                    marginTop: "60px"
+                  }}
+                >
+                  <WeeklyExerciseDashboard />
+                </section>
+
+
+                {/* 개인 일정 */}
+                <section
+                  style={{
+                    marginTop: "60px"
+                  }}
+                >
+                  <ScheduleCalendar />
+                </section>
+          </div>
+        } />
 
         {/*사원 - 건강*/}
         <Route path="/health" element={<div>사원 - 건강 관리</div>} />
@@ -70,4 +109,5 @@ function App() {
   )
 }
 
-export default App
+
+export default App;
