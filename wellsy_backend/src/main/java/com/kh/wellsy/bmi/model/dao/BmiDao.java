@@ -8,7 +8,7 @@ import com.kh.wellsy.bmi.model.vo.Bmi;
 
 public interface BmiDao extends JpaRepository<Bmi, Integer> {
 
-    List<Bmi> findByMemberIdAndBmiIsNotNullOrderByRecordDateAsc(
-            Integer memberId
+    List<Bmi> findByEmployeeNoAndBmiIsNotNullOrderByRecordDateAsc(
+            Integer employeeNo
     );
 }

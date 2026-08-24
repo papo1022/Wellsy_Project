@@ -23,8 +23,8 @@ public class BmiController {
 
     @GetMapping
     public List<Bmi> selectBmiList(
-            @RequestParam Integer memberId) {
+            @RequestParam Integer employeeNo) {
 
-        return bmiService.selectBmiList(memberId);
+        return bmiService.selectBmiList(employeeNo);
     }
 }

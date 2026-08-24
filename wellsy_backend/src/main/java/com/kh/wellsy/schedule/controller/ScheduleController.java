@@ -29,10 +29,10 @@ public class ScheduleController {
     // 일정 목록 조회
     @GetMapping
     public List<Schedule> selectScheduleList(
-            @RequestParam Integer memberId) {
+            @RequestParam Integer employeeNo) {
 
         return scheduleService
-                .selectScheduleList(memberId);
+                .selectScheduleList(employeeNo);
     }
 
     // 일정 상세 조회

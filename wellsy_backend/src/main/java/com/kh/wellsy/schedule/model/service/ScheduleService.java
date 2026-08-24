@@ -16,10 +16,10 @@ public class ScheduleService {
     private final ScheduleDao scheduleDao;
 
     // 일정 목록 조회
-    public List<Schedule> selectScheduleList(Integer memberId) {
+    public List<Schedule> selectScheduleList(Integer employeeNo) {
 
         return scheduleDao
-                .findByMemberIdOrderByStartDateAsc(memberId);
+                .findByEmployeeNoOrderByStartDateAsc(employeeNo);
     }
 
     // 일정 상세 조회

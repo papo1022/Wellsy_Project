@@ -10,7 +10,9 @@ import ScheduleCalendar
 import BmiDashboard
   from "./jjwcomponents/BmiDashboard";
 
+
 function App() {
+
   return (
     <>
       <nav
@@ -26,47 +28,60 @@ function App() {
           홈
         </Link>
 
-        <Link to="/schedule">
-          개인 일정
-        </Link>
 
-        <Link to="/bmi">
-          BMI 변화
-        </Link>
       </nav>
+
 
       <Routes>
 
+        {/* 홈 */}
         <Route
           path="/"
           element={
-            <div style={{ padding: "40px" }}>
-              <h1>Wellsy</h1>
+            <div
+              style={{
+                padding: "40px"
+              }}
+            >
+              <h1>
+                Wellsy
+              </h1>
 
               <p>
-                Wellsy 메인 페이지입니다.
+                Wellsy 메인 대시보드입니다.
               </p>
+
+
+              {/* BMI */}
+              <section
+                style={{
+                  marginTop: "40px"
+                }}
+              >
+                <BmiDashboard />
+              </section>
+
+
+              {/* 개인 일정 */}
+              <section
+                style={{
+                  marginTop: "60px"
+                }}
+              >
+                <ScheduleCalendar />
+              </section>
+
             </div>
           }
         />
 
-        <Route
-          path="/schedule"
-          element={
-            <ScheduleCalendar />
-          }
-        />
 
-        <Route
-          path="/bmi"
-          element={
-            <BmiDashboard />
-          }
-        />
+      
 
       </Routes>
     </>
   );
 }
+
 
 export default App;

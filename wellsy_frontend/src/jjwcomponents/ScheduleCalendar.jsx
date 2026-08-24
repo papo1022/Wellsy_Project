@@ -24,9 +24,8 @@ const API_URL =
   "http://localhost:8006/wellsy/api/schedules";
 
 
-// 로그인 연동 전 임시 회원번호
-const MEMBER_ID = 1;
-
+// 로그인 연동 전 임시 사원번호
+const EMPLOYEE_NO = 1;
 
 function ScheduleCalendar() {
 
@@ -63,15 +62,14 @@ function ScheduleCalendar() {
       try {
 
         const response =
-          await axios.get(
-            API_URL,
-            {
-              params: {
-                memberId:
-                  MEMBER_ID
-              }
-            }
-          );
+       await axios.get(
+        API_URL,
+        {
+          params: {
+            employeeNo: EMPLOYEE_NO
+          }
+        }
+      );
 
 
         const calendarEvents =
@@ -309,24 +307,12 @@ function ScheduleCalendar() {
 
 
       const schedule = {
-
-        memberId:
-          MEMBER_ID,
-
-        title:
-          form.title,
-
-        content:
-          form.content,
-
-        startDate:
-          form.startDate,
-
-        endDate:
-          form.endDate
-
+        employeeNo: EMPLOYEE_NO,
+        title: form.title,
+        content: form.content,
+        startDate: form.startDate,
+        endDate: form.endDate
       };
-
 
       try {
 

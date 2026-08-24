@@ -10,5 +10,6 @@ public interface ScheduleDao
         extends JpaRepository<Schedule, Integer> {
 
     List<Schedule>
-    findByMemberIdOrderByStartDateAsc(Integer memberId);
+    findByEmployeeNoOrderByStartDateAsc(Integer employeeNo);
+
 }

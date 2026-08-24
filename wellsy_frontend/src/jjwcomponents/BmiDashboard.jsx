@@ -22,7 +22,8 @@ import "./BmiDashboard.css";
 const API_URL =
   "http://localhost:8006/wellsy/api/bmi";
 
-const MEMBER_ID = 1;
+// 로그인 연동 전 임시 사원번호
+const EMPLOYEE_NO = 1;
 
 
 function BmiDashboard() {
@@ -45,8 +46,8 @@ function BmiDashboard() {
             API_URL,
             {
               params: {
-                memberId:
-                  MEMBER_ID
+                employeeNo:
+                  EMPLOYEE_NO
               }
             }
           );
@@ -376,96 +377,7 @@ function BmiDashboard() {
       </div>
 
 
-      <div className="bmi-history">
-
-        <h3>
-          BMI 기록
-        </h3>
-
-        <table>
-
-          <thead>
-
-            <tr>
-
-              <th>
-                날짜
-              </th>
-
-              <th>
-                키
-              </th>
-
-              <th>
-                체중
-              </th>
-
-              <th>
-                BMI
-              </th>
-
-              <th>
-                상태
-              </th>
-
-            </tr>
-
-          </thead>
-
-
-          <tbody>
-
-            {[...bmiList]
-              .reverse()
-              .map(
-                (record) => (
-
-                  <tr
-                    key={
-                      record.healthRecordId
-                    }
-                  >
-
-                    <td>
-                      {record.recordDate}
-                    </td>
-
-                    <td>
-
-                      {record.height !== null
-                        ? `${record.height.toFixed(1)} cm`
-                        : "-"}
-
-                    </td>
-
-                    <td>
-
-                      {record.weight !== null
-                        ? `${record.weight.toFixed(1)} kg`
-                        : "-"}
-
-                    </td>
-
-                    <td>
-                      {record.bmi.toFixed(2)}
-                    </td>
-
-                    <td>
-                      {getBmiStatus(
-                        record.bmi
-                      )}
-                    </td>
-
-                  </tr>
-
-                )
-              )}
-
-          </tbody>
-
-        </table>
-
-      </div>
+      
 
     </div>
   );

@@ -31,8 +31,8 @@ public class Schedule {
     @Column(name = "SCHEDULE_ID")
     private Integer scheduleId;
 
-    @Column(name = "MEMBER_ID", nullable = false)
-    private Integer memberId;
+    @Column(name = "EMPLOYEE_NO", nullable = false)
+    private Integer employeeNo;
 
     @Column(name = "TITLE", nullable = false, length = 100)
     private String title;

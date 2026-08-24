@@ -15,11 +15,11 @@ public class BmiService {
 
     private final BmiDao bmiDao;
 
-    public List<Bmi> selectBmiList(Integer memberId) {
+    public List<Bmi> selectBmiList(Integer employeeNo) {
 
         return bmiDao
-                .findByMemberIdAndBmiIsNotNullOrderByRecordDateAsc(
-                        memberId
+                .findByEmployeeNoAndBmiIsNotNullOrderByRecordDateAsc(
+                        employeeNo
                 );
     }
 }
