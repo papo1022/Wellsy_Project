@@ -501,14 +501,9 @@ function ScheduleCalendar() {
   headerToolbar={{
     left: "prev,next today",
     center: "title",
-    right: "dayGridMonth,timeGridWeek,timeGridDay"
+    right: ""
   }}
-  buttonText={{
-    today: "오늘",
-    month: "월",
-    week: "주",
-    day: "일"
-  }}
+  
 />
 
 

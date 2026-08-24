@@ -10,6 +10,11 @@ import ScheduleCalendar
 import BmiDashboard
   from "./jjwcomponents/BmiDashboard";
 
+import WeeklyExerciseDashboard
+  from "./jjwcomponents/WeeklyExerciseDashboard";
+
+
+
 
 function App() {
 
@@ -60,6 +65,18 @@ function App() {
               >
                 <BmiDashboard />
               </section>
+
+              
+              
+              {/* 주간 운동량 */}
+              <section
+                style={{
+                  marginTop: "60px"
+                }}
+              >
+                <WeeklyExerciseDashboard />
+              </section>
+
 
 
               {/* 개인 일정 */}
