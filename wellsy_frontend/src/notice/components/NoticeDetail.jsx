@@ -45,7 +45,7 @@ useEffect(() => {
                 alert("이미 삭제되거나 없는 공지사항입니다.");
 
                 // 공지사항 목록 페이지로 이동
-                navigate("/notice/list");
+                navigate("/notice");
             }
 
         } catch(error) {
@@ -63,6 +63,13 @@ useEffect(() => {
 // 삭제하기 버튼 클릭 시 실행
 const deleteNotice = async () => {
 
+    const result = window.confirm("정말 삭제하시겠습니까?");
+
+    // 취소를 누른 경우
+    if(!result) {
+        return;
+    }
+
     try {
 
         const response = await deleteNoticeApi(noticeId);
@@ -74,7 +81,7 @@ const deleteNotice = async () => {
             alert("공지사항 삭제에 성공했습니다.");
 
             // 공지사항 목록 페이지로 이동
-            navigate("/notice/list");
+            navigate("/notice");
 
         } else {
 
@@ -163,7 +170,7 @@ return (
             <button
                 className="btn btn-outline-secondary btn-sm"
                 onClick={ () => {
-                    navigate("/notice/list");
+                    navigate("/notice");
                 }}
             >
                 목록으로

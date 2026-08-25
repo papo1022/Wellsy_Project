@@ -1,5 +1,9 @@
 import { Routes, Route } from 'react-router-dom';
 import NoticeList from "./notice/components/NoticeList";
+import NoticeEnrollForm from "./notice/components/NoticeEnrollForm";
+import NoticeDetail from "./notice/components/NoticeDetail";
+import NoticeUpdateForm from "./notice/components/NoticeUpdateForm";
+
 import Header from "./common/components/Header";
 import Footer from "./common/components/Footer";
 
@@ -90,6 +94,9 @@ function App() {
 
         {/* 공통 - 공지사항 */}
         <Route path="/notice" element={<NoticeList />} />
+        <Route path="/notice/enrollForm" element={<NoticeEnrollForm />} />
+        <Route path="/notice/detail/:noticeId" element={<NoticeDetail />} />
+        <Route path="/notice/updateForm" element={<NoticeUpdateForm />} />
 
         {/* 공통 - 마이페이지 */}
         <Route path="/my" element={<div>공통 - 마이페이지</div>} />

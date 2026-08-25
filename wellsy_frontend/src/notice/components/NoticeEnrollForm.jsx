@@ -28,11 +28,12 @@ function NoticeEnrollForm() {
 // 입력값 변경 시 실행
 const handleChange = e => {
 
-    const newNotice = {...notice};
+    const { name, value } = e.target;
 
-    newNotice[e.target.name] = e.target.value;
-
-    setNotice(newNotice);
+    setNotice({
+        ...notice,
+        [name] : value.trimStart()
+    });
 };
 
 
@@ -63,7 +64,7 @@ const insertNotice = async e => {
             alert("공지사항 작성에 성공했습니다.");
 
             // 작성 성공 시 목록으로 이동
-            navigate("/notice/list");
+            navigate("/notice");
 
         } else {
 
