@@ -4,6 +4,11 @@ import NoticeEnrollForm from "./notice/components/NoticeEnrollForm";
 import NoticeDetail from "./notice/components/NoticeDetail";
 import NoticeUpdateForm from "./notice/components/NoticeUpdateForm";
 
+import EmployeeList from "./employee/components/EmployeeList";
+import EmployeeEnrollForm from "./employee/components/EmployeeEnrollForm";
+import EmployeeDetail from "./employee/components/EmployeeDetail";
+import EmployeeUpdateForm from "./employee/components/EmployeeUpdateForm";
+
 import Header from "./common/components/Header";
 import Footer from "./common/components/Footer";
 
@@ -104,7 +109,11 @@ function App() {
 
 
         {/* 관리자 - 사원관리 */}
-        <Route path="/employee" element={<div>관리자 - 사원관리</div>} />
+        <Route path="/employee" element={<EmployeeList />} />
+        <Route path="/employee/list" element={<EmployeeList />} />
+        <Route path="/employee/enrollForm" element={<EmployeeEnrollForm />} />
+        <Route path="/employee/detail/:employeeNo" element={<EmployeeDetail />} />
+        <Route path="/employee/updateForm" element={<EmployeeUpdateForm />} />
 
         {/* 관리자 - 건강 검진 */}
         <Route path="/checkman" element={<div>관리자 - 건강 검진</div>} />
