@@ -21,6 +21,10 @@ public interface EmployeeDao extends JpaRepository<Employee, Integer>{
 	// 재직중인 직원 상세 조회
 	Optional<Employee> findByEmployeeNoAndStatus(int employeeNo, String status);
 	
+	// 로그인용 조회
+	// 메소드 이름 규칙(findBy + 필드명 + And + 필드명)
+	// Spring이 "WHERE LOGIN_ID = ? AND STATUS = ?" SQL을 자동으로 만들어서 실행
+	Optional<Employee> findByLoginIdAndStatus(String loginId, String status);
 	
 	// 직원 퇴사 처리
 	// 실제 DELETE 하지 않고
