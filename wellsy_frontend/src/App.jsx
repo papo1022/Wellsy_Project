@@ -15,6 +15,7 @@ import WeeklyExerciseDashboard
 import HealthStatsDashboard
   from "./main/components/HealthStatsDashboard";
 
+import LoginForm from "./login/components/LoginForm";
 
 
 function App() {
@@ -24,6 +25,10 @@ function App() {
       <Header />
 
       <Routes>
+
+        {/* 로그인 */}
+        <Route path="/login" element={<LoginForm />} />
+
         {/* 공통 - 대시보드 */}
         <Route path="/" element={
           <div style={{ padding: "40px" }}>

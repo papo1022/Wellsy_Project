@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { loginEmployeeApi } from "../login/api/loginApi";
+import { loginEmployeeApi } from "../api/LoginApi";
 
 function LoginForm() {
 
@@ -60,3 +60,6 @@ function LoginForm() {
         </div>
     );
 }
+
+// 내보내기
+export default LoginForm;
