@@ -1,0 +1,23 @@
+.health-card-area {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.health-card-area {
+  display: flex;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.health-left-area {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.health-top-area {
+  display: flex;
+  gap: 20px;
+}
