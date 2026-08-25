@@ -26,7 +26,7 @@ public class EmployeeController {
 	
 	
 	// 직원 목록 조회용 컨트롤러
-	@GetMapping("/employees")
+	@GetMapping("/employee")
 	public ResponseEntity<List<Employee>> selectEmployeeList() {
 		
 		// 서비스 호출
@@ -37,7 +37,7 @@ public class EmployeeController {
 	
 	
 	// 직원 상세 조회용 컨트롤러
-	@GetMapping("/employees/{employeeNo}")
+	@GetMapping("/employee/{employeeNo}")
 	public ResponseEntity<Employee> selectEmployee(
 			@PathVariable int employeeNo) {
 		
@@ -48,7 +48,7 @@ public class EmployeeController {
 	
 	
 	// 직원 등록용 컨트롤러
-	@PostMapping("/employees")
+	@PostMapping("/employee")
 	public ResponseEntity<String> insertEmployee(
 			@RequestBody Employee employee) {
 		
@@ -61,7 +61,7 @@ public class EmployeeController {
 	
 	
 	// 직원 수정용 컨트롤러
-	@PutMapping("/employees/{employeeNo}")
+	@PutMapping("/employee/{employeeNo}")
 	public ResponseEntity<String> updateEmployee(
 			@PathVariable int employeeNo,
 			@RequestBody Employee employee) {
@@ -78,7 +78,7 @@ public class EmployeeController {
 	
 	
 	// 직원 퇴사 처리용 컨트롤러
-	@DeleteMapping("/employees/{employeeNo}")
+	@DeleteMapping("/employee/{employeeNo}")
 	public ResponseEntity<String> deleteEmployee(
 			@PathVariable int employeeNo) {
 		

@@ -23,13 +23,15 @@ public class NoticeServiceImpl implements NoticeService{
 	@Override
 	public List<Notice> selectNoticeList() {
 		
-		return noticeDao.findByStatusOrderByIsPinnedDescCreatedAtDesc("Y");
+		return noticeDao.findByStatusOrderByIsPinnedDescNoticeIdDesc("Y");
 	}
 	
 	// 공지사항 상세 조회
-	@Transactional(readOnly=true)
+	@Transactional
 	@Override
 	public Notice selectNotice(int noticeId) {
+		
+		noticeDao.increaseViewCount(noticeId);
 		
 		return noticeDao.findByNoticeIdAndStatus(noticeId, "Y").orElse(null);
 	}
@@ -39,6 +41,9 @@ public class NoticeServiceImpl implements NoticeService{
 	@Override
 	public Notice insertNotice(Notice notice) {
 		
+		notice.setViewCount(0);
+		notice.setStatus("Y");
+	
 		return noticeDao.save(notice);
 	}
 	

@@ -2,8 +2,12 @@ package com.kh.wellsy.employee.model.vo;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -21,15 +25,17 @@ import lombok.ToString;
 public class Employee {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "EMPLOYEE_NO")
-	private int employeeNo;				// EMPLOYEE_NO INT (PK, 사번)
+	private int employeeNo;				// EMPLOYEE_NO INT AUTO_INCREMENT PK
 
-	@Column(name = "LOGIN_ID", nullable = false, length = 50)
+	@Column(name = "LOGIN_ID", nullable = false, unique = true, length = 50)
 	private String loginId;				// LOGIN_ID VARCHAR(50)
 
-	@Column(name = "EMAIL", nullable = false, length = 100)
+	@Column(name = "EMAIL", nullable = false, unique = true, length = 100)
 	private String email;				// EMAIL VARCHAR(100)
 
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column(name = "PASSWORD", nullable = false, length = 300)
 	private String password;			// PASSWORD VARCHAR(300)
 
@@ -40,29 +46,27 @@ public class Employee {
 	private String phone;				// PHONE VARCHAR(20)
 
 	@Column(name = "GENDER", length = 10)
-	private String gender;				// GENDER VARCHAR(10)
-										// MALE / FEMALE
-	
+	private String gender;				// GENDER VARCHAR(10) - M / F
+
 	@Column(name = "BIRTH_DATE")
 	private LocalDate birthDate;		// BIRTH_DATE DATE
 
 	@Column(name = "ROLE", nullable = false, length = 20)
-	private String role = "EMPLOYEE";	// ROLE VARCHAR(20)
-											// EMPLOYEE / ADMIN
+	private String role;				// ROLE VARCHAR(20)
 
-	@Column(name = "HIRE_DATE", nullable = false)
-	private LocalDate hireDate;			// HIRE_DATE DATE
+	@Column(name = "HIRE_DATE", insertable = false)
+	private LocalDate hireDate;			// HIRE_DATE DATE DEFAULT CURRENT_DATE
 
 	@Column(name = "STATUS", nullable = false, length = 20)
-	private String status = "EMPLOYED";	// STATUS VARCHAR(20)
-											// EMPLOYED / RESIGNED
+	private String status = "Y";		// STATUS VARCHAR(20) - Y / N
 
 	@Column(name = "RESIGN_DATE")
 	private LocalDate resignDate;		// RESIGN_DATE DATE
 
 	@Column(name = "DEPARTMENT_ID")
-	private Integer departmentId;		// DEPARTMENT_ID INT (FK)
+	private Integer departmentId;		// DEPARTMENT_ID INT FK
 
-	@Column(name = "JOB_ID", nullable = false)
-	private int jobId;					// JOB_ID INT (FK)
+	@Column(name = "JOB_ID")
+	private Integer jobId;				// JOB_ID INT FK
+
 }

@@ -2,14 +2,15 @@ import axios from "axios";
 
 import { getAuthorization } from "../../common/api/commonApi";
 
-// 공통 URL 변수처리
-const BASE_URL = "http://localhost:8006/wellsy/notice";
+// 공통 URL
+const BASE_URL = "http://localhost:8006/wellsy/employee";
 
-// 공지사항 목록 조회용
-const selectNoticeListApi = () => {
+
+// 사원 목록 조회
+const selectEmployeeListApi = () => {
 
     const response = axios({
-        url : `${ BASE_URL }`,
+        url : BASE_URL,
         method : "get",
         headers : {
             Authorization : getAuthorization()
@@ -19,13 +20,29 @@ const selectNoticeListApi = () => {
     return response;
 };
 
-// 공지사항 작성용
-const insertNoticeApi = notice => {
+
+// 사원 상세 조회
+const selectEmployeeApi = employeeNo => {
 
     const response = axios({
-        url : `${ BASE_URL }`,
+        url : `${ BASE_URL }/${ employeeNo }`,
+        method : "get",
+        headers : {
+            Authorization : getAuthorization()
+        }
+    });
+
+    return response;
+};
+
+
+// 사원 등록
+const insertEmployeeApi = employee => {
+
+    const response = axios({
+        url : BASE_URL,
         method : "post",
-        data : notice,
+        data : employee,
         headers : {
             Authorization : getAuthorization()
         }
@@ -34,27 +51,14 @@ const insertNoticeApi = notice => {
     return response;
 };
 
-// 공지사항 상세 조회용
-const selectNoticeApi = noticeId => {
+
+// 사원 수정
+const updateEmployeeApi = (employeeNo, employee) => {
 
     const response = axios({
-        url : `${ BASE_URL }/${ noticeId }`,
-        method : "get",
-        headers : {
-            Authorization : getAuthorization()
-        }
-    });
-
-    return response;
-};
-
-// 공지사항 수정용
-const updateNoticeApi = (noticeId, notice) => {
-
-    const response = axios({
-        url : `${ BASE_URL }/${ noticeId }`,
+        url : `${ BASE_URL }/${ employeeNo }`,
         method : "put",
-        data : notice,
+        data : employee,
         headers : {
             Authorization : getAuthorization()
         }
@@ -63,11 +67,12 @@ const updateNoticeApi = (noticeId, notice) => {
     return response;
 };
 
-// 공지사항 삭제용
-const deleteNoticeApi = noticeId => {
+
+// 사원 퇴사 처리
+const deleteEmployeeApi = employeeNo => {
 
     const response = axios({
-        url : `${ BASE_URL }/${ noticeId }`,
+        url : `${ BASE_URL }/${ employeeNo }`,
         method : "delete",
         headers : {
             Authorization : getAuthorization()
@@ -77,10 +82,11 @@ const deleteNoticeApi = noticeId => {
     return response;
 };
 
+
 export {
-    selectNoticeListApi,
-    insertNoticeApi,
-    selectNoticeApi,
-    updateNoticeApi,
-    deleteNoticeApi
+    selectEmployeeListApi,
+    selectEmployeeApi,
+    insertEmployeeApi,
+    updateEmployeeApi,
+    deleteEmployeeApi
 };
