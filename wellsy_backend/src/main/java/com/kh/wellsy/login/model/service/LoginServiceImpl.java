@@ -15,7 +15,7 @@ public class LoginServiceImpl implements LoginService {
 	
 	public Optional<Employee> loginEmploy(String loginId) {
 		
-		return employeeRepository.findByLoginIdAndStatus(loginId, "Y"); // "Y"
+		return employeeRepository.findByLoginIdAndStatus(loginId, "Y"); // "EMPLOYED", "Y"
 		// STATUS가 EMPLOYED(재직중)인 사람 중에 이 loginId를 가진 사람을 조회
 	}
 }
