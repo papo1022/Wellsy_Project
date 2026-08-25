@@ -2,18 +2,8 @@ import { Routes, Route } from 'react-router-dom';
 import NoticeList from "./notice/components/NoticeList";
 import Header from "./common/components/Header";
 import Footer from "./common/components/Footer";
-
-import ScheduleCalendar
-  from "./main/components/ScheduleCalendar";
-
-import BmiDashboard
-  from "./main/components/BmiDashboard";
-
-import WeeklyExerciseDashboard
-  from "./main/components/WeeklyExerciseDashboard";
-
-import HealthStatsDashboard
-  from "./main/components/HealthStatsDashboard";
+import MainDashboard from "./main/components/MainDashboard";
+import HealthDashboard from "./health/components/HealthDashboard";
 
 
 
@@ -25,60 +15,10 @@ function App() {
 
       <Routes>
         {/* 공통 - 대시보드 */}
-        <Route path="/" element={
-          <div style={{ padding: "40px" }}>
-                <h1>
-                  Wellsy
-                </h1>
-
-                <p>
-                  Wellsy 메인 대시보드입니다.
-                </p>
-
-
-                {/* 건강 통계 */}
-                <section
-                  style={{
-                    marginTop: "40px"
-                  }}
-                >
-                  <HealthStatsDashboard />
-                </section>
-
-
-                {/* BMI */}
-                <section
-                  style={{
-                    marginTop: "60px"
-                  }}
-                >
-                  <BmiDashboard />
-                </section>
-
-
-                {/* 주간 운동량 */}
-                <section
-                  style={{
-                    marginTop: "60px"
-                  }}
-                >
-                  <WeeklyExerciseDashboard />
-                </section>
-
-
-                {/* 개인 일정 */}
-                <section
-                  style={{
-                    marginTop: "60px"
-                  }}
-                >
-                  <ScheduleCalendar />
-                </section>
-          </div>
-        } />
+        <Route path="/" element={<MainDashboard />} />
 
         {/*사원 - 건강*/}
-        <Route path="/health" element={<div>사원 - 건강관리</div>} />
+        <Route path="/health" element={<HealthDashboard />} />
 
         {/* 사원 - 건강검진 */}
         <Route path="/check" element={<div>사원 - 건강검진</div>} />
