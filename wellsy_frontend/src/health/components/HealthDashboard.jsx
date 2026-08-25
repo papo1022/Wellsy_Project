@@ -1,5 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import BloodPressure from "./BloodPressure";
+import BloodSugar from "./BloodSugar";
+import FourIntake from "./FourIntake";
+import SleepCard from "./SleepTime";
+
+import "../../health/styles/Dashboard.css";
+import BodyInfo from "./BodyInfo";
 
 function HealthDashboard() {
 
@@ -11,9 +18,21 @@ function HealthDashboard() {
 
 
     return (
+        <div className="health-dashboard">
+            <div className="health-card-area">
 
-        <div>
-            으악
+                <div className="health-left-area">
+                    <div className="health-top-area">
+                        <BloodSugar />
+                        <BloodPressure />
+                    </div>
+                    <SleepCard />
+                    <BodyInfo />
+                </div>
+
+                <FourIntake />
+                
+            </div>
         </div>
     );
 }
