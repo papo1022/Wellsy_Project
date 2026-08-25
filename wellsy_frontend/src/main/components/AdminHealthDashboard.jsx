@@ -158,18 +158,7 @@ function AdminHealthDashboard() {
 
       <table className="admin-health-table">
 
-        <thead>
 
-          <tr>
-            <th>사번</th>
-            <th>이름</th>
-            <th>부서</th>
-            <th>직급</th>
-            <th>최근 기록일</th>
-            <th>상세</th>
-          </tr>
-
-        </thead>
 
 
         <tbody>
@@ -210,7 +199,7 @@ function AdminHealthDashboard() {
                       )
                     }
                   >
-                    보기
+                    건강정보
                   </button>
 
                 </td>
