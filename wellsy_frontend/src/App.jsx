@@ -15,6 +15,9 @@ import WeeklyExerciseDashboard
 import HealthStatsDashboard
   from "./main/components/HealthStatsDashboard";
 
+import AdminHealthDashboard 
+  from "./main/components/AdminHealthDashboard";
+
 
 
 function App() {
@@ -73,6 +76,15 @@ function App() {
                   }}
                 >
                   <ScheduleCalendar />
+                </section>
+
+                {/* 직원 건강정보 조회 */}
+                <section
+                  style={{
+                    marginTop: "60px"
+                  }}
+                >
+                  <AdminHealthDashboard />
                 </section>
           </div>
         } />
