@@ -22,7 +22,11 @@ import EmployeeEnrollForm from "./employee/components/EmployeeEnrollForm";
 import EmployeeList from "./employee/components/EmployeeList";
 import EmployeeUpdateForm from "./employee/components/EmployeeUpdateForm";
 
-// 공통 컴포넌트
+import StatusList from "./status/components/StatusList";
+
+import StatusDetail from "./status/components/StatusDetail";
+
+import Header from "./common/components/Header";
 import Footer from "./common/components/Footer";
 import Header from "./common/components/Header";
 import HealthDashboard from "./health/components/HealthDashboard";
@@ -90,7 +94,8 @@ function App() {
         <Route path="/checkman" element={<div>관리자 - 건강 검진</div>} />
 
         {/* 관리자 - 통계 / 건강 리포트 */}
-        <Route path="/status" element={<div>관리자 - 통계 / 건강 리포트</div>} />
+        <Route path="/status" element={<StatusList />} />
+        <Route path="/status/warnings/:alertId" element={<StatusDetail />} />
       </Routes>
 
       <Footer />

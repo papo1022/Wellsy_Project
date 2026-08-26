@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 
+
 function EmployeeItem(props) {
 
-    const navigate = useNavigate();
+    let navigate = useNavigate();
 
     const employee = props.employee;
 
@@ -10,9 +11,14 @@ function EmployeeItem(props) {
     return (
 
         <tr
-            style={{ cursor : "pointer" }}
+            className="employee-table-row"
+
             onClick={ () => {
-                navigate(`/employee/detail/${ employee.employeeNo }`);
+
+                navigate(
+                    `/employee/detail/${ employee.employeeNo }`
+                );
+
             }}
         >
 
@@ -20,39 +26,75 @@ function EmployeeItem(props) {
                 { employee.employeeNo }
             </td>
 
-            <td>
+
+            <td className="employee-name-cell">
                 { employee.name }
             </td>
+
 
             <td>
                 { employee.loginId }
             </td>
 
+
             <td>
                 { employee.email }
             </td>
 
-            <td>
-                { employee.departmentId ?? "-" }
-            </td>
-
-            <td>
-                { employee.jobId ?? "-" }
-            </td>
 
             <td>
                 {
-                    employee.role === "ADMIN"
-                    ? "관리자"
-                    : "사원"
+                    employee.departmentId
+                    ??
+                    "-"
                 }
             </td>
 
+
             <td>
-                { employee.hireDate ?? "-" }
+                {
+                    employee.jobId
+                    ??
+                    "-"
+                }
+            </td>
+
+
+            <td>
+
+                <span
+                    className={
+                        employee.role === "ADMIN"
+                        ?
+                        "employee-role employee-role-admin"
+                        :
+                        "employee-role"
+                    }
+                >
+
+                    {
+                        employee.role === "ADMIN"
+                        ?
+                        "관리자"
+                        :
+                        "사원"
+                    }
+
+                </span>
+
+            </td>
+
+
+            <td>
+                {
+                    employee.hireDate
+                    ??
+                    "-"
+                }
             </td>
 
         </tr>
+
     );
 }
 

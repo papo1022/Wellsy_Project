@@ -6,6 +6,8 @@ import NoticeItem from "./NoticeItem";
 
 import { useNavigate } from "react-router-dom";
 
+import "../styles/Notice.css";
+
 function NoticeList() {
 
     // 화면 깜빡임 없이 URL 주소를 전환해줄 navigate 함수
@@ -55,78 +57,104 @@ useEffect(() => {
 
 return (
 
-    <div>
-
-        <h2 align="center">공지사항 목록</h2>
-
-        <br /><br />
+        <div className="notice-dashboard">
 
 
-        <div
-            align="right"
-            style={{ width : "950px" }}
-        >
-            <button
-                className="btn btn-outline-secondary btn-sm"
-                onClick={ () => {
-                    navigate("/notice/enrollForm");
-                }}
-            >
-                글작성
-            </button>
+            {/* 공지사항 전체 카드 */}
+            <div className="notice-card">
+
+
+                {/* 공지사항 상단 영역 */}
+                <div className="notice-list-header">
+
+                    <h3>
+                        공지사항 목록
+                    </h3>
+
+
+                    <button
+                        type="button"
+                        className="notice-btn notice-btn-primary"
+                        onClick={ () => {
+
+                            navigate("/notice/enrollForm");
+
+                        }}
+                    >
+                        글작성
+                    </button>
+
+                </div>
+
+
+                {/* 공지사항 목록 */}
+                <div className="notice-card-content">
+
+                    <table className="notice-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th width="100">
+                                    글번호
+                                </th>
+
+                                <th width="100">
+                                    고정여부
+                                </th>
+
+                                <th width="500">
+                                    제목
+                                </th>
+
+                                <th width="150">
+                                    작성자
+                                </th>
+
+                                <th width="200">
+                                    작성일
+                                </th>
+
+                                <th width="100">
+                                    조회수
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            {
+                                dataList.length > 0
+                                ?
+                                dataList
+                                :
+                                (
+                                    <tr>
+
+                                        <td
+                                            colSpan="6"
+                                            className="notice-empty"
+                                        >
+                                            등록된 공지사항이 없습니다.
+                                        </td>
+
+                                    </tr>
+                                )
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
         </div>
-
-
-        <br />
-
-
-        <table className="list-area table table-hover">
-
-            <thead>
-
-                <tr>
-
-                    <th width="100">
-                        글번호
-                    </th>
-
-                    <th width="100">
-                        고정
-                    </th>
-
-                    <th width="500">
-                        제목
-                    </th>
-
-                    <th width="150">
-                        작성자
-                    </th>
-
-                    <th width="200">
-                        작성일
-                    </th>
-
-                    <th width="100">
-                        조회수
-                    </th>
-
-                </tr>
-
-            </thead>
-
-
-            <tbody>
-
-                { dataList }
-
-            </tbody>
-
-        </table>
-
-
-        <br /><br />
-
-    </div>
     );
 }
 
