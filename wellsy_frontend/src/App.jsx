@@ -28,6 +28,11 @@ import Header from "./common/components/Header";
 import HealthDashboard from "./health/components/HealthDashboard";
 import MainDashboard from "./main/components/MainDashboard";
 
+import AdminHealthDashboard 
+  from "./main/components/AdminHealthDashboard";
+
+import CheckupReservationDashboard
+from "./main/components/CheckupReservationDashboard";
 
 
 function App() {
