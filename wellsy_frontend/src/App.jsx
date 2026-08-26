@@ -18,6 +18,8 @@ import HealthStatsDashboard
 import AdminHealthDashboard 
   from "./main/components/AdminHealthDashboard";
 
+import CheckupReservationDashboard
+from "./main/components/CheckupReservationDashboard";
 
 
 function App() {
@@ -85,6 +87,15 @@ function App() {
                   }}
                 >
                   <AdminHealthDashboard />
+                </section>
+
+                {/* 건강검진 예약 현황 */}
+                <section
+                  style={{
+                    marginTop: "60px"
+                  }}
+                >
+                  <CheckupReservationDashboard />
                 </section>
           </div>
         } />
