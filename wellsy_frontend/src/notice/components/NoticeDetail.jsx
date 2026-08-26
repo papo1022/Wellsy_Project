@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 
 import { selectNoticeApi, deleteNoticeApi } from "../api/noticeApi";
 
+import "../styles/Notice.css";
+
 function NoticeDetail() {
 
     // Path Variable 방식으로 얻어온 공지사항 ID
@@ -97,118 +99,157 @@ const deleteNotice = async () => {
 
 
 return (
-    <div>
 
-        <h2 align="center">공지사항 상세 조회</h2>
-
-        <br /><br />
-
-        <table className="table">
-
-            <tbody>
-
-                <tr>
-                    <th width="130">제목</th>
-
-                    <td colSpan="3">
-                        { notice.isPinned === 1 && "[고정] " }
-                        { notice.title }
-                    </td>
-                </tr>
+        <div className="notice-dashboard">
 
 
-                <tr>
-                    <th>작성자</th>
+            {/* 페이지 제목 */}
+            <div className="notice-title-area">
 
-                    <td>
-                        { notice.employeeNo }
-                    </td>
+                <h2>
+                    공지사항 상세
+                </h2>
 
-                    <th width="130">작성일</th>
+            </div>
 
-                    <td>
+
+            {/* 상세 카드 */}
+            <div className="notice-card">
+
+
+                {/* 제목 영역 */}
+                <div className="notice-detail-header">
+
+                    <div className="notice-detail-title">
+
                         {
-                            notice.createdAt
-                                ? notice.createdAt.substring(0, 10)
-                                : ""
+                            notice.isPinned === 1
+                            &&
+                            <span className="notice-pin">
+                                고정
+                            </span>
                         }
-                    </td>
-                </tr>
 
 
-                <tr>
-                    <th>조회수</th>
+                        <h3>
+                            { notice.title }
+                        </h3>
 
-                    <td colSpan="3">
-                        { notice.viewCount }
-                    </td>
-                </tr>
+                    </div>
 
 
-                <tr>
-                    <th>내용</th>
+                    {/* 기본 정보 */}
+                    <div className="notice-detail-info">
 
-                    <td colSpan="3">
-
-                        <p style={{ height : "300px" }}>
-                            { notice.content }
-                        </p>
-
-                    </td>
-                </tr>
-
-            </tbody>
-
-        </table>
+                        <span>
+                            작성자&nbsp;
+                            <strong>
+                                { notice.employeeNo }
+                            </strong>
+                        </span>
 
 
-        <br /><br />
+                        <span>
+                            작성일&nbsp;
+                            <strong>
+
+                                {
+                                    notice.createdAt
+                                    ?
+                                    notice.createdAt.substring(
+                                        0,
+                                        10
+                                    )
+                                    :
+                                    "-"
+                                }
+
+                            </strong>
+                        </span>
 
 
-        <div align="center">
+                        <span>
+                            조회수&nbsp;
+                            <strong>
+                                { notice.viewCount }
+                            </strong>
+                        </span>
 
-            <button
-                className="btn btn-outline-secondary btn-sm"
-                onClick={ () => {
-                    navigate("/notice");
-                }}
-            >
-                목록으로
-            </button>
+                    </div>
 
-            &nbsp;&nbsp;
+                </div>
 
-            <button
-                className="btn btn-outline-warning btn-sm"
-                onClick={ () => {
-                    navigate(
-                        "/notice/updateForm",
-                        {
-                            state : {
-                                noticeId : noticeId
-                            }
+
+                {/* 내용 */}
+                <div className="notice-detail-content">
+
+                    { notice.content }
+
+                </div>
+
+
+                {/* 버튼 */}
+                <div className="notice-btn-area">
+
+
+                    <button
+                        type="button"
+                        className="notice-btn notice-btn-secondary"
+
+                        onClick={ () => {
+
+                            navigate(
+                                "/notice"
+                            );
+
+                        }}
+                    >
+                        목록으로
+                    </button>
+
+
+                    <button
+                        type="button"
+                        className="notice-btn notice-btn-warning"
+
+                        onClick={ () => {
+
+                            navigate(
+
+                                "/notice/updateForm",
+
+                                {
+                                    state : {
+                                        noticeId : noticeId
+                                    }
+                                }
+
+                            );
+
+                        }}
+                    >
+                        수정하기
+                    </button>
+
+
+                    <button
+                        type="button"
+                        className="notice-btn notice-btn-danger"
+
+                        onClick={
+                            deleteNotice
                         }
-                    );
-                }}
-            >
-                수정하기
-            </button>
+                    >
+                        삭제하기
+                    </button>
 
-            &nbsp;&nbsp;
 
-            <button
-                className="btn btn-outline-danger btn-sm"
-                onClick={ deleteNotice }
-            >
-                삭제하기
-            </button>
+                </div>
+
+            </div>
 
         </div>
 
-
-        <br /><br />
-
-    </div>
     );
 }
 

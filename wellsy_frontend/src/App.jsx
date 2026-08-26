@@ -9,6 +9,10 @@ import EmployeeEnrollForm from "./employee/components/EmployeeEnrollForm";
 import EmployeeDetail from "./employee/components/EmployeeDetail";
 import EmployeeUpdateForm from "./employee/components/EmployeeUpdateForm";
 
+import StatusList from "./status/components/StatusList";
+
+import StatusDetail from "./status/components/StatusDetail";
+
 import Header from "./common/components/Header";
 import Footer from "./common/components/Footer";
 import MainDashboard from "./main/components/MainDashboard";
@@ -59,7 +63,8 @@ function App() {
         <Route path="/checkman" element={<div>관리자 - 건강 검진</div>} />
 
         {/* 관리자 - 통계 / 건강 리포트 */}
-        <Route path="/status" element={<div>관리자 - 통계 / 건강 리포트</div>} />
+        <Route path="/status" element={<StatusList />} />
+        <Route path="/status/warnings/:alertId" element={<StatusDetail />} />
       </Routes>
 
       <Footer />

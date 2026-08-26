@@ -30,13 +30,20 @@ function NoticeUpdateForm() {
 // 기존 공지사항 상세 조회
 useEffect(() => {
 
+    if(!noticeId) {
+
+            alert("잘못된 접근입니다.");
+
+            navigate("/notice");
+
+            return;
+        }
+
     const selectNotice = async () => {
 
         try {
 
             const response = await selectNoticeApi(noticeId);
-
-            // console.log(response.data);
 
             setNotice(response.data);
 
@@ -90,7 +97,7 @@ const updateNotice = async e => {
             alert("공지사항 수정에 성공했습니다.");
 
             // 해당 게시글 상세조회 페이지로 이동
-            navigate(`/notice/detail/${ noticeId }`);
+            navigate(`/notice`);
 
         } else {
 
@@ -109,96 +116,151 @@ const updateNotice = async e => {
 
 
 return (
-    <div>
 
-        <h2 align="center">공지사항 수정</h2>
-
-        <br /><br />
-
-        <form id="update-form" onSubmit={ updateNotice }>
-
-            <table className="table form">
-
-                <tbody>
-
-                    <tr>
-                        <th width="130">제목</th>
-
-                        <td>
-                            <input
-                                type="text"
-                                name="title"
-                                value={ notice.title }
-                                onChange={ handleChange }
-                            />
-                        </td>
-                    </tr>
+        <div className="notice-dashboard">
 
 
-                    <tr>
-                        <th>내용</th>
+            {/* 페이지 제목 */}
+            <div className="notice-title-area">
 
-                        <td>
-                            <textarea
-                                name="content"
-                                value={ notice.content }
-                                onChange={ handleChange }
-                            />
-                        </td>
-                    </tr>
-
-
-                    <tr>
-                        <th>상단 고정</th>
-
-                        <td>
-                            <input
-                                type="checkbox"
-                                checked={ notice.isPinned === 1 }
-                                onChange={ handlePinnedChange }
-                            />
-
-                            &nbsp;상단 고정
-                        </td>
-                    </tr>
-
-                </tbody>
-
-            </table>
-
-
-            <br /><br />
-
-
-            <div align="center">
-
-                <button
-                    type="submit"
-                    className="btn btn-outline-primary btn-sm"
-                >
-                    수정하기
-                </button>
-
-                &nbsp;&nbsp;
-
-                <button
-                    type="button"
-                    className="btn btn-outline-secondary btn-sm"
-                    onClick={ () => {
-                        navigate(`/notice/detail/${ noticeId }`);
-                    }}
-                >
-                    뒤로가기
-                </button>
+                <h2>
+                    공지사항 수정
+                </h2>
 
             </div>
 
 
-            <br /><br />
+            {/* 수정 카드 */}
+            <div className="notice-card">
 
-        </form>
 
-    </div>
+                <form
+                    className="notice-form"
+                    onSubmit={ updateNotice }
+                >
+
+
+                    {/* 제목 */}
+                    <div className="notice-form-item">
+
+                        <label className="notice-form-label">
+                            제목
+                        </label>
+
+
+                        <input
+                            type="text"
+
+                            className="notice-input"
+
+                            name="title"
+
+                            value={
+                                notice.title
+                            }
+
+                            onChange={
+                                handleChange
+                            }
+
+                            maxLength="200"
+                        />
+
+                    </div>
+
+
+                    {/* 내용 */}
+                    <div className="notice-form-item">
+
+                        <label className="notice-form-label">
+                            내용
+                        </label>
+
+
+                        <textarea
+                            className="notice-textarea"
+
+                            name="content"
+
+                            value={
+                                notice.content
+                            }
+
+                            onChange={
+                                handleChange
+                            }
+
+                            maxLength="4000"
+                        />
+
+                    </div>
+
+
+                    {/* 상단고정 */}
+                    <div className="notice-form-item">
+
+                        <label className="notice-form-label">
+                            상단 고정
+                        </label>
+
+
+                        <div className="notice-checkbox-area">
+
+                            <input
+                                type="checkbox"
+
+                                checked={
+                                    notice.isPinned === 1
+                                }
+
+                                onChange={
+                                    handlePinnedChange
+                                }
+                            />
+
+                            <span>
+                                중요 공지사항을 상단에 고정합니다
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    {/* 버튼 */}
+                    <div className="notice-btn-area">
+
+                        <button
+                            type="submit"
+                            className="notice-btn notice-btn-primary"
+                        >
+                            수정하기
+                        </button>
+
+
+                        <button
+                            type="button"
+                            className="notice-btn notice-btn-secondary"
+
+                            onClick={ () => {
+
+                                navigate(
+                                    `/notice/detail/${ noticeId }`
+                                );
+
+                            }}
+                        >
+                            뒤로가기
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
     );
 }
 
