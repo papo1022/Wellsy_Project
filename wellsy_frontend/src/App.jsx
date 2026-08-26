@@ -28,7 +28,6 @@ import StatusDetail from "./status/components/StatusDetail";
 
 import Header from "./common/components/Header";
 import Footer from "./common/components/Footer";
-import Header from "./common/components/Header";
 import HealthDashboard from "./health/components/HealthDashboard";
 import MainDashboard from "./main/components/MainDashboard";
 
