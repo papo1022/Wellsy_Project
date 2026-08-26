@@ -9,6 +9,9 @@ function LoginForm() {
     // 로그인 결과 메시지 (화면에 보여주기용)
     const [result, setResult] = useState("");
 
+    // 로그인 성공 후 다른 페이지로 이동시키기 위한 함수
+    const navigate = useNavigate();
+
     const handleLogin = async () => {
 
         try {
@@ -18,7 +21,25 @@ function LoginForm() {
             if(response.data) {
                 // 서버가 JWT 문자열을 응답으로 줌 -> 로그인 성공
 
-                setResult("로그인 성공! 토큰: " + response.data);
+                const token = response.data;
+
+                // 1) 토큰을 브라우저에 저장 (새로고침해도 로그인 유지)
+                sessionStorage.setItem("token", token);
+
+                // 2) 토큰 안에 들어 있는 정보(role 등)를 꺼내기
+                const decoded = jwdDecode(token);
+
+                // 3) role에 따라 다른 화면으로 이동
+                if(decoded.role === "ADMIN") {
+
+                    navigate("/"); // 관리자 대시보드
+
+                } else {
+
+                    setResult("/") // 사원 대시보드
+                }
+
+                // setResult("로그인 성공! 토큰: " + response.data);
 
             } else {
                 // 서버가 null을 응답으로 줌 -> 아이디/비번 불일치
