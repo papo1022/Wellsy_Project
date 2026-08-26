@@ -20,6 +20,10 @@ import LoginForm from "./login/components/LoginForm";
 
 function App() {
 
+  // 현재 URL 경로를 가져와서 로그인 화면일 때만 Header/Footer 숨기기
+  const location = useLocation();
+  const isLoginPage = location.pathname === "/login";
+
   return (
     <div>
       <Header />
