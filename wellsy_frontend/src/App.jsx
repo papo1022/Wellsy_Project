@@ -1,18 +1,32 @@
-import { Routes, Route } from 'react-router-dom';
-import NoticeList from "./notice/components/NoticeList";
-import NoticeEnrollForm from "./notice/components/NoticeEnrollForm";
+// 필수 라이브러리
+import { Route, Routes } from 'react-router-dom';
+
+// 건강 관련 컴포넌트
+import Calendar from "./health/components/dataCrud/CalendarDetail";
+import AlcoholForm from "./health/components/dataCrud/AlcoholForm";
+import SmokingForm from "./health/components/dataCrud/SmokingForm";
+import BodyForm from "./health/components/dataCrud/BodyForm";
+import Caffeine from "./health/components/dataCrud/CaffeineForm";
+import Meal from "./health/components/dataCrud/MealDetail";
+import SleepForm from "./health/components/dataCrud/SleepForm";
+
+// 공지사항 관련 컴포넌트
 import NoticeDetail from "./notice/components/NoticeDetail";
+import NoticeEnrollForm from "./notice/components/NoticeEnrollForm";
+import NoticeList from "./notice/components/NoticeList";
 import NoticeUpdateForm from "./notice/components/NoticeUpdateForm";
 
-import EmployeeList from "./employee/components/EmployeeList";
-import EmployeeEnrollForm from "./employee/components/EmployeeEnrollForm";
+// 사원 관련 컴포넌트
 import EmployeeDetail from "./employee/components/EmployeeDetail";
+import EmployeeEnrollForm from "./employee/components/EmployeeEnrollForm";
+import EmployeeList from "./employee/components/EmployeeList";
 import EmployeeUpdateForm from "./employee/components/EmployeeUpdateForm";
 
-import Header from "./common/components/Header";
+// 공통 컴포넌트
 import Footer from "./common/components/Footer";
-import MainDashboard from "./main/components/MainDashboard";
+import Header from "./common/components/Header";
 import HealthDashboard from "./health/components/HealthDashboard";
+import MainDashboard from "./main/components/MainDashboard";
 
 
 
@@ -28,6 +42,18 @@ function App() {
 
         {/*사원 - 건강*/}
         <Route path="/health" element={<HealthDashboard />} />
+        <Route path="/health/bodyform" element={<BodyForm />} />
+
+        <Route path="/health/meal" element={<Meal />} />
+        <Route path="/health/caffeine" element={<Caffeine />} />
+        <Route path="/health/alcohol" element={<AlcoholForm />} />
+        <Route path="/health/smoking" element={<SmokingForm />} />
+
+        <Route path="/health/calendar" element={<Calendar />} />
+
+        <Route path="/health/sleep" element={<SleepForm />} />
+
+ 
 
         {/* 사원 - 건강검진 */}
         <Route path="/check" element={<div>사원 - 건강검진</div>} />
