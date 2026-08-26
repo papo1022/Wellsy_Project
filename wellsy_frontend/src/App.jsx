@@ -1,5 +1,5 @@
 // 필수 라이브러리
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 
 // 건강 관련 컴포넌트
 import Calendar from "./health/components/dataCrud/CalendarDetail";
@@ -37,14 +37,24 @@ import AdminHealthDashboard
 import CheckupReservationDashboard
 from "./main/components/CheckupReservationDashboard";
 
+import LoginForm from "./login/components/LoginForm";
+
 
 function App() {
+
+  // 현재 URL 경로를 가져와서 로그인 화면일 때만 Header/Footer 숨기기
+  const location = useLocation();
+  const isLoginPage = location.pathname === "/login";
 
   return (
     <div>
       <Header />
 
       <Routes>
+
+        {/* 로그인 */}
+        <Route path="/login" element={<LoginForm />} />
+
         {/* 공통 - 대시보드 */}
         <Route path="/" element={<MainDashboard />} />
 
