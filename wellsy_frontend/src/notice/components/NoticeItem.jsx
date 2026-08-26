@@ -9,23 +9,58 @@ function NoticeItem(props) {
 
     // return 구문
     return (
-        <tr onClick={ () => { navigate(`/notice/detail/${ item.noticeId }`); } }>
-            <td>{ item.noticeId }</td>
+
+        <tr
+            className="notice-table-row"
+            onClick={ () => {
+                navigate(`/notice/detail/${ item.noticeId }`);
+            }}
+        >
 
             <td>
-                { item.isPinned === 1 ? "고정" : "" }
+                { item.noticeId }
             </td>
-
-            <td>{ item.title }</td>
-
-            <td>{ item.employeeNo }</td>
 
             <td>
-                { item.createdAt ? item.createdAt.substring(0, 10) : "" }
+
+                {
+                    item.isPinned === 1
+                    ?
+                    <span className="notice-pin">
+                        고정
+                    </span>
+                    :
+                    "-"
+                }
+
             </td>
 
-            <td>{ item.viewCount }</td>
+            <td className="notice-title-cell">
+                { item.title }
+            </td>
+
+            <td>
+                { item.employeeNo }
+            </td>
+
+            <td>
+
+                {
+                    item.createdAt
+                    ?
+                    item.createdAt.substring(0, 10)
+                    :
+                    "-"
+                }
+
+            </td>
+
+            <td>
+                { item.viewCount }
+            </td>
+
         </tr>
+
     );
 }
 

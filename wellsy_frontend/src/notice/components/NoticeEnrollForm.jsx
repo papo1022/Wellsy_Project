@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 import { insertNoticeApi } from "../api/noticeApi";
 
+import "../styles/Notice.css";
+
 function NoticeEnrollForm() {
 
     // navigate 함수 셋팅
@@ -51,7 +53,23 @@ const handlePinnedChange = e => {
 // 작성하기 버튼 클릭 시 실행
 const insertNotice = async e => {
 
-    e.preventDefault();
+        e.preventDefault();
+
+
+        if(notice.title.trim() === "") {
+
+            alert("제목을 입력해주세요");
+
+            return;
+        }
+
+
+        if(notice.content.trim() === "") {
+
+            alert("내용을 입력해주세요");
+
+            return;
+        }
 
     try {
 
@@ -80,101 +98,149 @@ const insertNotice = async e => {
 
 
 return (
-    <div>
 
-        <h2 align="center">공지사항 작성</h2>
-
-        <br /><br />
-
-        <form id="enroll-form" onSubmit={ insertNotice }>
-
-            <table className="form table">
-
-                <tbody>
-
-                    <tr>
-                        <th width="130">제목</th>
-
-                        <td>
-                            <input
-                                type="text"
-                                name="title"
-                                value={ notice.title }
-                                onChange={ handleChange }
-                            />
-                        </td>
-                    </tr>
+        <div className="notice-dashboard">
 
 
-                    <tr>
-                        <th>내용</th>
+            {/* 페이지 상단 */}
+            <div className="notice-title-area">
 
-                        <td>
-                            <textarea
-                                name="content"
-                                value={ notice.content }
-                                onChange={ handleChange }
-                            ></textarea>
-                        </td>
-                    </tr>
-
-
-                    <tr>
-                        <th>상단 고정</th>
-
-                        <td>
-                            <input
-                                type="checkbox"
-                                checked={ notice.isPinned === 1 }
-                                onChange={ handlePinnedChange }
-                            />
-
-                            &nbsp;상단 고정
-                        </td>
-                    </tr>
-
-                </tbody>
-
-            </table>
-
-
-            <br /><br />
-
-
-            <div align="center">
-
-                <button
-                    type="submit"
-                    className="btn btn-outline-primary btn-sm"
-                >
-                    작성하기
-                </button>
-
-                &nbsp;&nbsp;
-
-                <button
-                    type="button"
-                    className="btn btn-outline-secondary btn-sm"
-                    onClick={ () => {
-                        setNotice({
-                            title : "",
-                            content : "",
-                            isPinned : 0,
-                            employeeNo : 1
-                        });
-                    }}
-                >
-                    초기화
-                </button>
+                <h2>
+                    공지사항 작성
+                </h2>
 
             </div>
 
 
-            <br /><br />
+            {/* 작성 카드 */}
+            <div className="notice-card">
 
-        </form>
 
-    </div>
+                <form
+                    className="notice-form"
+                    onSubmit={ insertNotice }
+                >
+
+
+                    {/* 제목 */}
+                    <div className="notice-form-item">
+
+                        <label className="notice-form-label">
+                            제목
+                        </label>
+
+
+                        <input
+                            type="text"
+
+                            className="notice-input"
+
+                            name="title"
+
+                            value={
+                                notice.title
+                            }
+
+                            onChange={
+                                handleChange
+                            }
+
+                            maxLength="200"
+
+                            placeholder="제목을 입력해주세요."
+                        />
+
+                    </div>
+
+
+                    {/* 내용 */}
+                    <div className="notice-form-item">
+
+                        <label className="notice-form-label">
+                            내용
+                        </label>
+
+
+                        <textarea
+                            className="notice-textarea"
+
+                            name="content"
+
+                            value={
+                                notice.content
+                            }
+
+                            onChange={
+                                handleChange
+                            }
+
+                            maxLength="4000"
+
+                            placeholder="공지사항 내용을 입력해주세요."
+                        />
+
+                    </div>
+
+
+                    {/* 상단 고정 */}
+                    <div className="notice-form-item">
+
+                        <label className="notice-form-label">
+                            상단 고정
+                        </label>
+
+
+                        <div className="notice-checkbox-area">
+
+                            <input
+                                type="checkbox"
+
+                                checked={
+                                    notice.isPinned === 1
+                                }
+
+                                onChange={
+                                    handlePinnedChange
+                                }
+                            />
+
+                            <span>
+                                중요 공지사항을 상단에 고정합니다
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    {/* 버튼 */}
+                    <div className="notice-btn-area">
+
+                        <button
+                            type="submit"
+                            className="notice-btn notice-btn-primary"
+                        >
+                            작성하기
+                        </button>
+
+                        <button
+                            type="button"
+                            className="notice-btn notice-btn-secondary"
+                            onClick={ () => {
+                                navigate("/notice");
+                            }}
+                        >
+                            목록으로
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
     );
 }
 

@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import BloodPressure from "./BloodPressure";
-import BloodSugar from "./BloodSugar";
-import FourIntake from "./FourIntake";
-import SleepCard from "./SleepTime";
+import BloodPressure from "./mainboard/BloodPressure";
+import BloodSugar from "./mainboard/BloodSugar";
+import FourIntake from "./mainboard/FourIntake";
+import SleepTime from "./mainboard/SleepTime";
+import HealthGrade from "./mainboard/HealthGrade";
 
 import "../../health/styles/Dashboard.css";
-import BodyInfo from "./BodyInfo";
-
+import BodyInfo from "./mainboard/BodyInfo";
+import HealthWeekCalendar from "./mainboard/HealthWeekCalender";
+ 
 function HealthDashboard() {
 
     // 화면 깜빡임 없이 URL 주소를 전환해줄 navigate 함수
@@ -19,6 +21,8 @@ function HealthDashboard() {
 
     return (
         <div className="health-dashboard">
+            <HealthGrade />
+            <HealthWeekCalendar />
             <div className="health-card-area">
 
                 <div className="health-left-area">
@@ -26,7 +30,7 @@ function HealthDashboard() {
                         <BloodSugar />
                         <BloodPressure />
                     </div>
-                    <SleepCard />
+                    <SleepTime />
                     <BodyInfo />
                 </div>
 

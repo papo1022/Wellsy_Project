@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import "../../health/styles/Card.css";
+import "../../../health/styles/Card.css";
 
 function FourIntake() {
   const navigate = useNavigate();

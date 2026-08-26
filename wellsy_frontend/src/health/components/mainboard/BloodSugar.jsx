@@ -1,4 +1,4 @@
-import "../../health/styles/Card.css";
+import "../../../health/styles/Card.css";
 
 function BloodSugar() {
 
