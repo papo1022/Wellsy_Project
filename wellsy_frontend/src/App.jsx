@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import NoticeList from "./notice/components/NoticeList";
 import Header from "./common/components/Header";
 import Footer from "./common/components/Footer";

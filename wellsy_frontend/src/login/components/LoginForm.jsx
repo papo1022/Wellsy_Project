@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { loginEmployeeApi } from "../api/LoginApi";
+import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
 
@@ -27,7 +29,7 @@ function LoginForm() {
                 sessionStorage.setItem("token", token);
 
                 // 2) 토큰 안에 들어 있는 정보(role 등)를 꺼내기
-                const decoded = jwdDecode(token);
+                const decoded = jwtDecode(token);
 
                 // 3) role에 따라 다른 화면으로 이동
                 if(decoded.role === "ADMIN") {
