@@ -1,14 +1,15 @@
 // 필수 라이브러리
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { useState } from "react";
+import { Route, Routes } from 'react-router-dom';
+
+// 디자인 가이드
+import "./common/styles/Variables.css";
 
 // 건강 관련 컴포넌트
 import Calendar from "./health/components/dataCrud/CalendarDetail";
-import AlcoholForm from "./health/components/dataCrud/AlcoholForm";
-import SmokingForm from "./health/components/dataCrud/SmokingForm";
-import BodyForm from "./health/components/dataCrud/BodyForm";
-import Caffeine from "./health/components/dataCrud/CaffeineForm";
 import Meal from "./health/components/dataCrud/MealDetail";
 import SleepForm from "./health/components/dataCrud/SleepForm";
+import ThreeForm from "./health/components/dataCrud/ThreeForm";
 
 // 공지사항 관련 컴포넌트
 import NoticeDetail from "./notice/components/NoticeDetail";
@@ -26,46 +27,49 @@ import StatusList from "./status/components/StatusList";
 
 import StatusDetail from "./status/components/StatusDetail";
 
-import Header from "./common/components/Header";
 import Footer from "./common/components/Footer";
+import Header from "./common/components/Header";
 import HealthDashboard from "./health/components/HealthDashboard";
 import MainDashboard from "./main/components/MainDashboard";
 
-import AdminHealthDashboard 
-  from "./main/components/AdminHealthDashboard";
 
-import CheckupReservationDashboard
-from "./main/components/CheckupReservationDashboard";
 
 import LoginForm from "./login/components/LoginForm";
+import "./login/styles/login.css";
 
 
 function App() {
 
-  // 현재 URL 경로를 가져와서 로그인 화면일 때만 Header/Footer 숨기기
-  const location = useLocation();
-  const isLoginPage = location.pathname === "/login";
+  // sessionStorage에 저장된 토큰을 초기값으로 State 세팅
+  const [token, setToken] = useState(sessionStorage.getItem("token"));
 
+  // 로그인 안 한 상태: 로그인 화면만 보여줌
+  if(token == null) {
+
+    return (
+
+      <div>
+        <LoginForm setToken={setToken} />
+      </div>
+
+    );
+  }
+
+  // 로그인 한 상태: 대시보드
   return (
     <div>
-      <Header />
+      <Header setToken={setToken} />
 
       <Routes>
 
-        {/* 로그인 */}
-        <Route path="/login" element={<LoginForm />} />
-
-        {/* 공통 - 대시보드 */}
+        {/* 공통 - 대시보드 (로그인한 사람만) */}
         <Route path="/" element={<MainDashboard />} />
 
         {/*사원 - 건강*/}
         <Route path="/health" element={<HealthDashboard />} />
-        <Route path="/health/bodyform" element={<BodyForm />} />
 
         <Route path="/health/meal" element={<Meal />} />
-        <Route path="/health/caffeine" element={<Caffeine />} />
-        <Route path="/health/alcohol" element={<AlcoholForm />} />
-        <Route path="/health/smoking" element={<SmokingForm />} />
+        <Route path="/health/three" element={<ThreeForm />} />
 
         <Route path="/health/calendar" element={<Calendar />} />
 

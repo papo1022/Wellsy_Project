@@ -22,75 +22,84 @@ function EmployeeItem(props) {
             }}
         >
 
-            <td>
-                { employee.employeeNo }
-            </td>
 
-
+            {/* 이름 */}
             <td className="employee-name-cell">
+
                 { employee.name }
-            </td>
 
 
-            <td>
-                { employee.loginId }
-            </td>
-
-
-            <td>
-                { employee.email }
-            </td>
-
-
-            <td>
                 {
-                    employee.departmentId
+                    employee.status === "N"
+                    &&
+                    (
+                        <span className="employee-resigned-badge">
+                            퇴사
+                        </span>
+                    )
+                }
+
+            </td>
+
+
+            {/* 부서 */}
+            <td>
+
+                {
+                    employee.departmentName
                     ??
                     "-"
                 }
+
             </td>
 
 
+            {/* 직급 */}
             <td>
+
                 {
-                    employee.jobId
+                    employee.jobName
                     ??
                     "-"
                 }
+
             </td>
 
 
+            {/* 건강정보 */}
             <td>
 
-                <span
-                    className={
-                        employee.role === "ADMIN"
-                        ?
-                        "employee-role employee-role-admin"
-                        :
-                        "employee-role"
-                    }
+                <button
+                    type="button"
+
+                    className="employee-health-btn"
+
+                    onClick={ e => {
+
+                        e.stopPropagation();
+
+
+                        // 추후 직원별 건강정보 페이지 연결
+                        console.log("건강정보 사번 :", employee.employeeNo
+                        );
+
+                    }}
                 >
-
-                    {
-                        employee.role === "ADMIN"
-                        ?
-                        "관리자"
-                        :
-                        "사원"
-                    }
-
-                </span>
+                    상세정보
+                </button>
 
             </td>
 
 
+            {/* 입사일 */}
             <td>
+
                 {
                     employee.hireDate
                     ??
                     "-"
                 }
+
             </td>
 
         </tr>

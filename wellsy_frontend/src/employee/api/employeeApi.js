@@ -3,83 +3,107 @@ import axios from "axios";
 import { getAuthorization } from "../../common/api/commonApi";
 
 // 공통 URL
-const BASE_URL = "http://localhost:8006/wellsy/employee";
+const BASE_URL
+    = "http://localhost:8006/wellsy/employee";
 
 
-// 사원 목록 조회
+// 목록
 const selectEmployeeListApi = () => {
 
-    const response = axios({
-        url : BASE_URL,
-        method : "get",
-        headers : {
-            Authorization : getAuthorization()
+    return axios.get(
+        BASE_URL,
+        {
+            headers : {
+                Authorization : getAuthorization()
+            }
         }
-    });
-
-    return response;
+    );
 };
 
 
-// 사원 상세 조회
+// 상세
 const selectEmployeeApi = employeeNo => {
 
-    const response = axios({
-        url : `${ BASE_URL }/${ employeeNo }`,
-        method : "get",
-        headers : {
-            Authorization : getAuthorization()
+    return axios.get(
+        `${BASE_URL}/${employeeNo}`,
+        {
+            headers : {
+                Authorization : getAuthorization()
+            }
         }
-    });
-
-    return response;
+    );
 };
 
 
-// 사원 등록
+// 등록
 const insertEmployeeApi = employee => {
 
-    const response = axios({
-        url : BASE_URL,
-        method : "post",
-        data : employee,
-        headers : {
-            Authorization : getAuthorization()
+    return axios.post(
+        BASE_URL,
+        employee,
+        {
+            headers : {
+                Authorization : getAuthorization()
+            }
         }
-    });
-
-    return response;
+    );
 };
 
 
-// 사원 수정
+// 수정
 const updateEmployeeApi = (employeeNo, employee) => {
 
-    const response = axios({
-        url : `${ BASE_URL }/${ employeeNo }`,
-        method : "put",
-        data : employee,
-        headers : {
-            Authorization : getAuthorization()
+    return axios.put(
+        `${BASE_URL}/${employeeNo}`,
+        employee,
+        {
+            headers : {
+                Authorization : getAuthorization()
+            }
         }
-    });
-
-    return response;
+    );
 };
 
 
-// 사원 퇴사 처리
+// 삭제
 const deleteEmployeeApi = employeeNo => {
 
-    const response = axios({
-        url : `${ BASE_URL }/${ employeeNo }`,
-        method : "delete",
-        headers : {
-            Authorization : getAuthorization()
+    return axios.delete(
+        `${BASE_URL}/${employeeNo}`,
+        {
+            headers : {
+                Authorization : getAuthorization()
+            }
         }
-    });
+    );
+};
 
-    return response;
+
+// 부서
+const selectDepartmentListApi = () => {
+
+    return axios.get(
+        `${BASE_URL}/department`,
+        {
+            headers : {
+                Authorization : getAuthorization()
+            }
+        }
+    );
+};
+
+
+// 직급
+const selectJobListApi = () => {
+
+    return axios.get(
+        `${BASE_URL}/job`,
+        {
+            headers : {
+                Authorization : getAuthorization()
+            }
+        }
+    );
 };
 
 
@@ -88,5 +112,7 @@ export {
     selectEmployeeApi,
     insertEmployeeApi,
     updateEmployeeApi,
-    deleteEmployeeApi
+    deleteEmployeeApi,
+    selectJobListApi,
+    selectDepartmentListApi
 };

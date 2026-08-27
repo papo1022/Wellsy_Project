@@ -1,16 +1,10 @@
 import { useEffect, useState } from "react";
 
-import {
-
-    selectStatusListApi,
-
-    selectWarningEmployeeListApi
-
-} from "../api/statusApi";
-
+import { selectStatusListApi, selectWarningEmployeeListApi } from "../api/statusApi";
 
 import StatusItem from "./StatusItem";
 
+import "../styles/Status.css";
 
 function StatusList() {
 
@@ -208,213 +202,350 @@ function StatusList() {
 
     return (
 
-        <div
-            style={{
-                width : "1200px",
-                margin : "0 auto"
-            }}
-        >
-
-
-            <h2 align="center">
-
-                관리자 건강 통계
-
-            </h2>
-
-
-            <br /><br />
+        <div className="status-dashboard">
 
 
             {/* ================================= */}
-            {/* 조회 조건 */}
+            {/* 페이지 제목 */}
             {/* ================================= */}
 
-            <div
-                style={{
-                    textAlign : "center",
-                    marginBottom : "40px"
-                }}
-            >
+            <div className="status-title-area">
+
+                <h2>
+                    부서별 건강 통계
+                </h2>
+
+                <p>
+                    부서별 직원 건강 데이터를 기간에 따라 확인할 수 있습니다.
+                </p>
+
+            </div>
 
 
-                {/* 부서 */}
+            {/* ================================= */}
+            {/* 조회 조건 카드 */}
+            {/* ================================= */}
 
-                <span>
-                    부서&nbsp;
-                </span>
+            <div className="status-filter-card">
 
-
-                <input
-
-                    type="number"
-
-                    name="departmentId"
-
-                    value={
-                        filter.departmentId
-                    }
-
-                    onChange={
-                        handleChange
-                    }
-
-                    placeholder="전체"
-
-                    min="1"
-
-                    style={{
-                        width : "100px"
-                    }}
-
-                />
+                <div className="status-filter-content">
 
 
-                &nbsp;&nbsp;&nbsp;
+                    {/* 부서 */}
+                    <div className="status-filter-item">
+
+                        <span>
+                            부서
+                        </span>
 
 
-                {/* 시작일 */}
+                        <select
+                            name="departmentId"
 
-                <span>
-                    시작일&nbsp;
-                </span>
+                            value={
+                                filter.departmentId
+                            }
 
+                            onChange={
+                                handleChange
+                            }
+                        >
 
-                <input
+                            <option value="">
+                                전체 부서
+                            </option>
 
-                    type="date"
+                            <option value="1">
+                                1번 부서
+                            </option>
 
-                    name="startDate"
+                            <option value="2">
+                                2번 부서
+                            </option>
 
-                    value={
-                        filter.startDate
-                    }
+                            <option value="3">
+                                3번 부서
+                            </option>
 
-                    onChange={
-                        handleChange
-                    }
+                        </select>
 
-                />
-
-
-                &nbsp;&nbsp;&nbsp;
-
-
-                {/* 종료일 */}
-
-                <span>
-                    종료일&nbsp;
-                </span>
-
-
-                <input
-
-                    type="date"
-
-                    name="endDate"
-
-                    value={
-                        filter.endDate
-                    }
-
-                    onChange={
-                        handleChange
-                    }
-
-                />
+                    </div>
 
 
-                &nbsp;&nbsp;
+                    {/* 시작일 */}
+                    <div className="status-filter-item">
+
+                        <span>
+                            시작일
+                        </span>
 
 
-                <button
+                        <input
+                            type="date"
 
-                    type="button"
+                            name="startDate"
 
-                    className="btn btn-outline-primary btn-sm"
+                            value={
+                                filter.startDate
+                            }
 
-                    onClick={
-                        searchStatus
-                    }
+                            onChange={
+                                handleChange
+                            }
+                        />
 
-                >
+                    </div>
 
-                    조회
 
-                </button>
+                    {/* 종료일 */}
+                    <div className="status-filter-item">
+
+                        <span>
+                            종료일
+                        </span>
+
+
+                        <input
+                            type="date"
+
+                            name="endDate"
+
+                            value={
+                                filter.endDate
+                            }
+
+                            onChange={
+                                handleChange
+                            }
+                        />
+
+                    </div>
+
+
+                    <button
+                        type="button"
+
+                        className="status-search-btn"
+
+                        onClick={
+                            searchStatus
+                        }
+                    >
+                        조회
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            {/* ================================= */}
+            {/* 부서별 카드 영역 */}
+            {/* ================================= */}
+
+            <div className="status-card-area">
+
+
+                {
+                    statusList.length > 0
+                    ?
+                    statusList.map(status => {
+
+                        return (
+
+                            <div
+                                className="status-card"
+                                key={
+                                    status.departmentId
+                                }
+                            >
+
+                                {/* 부서명 */}
+                                <div className="status-card-title">
+
+                                    <h3>
+                                        {
+                                            status.departmentName
+                                        }
+                                    </h3>
+
+                                    <span>
+                                        {
+                                            status.employeeCount
+                                        }명
+                                    </span>
+
+                                </div>
+
+
+                                {/* 카드 내용 */}
+                                <div className="status-card-content">
+
+
+                                    {/* 평균 운동시간 */}
+                                    <div className="status-card-item">
+
+                                        <span>
+                                            평균 운동시간
+                                        </span>
+
+                                        <strong>
+                                            {
+                                                status.averageExerciseTime
+                                            }
+                                        </strong>
+
+                                        <small>
+                                            분
+                                        </small>
+
+                                    </div>
+
+
+                                    {/* 평균 수면시간 */}
+                                    <div className="status-card-item">
+
+                                        <span>
+                                            평균 수면시간
+                                        </span>
+
+                                        <strong>
+                                            {
+                                                status.averageSleepTime
+                                            }
+                                        </strong>
+
+                                        <small>
+                                            시간
+                                        </small>
+
+                                    </div>
+
+
+                                    {/* 이상 알림 */}
+                                    <div className="status-card-item">
+
+                                        <span>
+                                            건강 이상
+                                        </span>
+
+                                        <strong>
+                                            {
+                                                status.alertCount
+                                            }
+                                        </strong>
+
+                                        <small>
+                                            건
+                                        </small>
+
+                                    </div>
+
+
+                                    {/* 미확인 알림 */}
+                                    <div className="status-card-item">
+
+                                        <span>
+                                            미확인
+                                        </span>
+
+                                        <strong>
+                                            {
+                                                status.unreadAlertCount
+                                            }
+                                        </strong>
+
+                                        <small>
+                                            건
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        );
+
+                    })
+                    :
+                    (
+
+                        <div className="status-empty-card">
+
+                            조회된 건강통계가 없습니다.
+
+                        </div>
+
+                    )
+                }
 
 
             </div>
 
 
             {/* ================================= */}
-            {/* 부서별 건강통계 */}
+            {/* 부서별 상세 테이블 */}
             {/* ================================= */}
 
-            <h3>
-                부서별 / 기간별 건강 통계
-            </h3>
+            <div className="status-table-card">
+
+                <h3>
+                    부서별 건강 통계 상세
+                </h3>
 
 
-            <br />
+                <table className="status-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                부서
+                            </th>
+
+                            <th>
+                                직원 수
+                            </th>
+
+                            <th>
+                                평균 운동시간
+                            </th>
+
+                            <th>
+                                평균 수면시간
+                            </th>
+
+                            <th>
+                                건강 이상
+                            </th>
+
+                            <th>
+                                미확인
+                            </th>
+
+                        </tr>
+
+                    </thead>
 
 
-            <table
-                className="table table-bordered"
-            >
+                    <tbody>
 
-                <thead>
-
-                    <tr>
-
-                        <th>
-                            부서
-                        </th>
-
-                        <th>
-                            재직 직원
-                        </th>
-
-                        <th>
-                            평균 운동시간
-                        </th>
-
-                        <th>
-                            평균 수면시간
-                        </th>
-
-                        <th>
-                            이상 알림
-                        </th>
-
-                        <th>
-                            미확인
-                        </th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody>
-
-                    {
-                        statusList.length > 0
-                        ?
-                        statusList.map(
-                            (status, index) => {
+                        {
+                            statusList.length > 0
+                            ?
+                            statusList.map(status => {
 
                                 return (
 
                                     <tr
                                         key={
                                             status.departmentId
-                                            ??
-                                            index
                                         }
                                     >
 
-                                        <td>
+                                        <td className="status-department-name">
 
                                             {
                                                 status.departmentName
@@ -471,142 +602,31 @@ function StatusList() {
 
                                 );
 
-                            }
-                        )
-                        :
-                        (
+                            })
+                            :
+                            (
 
-                            <tr>
+                                <tr>
 
-                                <td
-                                    colSpan="6"
-                                    align="center"
-                                >
+                                    <td
+                                        colSpan="6"
+                                        className="status-table-empty"
+                                    >
+                                        조회된 데이터가 없습니다.
+                                    </td>
 
-                                    조회된 통계가 없습니다.
+                                </tr>
 
-                                </td>
+                            )
+                        }
 
-                            </tr>
+                    </tbody>
 
-                        )
-                    }
+                </table>
 
-                </tbody>
-
-            </table>
-
-
-            <br /><br />
-
-
-            {/* ================================= */}
-            {/* 주의 직원 목록 */}
-            {/* ================================= */}
-
-            <h3>
-                주의 직원 목록
-            </h3>
-
-
-            <br />
-
-
-            <table
-                className="table table-hover"
-            >
-
-                <thead>
-
-                    <tr>
-
-                        <th>
-                            사번
-                        </th>
-
-                        <th>
-                            이름
-                        </th>
-
-                        <th>
-                            부서
-                        </th>
-
-                        <th>
-                            이상 항목
-                        </th>
-
-                        <th>
-                            위험도
-                        </th>
-
-                        <th>
-                            발생일
-                        </th>
-
-                        <th>
-                            확인 상태
-                        </th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody>
-
-                    {
-                        warningList.length > 0
-                        ?
-                        warningList.map(
-                            item => {
-
-                                return (
-
-                                    <StatusItem
-
-                                        key={
-                                            item.alertId
-                                        }
-
-                                        item={
-                                            item
-                                        }
-
-                                    />
-
-                                );
-
-                            }
-                        )
-                        :
-                        (
-
-                            <tr>
-
-                                <td
-                                    colSpan="7"
-                                    align="center"
-                                >
-
-                                    조회된 건강 이상징후가 없습니다.
-
-                                </td>
-
-                            </tr>
-
-                        )
-                    }
-
-                </tbody>
-
-            </table>
-
-
-            <br /><br />
+            </div>
 
         </div>
-
     );
 }
 

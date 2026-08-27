@@ -44,15 +44,15 @@ INSERT INTO EMPLOYEE (
     JOB_ID
 )
 VALUES
-(1, 'user01', 'user01@wellsy.com', '1234', '김건강',
+(1, 'user01', 'user01@wellsy.com', '$2a$10$35xsR4mCwzR5jEYHd/1w9u82OH.cziw.yAYdKXUrAC4W0WhfJPvyi', '김건강',
  '010-1111-1111', 'M', '1995-03-15', 'USER',
  '2024-01-10', 'Y', 1, 1),
 
-(2, 'user02', 'user02@wellsy.com', '1234', '이운동',
+(2, 'user02', 'user02@wellsy.com', '$2a$10$35xsR4mCwzR5jEYHd/1w9u82OH.cziw.yAYdKXUrAC4W0WhfJPvyi', '이운동',
  '010-2222-2222', 'F', '1997-08-21', 'USER',
  '2024-02-01', 'Y', 1, 2),
 
-(3, 'admin01', 'admin@wellsy.com', '1234', '박관리',
+(3, 'admin01', 'admin@wellsy.com', '$2a$10$35xsR4mCwzR5jEYHd/1w9u82OH.cziw.yAYdKXUrAC4W0WhfJPvyi', '박관리',
  '010-3333-3333', 'M', '1990-05-11', 'ADMIN',
  '2022-03-01', 'Y', 2, 3);
 

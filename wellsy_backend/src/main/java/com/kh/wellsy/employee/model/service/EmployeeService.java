@@ -2,9 +2,15 @@ package com.kh.wellsy.employee.model.service;
 
 import java.util.List;
 
+import com.kh.wellsy.employee.model.vo.Department;
 import com.kh.wellsy.employee.model.vo.Employee;
+import com.kh.wellsy.employee.model.vo.Job;
 
 public interface EmployeeService {
+	
+	List<Department> selectDepartmentList();
+
+	List<Job> selectJobList();
 
 	// 직원 목록 조회용 서비스
 	List<Employee> selectEmployeeList();
