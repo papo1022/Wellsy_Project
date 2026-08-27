@@ -9,7 +9,7 @@ import AdminHealthDashboard from "./AdminHealthDashboard";
 function MainDashboard() {
 
   // 로그인시 저장해 둔 JWT 토큰을 꺼내옴
-  const token = sessionStorage.getItem.getItem("token");
+  const token = sessionStorage.getItem("token");
   let role = null;
   
   if(token) {
