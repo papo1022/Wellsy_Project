@@ -35,7 +35,7 @@ function LoginForm({ setToken }) {
             } else {
                 // 서버가 null을 응답으로 줌 -> 아이디/비번 불일치
 
-                setResult("로그인 실패: 아이디 또는 비밀번호가 틀렸습니다.");
+                setResult("아이디 또는 비밀번호가 틀렸습니다.");
             }
 
         } catch (error) {
