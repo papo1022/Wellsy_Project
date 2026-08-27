@@ -1,145 +1,75 @@
-/* =========================================
-   전체 화면
-========================================= */
+/* ==========================================
+   전체 영역
+========================================== */
 
 .employee-dashboard {
     width: 1200px;
-
     margin: 0 auto;
 
-    padding: 25px 20px 60px;
+    padding: 30px 20px 60px;
 
     box-sizing: border-box;
 }
 
 
-/* =========================================
-   페이지 제목
-========================================= */
+/* ==========================================
+   카드 영역
+========================================== */
 
-.employee-page-title {
-    margin-bottom: 12px;
+.employee-card-area {
+    display: flex;
 
-    font-size: 14px;
+    flex-direction: row;
 
-    font-weight: 600;
+    gap: 20px;
 
-    color: #8c6be8;
+    align-items: stretch;
 }
 
 
-.employee-page-icon {
-    margin-right: 5px;
-
-    font-size: 13px;
-}
-
-
-/* =========================================
-   메인 카드
-========================================= */
+/* ==========================================
+   기본 카드
+========================================== */
 
 .employee-card {
-    width: 100%;
+    width: 280px;
 
-    background: #ffffff;
+    padding: 20px;
 
-    border-radius: 25px;
+    background: #fff;
 
-    padding: 32px 38px 20px;
-
-    box-sizing: border-box;
+    border-radius: 16px;
 
     box-shadow:
-        0 4px 20px rgba(0, 0, 0, 0.06);
+        0 4px 14px rgba(0, 0, 0, 0.08);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 
-/* =========================================
-   검색 영역
-========================================= */
-
-.employee-search-area {
-    margin-bottom: 40px;
+/* 사원 목록은 넓게 */
+.employee-list-card {
+    width: 100%;
 }
 
 
-.employee-search-label {
-    margin-bottom: 10px;
 
-    font-size: 13px;
+/* ==========================================
+   카드 콘텐츠
+========================================== */
 
-    color: #9a79e6;
-}
-
-
-.employee-search-box {
-    position: relative;
-
-    width: 480px;
-}
-
-
-.employee-search-box input {
+.employee-card-content {
     width: 100%;
 
-    height: 50px;
-
-    padding:
-        0
-        55px
-        0
-        20px;
-
-    box-sizing: border-box;
-
-    border: 1px solid #d6d6d6;
-
-    border-radius: 30px;
-
-    background: #ffffff;
-
-    font-size: 14px;
-
-    outline: none;
-
-    transition: 0.2s;
+    margin-top: 20px;
 }
 
 
-.employee-search-box input:focus {
-    border-color: #aaa;
-
-    box-shadow:
-        0 0 0 3px rgba(0, 0, 0, 0.03);
-}
-
-
-.employee-search-box input::placeholder {
-    color: #c2c2c2;
-}
-
-
-.employee-search-icon {
-    position: absolute;
-
-    top: 50%;
-
-    right: 20px;
-
-    transform: translateY(-50%);
-
-    font-size: 28px;
-
-    color: #bbbbbb;
-
-    pointer-events: none;
-}
-
-
-/* =========================================
-   목록 제목
-========================================= */
+/* ==========================================
+   목록 상단
+========================================== */
 
 .employee-list-header {
     display: flex;
@@ -148,43 +78,44 @@
 
     align-items: flex-end;
 
-    margin-bottom: 15px;
+    padding: 10px 10px 20px;
 }
 
 
 .employee-list-header h2 {
     margin: 0;
 
-    font-size: 27px;
+    font-size: 28px;
 
     font-weight: 700;
-
-    color: #111;
 }
 
 
 .employee-list-header p {
-    margin:
-        7px
-        0
-        0;
+    margin: 8px 0 0;
 
-    font-size: 12px;
+    font-size: 13px;
 
     color: #999;
 }
 
 
-/* =========================================
-   공통 버튼
-========================================= */
+/* ==========================================
+   사원 등록 버튼
+========================================== */
 
-.employee-btn {
-    padding: 10px 18px;
+.employee-register-btn {
+    height: 42px;
+
+    padding: 0 20px;
 
     border: none;
 
     border-radius: 10px;
+
+    background: #111;
+
+    color: #fff;
 
     font-size: 13px;
 
@@ -192,32 +123,18 @@
 
     cursor: pointer;
 
-    transition: 0.2s;
+    transition: background 0.2s ease;
 }
 
 
-.employee-btn-primary {
-    background: #111;
-
-    color: white;
-}
-
-
-.employee-btn-primary:hover {
+.employee-register-btn:hover {
     background: #333;
 }
 
 
-/* =========================================
+/* ==========================================
    테이블
-========================================= */
-
-.employee-table-wrap {
-    width: 100%;
-
-    overflow-x: auto;
-}
-
+========================================== */
 
 .employee-table {
     width: 100%;
@@ -229,16 +146,18 @@
 
 
 .employee-table thead {
-    border-top: 1px solid #ddd;
-
-    border-bottom: 1px solid #ddd;
+    background: #f8f8f8;
 }
 
 
 .employee-table th {
-    padding: 17px 10px;
+    padding: 16px 12px;
 
-    font-size: 12px;
+    border-top: 1px solid #eee;
+
+    border-bottom: 1px solid #ddd;
+
+    font-size: 13px;
 
     font-weight: 600;
 
@@ -251,29 +170,29 @@
 .employee-table td {
     height: 68px;
 
-    padding: 10px;
+    padding: 12px;
 
     box-sizing: border-box;
 
-    border-bottom: 1px solid #dedede;
+    border-bottom: 1px solid #eee;
 
-    font-size: 13px;
+    font-size: 14px;
 
     color: #222;
 
     text-align: center;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
-
-    white-space: nowrap;
 }
 
 
+/* ==========================================
+   테이블 행
+========================================== */
+
 .employee-table-row {
+    cursor: pointer;
+
     transition:
-        background 0.2s;
+        background 0.2s ease;
 }
 
 
@@ -282,15 +201,17 @@
 }
 
 
-/* 이름 */
+/* 이름 강조 */
 .employee-name-cell {
     font-weight: 600;
+
+    font-size: 15px;
 }
 
 
-/* =========================================
-   권한 표시
-========================================= */
+/* ==========================================
+   권한
+========================================== */
 
 .employee-role {
     display: inline-flex;
@@ -299,72 +220,675 @@
 
     justify-content: center;
 
-    min-width: 55px;
+    min-width: 70px;
 
-    height: 28px;
+    height: 32px;
 
-    padding:
-        0
-        11px;
+    padding: 0 14px;
 
-    border: 1px solid #ddd;
-
-    border-radius: 20px;
+    border-radius: 18px;
 
     box-sizing: border-box;
 
     font-size: 12px;
+
+    font-weight: 500;
 }
 
 
+/* 일반 사원 */
+.employee-role-user {
+    background: #fff;
+
+    border: 1px solid #ddd;
+
+    color: #444;
+}
+
+
+/* 관리자 */
 .employee-role-admin {
-    border: none;
+    background: #91c39c;
 
-    background: #92bf9c;
+    border: 1px solid #91c39c;
 
-    color: white;
+    color: #fff;
 }
 
+/* ==========================================
+   건강정보 버튼
+========================================== */
 
-/* =========================================
-   상세보기 버튼
-========================================= */
+.employee-health-btn {
 
-.employee-detail-btn {
-    min-width: 78px;
+    min-width: 90px;
 
-    height: 32px;
+    height: 34px;
 
-    padding:
-        0
-        14px;
+    padding: 0 16px;
 
-    border: 1px solid #d3d3d3;
+    border: 1px solid #d8d8d8;
 
     border-radius: 18px;
 
-    background: white;
+    background: #fff;
+
+    color: #333;
 
     font-size: 12px;
 
     cursor: pointer;
 
-    transition: 0.2s;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+/* ==========================================
+   상세 / 등록 / 수정 넓은 카드
+========================================== */
+
+.employee-detail-card,
+.employee-form-card {
+
+    width: 100%;
 }
 
 
-.employee-detail-btn:hover {
-    background: #111;
+/* ==========================================
+   상세 상단
+========================================== */
 
-    border-color: #111;
+.employee-detail-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding-bottom: 20px;
+
+    border-bottom: 1px solid #eee;
+}
+
+
+.employee-detail-header h2 {
+
+    margin: 0;
+
+    font-size: 26px;
+}
+
+
+.employee-detail-header p {
+
+    margin: 8px 0 0;
+
+    font-size: 13px;
+
+    color: #999;
+}
+
+
+/* 재직 상태 */
+
+.employee-status {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 68px;
+
+    height: 32px;
+
+    padding: 0 14px;
+
+    box-sizing: border-box;
+
+    border-radius: 18px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+
+/* ==========================================
+   재직중
+========================================== */
+
+.employee-status-active {
+
+    background: #eef7f0;
+
+    color: #50815b;
+
+    border: 1px solid #cfe5d4;
+}
+
+
+/* ==========================================
+   퇴사
+========================================== */
+
+.employee-status-resigned {
+
+    background: #fff0f0;
+
+    color: #d14b4b;
+
+    border: 1px solid #f1c8c8;
+}
+
+
+/* ==========================================
+   상세 영역
+========================================== */
+
+.employee-detail-section {
+
+    padding: 25px 0;
+
+    border-bottom: 1px solid #eee;
+}
+
+
+.employee-detail-section h3 {
+
+    margin: 0 0 20px;
+
+    font-size: 18px;
+}
+
+
+/* 상세 Grid */
+
+.employee-detail-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 15px;
+}
+
+
+/* 상세 항목 */
+
+.employee-detail-item {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+    padding: 16px 18px;
+
+    background: #f8f8f8;
+
+    border-radius: 12px;
+}
+
+
+.employee-detail-item span {
+
+    font-size: 12px;
+
+    color: #888;
+}
+
+
+.employee-detail-item strong {
+
+    font-size: 15px;
+
+    color: #222;
+}
+
+
+/* ==========================================
+   Form 상단
+========================================== */
+
+.employee-form-header {
+
+    margin-bottom: 25px;
+
+    padding-bottom: 20px;
+
+    border-bottom: 1px solid #eee;
+}
+
+
+.employee-form-header h2 {
+
+    margin: 0;
+
+    font-size: 26px;
+}
+
+
+.employee-form-header p {
+
+    margin: 8px 0 0;
+
+    font-size: 13px;
+
+    color: #999;
+}
+
+
+/* ==========================================
+   Form Section
+========================================== */
+
+.employee-form-section {
+
+    padding: 25px 0;
+
+    border-bottom: 1px solid #eee;
+}
+
+
+.employee-form-section h3 {
+
+    margin: 0 0 20px;
+
+    font-size: 18px;
+}
+
+
+/* ==========================================
+   Form Grid
+========================================== */
+
+.employee-form-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 20px;
+}
+
+
+/* ==========================================
+   입력 항목
+========================================== */
+
+.employee-form-item {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+
+.employee-form-item label {
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: #555;
+}
+
+
+.employee-form-item input,
+.employee-form-item select {
+
+    width: 100%;
+
+    height: 44px;
+
+    padding: 0 14px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #ddd;
+
+    border-radius: 9px;
+
+    background: #fafafa;
+
+    outline: none;
+
+    font-size: 14px;
+}
+
+
+.employee-form-item input:focus,
+.employee-form-item select:focus {
+
+    background: #fff;
+
+    border-color: #999;
+}
+
+
+.employee-form-item input:disabled {
+
+    background: #eee;
+
+    color: #888;
+}
+
+
+/* ==========================================
+   버튼 영역
+========================================== */
+
+.employee-btn-area {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-top: 30px;
+}
+
+
+/* 기본 버튼 */
+
+.employee-btn {
+
+    height: 40px;
+
+    padding: 0 20px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+/* 주요 버튼 */
+
+.employee-btn-primary {
+
+    background: #111;
 
     color: white;
 }
 
 
-/* =========================================
-   검색 결과 없음
-========================================= */
+.employee-btn-primary:hover {
+
+    background: #333;
+}
+
+
+/* 일반 버튼 */
+
+.employee-btn-secondary {
+
+    background: #eeeeee;
+
+    color: #444;
+}
+
+
+.employee-btn-secondary:hover {
+
+    background: #dddddd;
+}
+
+
+/* 퇴사처리 */
+
+.employee-btn-danger {
+
+    background: #ffeded;
+
+    color: #c63d3d;
+}
+
+
+.employee-btn-danger:hover {
+
+    background: #ffdada;
+}
+
+/* ==========================================
+   검색 영역
+========================================== */
+
+.employee-search-area {
+    display: flex;
+
+    align-items: center;
+
+    margin-bottom: 30px;
+}
+
+
+/* 검색창 */
+
+.employee-search-box {
+    position: relative;
+
+    width: 360px;
+}
+
+
+.employee-search-box input {
+    width: 100%;
+
+    height: 40px;
+
+    padding: 0 48px 0 18px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #d9d9d9;
+
+    border-radius: 22px;
+
+    background: #fff;
+
+    color: #333;
+
+    font-size: 13px;
+
+    outline: none;
+}
+
+
+.employee-search-box input::placeholder {
+    color: #bbb;
+}
+
+
+.employee-search-box input:focus {
+    border-color: #aaa;
+}
+
+
+/* 검색 아이콘 */
+
+.employee-search-icon {
+    position: absolute;
+
+    right: 16px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #aaa;
+
+    font-size: 23px;
+
+    pointer-events: none;
+}
+
+
+/* ==========================================
+   목록 제목
+========================================== */
+
+.employee-list-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-end;
+
+    padding-bottom: 15px;
+
+    border-bottom: 1px solid #ddd;
+}
+
+
+.employee-list-header h2 {
+    margin: 0;
+
+    font-size: 25px;
+
+    font-weight: 700;
+}
+
+
+.employee-list-header p {
+    margin: 7px 0 0;
+
+    color: #999;
+
+    font-size: 12px;
+}
+
+
+/* ==========================================
+   정렬 영역
+========================================== */
+
+.employee-sort-area {
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding-bottom: 4px;
+}
+
+
+.employee-sort-area span {
+    color: #ccc;
+
+    font-size: 10px;
+}
+
+
+/* 정렬 버튼 */
+
+.employee-sort-btn {
+    padding: 0;
+
+    border: none;
+
+    background: transparent;
+
+    color: #888;
+
+    font-size: 11px;
+
+    cursor: pointer;
+}
+
+
+.employee-sort-btn:hover {
+    color: #222;
+}
+
+
+/* 현재 선택된 정렬 */
+
+.employee-sort-active {
+    color: #222;
+
+    font-weight: 600;
+}
+
+
+/* ==========================================
+   사원 등록 버튼 영역
+========================================== */
+
+.employee-list-btn-area {
+    display: flex;
+
+    justify-content: flex-end;
+
+    margin-top: 20px;
+}
+
+/* ==========================================
+   퇴사 표시
+========================================== */
+
+.employee-resigned-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-left: 8px;
+
+    padding: 3px 8px;
+
+    border-radius: 10px;
+
+    background: #f3f3f3;
+
+    color: #999;
+
+    font-size: 10px;
+
+    font-weight: 500;
+}
+
+
+/* ==========================================
+   반응형
+========================================== */
+
+@media screen and (max-width: 800px) {
+
+    .employee-detail-grid,
+    .employee-form-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+/* ==========================================
+   데이터 없음
+========================================== */
 
 .employee-empty {
     height: 150px !important;
@@ -375,37 +899,14 @@
 }
 
 
-/* =========================================
+/* ==========================================
    반응형
-========================================= */
+========================================== */
 
 @media screen and (max-width: 1250px) {
 
     .employee-dashboard {
         width: 95%;
-    }
-
-}
-
-
-@media screen and (max-width: 800px) {
-
-    .employee-card {
-        padding: 25px 20px;
-    }
-
-
-    .employee-search-box {
-        width: 100%;
-    }
-
-
-    .employee-list-header {
-        align-items: flex-start;
-
-        flex-direction: column;
-
-        gap: 15px;
     }
 
 }

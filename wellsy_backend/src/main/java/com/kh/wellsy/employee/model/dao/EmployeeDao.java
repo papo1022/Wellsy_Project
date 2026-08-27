@@ -15,8 +15,7 @@ import com.kh.wellsy.employee.model.vo.Employee;
 public interface EmployeeDao extends JpaRepository<Employee, Integer>{
 
 	// 재직중인 사원 목록 조회
-	List<Employee> findByStatusOrderByEmployeeNoDesc(String status);
-	
+	List<Employee> findAllByOrderByEmployeeNoDesc();
 	
 	// 재직중인 사원 상세 조회
 	Employee findByEmployeeNoAndStatus(int employeeNo, String status);

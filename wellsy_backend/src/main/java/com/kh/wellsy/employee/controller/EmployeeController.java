@@ -12,13 +12,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.wellsy.employee.model.service.EmployeeService;
+import com.kh.wellsy.employee.model.vo.Department;
 import com.kh.wellsy.employee.model.vo.Employee;
+import com.kh.wellsy.employee.model.vo.Job;
 
 @CrossOrigin
 @RestController
+@RequestMapping("/employee")
 public class EmployeeController {
 	
 	@Autowired
@@ -26,29 +30,33 @@ public class EmployeeController {
 	
 	
 	// 직원 목록 조회용 컨트롤러
-	@GetMapping("/employee")
+	@GetMapping
 	public ResponseEntity<List<Employee>> selectEmployeeList() {
 		
 		// 서비스 호출
-		List<Employee> list = employeeService.selectEmployeeList();
+		List<Employee> employeeList = employeeService.selectEmployeeList();
 		
-		return ResponseEntity.status(HttpStatus.OK).body(list);
+		return ResponseEntity.status(HttpStatus.OK).body(employeeList);
 	}
 	
 	
 	// 직원 상세 조회용 컨트롤러
-	@GetMapping("/employee/{employeeNo}")
+	@GetMapping("/{employeeNo:\\d+}")
 	public ResponseEntity<Employee> selectEmployee(
-			@PathVariable int employeeNo) {
-		
-		Employee employee = employeeService.selectEmployee(employeeNo);
-		
-		return ResponseEntity.status(HttpStatus.OK).body(employee);
+	        @PathVariable int employeeNo) {
+
+	    Employee employee = employeeService.selectEmployee(employeeNo);
+
+	    if(employee != null) {
+
+	        return ResponseEntity.ok(employee);}
+
+	    return ResponseEntity.notFound().build();
 	}
 	
 	
 	// 직원 등록용 컨트롤러
-	@PostMapping("/employee")
+	@PostMapping
 	public ResponseEntity<String> insertEmployee(
 			@RequestBody Employee employee) {
 		
@@ -61,7 +69,7 @@ public class EmployeeController {
 	
 	
 	// 직원 수정용 컨트롤러
-	@PutMapping("/employee/{employeeNo}")
+	@PutMapping("/{employeeNo}")
 	public ResponseEntity<String> updateEmployee(
 			@PathVariable int employeeNo,
 			@RequestBody Employee employee) {
@@ -78,7 +86,7 @@ public class EmployeeController {
 	
 	
 	// 직원 퇴사 처리용 컨트롤러
-	@DeleteMapping("/employee/{employeeNo}")
+	@DeleteMapping("/{employeeNo}")
 	public ResponseEntity<String> deleteEmployee(
 			@PathVariable int employeeNo) {
 		
@@ -87,5 +95,24 @@ public class EmployeeController {
 		String message = (result > 0) ? "success" : "fail";
 		
 		return ResponseEntity.status(HttpStatus.OK).body(message);
+		
+		
+	}
+	
+	@GetMapping("/department")
+	public ResponseEntity<List<Department>> selectDepartmentList() {
+		
+		List<Department> departmentList = employeeService.selectDepartmentList();
+
+	    return ResponseEntity.ok(employeeService.selectDepartmentList());
+	}
+
+
+	@GetMapping("/job")
+	public ResponseEntity<List<Job>> selectJobList() {
+		
+		List<Job> jobList = employeeService.selectJobList();
+
+	    return ResponseEntity.ok(employeeService.selectJobList());
 	}
 }

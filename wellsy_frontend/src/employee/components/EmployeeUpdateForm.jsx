@@ -1,39 +1,81 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 
-import { selectEmployeeApi, updateEmployeeApi } from "../api/employeeApi";
+import {
+    useLocation,
+    useNavigate
+} from "react-router-dom";
+
+import {
+    selectEmployeeApi,
+    updateEmployeeApi,
+    selectDepartmentListApi,
+    selectJobListApi
+} from "../api/employeeApi";
+
+import "../styles/Employee.css";
 
 
 function EmployeeUpdateForm() {
 
-    const navigate = useNavigate();
+    let navigate = useNavigate();
 
+    // 상세페이지에서 전달받은 사번
     const location = useLocation();
 
     const employeeNo
         = location.state?.employeeNo;
 
 
+    // =========================================
+    // 부서 목록
+    // =========================================
+    const [departmentList, setDepartmentList]
+        = useState([]);
+
+
+    // =========================================
+    // 직급 목록
+    // =========================================
+    const [jobList, setJobList]
+        = useState([]);
+
+
+    // =========================================
+    // 수정할 사원 정보
+    // =========================================
     const [employee, setEmployee] = useState({
 
         employeeNo : "",
+
         loginId : "",
+
         email : "",
+
         password : "",
+
         name : "",
+
         phone : "",
+
         gender : "",
+
         birthDate : "",
+
         role : "EMPLOYEE",
+
         departmentId : "",
+
         jobId : ""
 
     });
 
 
-    // 기존 사원정보 조회
+    // =========================================
+    // 기존 사원정보 + 부서 + 직급 조회
+    // =========================================
     useEffect(() => {
 
+        // 사번 없이 수정페이지 접근 방지
         if(!employeeNo) {
 
             alert("잘못된 접근입니다.");
@@ -44,103 +86,227 @@ function EmployeeUpdateForm() {
         }
 
 
-        const selectEmployee = async () => {
+        const selectUpdateEmployee = async () => {
 
             try {
 
-                const response
+                // 사원 상세조회
+                const employeeResponse
                     = await selectEmployeeApi(employeeNo);
 
 
-                if(response.data) {
+                console.log(
+                    "수정할 사원 정보 :",
+                    employeeResponse.data
+                );
 
-                    setEmployee({
 
-                        ...response.data,
+                // 부서 목록 조회
+                const departmentResponse
+                    = await selectDepartmentListApi();
 
-                        // 비밀번호는 조회되지 않으므로 빈 값
-                        password : "",
 
-                        departmentId :
-                            response.data.departmentId ?? "",
+                console.log(
+                    "부서 목록 :",
+                    departmentResponse.data
+                );
 
-                        jobId :
-                            response.data.jobId ?? ""
 
-                    });
+                // 직급 목록 조회
+                const jobResponse
+                    = await selectJobListApi();
 
-                } else {
 
-                    alert("존재하지 않는 사원입니다.");
+                console.log(
+                    "직급 목록 :",
+                    jobResponse.data
+                );
 
-                    navigate("/employee");
-                }
+
+                // 사원정보 세팅
+                setEmployee({
+
+                    employeeNo :
+                        employeeResponse.data.employeeNo,
+
+                    loginId :
+                        employeeResponse.data.loginId ?? "",
+
+                    email :
+                        employeeResponse.data.email ?? "",
+
+                    // 비밀번호는 서버에서 조회하지 않음
+                    password : "",
+
+                    name :
+                        employeeResponse.data.name ?? "",
+
+                    phone :
+                        employeeResponse.data.phone ?? "",
+
+                    gender :
+                        employeeResponse.data.gender ?? "",
+
+                    birthDate :
+                        employeeResponse.data.birthDate ?? "",
+
+                    role :
+                        employeeResponse.data.role ?? "EMPLOYEE",
+
+                    departmentId :
+                        employeeResponse.data.departmentId ?? "",
+
+                    jobId :
+                        employeeResponse.data.jobId ?? ""
+
+                });
+
+
+                setDepartmentList(
+                    departmentResponse.data
+                );
+
+
+                setJobList(
+                    jobResponse.data
+                );
+
 
             } catch(error) {
 
-                console.log("사원 상세 조회용 ajax 통신 실패!");
+                console.log(
+                    "사원 수정정보 조회용 ajax 통신 실패!"
+                );
+
                 console.log(error);
+
+                alert("사원 정보를 불러오지 못했습니다.");
+
             }
+
         };
 
 
-        selectEmployee();
+        selectUpdateEmployee();
 
     }, [employeeNo, navigate]);
 
 
+    // =========================================
     // 입력값 변경
+    // =========================================
     const handleChange = e => {
 
-        const { name, value } = e.target;
+        const {
+            name,
+            value
+        } = e.target;
+
+
+        // 부서 / 직급은 숫자로 변환
+        if(
+            name === "departmentId"
+            ||
+            name === "jobId"
+        ) {
+
+            setEmployee({
+
+                ...employee,
+
+                [name] :
+                    value === ""
+                    ?
+                    ""
+                    :
+                    Number(value)
+
+            });
+
+            return;
+        }
 
 
         setEmployee({
 
             ...employee,
 
-            [name] :
-                name === "departmentId" ||
-                name === "jobId"
-                ?
-                    value === ""
-                    ? ""
-                    : Number(value)
-                :
-                    value
+            [name] : value
 
         });
+
     };
 
 
-    // 수정
+    // =========================================
+    // 사원 수정
+    // =========================================
     const updateEmployee = async e => {
 
         e.preventDefault();
 
 
+        // 아이디
         if(employee.loginId.trim() === "") {
 
             alert("아이디를 입력해주세요.");
+
             return;
         }
 
 
+        // 이름
         if(employee.name.trim() === "") {
 
             alert("이름을 입력해주세요.");
+
             return;
         }
 
 
+        // 이메일
         if(employee.email.trim() === "") {
 
             alert("이메일을 입력해주세요.");
+
+            return;
+        }
+
+
+        // 성별
+        if(employee.gender === "") {
+
+            alert("성별을 선택해주세요.");
+
+            return;
+        }
+
+
+        // 부서
+        if(employee.departmentId === "") {
+
+            alert("부서를 선택해주세요.");
+
+            return;
+        }
+
+
+        // 직급
+        if(employee.jobId === "") {
+
+            alert("직급을 선택해주세요.");
+
             return;
         }
 
 
         try {
+
+            console.log(
+                "수정할 사원 정보 :",
+                employee
+            );
+
 
             const response
                 = await updateEmployeeApi(
@@ -149,276 +315,533 @@ function EmployeeUpdateForm() {
                 );
 
 
+            console.log(
+                "사원 수정 결과 :",
+                response.data
+            );
+
+
             if(response.data === "success") {
 
-                alert("사원 정보 수정에 성공했습니다.");
+                alert(
+                    "사원 정보가 수정되었습니다."
+                );
 
+
+                // 수정한 사원 상세페이지로 이동
                 navigate(
-                    `/employee/detail/${ employeeNo }`
+                    `/employee/detail/${employeeNo}`
                 );
 
             } else {
 
                 alert(
-                    "사원 정보 수정에 실패했습니다.\n" +
-                    "아이디 또는 이메일 중복 여부를 확인해주세요."
+                    "사원 정보 수정에 실패했습니다."
                 );
             }
 
+
         } catch(error) {
 
-            console.log("사원 수정용 ajax 통신 실패!");
+            console.log(
+                "사원 수정용 ajax 통신 실패!"
+            );
+
             console.log(error);
 
-            alert("사원 수정 중 오류가 발생했습니다.");
+            console.log(
+                "서버 응답 :",
+                error.response?.data
+            );
+
+
+            alert(
+                "사원 정보 수정 중 오류가 발생했습니다."
+            );
+
         }
+
     };
 
 
-return (
+    return (
 
-    <div
-        style={{
-            width : "950px",
-            margin : "0 auto"
-        }}
-    >
-
-        <h2 align="center">
-            사원 정보 수정
-        </h2>
-
-        <br /><br />
+        <div className="employee-dashboard">
 
 
-        <form onSubmit={ updateEmployee }>
-
-            <table className="table">
-
-                <tbody>
-
-                    <tr>
-                        <th width="150">
-                            사번
-                        </th>
-
-                        <td>
-                            { employee.employeeNo }
-                        </td>
-                    </tr>
+            <div className="employee-card-area">
 
 
-                    <tr>
-                        <th>로그인 ID</th>
-
-                        <td>
-                            <input
-                                type="text"
-                                name="loginId"
-                                value={ employee.loginId }
-                                onChange={ handleChange }
-                            />
-                        </td>
-                    </tr>
+                <div className="employee-card employee-form-card">
 
 
-                    <tr>
-                        <th>새 비밀번호</th>
+                    {/* ================================= */}
+                    {/* 제목 */}
+                    {/* ================================= */}
 
-                        <td>
+                    <div className="employee-form-header">
 
-                            <input
-                                type="password"
-                                name="password"
-                                value={ employee.password }
-                                onChange={ handleChange }
-                                placeholder="변경할 경우에만 입력"
-                            />
+                        <h2>
+                            사원 정보 수정
+                        </h2>
 
-                        </td>
-                    </tr>
+                        <p>
+                            등록된 사원의 정보를 수정합니다.
+                        </p>
 
-
-                    <tr>
-                        <th>이름</th>
-
-                        <td>
-                            <input
-                                type="text"
-                                name="name"
-                                value={ employee.name }
-                                onChange={ handleChange }
-                            />
-                        </td>
-                    </tr>
+                    </div>
 
 
-                    <tr>
-                        <th>이메일</th>
-
-                        <td>
-                            <input
-                                type="email"
-                                name="email"
-                                value={ employee.email }
-                                onChange={ handleChange }
-                            />
-                        </td>
-                    </tr>
+                    <form onSubmit={ updateEmployee }>
 
 
-                    <tr>
-                        <th>전화번호</th>
+                        {/* ================================= */}
+                        {/* 계정 정보 */}
+                        {/* ================================= */}
 
-                        <td>
-                            <input
-                                type="text"
-                                name="phone"
-                                value={ employee.phone || "" }
-                                onChange={ handleChange }
-                            />
-                        </td>
-                    </tr>
+                        <div className="employee-form-section">
+
+                            <h3>
+                                계정 정보
+                            </h3>
 
 
-                    <tr>
-                        <th>성별</th>
+                            <div className="employee-form-grid">
 
-                        <td>
 
-                            <select
-                                name="gender"
-                                value={ employee.gender || "" }
-                                onChange={ handleChange }
+                                {/* 사번 */}
+                                <div className="employee-form-item">
+
+                                    <label>
+                                        사번
+                                    </label>
+
+                                    <input
+                                        type="text"
+
+                                        value={
+                                            employee.employeeNo
+                                        }
+
+                                        disabled
+                                    />
+
+                                </div>
+
+
+                                {/* 로그인 ID */}
+                                <div className="employee-form-item">
+
+                                    <label>
+                                        로그인 ID
+                                    </label>
+
+                                    <input
+                                        type="text"
+
+                                        name="loginId"
+
+                                        value={
+                                            employee.loginId
+                                        }
+
+                                        onChange={
+                                            handleChange
+                                        }
+                                    />
+
+                                </div>
+
+
+                                {/* 이메일 */}
+                                <div className="employee-form-item">
+
+                                    <label>
+                                        이메일
+                                    </label>
+
+                                    <input
+                                        type="email"
+
+                                        name="email"
+
+                                        value={
+                                            employee.email
+                                        }
+
+                                        onChange={
+                                            handleChange
+                                        }
+                                    />
+
+                                </div>
+
+
+                                {/* 비밀번호 */}
+                                <div className="employee-form-item">
+
+                                    <label>
+                                        새 비밀번호
+                                    </label>
+
+                                    <input
+                                        type="password"
+
+                                        name="password"
+
+                                        value={
+                                            employee.password
+                                        }
+
+                                        onChange={
+                                            handleChange
+                                        }
+
+                                        placeholder="변경할 경우에만 입력해주세요."
+                                    />
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+
+                        {/* ================================= */}
+                        {/* 개인 정보 */}
+                        {/* ================================= */}
+
+                        <div className="employee-form-section">
+
+                            <h3>
+                                개인 정보
+                            </h3>
+
+
+                            <div className="employee-form-grid">
+
+
+                                {/* 이름 */}
+                                <div className="employee-form-item">
+
+                                    <label>
+                                        이름
+                                    </label>
+
+                                    <input
+                                        type="text"
+
+                                        name="name"
+
+                                        value={
+                                            employee.name
+                                        }
+
+                                        onChange={
+                                            handleChange
+                                        }
+                                    />
+
+                                </div>
+
+
+                                {/* 전화번호 */}
+                                <div className="employee-form-item">
+
+                                    <label>
+                                        전화번호
+                                    </label>
+
+                                    <input
+                                        type="text"
+
+                                        name="phone"
+
+                                        value={
+                                            employee.phone
+                                        }
+
+                                        onChange={
+                                            handleChange
+                                        }
+
+                                        placeholder="010-1234-5678"
+                                    />
+
+                                </div>
+
+
+                                {/* 성별 */}
+                                <div className="employee-form-item">
+
+                                    <label>
+                                        성별
+                                    </label>
+
+                                    <select
+                                        name="gender"
+
+                                        value={
+                                            employee.gender
+                                        }
+
+                                        onChange={
+                                            handleChange
+                                        }
+                                    >
+
+                                        <option value="">
+                                            성별을 선택해주세요.
+                                        </option>
+
+                                        <option value="M">
+                                            남성
+                                        </option>
+
+                                        <option value="F">
+                                            여성
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+                                {/* 생년월일 */}
+                                <div className="employee-form-item">
+
+                                    <label>
+                                        생년월일
+                                    </label>
+
+                                    <input
+                                        type="date"
+
+                                        name="birthDate"
+
+                                        value={
+                                            employee.birthDate
+                                        }
+
+                                        onChange={
+                                            handleChange
+                                        }
+                                    />
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+
+                        {/* ================================= */}
+                        {/* 회사 정보 */}
+                        {/* ================================= */}
+
+                        <div className="employee-form-section">
+
+                            <h3>
+                                회사 정보
+                            </h3>
+
+
+                            <div className="employee-form-grid">
+
+
+                                {/* 부서 */}
+                                <div className="employee-form-item">
+
+                                    <label>
+                                        부서
+                                    </label>
+
+                                    <select
+                                        name="departmentId"
+
+                                        value={
+                                            employee.departmentId
+                                        }
+
+                                        onChange={
+                                            handleChange
+                                        }
+                                    >
+
+                                        <option value="">
+                                            부서를 선택해주세요.
+                                        </option>
+
+
+                                        {
+                                            departmentList.map(
+                                                department => {
+
+                                                    return (
+
+                                                        <option
+                                                            key={
+                                                                department.departmentId
+                                                            }
+
+                                                            value={
+                                                                department.departmentId
+                                                            }
+                                                        >
+                                                            {
+                                                                department.departmentName
+                                                            }
+                                                        </option>
+
+                                                    );
+
+                                                }
+                                            )
+                                        }
+
+                                    </select>
+
+                                </div>
+
+
+                                {/* 직급 */}
+                                <div className="employee-form-item">
+
+                                    <label>
+                                        직급
+                                    </label>
+
+                                    <select
+                                        name="jobId"
+
+                                        value={
+                                            employee.jobId
+                                        }
+
+                                        onChange={
+                                            handleChange
+                                        }
+                                    >
+
+                                        <option value="">
+                                            직급을 선택해주세요.
+                                        </option>
+
+
+                                        {
+                                            jobList.map(job => {
+
+                                                return (
+
+                                                    <option
+                                                        key={
+                                                            job.jobId
+                                                        }
+
+                                                        value={
+                                                            job.jobId
+                                                        }
+                                                    >
+                                                        {
+                                                            job.jobName
+                                                        }
+                                                    </option>
+
+                                                );
+
+                                            })
+                                        }
+
+                                    </select>
+
+                                </div>
+
+
+                                {/* 권한 */}
+                                <div className="employee-form-item">
+
+                                    <label>
+                                        권한
+                                    </label>
+
+                                    <select
+                                        name="role"
+
+                                        value={
+                                            employee.role
+                                        }
+
+                                        onChange={
+                                            handleChange
+                                        }
+                                    >
+
+                                        <option value="EMPLOYEE">
+                                            사원
+                                        </option>
+
+                                        <option value="ADMIN">
+                                            관리자
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+
+                        {/* ================================= */}
+                        {/* 버튼 */}
+                        {/* ================================= */}
+
+                        <div className="employee-btn-area">
+
+
+                            <button
+                                type="submit"
+
+                                className="employee-btn employee-btn-primary"
                             >
-
-                                <option value="">
-                                    선택
-                                </option>
-
-                                <option value="M">
-                                    남성
-                                </option>
-
-                                <option value="F">
-                                    여성
-                                </option>
-
-                            </select>
-
-                        </td>
-                    </tr>
+                                수정하기
+                            </button>
 
 
-                    <tr>
-                        <th>생년월일</th>
+                            <button
+                                type="button"
 
-                        <td>
-                            <input
-                                type="date"
-                                name="birthDate"
-                                value={ employee.birthDate || "" }
-                                onChange={ handleChange }
-                            />
-                        </td>
-                    </tr>
+                                className="employee-btn employee-btn-secondary"
 
+                                onClick={ () => {
 
-                    <tr>
-                        <th>부서 ID</th>
+                                    navigate(
+                                        `/employee/detail/${employeeNo}`
+                                    );
 
-                        <td>
-                            <input
-                                type="number"
-                                name="departmentId"
-                                value={ employee.departmentId }
-                                onChange={ handleChange }
-                            />
-                        </td>
-                    </tr>
-
-
-                    <tr>
-                        <th>직급 ID</th>
-
-                        <td>
-                            <input
-                                type="number"
-                                name="jobId"
-                                value={ employee.jobId }
-                                onChange={ handleChange }
-                            />
-                        </td>
-                    </tr>
-
-
-                    <tr>
-                        <th>권한</th>
-
-                        <td>
-
-                            <select
-                                name="role"
-                                value={ employee.role }
-                                onChange={ handleChange }
+                                }}
                             >
-
-                                <option value="EMPLOYEE">
-                                    사원
-                                </option>
-
-                                <option value="ADMIN">
-                                    관리자
-                                </option>
-
-                            </select>
-
-                        </td>
-                    </tr>
-
-                </tbody>
-
-            </table>
+                                취소
+                            </button>
 
 
-            <br /><br />
+                        </div>
 
 
-            <div align="center">
+                    </form>
 
-                <button
-                    type="submit"
-                    className="btn btn-outline-primary btn-sm"
-                >
-                    수정하기
-                </button>
-
-
-                &nbsp;&nbsp;
-
-
-                <button
-                    type="button"
-                    className="btn btn-outline-secondary btn-sm"
-                    onClick={ () => {
-
-                        navigate(
-                            `/employee/detail/${ employeeNo }`
-                        );
-
-                    }}
-                >
-                    뒤로가기
-                </button>
+                </div>
 
             </div>
 
-        </form>
+        </div>
 
-        <br /><br />
-
-    </div>
     );
+
 }
 
 
