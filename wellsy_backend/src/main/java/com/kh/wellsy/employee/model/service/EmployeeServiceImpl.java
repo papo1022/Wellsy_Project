@@ -2,26 +2,35 @@ package com.kh.wellsy.employee.model.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.wellsy.employee.model.dao.DepartmentDao;
 import com.kh.wellsy.employee.model.dao.EmployeeDao;
+import com.kh.wellsy.employee.model.dao.JobDao;
+import com.kh.wellsy.employee.model.vo.Department;
 import com.kh.wellsy.employee.model.vo.Employee;
+import com.kh.wellsy.employee.model.vo.Job;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
+	
+	@Autowired
+	private DepartmentDao departmentDao;
+
+	@Autowired
+	private JobDao jobDao;
 
 	@Autowired
 	private EmployeeDao employeeDao;
 	
 	
-	@Transactional(readOnly = true)
 	@Override
+	@Transactional(readOnly = true)
 	public List<Employee> selectEmployeeList() {
 
-		return employeeDao
-				.findByStatusOrderByEmployeeNoDesc("Y");
+	    return employeeDao.findAllByOrderByEmployeeNoDesc();
 	}
 
 
@@ -158,5 +167,18 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public int deleteEmployee(int employeeNo) {
 
 		return employeeDao.deleteEmployee(employeeNo);
+	}
+	
+	@Override
+	public List<Department> selectDepartmentList() {
+
+	    return departmentDao.findAll();
+	}
+
+
+	@Override
+	public List<Job> selectJobList() {
+
+	    return jobDao.findAll();
 	}
 }
