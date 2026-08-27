@@ -32,14 +32,8 @@ function LoginForm() {
                 const decoded = jwtDecode(token);
 
                 // 3) role에 따라 다른 화면으로 이동
-                if(decoded.role === "ADMIN") {
-
-                    navigate("/"); // 관리자 대시보드
-
-                } else {
-
-                    setResult("/") // 사원 대시보드
-                }
+                //    (관리자/사원 화면 구분은 Header, MainDashboard 쪽에서 role 보고 알아서 처리함)
+                navigate("/");
 
                 // setResult("로그인 성공! 토큰: " + response.data);
 
