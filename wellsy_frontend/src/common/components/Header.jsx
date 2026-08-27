@@ -47,7 +47,7 @@ function Header() {
 
             {/* 관리자 메뉴: role이 ADMIN일 때만 */}
             {role === "ADMIN" && (
-                <div className="nave">
+                <div className="navi">
                     <div><Link to="/">HOME</Link></div>
                     <div><Link to="/employee">사원 관리</Link></div>
                     <div><Link to="/checkman">건강검진</Link></div>
