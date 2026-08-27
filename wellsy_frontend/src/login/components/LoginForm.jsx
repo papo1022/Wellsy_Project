@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { loginEmployeeApi } from "../api/LoginApi";
 import { jwtDecode } from "jwt-decode";
+import "../styles/Login.css";
 
 // App.jsx로부터 setToken 함수를 전달받음
 function LoginForm({ setToken }) {
@@ -46,27 +47,34 @@ function LoginForm({ setToken }) {
     // 화면
     return (
 
-        <div>
+        <div className="login-page">
 
-            <h2>로그인</h2>
+            <div className="login-card">
 
-            <div>
-                <input
-                    placeholder="아이디"
-                    value={loginId}
-                    onChange={(e) => setLoginId(e.target.value)}
-                />
-                <input
-                    placeholder="비밀번호"
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
+                <h2 className="login-title">로그인하세요</h2>
+                <p className="login-subtitle">웰시와 함께 내 건강을 관리해 보세요</p>
+
+                <div className="login-input-group">
+                    <input
+                        className="login-input"
+                        placeholder="아이디"
+                        value={loginId}
+                        onChange={(e) => setLoginId(e.target.value)}
+                    />
+                    <input
+                        className="login-input"
+                        placeholder="비밀번호"
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                </div>
+
+                <button className="login-button" onClick={handleLogin}>로그인</button>
+
+                {result && <p className="login-error">{result}</p>}
+
             </div>
-
-            <button onClick={handleLogin}>로그인</button>
-
-            <p>{result}</p>
 
         </div>
     );

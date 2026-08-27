@@ -2,6 +2,9 @@
 import { useState } from "react";
 import { Route, Routes } from 'react-router-dom';
 
+// 디자인 가이드
+import "./common/styles/Variables.css";
+
 // 건강 관련 컴포넌트
 import Calendar from "./health/components/dataCrud/CalendarDetail";
 import AlcoholForm from "./health/components/dataCrud/AlcoholForm";
@@ -39,6 +42,7 @@ import CheckupReservationDashboard
 from "./main/components/CheckupReservationDashboard";
 
 import LoginForm from "./login/components/LoginForm";
+import "./login/styles/login.css";
 
 
 function App() {
