@@ -39,6 +39,9 @@ from "./main/components/CheckupReservationDashboard";
 
 import LoginForm from "./login/components/LoginForm";
 
+import HealthRiskDashboard
+  from "./main/components/HealthRiskDashboard";
+
 
 function App() {
 
@@ -70,6 +73,13 @@ function App() {
         <Route path="/health/calendar" element={<Calendar />} />
 
         <Route path="/health/sleep" element={<SleepForm />} />
+
+        <Route path="/HealthRiskDashboard" element={<HealthRiskDashboard />
+
+        
+
+  }
+/>
 
  
 
