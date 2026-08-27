@@ -1,18 +1,14 @@
 import { useState } from "react";
 import { loginEmployeeApi } from "../api/LoginApi";
-import { jwtDecode } from "jwt-decode";
-import { useNavigate } from "react-router-dom";
 
-function LoginForm() {
+// App.jsx로부터 setLoginUser 함수를 전달받음
+function LoginForm({ setLoginUser }) {
 
     // 사용자가 입력하는 아이디/비밀번호
     const [loginId, setLoginId] = useState("");
     const [password, setPassword] = useState("");
     // 로그인 결과 메시지 (화면에 보여주기용)
     const [result, setResult] = useState("");
-
-    // 로그인 성공 후 다른 페이지로 이동시키기 위한 함수
-    const navigate = useNavigate();
 
     const handleLogin = async () => {
 
@@ -32,8 +28,8 @@ function LoginForm() {
                 const decoded = jwtDecode(token);
 
                 // 3) role에 따라 다른 화면으로 이동
-                //    (관리자/사원 화면 구분은 Header, MainDashboard 쪽에서 role 보고 알아서 처리함)
-                navigate("/");
+                //    로그인 후 화면으로 전환
+                setLoginUser(token);
 
                 // setResult("로그인 성공! 토큰: " + response.data);
 

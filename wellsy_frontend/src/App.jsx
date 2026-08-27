@@ -1,5 +1,6 @@
 // 필수 라이브러리
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { useState } from "react";
+import { Route, Routes } from 'react-router-dom';
 
 // 건강 관련 컴포넌트
 import Calendar from "./health/components/dataCrud/CalendarDetail";
@@ -42,19 +43,27 @@ import LoginForm from "./login/components/LoginForm";
 
 function App() {
 
-  // 현재 URL 경로를 가져와서 로그인 화면일 때만 Header/Footer 숨기기
-  const location = useLocation();
-  const isLoginPage = location.pathname === "/login";
+  // sessionStorage에 저장된 토큰을 초기값으로 State 세팅
+  const [token, setLoginUser] = useState(sessionStorage.getItem("token"));
 
+  // 로그인 안 한 상태: 로그인 화면만 보여줌
+  if(token == null) {
+
+    return (
+
+      <div>
+        <LoginForm setLoginUser={setLoginUser} />
+      </div>
+
+    );
+  }
+
+  // 로그인 한 상태: 대시보드
   return (
     <div>
-      {/* 로그인 화면이 아닐 때만 Header 보여주기 */}
-      {!isLoginPage && <Header />}
+      <Header setLoginUser={setLoginUser} />
 
       <Routes>
-
-        {/* 로그인: 인증 안 해도 누구나 들어올 수 있음 */}
-        <Route path="/login" element={<LoginForm />} />
 
         {/* 공통 - 대시보드 (로그인한 사람만) */}
         <Route path="/" element={<MainDashboard />} />
