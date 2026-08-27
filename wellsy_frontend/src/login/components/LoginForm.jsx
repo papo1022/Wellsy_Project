@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { loginEmployeeApi } from "../api/LoginApi";
+import { jwtDecode } from "jwt-decode";
 
-// App.jsx로부터 setLoginUser 함수를 전달받음
-function LoginForm({ setLoginUser }) {
+// App.jsx로부터 setToken 함수를 전달받음
+function LoginForm({ setToken }) {
 
     // 사용자가 입력하는 아이디/비밀번호
     const [loginId, setLoginId] = useState("");
@@ -24,12 +25,9 @@ function LoginForm({ setLoginUser }) {
                 // 1) 토큰을 브라우저에 저장 (새로고침해도 로그인 유지)
                 sessionStorage.setItem("token", token);
 
-                // 2) 토큰 안에 들어 있는 정보(role 등)를 꺼내기
-                const decoded = jwtDecode(token);
-
-                // 3) role에 따라 다른 화면으로 이동
+                // 2) role에 따라 다른 화면으로 이동
                 //    로그인 후 화면으로 전환
-                setLoginUser(token);
+                setToken(token);
 
                 // setResult("로그인 성공! 토큰: " + response.data);
 

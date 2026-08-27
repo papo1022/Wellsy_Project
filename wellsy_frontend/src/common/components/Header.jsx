@@ -1,31 +1,56 @@
 import { Link } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 import "../styles/Header.css";
 
-function Header() {
+// App.jsx로부터 setLoinUser 함수를 전달받음 (로그아웃 시 로그인 화면으로 되돌아감)
+function Header({ setToken }) {
 
     // 실행할 구문
     // 저장된 토큰에서 로그인한 사람의 role 꺼내기
     const token = sessionStorage.getItem("token");
     let role = null;
+    let name = null;
 
     if(token) {
 
         try {
 
-            role = jwtDecode(token).role;
+            const decoded = jwtDecode(token);
+
+            role = decoded.role;
+            name = decoded.name;
 
         } catch(error) {
             // 토큰이 만료된 경우
 
             role = null;
+            name = null;
         }
     }
+
+    // 로그아웃 버튼 클릭 시 실행할 함수
+    const handleLogout = () => {
+
+        // 1) sessionStorage에서 토큰 제거
+        sessionStorage.removeItem("token");
+
+        // 2) App.jsx의 state를 null로 바꿔줌
+        setToken(null);
+    };
 
     // return 구문
     return (
         <div>
             <h1 align="center">Wellsy</h1>
+
+            {/* 간략 프로필 + 로그아웃 (로그인한 상태에서만 보임) */}
+            {token && (
+                <div>
+                    <span>{name}님 ({role === "ADMIN" ? "관리자" : "사원"})</span>
+                    <button onClick={handleLogout}>로그아웃</button>
+                </div>
+            )}
 
             <br/><br/>
 

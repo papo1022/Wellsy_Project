@@ -44,7 +44,7 @@ import LoginForm from "./login/components/LoginForm";
 function App() {
 
   // sessionStorage에 저장된 토큰을 초기값으로 State 세팅
-  const [token, setLoginUser] = useState(sessionStorage.getItem("token"));
+  const [token, setToken] = useState(sessionStorage.getItem("token"));
 
   // 로그인 안 한 상태: 로그인 화면만 보여줌
   if(token == null) {
@@ -52,7 +52,7 @@ function App() {
     return (
 
       <div>
-        <LoginForm setLoginUser={setLoginUser} />
+        <LoginForm setToken={setToken} />
       </div>
 
     );
@@ -61,7 +61,7 @@ function App() {
   // 로그인 한 상태: 대시보드
   return (
     <div>
-      <Header setLoginUser={setLoginUser} />
+      <Header setToken={setToken} />
 
       <Routes>
 
