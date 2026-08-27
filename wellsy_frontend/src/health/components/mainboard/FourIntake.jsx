@@ -30,7 +30,7 @@ function FourIntake() {
 
         <div
           className="four-health-card-item"
-          onClick={() => navigate("/health/caffeine")}
+          onClick={() => navigate("/health/three")}
         >
           <span>카페인</span>
 
@@ -42,7 +42,7 @@ function FourIntake() {
 
         <div
           className="four-health-card-item"
-          onClick={() => navigate("/health/alcohol")}
+          onClick={() => navigate("/health/three")}
         >
           <span>알코올</span>
 
@@ -54,7 +54,7 @@ function FourIntake() {
 
         <div
           className="four-health-card-item"
-          onClick={() => navigate("/health/smoking")}
+          onClick={() => navigate("/health/three")}
         >
           <span>담배</span>
 
