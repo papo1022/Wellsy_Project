@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { loginEmployeeApi } from "../api/LoginApi";
 import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
 
 // App.jsx로부터 setToken 함수를 전달받음
 function LoginForm({ setToken }) {
-
+    const navigate = useNavigate();
     // 사용자가 입력하는 아이디/비밀번호
     const [loginId, setLoginId] = useState("");
     const [password, setPassword] = useState("");
@@ -29,6 +30,7 @@ function LoginForm({ setToken }) {
                 // 2) role에 따라 다른 화면으로 이동
                 //    로그인 후 화면으로 전환
                 setToken(token);
+                navigate("/"); // 로그인 후 메인 화면으로 이동
 
                 // setResult("로그인 성공! 토큰: " + response.data);
 
