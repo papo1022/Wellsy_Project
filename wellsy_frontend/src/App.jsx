@@ -48,14 +48,15 @@ function App() {
 
   return (
     <div>
-      <Header />
+      {/* 로그인 화면이 아닐 때만 Header 보여주기 */}
+      {!isLoginPage && <Header />}
 
       <Routes>
 
-        {/* 로그인 */}
+        {/* 로그인: 인증 안 해도 누구나 들어올 수 있음 */}
         <Route path="/login" element={<LoginForm />} />
 
-        {/* 공통 - 대시보드 */}
+        {/* 공통 - 대시보드 (로그인한 사람만) */}
         <Route path="/" element={<MainDashboard />} />
 
         {/*사원 - 건강*/}
