@@ -17,12 +17,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--spacing);
+  margin: var(--spacing);
 }
 
 .schedule-header h2 {
   margin: 0 0 8px;
   font-size: var(--font-size-h2);
+  font-weight: 700;
 }
 
 .schedule-header p {
@@ -47,6 +48,10 @@
 }
 
 /* Full Calendar */
+.fc {
+  margin: var(--spacing);
+}
+
 .fc .fc-button-primary {
   background: none;
   border: none;
