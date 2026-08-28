@@ -14,7 +14,7 @@
     width: fit-content;
     margin: var(--spacing);
 }
-/* 프로필 사진 */
+/* 프로필 */
 .profile-avatar {
     width: 80px;
     height: 80px;
@@ -29,6 +29,11 @@
     font-size: var(--font-size-button);
     color: var(--color-cancle);
     margin-left: var(--spacing);
+}
+.profile-avatar,
+.profile-name,
+.profile-role {
+    cursor: pointer;
 }
 
 /* 로그아웃 버튼 */

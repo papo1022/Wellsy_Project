@@ -4,11 +4,15 @@ import WeeklyExerciseDashboard from "./WeeklyExerciseDashboard";
 import HealthStatsDashboard from "./HealthStatsDashboard";
 import { jwtDecode } from "jwt-decode";
 import AdminHealthDashboard from "./AdminHealthDashboard";
+import { useNavigate } from "react-router-dom";
 
 import "../styles/MainDashboard.css";
 
 // 로그아웃 처리를 위해 App.jsx로부터 setToken 함수를 전달받음
 function MainDashboard({ setToken }) {
+
+  // 클릭 시 이동할 수 있게 navigate 함수 생성
+  const navigate = useNavigate();
 
   // 로그인시 저장해 둔 JWT 토큰을 꺼내옴
   const token = sessionStorage.getItem("token");
@@ -44,10 +48,10 @@ function MainDashboard({ setToken }) {
   const profileCard = (
 
     <div className="profile-card">
-      <div className="profile-avatar"></div>
-      <span className="profile-name">
+      <div className="profile-avatar" onClick={() => navigate("/my")}></div>
+      <span className="profile-name" onClick={() => navigate("/my")}>
         {name}님
-        <span className="profile-role">{role === "ADMIN" ? "관리자" : "사원"}</span>
+        <span className="profile-role" onClick={() => navigate("/my")}>{role === "ADMIN" ? "관리자" : "사원"}</span>
       </span>
       <button className="logout-btn" onClick={handleLogout}>로그아웃</button>
     </div>
