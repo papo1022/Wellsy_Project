@@ -1,95 +1,65 @@
 .exercise-dashboard {
   min-height: 100vh;
-  padding: 40px;
-  background: #f5f8f6;
+  padding: var(--spacing);
 }
 
 .exercise-title {
   max-width: 1200px;
-  margin: 0 auto 25px;
+  margin: 0 auto var(--spacing);
 }
 
 .exercise-title h2 {
-  margin: 0 0 8px;
-  font-size: 30px;
+  font-size: var(--font-size-h1);
+  font-weight: 700;
 }
 
 .exercise-title p {
-  margin: 0;
-  color: #777;
+  color: var(--color-grey);
 }
 
 .exercise-card-container {
   max-width: 1200px;
-  margin: 0 auto 25px;
-
+  margin: 0 auto var(--spacing);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  gap: var(--spacing);
 }
 
 .exercise-card {
-  padding: 25px;
-
-  background: white;
-
-  border-radius: 14px;
-
-  box-shadow:
-    0 3px 15px
-    rgba(0, 0, 0, 0.07);
+  padding: var(--spacing);
+  background: var(--color-white);
+  border-radius: var(--radius-md);
 }
 
 .exercise-card span {
   display: block;
-
-  margin-bottom: 12px;
-
-  color: #777;
+  color: var(--color-grey);
 }
 
 .exercise-card strong {
   display: block;
-
-  font-size: 30px;
+  font-size: var(--font-size-h2);
+  font-weight: 700;
 }
 
 .exercise-chart-box {
   max-width: 1200px;
-
-  margin: 0 auto 25px;
-
-  padding: 30px;
-
-  background: white;
-
-  border-radius: 14px;
-
-  box-shadow:
-    0 3px 15px
-    rgba(0, 0, 0, 0.07);
+  padding: var(--spacing);
+  background: var(--color-white);
+  border-radius: var(--radius-md);
 }
 
 .exercise-chart-box h3 {
-  margin-top: 0;
-
-  margin-bottom: 30px;
+  margin: var(--spacing);
+  font-size: var(--font-size-h3);
+  font-weight: 700;
 }
 
 .exercise-history {
   max-width: 1200px;
-
-  margin: 0 auto;
-
-  padding: 30px;
-
-  background: white;
-
-  border-radius: 14px;
-
-  box-shadow:
-    0 3px 15px
-    rgba(0, 0, 0, 0.07);
+  padding: var(--spacing);
+  background: var(--color-white);
+  border-radius: var(--radius-md);
 }
 
 .exercise-history h3 {
@@ -98,21 +68,14 @@
 
 .exercise-history table {
   width: 100%;
-
   border-collapse: collapse;
 }
 
 .exercise-history th,
 .exercise-history td {
-  padding: 14px;
-
+  padding: var(--spacing);
   text-align: center;
-
-  border-bottom: 1px solid #eee;
-}
-
-.exercise-history th {
-  background: #f8f9fa;
+  border-bottom: 1px solid var(--color-cancle);
 }
 
 @media (max-width: 900px) {
@@ -127,7 +90,7 @@
 @media (max-width: 600px) {
 
   .exercise-dashboard {
-    padding: 15px;
+    padding: var(--spacing);
   }
 
   .exercise-card-container {
