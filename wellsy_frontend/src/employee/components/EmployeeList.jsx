@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
@@ -11,41 +11,88 @@ import "../styles/Employee.css";
 
 function EmployeeList() {
 
-    // 페이지 이동
     let navigate = useNavigate();
 
-    // 조회된 사원 목록
-    const [employeeList, setEmployeeList] = useState([]);
 
-    const [keyword, setKeyword] = useState("");
+    // =========================================
+    // 사원 목록
+    // =========================================
 
-    const [sortType, setSortType] = useState("");
+    const [employeeList, setEmployeeList]
+        = useState([]);
 
-    const [sortDirection, setSortDirection] = useState("asc");
 
-    const [deletedOnly, setDeletedOnly] = useState(false);
+    // =========================================
+    // 검색창에 입력 중인 값
+    // =========================================
+
+    const [inputKeyword, setInputKeyword]
+        = useState("");
+
+
+    // =========================================
+    // 실제 검색에 적용할 값
+    // Enter / 검색 버튼 클릭 시 변경
+    // =========================================
+
+    const [searchKeyword, setSearchKeyword]
+        = useState("");
+
+
+    // =========================================
+    // 정렬
+    // =========================================
+
+    const [sortType, setSortType]
+        = useState("");
+
+
+    const [sortDirection, setSortDirection]
+        = useState("asc");
+
+
+    // =========================================
+    // 퇴사자만 보기
+    // =========================================
+
+    const [deletedOnly, setDeletedOnly]
+        = useState(false);
 
 
     // =========================================
     // 사원 목록 조회
     // =========================================
+
     useEffect(() => {
 
         const selectEmployeeList = async () => {
 
             try {
 
-                const response = await selectEmployeeListApi();
+                const response
+                    = await selectEmployeeListApi();
 
-                console.log("사원 목록 :", response.data);
 
-                setEmployeeList(response.data);
+                console.log(
+                    "사원 목록 :",
+                    response.data
+                );
+
+
+                setEmployeeList(
+                    response.data
+                );
+
 
             } catch(error) {
 
-                console.log("사원 목록 조회용 ajax 통신 실패!");
+                console.log(
+                    "사원 목록 조회용 ajax 통신 실패!"
+                );
+
                 console.log(error);
             }
+
         };
 
 
@@ -53,26 +100,44 @@ function EmployeeList() {
 
     }, []);
 
-     // =========================================
-    // 정렬 버튼 클릭
+
+    // =========================================
+    // 검색
+    // Enter 또는 검색 버튼
+    // =========================================
+
+    const searchEmployee = e => {
+
+        e.preventDefault();
+
+
+        setSearchKeyword(
+            inputKeyword.trim()
+        );
+
+    };
+
+
+    // =========================================
+    // 정렬
     // =========================================
 
     const handleSort = type => {
 
 
-        // 같은 정렬 버튼을 다시 누르면
-        // 오름차순 ↔ 내림차순 변경
+        // 같은 정렬 버튼 다시 클릭
         if(sortType === type) {
 
             setSortDirection(
                 sortDirection === "asc"
-                    ? "desc"
-                    : "asc"
+                ?
+                "desc"
+                :
+                "asc"
             );
 
         } else {
 
-            // 다른 정렬 버튼 클릭
             setSortType(type);
 
             setSortDirection("asc");
@@ -82,38 +147,63 @@ function EmployeeList() {
 
 
     // =========================================
-    // 검색 + 정렬
+    // 정렬 화살표
+    // =========================================
+
+    const getSortArrow = type => {
+
+        if(sortType !== type) {
+
+            return "";
+        }
+
+
+        return sortDirection === "asc"
+            ?
+            " ▲"
+            :
+            " ▼";
+    };
+
+
+    // =========================================
+    // 검색 + 퇴사자 필터 + 정렬
     // =========================================
 
     const filteredEmployeeList = useMemo(() => {
 
 
-    // =========================================
-    // 1. 이름 검색
-    // =========================================
-
-    let result = employeeList.filter(
-        employee => {
-
-            const employeeName
-                = employee.name ?? "";
+        let result = [...employeeList];
 
 
-            return employeeName
-                .toLowerCase()
-                .includes(
-                    keyword
-                        .trim()
+        // -----------------------------------------
+        // 이름 검색
+        // -----------------------------------------
+
+        if(searchKeyword !== "") {
+
+            result = result.filter(
+                employee => {
+
+                    const employeeName
+                        = employee.name ?? "";
+
+
+                    return employeeName
                         .toLowerCase()
-                );
+                        .includes(
+                            searchKeyword.toLowerCase()
+                        );
+
+                }
+            );
 
         }
-    );
 
 
-        // =========================================
-        // 2. 퇴사자만 보기
-        // =========================================
+        // -----------------------------------------
+        // 퇴사자만
+        // -----------------------------------------
 
         if(deletedOnly) {
 
@@ -121,17 +211,15 @@ function EmployeeList() {
                 employee =>
                     employee.status === "N"
             );
+
         }
 
 
-        // =========================================
-        // 3. 정렬
-        // =========================================
+        // -----------------------------------------
+        // 정렬
+        // -----------------------------------------
 
         if(sortType !== "") {
-
-            result = [...result];
-
 
             result.sort((a, b) => {
 
@@ -141,7 +229,7 @@ function EmployeeList() {
                 let valueB = "";
 
 
-                // 이름별
+                // 이름
                 if(sortType === "name") {
 
                     valueA
@@ -152,7 +240,7 @@ function EmployeeList() {
                 }
 
 
-                // 부서별
+                // 부서
                 if(sortType === "department") {
 
                     valueA
@@ -163,7 +251,7 @@ function EmployeeList() {
                 }
 
 
-                // 직급별
+                // 직급
                 if(sortType === "job") {
 
                     valueA
@@ -197,29 +285,11 @@ function EmployeeList() {
 
     }, [
         employeeList,
-        keyword,
+        searchKeyword,
         sortType,
         sortDirection,
         deletedOnly
     ]);
-
-
-    // =========================================
-    // 정렬 화살표
-    // =========================================
-
-    const getSortArrow = type => {
-
-        if(sortType !== type) {
-
-            return "";
-        }
-
-
-        return sortDirection === "asc"
-            ? " ▲"
-            : " ▼";
-    };
 
 
     return (
@@ -234,43 +304,44 @@ function EmployeeList() {
 
 
                     {/* ================================= */}
-                    {/* 이름 검색 */}
+                    {/* 검색 */}
                     {/* ================================= */}
 
-                    <div className="employee-search-area">
+                    <form
+                        className="employee-search-area"
+
+                        onSubmit={
+                        searchEmployee
+                        }
+                        >
 
                         <div className="employee-search-box">
 
-                            <input
-                                type="text"
+                        <input
+                            type="text"
 
-                                value={
-                                    keyword
-                                }
+                            value={
+                                inputKeyword
+                            }
 
-                                onChange={ e => {
+                            onChange={ e => {
 
-                                    setKeyword(
-                                        e.target.value
-                                    );
+                                setInputKeyword(
+                                    e.target.value
+                                );
 
-                                }}
+                            }}
 
-                                placeholder="직원 이름을 입력해 주세요"
-                            />
-
-
-                            <span className="employee-search-icon">
-                                ⌕
-                            </span>
+                            placeholder="직원 이름을 입력해 주세요"
+                        />
 
                         </div>
 
-                    </div>
+                    </form>
 
 
                     {/* ================================= */}
-                    {/* 목록 제목 + 정렬 */}
+                    {/* 제목 / 정렬 */}
                     {/* ================================= */}
 
                     <div className="employee-list-header">
@@ -290,7 +361,7 @@ function EmployeeList() {
                                     ?
                                     `퇴사자 ${filteredEmployeeList.length}명`
                                     :
-                                    keyword.trim() !== ""
+                                    searchKeyword !== ""
                                     ?
                                     `검색 결과 ${filteredEmployeeList.length}명`
                                     :
@@ -306,6 +377,7 @@ function EmployeeList() {
                         <div className="employee-sort-area">
 
 
+                            {/* 부서 */}
                             <button
                                 type="button"
 
@@ -339,6 +411,7 @@ function EmployeeList() {
                             </span>
 
 
+                            {/* 직급 */}
                             <button
                                 type="button"
 
@@ -367,9 +440,12 @@ function EmployeeList() {
                             </button>
 
 
-                            <span>|</span>
+                            <span>
+                                |
+                            </span>
 
 
+                            {/* 이름 */}
                             <button
                                 type="button"
 
@@ -397,10 +473,13 @@ function EmployeeList() {
                                 }
                             </button>
 
-                            <span>|</span>
+
+                            <span>
+                                |
+                            </span>
 
 
-                            {/* 퇴사자만 */}
+                            {/* 퇴사자 */}
                             <button
                                 type="button"
 
@@ -420,11 +499,12 @@ function EmployeeList() {
 
                                 }}
                             >
-                                퇴사자
+                                퇴사자만
                             </button>
 
 
                         </div>
+
 
                     </div>
 
@@ -456,7 +536,7 @@ function EmployeeList() {
                                     </th>
 
                                     <th>
-                                        정보
+                                        건강정보
                                     </th>
 
                                     <th>
@@ -480,7 +560,6 @@ function EmployeeList() {
                                             return (
 
                                                 <EmployeeItem
-
                                                     key={
                                                         employee.employeeNo
                                                     }
@@ -506,11 +585,15 @@ function EmployeeList() {
                                             >
 
                                                 {
-                                                    keyword.trim() === ""
+                                                    searchKeyword !== ""
                                                     ?
-                                                    "등록된 사원이 없습니다."
-                                                    :
                                                     "검색된 사원이 없습니다."
+                                                    :
+                                                    deletedOnly
+                                                    ?
+                                                    "퇴사한 사원이 없습니다."
+                                                    :
+                                                    "등록된 사원이 없습니다."
                                                 }
 
                                             </td>
@@ -523,9 +606,7 @@ function EmployeeList() {
 
                             </tbody>
 
-
                         </table>
-
 
                     </div>
 
@@ -535,6 +616,7 @@ function EmployeeList() {
                     {/* ================================= */}
 
                     <div className="employee-list-btn-area">
+
 
                         <button
                             type="button"
@@ -552,6 +634,7 @@ function EmployeeList() {
                             + 사원 등록
                         </button>
 
+
                     </div>
 
 
@@ -562,6 +645,7 @@ function EmployeeList() {
         </div>
 
     );
+
 }
 
 

@@ -79,13 +79,13 @@ function EmployeeItem(props) {
                         e.stopPropagation();
 
 
-                        // 추후 직원별 건강정보 페이지 연결
-                        console.log("건강정보 사번 :", employee.employeeNo
+                        navigate(
+                            `/checkman/employee/${employee.employeeNo}`
                         );
 
                     }}
                 >
-                    상세정보
+                    건강정보
                 </button>
 
             </td>
