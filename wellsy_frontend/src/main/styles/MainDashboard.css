@@ -1,0 +1,53 @@
+.dashboard-container {
+    padding: var(--spacing);
+    background-color: var(--color-ivory);
+}
+
+/* 간단 프로필 카드 */
+.profile-card {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing);
+    background-color: var(--color-white);
+    border-radius: var(--radius-round);
+    padding: 10px;
+    width: fit-content;
+    margin: var(--spacing);
+}
+/* 프로필 사진 */
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: var(--radius-round);
+    background-color: var(--color-primary);
+}
+.profile-name {
+    font-size: var(--font-size-body);
+    color: var(--color-black);
+}
+.profile-role {
+    font-size: var(--font-size-button);
+    color: var(--color-cancle);
+    margin-left: var(--spacing);
+}
+
+/* 로그아웃 버튼 */
+.logout-btn {
+    margin: var(--spacing);
+    font-size: var(--font-size-button);
+    padding: 10px;
+    border: none;
+    border-radius: var(--radius-round);
+    background-color: var(--color-white);
+    cursor: pointer;
+}
+.logout-btn:hover {
+    color: var(--color-white);
+    background-color: var(--color-secondary);
+    opacity: 0.4;
+}
+
+/* 대시보드 섹션 (건강 통계, 건강검진, 운동 등등) */
+.dashboard-section {
+    margin-top: var(--spacing);
+}

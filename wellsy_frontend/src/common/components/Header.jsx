@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
 import "../styles/Header.css";
@@ -29,6 +29,16 @@ function Header({ setToken }) {
         }
     }
 
+    // 현재 메뉴 상태 hover
+    // 현재 브라우저 주소를 가져옴
+    const location = useLocation();
+
+    // 메뉴 경로랑 지금 주소가 같은지 비교해서 클래스 이름을 골라주는 함수
+    const getNavClass = (path) => {
+
+        return location.pathname === path ? "nav-icon active" : "nav-icon";
+    }
+
     // 로그아웃 버튼 클릭 시 실행할 함수
     const handleLogout = () => {
 
@@ -41,16 +51,8 @@ function Header({ setToken }) {
 
     // return 구문
     return (
-        <div>
-            <h1 align="center">Wellsy</h1>
-
-            {/* 간략 프로필 + 로그아웃 (로그인한 상태에서만 보임) */}
-            {token && (
-                <div>
-                    <span>{name}님 ({role === "ADMIN" ? "관리자" : "사원"})</span>
-                    <button onClick={handleLogout}>로그아웃</button>
-                </div>
-            )}
+        <div className="header-sidebar">
+            <div className="header-logo">Wellsy</div>
 
             <br/><br/>
 
@@ -59,12 +61,48 @@ function Header({ setToken }) {
             {role !== "ADMIN" && (
 
                 <div className="navi">
-                    <div><Link to="/">HOME</Link></div>
-                    <div><Link to="/health">건강 관리</Link></div>
-                    <div><Link to="/check">건강검진</Link></div>
-                    <div><Link to="/chat">AI 챗봇</Link></div>
-                    <div><Link to="/notice">공지사항</Link></div>
-                    <div><Link to="/my">마이페이지</Link></div>
+                    <div>
+                        <Link to="/" className={getNavClass("/home")} title="Home">
+                            <i className="fi fi-sr-home"></i>
+                            <br/>
+                            홈
+                        </Link>
+                    </div>
+                    <div>
+                        <Link to="/health" className={getNavClass("/health")} title="건강 관리">
+                            <i className="fi fi-ss-chart-simple"></i>
+                            <br/>
+                            건강 관리
+                        </Link>
+                    </div>
+                    <div>
+                        <Link to="/check" className={getNavClass("/check")} title="건강검진">
+                            <i className="fi fi-sr-calendar"></i>
+                            <br/>
+                            건강검진
+                        </Link>
+                    </div>
+                    <div>
+                        <Link to="/chat" className={getNavClass("/chat")} title="AI 챗봇">
+                            <i className="fi-sr-comment-dots"></i>
+                            <br/>
+                            AI 챗봇
+                        </Link>
+                    </div>
+                    <div>
+                        <Link to="/notice" className={getNavClass("/notice")} title="공지사항">
+                            <i className="fi-sr-megaphone"></i>
+                            <br/>
+                            공지사항
+                        </Link>
+                    </div>
+                    <div>
+                        <Link to="/my" className={getNavClass("/my")} title="마이페이지">
+                            <i className="fi-sr-user"></i>
+                            <br/>
+                            마이페이지
+                        </Link>
+                    </div>
                 </div>
 
             )}
@@ -72,12 +110,48 @@ function Header({ setToken }) {
             {/* 관리자 메뉴: role이 ADMIN일 때만 */}
             {role === "ADMIN" && (
                 <div className="navi">
-                    <div><Link to="/">HOME</Link></div>
-                    <div><Link to="/employee">사원 관리</Link></div>
-                    <div><Link to="/checkman">건강검진</Link></div>
-                    <div><Link to="/status">통계 / 건강 리포트</Link></div>
-                    <div><Link to="/notice">공지사항</Link></div>
-                    <div><Link to="/my">마이페이지</Link></div>
+                    <div>
+                        <Link to="/" className={getNavClass("/home")} title="Home">
+                            <i className="fi fi-sr-home"></i>
+                            <br/>
+                            홈
+                        </Link>
+                    </div>
+                    <div>
+                        <Link to="/employee">
+                            <i className="fi-sr-users"></i>
+                            <br/>
+                            사원 관리
+                        </Link>
+                    </div>
+                    <div>
+                        <Link to="/checkman">
+                            <i className="fi-sr-doctor"></i>
+                            <br/>
+                            건강검진
+                        </Link>
+                    </div>
+                    <div>
+                        <Link to="/status">
+                            <i className="fi-sr-document"></i>
+                            <br/>
+                            건강 리포트
+                        </Link>
+                    </div>
+                    <div>
+                        <Link to="/notice" className={getNavClass("/notice")} title="공지사항">
+                            <i className="fi-sr-megaphone"></i>
+                            <br/>
+                            공지사항
+                        </Link>
+                    </div>
+                    <div>
+                        <Link to="/my" className={getNavClass("/my")} title="마이페이지">
+                            <i className="fi-sr-user"></i>
+                            <br/>
+                            마이페이지
+                        </Link>
+                    </div>
                 </div>
             )}
 
