@@ -53,8 +53,6 @@ function Header({ setToken }) {
     return (
         <div className="header-sidebar">
 
-            <br/><br/>
-
             {/* 만약 사원 roll이라면 (= 관리자가 아닐 때, 로그인 안 한 상태) */}
             {/* 사원 메뉴 */}
             {role !== "ADMIN" && (

@@ -10,6 +10,7 @@
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
+    padding-top: var(--spacing);
 }
 
 /* 로고 (나중에 이미지로 교체할 수 있으면 교체) */
@@ -25,6 +26,7 @@
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    padding: var(--spacing);
 }
 
 .navi>div {
