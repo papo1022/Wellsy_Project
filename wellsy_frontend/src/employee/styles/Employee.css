@@ -285,6 +285,11 @@
         border-color 0.2s ease;
 }
 
+.employee-health-btn:hover {
+    background-color: #d8d8d8;
+}
+
+
 /* ==========================================
    상세 / 등록 / 수정 넓은 카드
 ========================================== */
@@ -721,25 +726,6 @@
 
 .employee-search-box input:focus {
     border-color: #aaa;
-}
-
-
-/* 검색 아이콘 */
-
-.employee-search-icon {
-    position: absolute;
-
-    right: 16px;
-
-    top: 50%;
-
-    transform: translateY(-50%);
-
-    color: #aaa;
-
-    font-size: 23px;
-
-    pointer-events: none;
 }
 
 

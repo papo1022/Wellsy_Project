@@ -256,15 +256,15 @@ function StatusList() {
                             </option>
 
                             <option value="1">
-                                1번 부서
+                                개발팀
                             </option>
 
                             <option value="2">
-                                2번 부서
+                                인사팀
                             </option>
 
                             <option value="3">
-                                3번 부서
+                                기획팀
                             </option>
 
                         </select>

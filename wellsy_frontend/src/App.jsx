@@ -24,8 +24,12 @@ import EmployeeList from "./employee/components/EmployeeList";
 import EmployeeUpdateForm from "./employee/components/EmployeeUpdateForm";
 
 import StatusList from "./status/components/StatusList";
-
 import StatusDetail from "./status/components/StatusDetail";
+
+import CheckmanList from "./checkman/components/CheckmanList";
+import CheckmanEmployeeHealth from "./checkman/components/CheckmanEmployeeHealth";
+import CheckmanHealthDetail from "./checkman/components/CheckmanHealthDetail";
+import CheckmanAlertDetail from "./checkman/components/CheckmanAlertDetail";
 
 import Footer from "./common/components/Footer";
 import Header from "./common/components/Header";
@@ -95,7 +99,6 @@ function App() {
         <Route path="/my" element={<div>공통 - 마이페이지</div>} />
 
 
-
         {/* 관리자 - 사원관리 */}
         <Route path="/employee" element={<EmployeeList />} />
         <Route path="/employee/list" element={<EmployeeList />} />
@@ -103,8 +106,14 @@ function App() {
         <Route path="/employee/detail/:employeeNo" element={<EmployeeDetail />} />
         <Route path="/employee/updateForm" element={<EmployeeUpdateForm />} />
 
-        {/* 관리자 - 건강 검진 */}
-        <Route path="/checkman" element={<div>관리자 - 건강 검진</div>} />
+        {/* ================================= */}
+        {/* 관리자 직원 건강관리 */}
+        {/* ================================= */}
+
+        <Route path="/checkman" element={ <CheckmanList /> } />
+        <Route path="/checkman/employee/:employeeNo" element={ <CheckmanEmployeeHealth /> } />
+        <Route path="/checkman/health/:healthRecordId" element={ <CheckmanHealthDetail /> } />
+        <Route path="/checkman/alerts/:alertId" element={ <CheckmanAlertDetail /> } />
 
         {/* 관리자 - 통계 / 건강 리포트 */}
         <Route path="/status" element={<StatusList />} />
