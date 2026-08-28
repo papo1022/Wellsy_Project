@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import "../styles/HealthStatsDashboard.css";
+import "../styles/HealthStatesDashboard.css";
 
 
 const API_URL =
