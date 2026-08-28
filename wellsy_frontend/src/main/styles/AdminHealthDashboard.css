@@ -1,11 +1,11 @@
 .admin-health-dashboard {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 30px;
+  padding: var(--spacing);
 }
 
 .admin-health-dashboard h2 {
-  margin-bottom: 25px;
+  margin-bottom: var(--spacing);
 }
 
 

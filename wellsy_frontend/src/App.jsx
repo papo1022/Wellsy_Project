@@ -24,8 +24,12 @@ import EmployeeList from "./employee/components/EmployeeList";
 import EmployeeUpdateForm from "./employee/components/EmployeeUpdateForm";
 
 import StatusList from "./status/components/StatusList";
-
 import StatusDetail from "./status/components/StatusDetail";
+
+import CheckmanList from "./checkman/components/CheckmanList";
+import CheckmanEmployeeHealth from "./checkman/components/CheckmanEmployeeHealth";
+import CheckmanHealthDetail from "./checkman/components/CheckmanHealthDetail";
+import CheckmanAlertDetail from "./checkman/components/CheckmanAlertDetail";
 
 import Footer from "./common/components/Footer";
 import Header from "./common/components/Header";
@@ -60,40 +64,40 @@ function App() {
     <div>
       <Header setToken={setToken} />
 
-      <Routes>
+      <div style={{ marginLeft: "200px" }}>
+        <Routes>
 
-        {/* 공통 - 대시보드 (로그인한 사람만) */}
-        <Route path="/" element={<MainDashboard />} />
+          {/* 공통 - 대시보드 (로그인한 사람만) */}
+          <Route path="/" element={<MainDashboard setToken={setToken} />} />
 
-        {/*사원 - 건강*/}
-        <Route path="/health" element={<HealthDashboard />} />
+          {/*사원 - 건강*/}
+          <Route path="/health" element={<HealthDashboard />} />
 
-        <Route path="/health/meal" element={<Meal />} />
-        <Route path="/health/three" element={<ThreeForm />} />
+          <Route path="/health/meal" element={<Meal />} />
+          <Route path="/health/three" element={<ThreeForm />} />
 
-        <Route path="/health/calendar" element={<Calendar />} />
+          <Route path="/health/calendar" element={<Calendar />} />
 
-        <Route path="/health/sleep" element={<SleepForm />} />
+          <Route path="/health/sleep" element={<SleepForm />} />
 
- 
+  
 
-        {/* 사원 - 건강검진 */}
-        <Route path="/check" element={<div>사원 - 건강검진</div>} />
+          {/* 사원 - 건강검진 */}
+          <Route path="/check" element={<div>사원 - 건강검진</div>} />
 
-        {/* 사원 - AI 챗봇 */}
-        <Route path="/chat" element={<div>사원 - AI 챗봇</div>} />
+          {/* 사원 - AI 챗봇 */}
+          <Route path="/chat" element={<div>사원 - AI 챗봇</div>} />
 
 
 
-        {/* 공통 - 공지사항 */}
-        <Route path="/notice" element={<NoticeList />} />
-        <Route path="/notice/enrollForm" element={<NoticeEnrollForm />} />
-        <Route path="/notice/detail/:noticeId" element={<NoticeDetail />} />
-        <Route path="/notice/updateForm" element={<NoticeUpdateForm />} />
+          {/* 공통 - 공지사항 */}
+          <Route path="/notice" element={<NoticeList />} />
+          <Route path="/notice/enrollForm" element={<NoticeEnrollForm />} />
+          <Route path="/notice/detail/:noticeId" element={<NoticeDetail />} />
+          <Route path="/notice/updateForm" element={<NoticeUpdateForm />} />
 
-        {/* 공통 - 마이페이지 */}
-        <Route path="/my" element={<div>공통 - 마이페이지</div>} />
-
+          {/* 공통 - 마이페이지 */}
+          <Route path="/my" element={<div>공통 - 마이페이지</div>} />
 
 
         {/* 관리자 - 사원관리 */}
@@ -103,13 +107,20 @@ function App() {
         <Route path="/employee/detail/:employeeNo" element={<EmployeeDetail />} />
         <Route path="/employee/updateForm" element={<EmployeeUpdateForm />} />
 
-        {/* 관리자 - 건강 검진 */}
-        <Route path="/checkman" element={<div>관리자 - 건강 검진</div>} />
+        {/* ================================= */}
+        {/* 관리자 직원 건강관리 */}
+        {/* ================================= */}
 
-        {/* 관리자 - 통계 / 건강 리포트 */}
-        <Route path="/status" element={<StatusList />} />
-        <Route path="/status/warnings/:alertId" element={<StatusDetail />} />
-      </Routes>
+        <Route path="/checkman" element={ <CheckmanList /> } />
+        <Route path="/checkman/employee/:employeeNo" element={ <CheckmanEmployeeHealth /> } />
+        <Route path="/checkman/health/:healthRecordId" element={ <CheckmanHealthDetail /> } />
+        <Route path="/checkman/alerts/:alertId" element={ <CheckmanAlertDetail /> } />
+
+          {/* 관리자 - 통계 / 건강 리포트 */}
+          <Route path="/status" element={<StatusList />} />
+          <Route path="/status/warnings/:alertId" element={<StatusDetail />} />
+        </Routes>
+      </div>
 
       <Footer />
     </div>

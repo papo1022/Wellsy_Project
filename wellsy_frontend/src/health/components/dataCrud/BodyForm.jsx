@@ -16,6 +16,9 @@ function BodyForm({ onClose }) {
         console.log("키:", Number(height));
         console.log("몸무게:", Number(weight));
         e.preventDefault();
+        
+        alert("신체 정보가 저장되었습니다.");
+        onClose();
     };
 
     return (

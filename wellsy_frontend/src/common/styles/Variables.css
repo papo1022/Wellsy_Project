@@ -1,16 +1,11 @@
+/* 아이콘 */
+@import url("https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css");
+@import url("https://cdn-uicons.flaticon.com/uicons-solid-straight/css/uicons-solid-straight.css");
+@import url("https://cdn-uicons.flaticon.com/uicons-thin-straight/css/uicons-thin-straight.css");
+
 /* 디자인 가이드 */
 
- @font-face {
-    font-family: "Pretendard";
-    src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2/Pretendard-Regular.woff2") format("woff2");
-    font-weight: 400;
-}
-
-@font-face {
-    font-family: "Pretendard";
-    src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2/Pretendard-Bold.woff2") format("woff2");
-    font-weight: 700;
-}
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css');
 
 :root {
     /* 컬러 */
@@ -20,6 +15,7 @@
     --color-black: #0c0c0c;
     --color-white: #ffffff;
     --color-ivory: #F6F6F4;
+    --color-grey: #767676;
     /* 시스템 컬러 (성공, 오류, 주의, 정보 등등) */
     --color-warning: #f9a825; /* 경고 */
     --color-error: #d32f2f; /* 오류 */
@@ -42,6 +38,7 @@
     --font-size-h1: 36px; /* 대제목- 페이지 주 제목 */
     --font-size-h2: 30px; /* 중제목- 섹션 제목 */
     --font-size-h3: 24px; /* 소제목- 카드, 하위 제목 */
+    --font-size-h4: 20px; /* 소제목- 카드, 하위 제목 */
     --font-size-body: 16px; /* 본문 */
     --font-size-button: 14px; /* 버튼 및 탭 */
     --font-size-caption: 12px; /* 캡션 및 보조 텍스트- 날짜, 도움말, 주석 등 */
