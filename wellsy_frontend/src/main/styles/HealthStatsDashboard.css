@@ -1,54 +1,48 @@
 .health-dashboard {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 30px;
-}
-
-.health-title {
-  margin-bottom: 25px;
+  padding: var(--spacing);
 }
 
 .health-title h2 {
-  margin-bottom: 8px;
+  font-size: var(--font-size-h1);
+  font-weight: 700;
+  color: var(--color-black);
 }
 
 .health-title p {
-  color: #777;
+  color: var(--color-grey);
+  font-size: var(--font-size-body);
 }
 
 .health-card-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: var(--spacing);
 }
 
 .health-card {
   padding: 30px;
-  background: white;
-  border-radius: 14px;
-
-  box-shadow:
-    0 3px 15px
-    rgba(0, 0, 0, 0.07);
+  background: var(--color-white);
+  border-radius: var(--radius-md);
 }
 
 .health-card span {
   display: block;
-  margin-bottom: 15px;
-  color: #777;
+  color: var(--color-black);
 }
 
 .health-card strong {
   display: block;
-  font-size: 30px;
+  margin-top: var(--spacing);
+  font-size: var(--font-size-h1);
 }
 
 .health-card p {
-  margin: 8px 0 0;
-  color: #888;
+  color: var(--color-cancle);
 }
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
 
   .health-card-container {
     grid-template-columns: 1fr;

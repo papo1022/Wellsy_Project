@@ -3,15 +3,9 @@
   padding: var(--spacing);
 }
 
-.bmi-title {
-  max-width: 1200px;
-  margin: var(--spacing);
-}
-
 .bmi-title h2 {
   font-size: var(--font-size-h1);
   font-weight: 700;
-  margin: 0 0 var(--spacing);
 }
 
 .bmi-title p {
