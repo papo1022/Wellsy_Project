@@ -1,27 +1,27 @@
 .footer-area {
     width : 1200px;
     height : 200px;
-    margin : auto;
+    margin : var(--spacing);
 }
 
 .footer-area>div {
-    margin-top : 10px;
-    margin-bottom : 10px;
+    margin-top : var(--spacing);
+    margin-bottom : var(--spacing);
 }
 
 .footer-area a {
-    color : black;
+    color : var(--color-black);
     text-decoration : none;
-    font-size : 17px;
+    font-size : var(--font-size-body);
 }
 
 #footer_2 {
-    font-size : 15px;
-    color : gray;
+    font-size : var(--font-size-button);
+    color : var(--color-grey);
 }
 
 #footer_3 {
-    font-size : 13px;
+    font-size : var(--font-size-caption);
     text-align : center;
-    color : gray;
+    color : var(--color-cancle);
 }
