@@ -22,7 +22,7 @@
 }
 
 .health-card {
-  padding: 30px;
+  padding: var(--spacing);
   background: var(--color-white);
   border-radius: var(--radius-md);
 }
