@@ -78,19 +78,16 @@ function MainDashboard({ setToken }) {
       {profileCard}
 
       <section className="dashboard-section">
-        <HealthStatsDashboard />
-      </section>
-
-
-      <section className="dashboard-section">
         <BmiDashboard />
       </section>
 
+      <section className="dashboard-section">
+        <HealthStatsDashboard />
+      </section>
 
       <section className="dashboard-section">
         <WeeklyExerciseDashboard />
       </section>
-
 
       <section className="dashboard-section">
         <ScheduleCalendar />
