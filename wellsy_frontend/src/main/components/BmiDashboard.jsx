@@ -101,9 +101,7 @@ function BmiDashboard() {
 
         <div className="bmi-empty">
 
-          <h2>
-            BMI 변화
-          </h2>
+          <h2>BMI 변화</h2>
 
           <p>
             등록된 BMI 기록이 없습니다.
@@ -148,11 +146,10 @@ function BmiDashboard() {
 
       <div className="bmi-title">
 
-        <h2>BMI 변화 </h2>
+        <h2>BMI 변화</h2>
 
         <p>
-          건강 기록을 기반으로
-          BMI 변화 추이를 확인합니다.
+          건강 기록을 기반으로 BMI 변화 추이를 확인합니다.
         </p>
 
       </div>
@@ -259,26 +256,17 @@ function BmiDashboard() {
 
       <div className="bmi-chart-box">
 
-        <h3>
+        <h3 className="bmi-card-title">
           BMI 변화 그래프
         </h3>
 
-        <ResponsiveContainer
-          width="100%"
-          height={400}
-        >
+        <ResponsiveContainer className="bmi-graph" height={400}>
 
-          <LineChart
-            data={bmiList}
-          >
+          <LineChart data={bmiList} >
 
-            <CartesianGrid
-              strokeDasharray="3 3"
-            />
+            <CartesianGrid strokeDasharray="3 3" />
 
-            <XAxis
-              dataKey="recordDate"
-            />
+            <XAxis dataKey="recordDate" />
 
             <YAxis
               domain={[
