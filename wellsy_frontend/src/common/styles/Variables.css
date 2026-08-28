@@ -25,6 +25,7 @@
     --color-black: #0c0c0c;
     --color-white: #ffffff;
     --color-ivory: #F6F6F4;
+    --color-grey: #767676;
     /* 시스템 컬러 (성공, 오류, 주의, 정보 등등) */
     --color-warning: #f9a825; /* 경고 */
     --color-error: #d32f2f; /* 오류 */

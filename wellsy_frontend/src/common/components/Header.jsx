@@ -52,7 +52,6 @@ function Header({ setToken }) {
     // return 구문
     return (
         <div className="header-sidebar">
-            <div className="header-logo">Wellsy</div>
 
             <br/><br/>
 
@@ -62,7 +61,7 @@ function Header({ setToken }) {
 
                 <div className="navi">
                     <div>
-                        <Link to="/" className={getNavClass("/home")} title="Home">
+                        <Link to="/" className={getNavClass("/")} title="Home">
                             <i className="fi fi-sr-home"></i>
                             <br/>
                             홈
@@ -111,28 +110,28 @@ function Header({ setToken }) {
             {role === "ADMIN" && (
                 <div className="navi">
                     <div>
-                        <Link to="/" className={getNavClass("/home")} title="Home">
+                        <Link to="/" className={getNavClass("/")} title="Home">
                             <i className="fi fi-sr-home"></i>
                             <br/>
                             홈
                         </Link>
                     </div>
                     <div>
-                        <Link to="/employee">
+                        <Link to="/employee" className={getNavClass("/employee")} title="employee">
                             <i className="fi-sr-users"></i>
                             <br/>
                             사원 관리
                         </Link>
                     </div>
                     <div>
-                        <Link to="/checkman">
+                        <Link to="/checkman"className={getNavClass("/checkman")} title="건강검진">
                             <i className="fi-sr-doctor"></i>
                             <br/>
                             건강검진
                         </Link>
                     </div>
                     <div>
-                        <Link to="/status">
+                        <Link to="/status" className={getNavClass("/status")} title="건강 리포트">
                             <i className="fi-sr-document"></i>
                             <br/>
                             건강 리포트
