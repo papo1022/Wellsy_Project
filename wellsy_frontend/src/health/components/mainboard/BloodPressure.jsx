@@ -2,8 +2,8 @@ import "../../../health/styles/Card.css";
 
 function BloodPressure() {
     const bloodPressure = {
-        diastolic: "120/80",
-        systolic: "130/85",
+        diastolic: "120 / 80",
+        systolic: "130 / 85",
     };
 
     return (

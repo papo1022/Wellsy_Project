@@ -5,6 +5,7 @@ import { useState } from "react";
 function ThreeForm({ onClose }) {
 
     const [coffee, setCoffee] = useState("");
+    const [coffeeUnit, setCoffeeUnit] = useState("glass");
 
     const [beer, setBeer] = useState("");
     const [beerUnit, setBeerUnit] = useState("glass");
@@ -12,28 +13,48 @@ function ThreeForm({ onClose }) {
     const [soju, setSoju] = useState("");
     const [sojuUnit, setSojuUnit] = useState("glass");
 
+    const [etcPercent, setEtcPercent] = useState("");
     const [etc, setEtc] = useState("");
+
     const [smoking, setSmoking] = useState("");
 
 
     const handleSubmit = (e) => {
-        console.log("커피:", coffee);
-        console.log("맥주:", beer);
-        console.log("소주:", soju);
-
-        console.log("흡연:", smoking);
         e.preventDefault();
+        console.log({
+            coffee: Number(coffee),
+
+            beer: Number(beer),
+            beerUnit,
+
+            soju: Number(soju),
+            sojuUnit,
+
+            etcAlcoholPercent: Number(etcPercent),
+            etcAmount: Number(etc),
+
+            smoking: Number(smoking)
+        });
+
+        alert("음주/흡연/카페인 정보가 저장되었습니다.");
+        onClose();
+
+    };
+
+    const changeCoffeeUnit = (unit) => {
+        setCoffeeUnit(unit);
+        setCoffee("");
     };
 
     const changeBeerUnit = (unit) => {
         setBeerUnit(unit);
         setBeer("");
-    }
+    };
 
     const changeSojuUnit = (unit) => {
         setSojuUnit(unit);
         setSoju("");
-    }
+    };
 
     return (
         <div className="crud-card">
@@ -46,24 +67,44 @@ function ThreeForm({ onClose }) {
 
             <div className="crud-card-input">
                 <label>커피</label>
-                <span>아메리카노 기준 (2 shot) / 믹스커피 3봉</span>
+
+                <span>
+                    잔 단위 또는 카페인 함량(mg)으로 입력해주세요.
+                </span>
+
                 <div className="crud-card-input-value">
                     <input
                         type="number"
                         value={coffee}
                         min={0}
-                        max={5000}
-                        step={1}
-                        placeholder={0}
+                        step={coffeeUnit === "glass" ? 0.5 : 1}
+                        placeholder="0"
                         onChange={(e) => setCoffee(e.target.value)}
                     />
-                    <span>ml</span>
+
+                    <div className="unit-toggle">
+                        <button
+                            type="button"
+                            className={coffeeUnit === "glass" ? "active" : ""}
+                            onClick={() => changeCoffeeUnit("glass")}
+                        >
+                            잔
+                        </button>
+
+                        <button
+                            type="button"
+                            className={coffeeUnit === "mg" ? "active" : ""}
+                            onClick={() => changeCoffeeUnit("mg")}
+                        >
+                            mg
+                        </button>
+                    </div>
                 </div>
             </div>
 
             <div className="crud-card-input">
                 <label>맥주</label>
-
+                <span>1잔 = 500ml 기준</span>
                 <div className="crud-card-input-value">
                     <input
                         type="number"
@@ -92,7 +133,7 @@ function ThreeForm({ onClose }) {
 
             <div className="crud-card-input">
                 <label>소주</label>
-
+                <span>1잔 = 50ml 기준</span>
                 <div className="crud-card-input-value">
                     <input
                         type="number"
@@ -118,18 +159,34 @@ function ThreeForm({ onClose }) {
                 </div>
             </div>
 
-            
+
             <div className="crud-card-input">
                 <label>기타 주류</label>
-                <span>본인이 섭취한 주류와 </span>
+                <span>본인이 섭취한 주류의 알코올 도수와 양을 입력해주세요.</span>
                 <div className="crud-card-input-value">
                     <input
-                        type="text"
+                        type="number"
+                        style={{ width: "40px" }}
+                        value={etcPercent}
+                        min={0}
+                        max={100}
+                        step={1}
+                        placeholder={"0%"}
+                        onChange={(e) => setEtcPercent(e.target.value)}
+                    />
+                    <input
+                        type="number"
+                        style={{ width: "40px" }}
                         value={etc}
+                        min={0}
+                        max={5000}
+                        step={1}
                         placeholder={0}
                         onChange={(e) => setEtc(e.target.value)}
                     />
+                    <span>ml</span>
                 </div>
+
             </div>
 
 
