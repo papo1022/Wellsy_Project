@@ -50,7 +50,7 @@ function MainDashboard({ setToken }) {
     <div className="profile-card">
       <div className="profile-avatar" onClick={() => navigate("/my")}></div>
       <span className="profile-name" onClick={() => navigate("/my")}>
-        {name}님
+        {name} 님
         <span className="profile-role" onClick={() => navigate("/my")}>{role === "ADMIN" ? "관리자" : "사원"}</span>
       </span>
       <button className="logout-btn" onClick={handleLogout}>로그아웃</button>
