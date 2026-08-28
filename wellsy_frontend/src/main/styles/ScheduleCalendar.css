@@ -1,321 +1,207 @@
 .schedule-page {
   min-height: 100vh;
-  padding: 40px;
-  background: #f5f8f6;
+  padding: var(--spacing);
+  background: var(--color-ivory);
 }
 
 .schedule-container {
   max-width: 1200px;
   margin: 0 auto;
-
-  padding: 30px;
-
-  background: white;
-
-  border-radius: 16px;
-
-  box-shadow:
-    0 4px 20px
-    rgba(0, 0, 0, 0.08);
+  padding: var(--spacing);
+  background: var(--color-white);
+  border-radius: var(--radius-md);
 }
 
-
-/* =============================
-   Header
-============================= */
-
+/* Header */
 .schedule-header {
   display: flex;
-
-  justify-content:
-    space-between;
-
-  align-items:
-    center;
-
-  margin-bottom: 30px;
+  justify-content: space-between;
+  align-items: center;
+  margin: var(--spacing);
 }
 
 .schedule-header h2 {
   margin: 0 0 8px;
-
-  font-size: 28px;
+  font-size: var(--font-size-h2);
+  font-weight: 700;
 }
 
 .schedule-header p {
   margin: 0;
-
-  color: #777;
+  color: var(--color-grey);
 }
 
-
-/* =============================
-   일정 등록 버튼
-============================= */
-
+/* 일정 등록 버튼 */
 .schedule-add-btn {
-  padding: 12px 20px;
-
+  padding: 10px var(--spacing);
   border: none;
-
-  border-radius: 8px;
-
-  background: #2f855a;
-
-  color: white;
-
-  font-size: 15px;
-
-  font-weight: bold;
-
+  border-radius: var(--radius-round);
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-size: var(--font-size-body);
+  font-weight: 700;
   cursor: pointer;
 }
 
 .schedule-add-btn:hover {
-  background: #276749;
+  background: var(--color-secondary);
 }
 
-
-/* =============================
-   FullCalendar
-============================= */
+/* Full Calendar */
+.fc {
+  margin: var(--spacing);
+}
 
 .fc .fc-button-primary {
-  background: #2f855a;
-
-  border-color: #2f855a;
+  background: none;
+  border: none;
+  color: var(--color-black);
 }
 
 .fc .fc-button-primary:hover {
-  background: #276749;
-
-  border-color: #276749;
+  background-color: transparent;
+  color: var(--color-primary);
 }
 
 .fc .fc-button-primary:not(:disabled).fc-button-active {
-  background: #22543d;
-
-  border-color: #22543d;
+  background-color: transparent;
+  color: var(--color-primary);
 }
 
 .fc-event {
   cursor: pointer;
 }
 
-
-/* =============================
-   Modal Background
-============================= */
-
+/* Modal Background */
 .schedule-modal-background {
   position: fixed;
-
   inset: 0;
-
   z-index: 1000;
-
   display: flex;
-
   align-items: center;
-
   justify-content: center;
-
-  background:
-    rgba(0, 0, 0, 0.45);
+  background: color-mix(in srgb, var(--color-black) 50%, transparent);
 }
 
 
-/* =============================
-   Modal
-============================= */
-
+/* 모달 */
 .schedule-modal {
   width: 480px;
-
-  max-width:
-    calc(100% - 40px);
-
-  padding: 25px;
-
-  background: white;
-
-  border-radius: 15px;
-
-  box-shadow:
-    0 10px 40px
-    rgba(0, 0, 0, 0.2);
+  max-width: calc(100% - 40px);
+  padding: var(--spacing);
+  background: var(--color-white);
+  border-radius: var(--radius-md);
 }
 
-
-/* =============================
-   Modal Header
-============================= */
-
+/* 모달 Header */
 .schedule-modal-header {
   display: flex;
-
-  justify-content:
-    space-between;
-
-  align-items:
-    center;
-
-  margin-bottom: 25px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing);
 }
 
 .schedule-modal-header h3 {
   margin: 0;
-
-  font-size: 22px;
+  font-size: var(--font-size-h3)
 }
 
 .schedule-close-btn {
   border: none;
-
   background: none;
-
-  font-size: 30px;
-
-  color: #777;
-
+  font-size: var(--font-size-h2);
+  color: var(--color-grey);
   cursor: pointer;
 }
 
-
-/* =============================
-   Form
-============================= */
-
+/* 폼 */
 .schedule-form-group {
-  margin-bottom: 18px;
+  margin-bottom: var(--spacing);
 }
 
 .schedule-form-group label {
   display: block;
-
-  margin-bottom: 7px;
-
-  font-weight: bold;
-
-  font-size: 14px;
+  margin-bottom: 10px;
+  font-weight: 700;
+  font-size: var(--font-size-body);
 }
 
 .schedule-form-group input,
 .schedule-form-group textarea {
   width: 100%;
-
   box-sizing: border-box;
-
-  padding: 11px;
-
-  border:
-    1px solid #ddd;
-
-  border-radius: 7px;
-
-  font-size: 14px;
+  padding: 10px;
+  border: 1px solid var(--color-cancle);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-button);
 }
 
 .schedule-form-group input:focus,
 .schedule-form-group textarea:focus {
   outline: none;
-
-  border-color:
-    #2f855a;
+  border-color: var(--color-primary);
 }
 
 .schedule-form-group textarea {
   height: 110px;
-
   resize: vertical;
 }
 
 
-/* =============================
-   Modal Buttons
-============================= */
-
+/* 모달 버튼 */
 .schedule-modal-buttons {
   display: flex;
-
-  justify-content:
-    space-between;
-
+  justify-content: space-between;
   align-items: center;
-
-  margin-top: 25px;
+  margin-top: var(--spacing);
 }
 
 .schedule-right-buttons {
   display: flex;
-
-  gap: 8px;
-
+  gap: 10px;
   margin-left: auto;
 }
 
 .schedule-save-btn,
 .schedule-cancel-btn,
 .schedule-delete-btn {
-  padding: 10px 18px;
-
+  padding: 10px var(--spacing);
   border: none;
-
-  border-radius: 7px;
-
-  font-weight: bold;
-
+  border-radius: var(--radius-round);
+  font-weight: 400;
   cursor: pointer;
 }
 
 .schedule-save-btn {
-  background: #2f855a;
-
-  color: white;
-}
-
-.schedule-save-btn:hover {
-  background: #276749;
+  background: var(--color-secondary);
+  color: var(--color-white);
 }
 
 .schedule-cancel-btn {
-  background: #e9ecef;
-
-  color: #333;
+  background: var(--color-cancle);
+  color: var(--color-white);
 }
 
 .schedule-delete-btn {
-  background: #dc3545;
-
-  color: white;
+  background: var(--color-error);
+  color: var(--color-white);
 }
 
-.schedule-delete-btn:hover {
-  background: #bb2d3b;
-}
-
-
-/* =============================
-   반응형
-============================= */
-
-@media (max-width: 700px) {
+/* 모바일 반응형*/
+@media (max-width: 900px) {
 
   .schedule-page {
-    padding: 15px;
+    padding: var(--spacing);
   }
 
   .schedule-container {
-    padding: 20px;
+    padding: var(--spacing);
   }
 
   .schedule-header {
     flex-direction: column;
-
-    align-items:
-      flex-start;
-
-    gap: 15px;
+    align-items: flex-start;
+    gap: var(--spacing);
   }
 
 }

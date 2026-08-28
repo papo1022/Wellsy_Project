@@ -1,7 +1,4 @@
-import {
-  useEffect,
-  useState
-} from "react";
+import { useEffect, useState } from "react";
 
 import axios from "axios";
 
@@ -25,7 +22,6 @@ const API_URL =
 // 로그인 연동 전 임시 사원번호
 const EMPLOYEE_NO = 1;
 
-
 function BmiDashboard() {
 
   const [bmiList, setBmiList] =
@@ -34,54 +30,34 @@ function BmiDashboard() {
   const [loading, setLoading] =
     useState(true);
 
-
   // BMI 목록 조회
   const selectBmiList =
     async () => {
 
       try {
-
         const response =
           await axios.get(
             API_URL,
             {
               params: {
-                employeeNo:
-                  EMPLOYEE_NO
+                employeeNo: EMPLOYEE_NO
               }
             }
           );
-
 
         const data =
           response.data.map(
             (record) => ({
 
-              healthRecordId:
-                record.healthRecordId,
-
-              recordDate:
-                record.recordDate,
+              healthRecordId: record.healthRecordId,
+              recordDate: record.recordDate,
 
               bmi:
-                Number(
-                  record.bmi
-                ),
-
+                Number( record.bmi ),
               weight:
-                record.weight !== null
-                  ? Number(
-                      record.weight
-                    )
-                  : null,
-
+                record.weight !== null ? Number( record.weight ) : null,
               height:
-                record.height !== null
-                  ? Number(
-                      record.height
-                    )
-                  : null
-
+                record.height !== null ? Number( record.height ) : null
             })
           );
 
@@ -92,25 +68,20 @@ function BmiDashboard() {
       } catch (error) {
 
         console.error(
-          "BMI 데이터 조회 실패",
-          error
+          "BMI 데이터 조회 실패", error
         );
 
       } finally {
 
         setLoading(false);
-
       }
-
     };
 
 
   useEffect(() => {
 
     selectBmiList();
-
   }, []);
-
 
   if (loading) {
 
@@ -119,9 +90,7 @@ function BmiDashboard() {
         BMI 데이터를 불러오는 중입니다.
       </div>
     );
-
   }
-
 
   if (
     bmiList.length === 0
@@ -132,9 +101,7 @@ function BmiDashboard() {
 
         <div className="bmi-empty">
 
-          <h2>
-            BMI 변화
-          </h2>
+          <h2>BMI 변화</h2>
 
           <p>
             등록된 BMI 기록이 없습니다.
@@ -147,33 +114,21 @@ function BmiDashboard() {
 
   }
 
-
   const latest =
-    bmiList[
-      bmiList.length - 1
-    ];
-
+    bmiList[ bmiList.length - 1 ];
 
   const previous =
-    bmiList.length >= 2
-      ? bmiList[
-          bmiList.length - 2
-        ]
-      : null;
-
+    bmiList.length >= 2 ? bmiList[ bmiList.length - 2 ] : null;
 
   const bmiChange =
-    previous
-      ? (
+    previous ? (
           latest.bmi -
           previous.bmi
         ).toFixed(2)
       : "0.00";
 
-
   const first =
     bmiList[0];
-
 
   const totalChange =
     (
@@ -181,29 +136,23 @@ function BmiDashboard() {
       first.bmi
     ).toFixed(2);
 
-
   const bmiStatus =
     getBmiStatus(
       latest.bmi
     );
-
 
   return (
     <div className="bmi-dashboard">
 
       <div className="bmi-title">
 
-        <h2>
-          BMI 변화
-        </h2>
+        <h2>BMI 변화</h2>
 
         <p>
-          건강 기록을 기반으로
-          BMI 변화 추이를 확인합니다.
+          건강 기록을 기반으로 BMI 변화 추이를 확인합니다.
         </p>
 
       </div>
-
 
       <div className="bmi-card-container">
 
@@ -222,7 +171,6 @@ function BmiDashboard() {
           </p>
 
         </div>
-
 
         <div className="bmi-card">
 
@@ -254,7 +202,6 @@ function BmiDashboard() {
 
         </div>
 
-
         <div className="bmi-card">
 
           <span>
@@ -285,7 +232,6 @@ function BmiDashboard() {
 
         </div>
 
-
         <div className="bmi-card">
 
           <span>
@@ -308,30 +254,19 @@ function BmiDashboard() {
 
       </div>
 
-
       <div className="bmi-chart-box">
 
-        <h3>
+        <h3 className="bmi-card-title">
           BMI 변화 그래프
         </h3>
 
+        <ResponsiveContainer className="bmi-graph" height={400}>
 
-        <ResponsiveContainer
-          width="100%"
-          height={400}
-        >
+          <LineChart data={bmiList} >
 
-          <LineChart
-            data={bmiList}
-          >
+            <CartesianGrid strokeDasharray="3 3" />
 
-            <CartesianGrid
-              strokeDasharray="3 3"
-            />
-
-            <XAxis
-              dataKey="recordDate"
-            />
+            <XAxis dataKey="recordDate" />
 
             <YAxis
               domain={[
@@ -361,13 +296,9 @@ function BmiDashboard() {
 
               strokeWidth={3}
 
-              dot={{
-                r: 5
-              }}
+              dot={{ r: 5 }}
 
-              activeDot={{
-                r: 7
-              }}
+              activeDot={{ r: 7 }}
             />
 
           </LineChart>
@@ -375,10 +306,6 @@ function BmiDashboard() {
         </ResponsiveContainer>
 
       </div>
-
-
-      
-
     </div>
   );
 }
@@ -401,5 +328,5 @@ function getBmiStatus(bmi) {
   return "비만";
 }
 
-
+// 내보내기
 export default BmiDashboard;

@@ -1,3 +1,8 @@
+/* 아이콘 */
+@import url("https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css");
+@import url("https://cdn-uicons.flaticon.com/uicons-solid-straight/css/uicons-solid-straight.css");
+@import url("https://cdn-uicons.flaticon.com/uicons-thin-straight/css/uicons-thin-straight.css");
+
 /* 디자인 가이드 */
 
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css');
@@ -10,6 +15,7 @@
     --color-black: #0c0c0c;
     --color-white: #ffffff;
     --color-ivory: #F6F6F4;
+    --color-grey: #767676;
     /* 시스템 컬러 (성공, 오류, 주의, 정보 등등) */
     --color-warning: #f9a825; /* 경고 */
     --color-error: #d32f2f; /* 오류 */
