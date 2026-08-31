@@ -2,11 +2,17 @@ package com.kh.wellsy.notice.model.vo;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kh.wellsy.employee.model.vo.Employee;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,7 +34,7 @@ public class Notice {
 
 	@Column(name = "EMPLOYEE_NO", nullable = false)
 	private int employeeNo;				// EMPLOYEE_NO INT (FK)
-
+	
 	@Column(name = "TITLE", nullable = false, length = 200)
 	private String title;				// TITLE VARCHAR(200)
 
@@ -49,4 +55,23 @@ public class Notice {
 
 	@Column(name = "UPDATED_AT")
 	private LocalDateTime updatedAt;	// UPDATED_AT DATETIME
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(
+        name = "EMPLOYEE_NO",
+        insertable = false,
+        updatable = false)
+    @JsonIgnore
+    @ToString.Exclude
+    private Employee employee;
+
+    public String getEmployeeName() {
+
+        if(employee == null) {
+
+            return null;
+        }
+
+        return employee.getName();
+    }
 }
