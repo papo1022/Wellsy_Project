@@ -11,10 +11,10 @@
     /* 컬러 */
     --color-primary: #8cb791; /* 주 컬러 */
     --color-secondary: #a9b87d; /* 보조 컬러 */
-    /* natural color (흑백 컬러) */
+    /* Neutral color (중립색) */
     --color-black: #0c0c0c;
     --color-white: #ffffff;
-    --color-ivory: #F6F6F4;
+    --color-ivory: #F6F5F4;
     --color-grey: #767676;
     /* 시스템 컬러 (성공, 오류, 주의, 정보 등등) */
     --color-warning: #f9a825; /* 경고 */
