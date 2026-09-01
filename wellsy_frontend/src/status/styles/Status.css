@@ -105,13 +105,6 @@
     padding: var(--spacing);
     background: var(--color-white);
     border-radius: var(--radius-md);
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-.status-card:hover {
-    transform: translateY(-4px);
 }
 
 /* ==========================================
