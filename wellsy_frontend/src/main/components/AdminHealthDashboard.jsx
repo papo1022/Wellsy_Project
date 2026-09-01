@@ -193,6 +193,7 @@ function AdminHealthDashboard() {
                 <td>
 
                   <button
+                    className="health-detail-btn"
                     onClick={() =>
                       setSelectedEmployee(
                         employee

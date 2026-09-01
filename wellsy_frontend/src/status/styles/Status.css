@@ -73,8 +73,8 @@
     height: 42px;
     padding: 0 var(--spacing);
     border: none;
-    border-radius: 10px;
-    background-color: var(--color-black);
+    border-radius: var(--radius-round);
+    background-color: var(--color-primary);
     color: var(--color-white);
     cursor: pointer;
     font-weight: 700;
