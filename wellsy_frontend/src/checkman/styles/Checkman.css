@@ -68,13 +68,14 @@
 .checkman-detail-header h2 {
     margin: 0;
     font-size: var(--font-size-h2);
+    font-weight: 700;
 }
 
 .checkman-header p,
 .checkman-detail-header p {
     margin: 10px 0 0;
     color: var(--color-grey);
-    font-size: var(--font-size-h3);
+    font-size: var(--font-size-body);
 }
 
 /* 검색 */
@@ -261,6 +262,7 @@
 .checkman-detail-item strong {
     color: var(--color-black);
     font-size: var(--font-size-body);
+    font-weight: 400;
 }
 
 .checkman-message-box {
@@ -297,7 +299,8 @@
 
 .checkman-btn-secondary {
     background: var(--color-cancle);
-    color: var(--color-black);
+    color: var(--color-white);
+    border-radius: var(--radius-round);
 }
 
 .checkman-detail-btn {
