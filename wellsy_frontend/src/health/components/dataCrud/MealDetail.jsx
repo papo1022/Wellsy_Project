@@ -126,6 +126,7 @@ function MealDetail() {
             <div className="meal-input-method">
                 <button
                     type="button"
+                    className={inputMode === "auto" ? "active" : ""}
                     onClick={() => changeInputMode("auto")}
                 >
                     AI 자동 입력
@@ -133,6 +134,7 @@ function MealDetail() {
 
                 <button
                     type="button"
+                    className={inputMode === "manual" ? "active" : ""}
                     onClick={() => changeInputMode("manual")}
                 >
                     직접 입력
@@ -141,7 +143,7 @@ function MealDetail() {
 
             {inputMode === "manual" && (
                 <div
-                    className="crud-card"
+                    className="meal-manual-input"
                     style={{ width: "100%" }}
                 >
                     <div className="crud-card-input">
@@ -173,7 +175,7 @@ function MealDetail() {
                     <div className="crud-card-buttons">
                         <button
                             type="button"
-                            className="btn btn-primary"
+                            className="btn btn-primary btn-analyze"
                             onClick={handleAnalyzeFood}
                         >
                             분석하기
