@@ -15,7 +15,7 @@
 
 .checkman-menu-btn {
     padding: 10px var(--spacing);
-    border: 1px solid var(--color-cancle);
+    border: 1px solid var(--color-cancel);
     border-radius: var(--radius-md);
     background: var(--color-white);
     color: var(--color-grey);
@@ -61,7 +61,7 @@
 /* 제목 */
 .checkman-header {
     padding-bottom: var(--spacing);
-    border-bottom: 1px solid var(--color-cancle);
+    border-bottom: 1px solid var(--color-cancel);
 }
 
 .checkman-header h2,
@@ -91,7 +91,7 @@
 .checkman-search-area select {
     height: 40px;
     padding: 0 var(--spacing);
-    border: 1px solid var(--color-cancle);
+    border: 1px solid var(--color-cancel);
     border-radius: var(--radius-sm);
     background: var(--color-white);
     box-sizing: border-box;
@@ -131,7 +131,7 @@
 .checkman-table th {
     padding: var(--spacing);
     background: var(--color-ivory);
-    border-bottom: 1px solid var(--color-cancle);
+    border-bottom: 1px solid var(--color-cancel);
     color: var(--color-grey);
     font-size: var(--font-size-body);
     text-align: center;
@@ -139,7 +139,7 @@
 
 .checkman-table td {
     padding: var(--spacing);
-    border-bottom: 1px solid var(--color-cancle);
+    border-bottom: 1px solid var(--color-cancel);
     font-size: var(--font-size-body);
     text-align: center;
 }
@@ -225,12 +225,12 @@
     justify-content: space-between;
     align-items: center;
     padding-bottom: var(--spacing);
-    border-bottom: 1px solid var(--color-cancle);
+    border-bottom: 1px solid var(--color-cancel);
 }
 
 .checkman-detail-section {
     padding: var(--spacing) 0;
-    border-bottom: 1px solid var(--color-cancle);
+    border-bottom: 1px solid var(--color-cancel);
 }
 
 .checkman-detail-section h3 {
@@ -298,14 +298,14 @@
 }
 
 .checkman-btn-secondary {
-    background: var(--color-cancle);
+    background: var(--color-cancel);
     color: var(--color-white);
     border-radius: var(--radius-round);
 }
 
 .checkman-detail-btn {
     padding: 10px var(--spacing);
-    border: 1px solid var(--color-cancle);
+    border: 1px solid var(--color-cancel);
     border-radius: var(--radius-md);
     background: var(--color-white);
     cursor: pointer;

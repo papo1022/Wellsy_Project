@@ -131,7 +131,7 @@
   width: 100%;
   box-sizing: border-box;
   padding: 10px;
-  border: 1px solid var(--color-cancle);
+  border: 1px solid var(--color-cancel);
   border-radius: var(--radius-sm);
   font-size: var(--font-size-button);
 }
@@ -178,7 +178,7 @@
 }
 
 .schedule-cancel-btn {
-  background: var(--color-cancle);
+  background: var(--color-cancel);
   color: var(--color-white);
 }
 

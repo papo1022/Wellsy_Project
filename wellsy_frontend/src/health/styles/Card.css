@@ -133,7 +133,7 @@
 .sleep-graph {
   flex: 1;
   min-height: 150px;
-  border: 1px dashed var(--color-cancle);
+  border: 1px dashed var(--color-cancel);
 }
 
 /* 신체 정보 카드 */
@@ -216,7 +216,7 @@
 .health-calendar-card .fc-button {
   background: var(--color-white);
   color: var(--color-black);
-  border: 1px solid var(--color-cancle);
+  border: 1px solid var(--color-cancel);
   box-shadow: none;
 }
 

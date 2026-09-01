@@ -66,7 +66,7 @@
 
 .notice-table th {
     padding: var(--spacing);
-    border-bottom: 1px solid var(--color-cancle);
+    border-bottom: 1px solid var(--color-cancel);
     font-size: var(--font-size-body);
     font-weight: 700;
     color: var(--color-black);
@@ -75,7 +75,7 @@
 
 .notice-table td {
     padding: var(--spacing);
-    border-bottom: 1px solid var(--color-cancle);
+    border-bottom: 1px solid var(--color-cancel);
     font-size: var(--font-size-body);
     color: var(--color-black);
     text-align: center;
@@ -139,7 +139,7 @@
     height: 46px;
     box-sizing: border-box;
     padding: 0 var(--spacing);
-    border: 1px solid var(--color-cancle);
+    border: 1px solid var(--color-cancel);
     border-radius: var(--radius-sm);
     background: var(--color-ivory);
     font-size: var(--font-size-body);
@@ -156,7 +156,7 @@
     min-height: 320px;
     box-sizing: border-box;
     padding: var(--spacing);
-    border: 1px solid var(--color-cancle);
+    border: 1px solid var(--color-cancel);
     border-radius: var(--radius-sm);
     background: var(--color-ivory);
     font-size: var(--font-size-body);
@@ -183,7 +183,7 @@
 ========================================== */
 .notice-detail-header {
     padding-bottom: var(--spacing);
-    border-bottom: 1px solid var(--color-cancle);
+    border-bottom: 1px solid var(--color-cancel);
 }
 
 .notice-detail-title {
@@ -253,7 +253,7 @@
 }
 
 .notice-btn-secondary {
-    background: var(--color-cancle);
+    background: var(--color-cancel);
     color: var(--color-white);
 }
 

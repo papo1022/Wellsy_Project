@@ -28,7 +28,7 @@
   padding: var(--spacing);
   margin-bottom: var(--spacing);
   background: var(--color-white);
-  border: 1px solid var(--color-cancle);
+  border: 1px solid var(--color-cancel);
   border-radius: var(--radius-md);
 }
 
@@ -36,7 +36,7 @@
 .checkup-search-box input {
   height: 42px;
   padding: 0 var(--spacing);
-  border: 1px solid var(--color-cancle);
+  border: 1px solid var(--color-cancel);
   border-radius: var(--radius-sm);
   background: var(--color-white);
   font-size: var(--font-size-button);
@@ -115,7 +115,7 @@
 .checkup-table th,
 .checkup-table td {
   padding: var(--spacing) var(--spacing);
-  border-bottom: 1px solid var(--color-cancle);
+  border-bottom: 1px solid var(--color-cancel);
   text-align: center;
   white-space: nowrap;
 }

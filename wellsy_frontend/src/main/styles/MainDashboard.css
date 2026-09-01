@@ -27,7 +27,7 @@
 }
 .profile-role {
     font-size: var(--font-size-button);
-    color: var(--color-cancle);
+    color: var(--color-cancel);
     margin-left: var(--spacing);
 }
 .profile-avatar,

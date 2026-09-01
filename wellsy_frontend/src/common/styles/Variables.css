@@ -21,7 +21,7 @@
     --color-error: #d32f2f; /* 오류 */
     --color-info: #0091ea; /* 정보 */
     --color-success: #4caf50; /* 성공 */
-    --color-cancle: #c4c5c6; /* 취소 */
+    --color-cancel: #c4c5c6; /* 취소 */
 
     /* 모서리 둥글기 */
     --radius-sm: 10px;

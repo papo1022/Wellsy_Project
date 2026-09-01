@@ -75,7 +75,7 @@
 .exercise-history td {
   padding: var(--spacing);
   text-align: center;
-  border-bottom: 1px solid var(--color-cancle);
+  border-bottom: 1px solid var(--color-cancel);
 }
 
 @media (max-width: 900px) {

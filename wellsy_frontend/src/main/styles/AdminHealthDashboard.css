@@ -23,7 +23,7 @@
 .admin-health-search input {
   height: 42px;
   padding: 0 var(--spacing);
-  border: 1px solid var(--color-cancle);
+  border: 1px solid var(--color-cancel);
   border-radius: var(--radius-sm);
   font-size: var(--font-size-body);
 }
@@ -64,7 +64,7 @@
 .admin-health-table th,
 .admin-health-table td {
   padding: var(--spacing);
-  border-bottom: 1px solid var(--color-cancle);
+  border-bottom: 1px solid var(--color-cancel);
   text-align: center;
 }
 
@@ -113,7 +113,7 @@
 .admin-health-modal hr {
   margin: var(--spacing) 0;
   border: none;
-  border-top: 1px solid var(--color-cancle);
+  border-top: 1px solid var(--color-cancel);
 }
 
 /* 직원 정보 */

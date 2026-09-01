@@ -39,7 +39,7 @@
 }
 
 .health-card p {
-  color: var(--color-cancle);
+  color: var(--color-cancel);
 }
 
 @media (max-width: 900px) {

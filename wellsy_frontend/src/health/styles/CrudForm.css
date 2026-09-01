@@ -53,7 +53,7 @@
 .crud-card-input-value input {
     flex: 1;
     padding: 10px var(--spacing);
-    border: 1px solid var(--color-cancle);
+    border: 1px solid var(--color-cancel);
     border-radius: var(--radius-sm);
     font-family: var(--font-family);
     font-size: var(--font-size-body);
@@ -234,7 +234,7 @@
 }
 
 .btn-secondary {
-    background-color: var(--color-cancle);
+    background-color: var(--color-cancel);
     color: var(--color-white);
     border: none;
     border-radius: var(--radius-round);
