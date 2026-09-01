@@ -3,9 +3,9 @@
     width: 500px;
     margin-bottom: 20px;
     padding: 30px;
-    background: var(--color-white);
     border-radius: var(--radius-md);
     box-sizing: border-box;
+    background-color: var(--color-white);
 }
 
 .crud-card h2 {
@@ -203,7 +203,7 @@
     background-color: var(--color-ivory);
     color: var(--color-grey);
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.1s ease-in-out;
 }
 
 /* active 상태 스타일 */

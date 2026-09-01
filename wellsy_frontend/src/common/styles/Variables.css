@@ -46,4 +46,6 @@
 
 body {
     font-family: var(--font-family);
+    background-color: var(--color-ivory);
+    margin: 0;
 }
