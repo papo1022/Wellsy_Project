@@ -2,7 +2,7 @@
 
 .crud-card {
     width: 500px;
-    margin: 0;
+    margin-bottom: 20px;
     padding: 30px;
 
     background: var(--color-white);
@@ -172,7 +172,36 @@
 
 
 /* 식사 상세 */
-/* 식사 상세 */
+.food-info-card {
+    width: 100%;
+    padding: 20px;
+    margin-bottom: 15px;
+}
+
+.food-info-row {
+    display: flex;
+    gap: 20px;
+}
+
+.food-info-row .crud-card-input {
+    flex: 1;
+    margin-bottom: 15px;
+}
+
+.nutrition-row {
+    gap: 15px;
+}
+
+.nutrition-row .crud-card-input-value input {
+    min-width: 0;
+    width: 100%;
+}
+
+.nutrition-row .crud-card-input-value span {
+    width: auto;
+}
+
+
 
 .meal-detail {
     width: 100%;

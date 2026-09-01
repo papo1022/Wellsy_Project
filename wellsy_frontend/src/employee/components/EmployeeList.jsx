@@ -499,7 +499,7 @@ function EmployeeList() {
 
                                 }}
                             >
-                                퇴사자만
+                                퇴사자
                             </button>
 
 

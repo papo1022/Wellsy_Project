@@ -40,7 +40,7 @@ function NoticeItem(props) {
             </td>
 
             <td>
-                { item.employeeNo }
+                { item.employeeName ?? "-" }
             </td>
 
             <td>

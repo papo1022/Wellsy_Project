@@ -26,8 +26,6 @@ useEffect(() => {
 
             const response = await selectNoticeListApi();
 
-            // console.log(response.data);
-
             // 응답데이터
             const items = response.data;
 
@@ -54,6 +52,15 @@ useEffect(() => {
 
 }, []);
 
+const loginUser
+    = JSON.parse(
+        localStorage.getItem("loginUser")
+    );
+
+
+const isAdmin
+    = loginUser?.role === "ADMIN";
+
 
 return (
 
@@ -70,8 +77,10 @@ return (
                     <h3>
                         공지사항 목록
                     </h3>
-
-
+        {
+            isAdmin
+                &&
+                (
                     <button
                         type="button"
                         className="notice-btn notice-btn-primary"
@@ -83,6 +92,8 @@ return (
                     >
                         글작성
                     </button>
+                )
+        }
 
                 </div>
 
