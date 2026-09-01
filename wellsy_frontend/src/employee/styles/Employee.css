@@ -214,46 +214,44 @@
 ========================================== */
 
 .employee-role {
+
     display: inline-flex;
 
     align-items: center;
 
     justify-content: center;
 
-    min-width: 70px;
+    min-width: 58px;
 
-    height: 32px;
+    height: 28px;
 
-    padding: 0 14px;
+    padding: 0 12px;
 
-    border-radius: 18px;
-
-    box-sizing: border-box;
+    border-radius: 20px;
 
     font-size: 12px;
 
-    font-weight: 500;
+    font-weight: 600;
 }
 
 
 /* 일반 사원 */
 .employee-role-user {
-    background: #fff;
 
-    border: 1px solid #ddd;
+    background: #eaf5ec;
 
-    color: #444;
+    color: #4d8a5a;
 }
 
 
 /* 관리자 */
 .employee-role-admin {
-    background: #91c39c;
 
-    border: 1px solid #91c39c;
+    background: #fff1c9;
 
-    color: #fff;
+    color: #9b7413;
 }
+
 
 /* ==========================================
    건강정보 버튼
