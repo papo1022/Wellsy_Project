@@ -20,7 +20,7 @@ function HealthDashboard() {
 
 
     return (
-        <div className="health-dashboard">
+        <div className="health-record-dashboard">
             <HealthGrade />
             <HealthWeekCalendar />
             <div className="health-card-area">
