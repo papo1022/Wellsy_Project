@@ -4,6 +4,7 @@ import WeeklyExerciseDashboard from "./WeeklyExerciseDashboard";
 import HealthStatsDashboard from "./HealthStatsDashboard";
 import AdminHealthDashboard from "./AdminHealthDashboard";
 
+
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
@@ -60,13 +61,14 @@ function MainDashboard({ setToken }) {
   );
 
   if (role === "ADMIN") {
-    return (
-      <div className="dashboard-container">
-        {profileCard}
-        <AdminHealthDashboard />
-      </div>
-    );
-  }
+  return (
+    <div className="dashboard-container">
+      {profileCard}
+
+      <AdminHealthDashboard />
+    </div>
+  );
+}
 
   return (
     <div className="dashboard-container">

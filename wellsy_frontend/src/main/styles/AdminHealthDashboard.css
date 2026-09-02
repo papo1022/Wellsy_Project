@@ -1,11 +1,29 @@
+.admin-dashboard-grid {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 0.9fr)
+    minmax(0, 1.1fr);
+  gap: 20px;
+  width: 100%;
+  align-items: start;
+  box-sizing: border-box;
+}
+
+.admin-dashboard-panel {
+  min-width: 0;
+  overflow: hidden;
+}
+
 .admin-health-dashboard {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: var(--spacing);
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .admin-health-dashboard h2 {
-  margin-bottom: var(--spacing);
+  margin-bottom: 25px;
 }
 
 
@@ -15,6 +33,7 @@
 
 .admin-health-search {
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
   margin-bottom: 30px;
   padding: 20px;
@@ -63,6 +82,7 @@
 
 .admin-health-table {
   width: 100%;
+  min-width: 620px;
   border-collapse: collapse;
 
   background: white;
@@ -230,4 +250,16 @@
   .health-info {
     grid-template-columns: 1fr;
   }
+}
+
+@media (max-width: 1250px) {
+
+  .admin-dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-dashboard-panel {
+    overflow-x: auto;
+  }
+
 }
