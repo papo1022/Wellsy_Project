@@ -70,8 +70,9 @@ function MainDashboard({ setToken }) {
   );
 }
 
-  return (
-    <div className="dashboard-container">
+ return (
+  <div className="dashboard-container employee-dashboard-container">
+    <div className="employee-dashboard-content">
       {profileCard}
 
       <div className="employee-dashboard-grid">
@@ -86,7 +87,7 @@ function MainDashboard({ setToken }) {
           </section>
         </div>
 
-        {/* 오른쪽: 건강 통계 → 기존 위치의 캘린더 */}
+        {/* 오른쪽: 건강 통계 → 캘린더 */}
         <div className="dashboard-column dashboard-column-right">
           <section className="dashboard-widget">
             <HealthStatsDashboard />
@@ -98,7 +99,8 @@ function MainDashboard({ setToken }) {
         </div>
       </div>
     </div>
-  );
+  </div>
+);
 }
 
 export default MainDashboard;

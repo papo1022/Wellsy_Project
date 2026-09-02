@@ -1,5 +1,5 @@
 :root {
-  --dashboard-green: #8fbc97;
+  --dashboard-green: #f0f5f1;
   --dashboard-green-soft: #eef6f0;
   --dashboard-text: #17211a;
   --dashboard-muted: #7c857f;
@@ -121,4 +121,74 @@
   .profile-card {
     margin-bottom: 4px;
   }
+}
+
+/* 사원 대시보드 본문 중앙 정렬 */
+.employee-dashboard-container {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.employee-dashboard-content {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 28px 40px;
+  box-sizing: border-box;
+}
+
+/* 사원 대시보드 좌우 배치 */
+.employee-dashboard-grid {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 2fr)
+    minmax(300px, 1fr);
+
+  gap: 36px;
+  width: 100%;
+  margin-top: 22px;
+  align-items: start;
+}
+
+.dashboard-column {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  min-width: 0;
+  width: 100%;
+}
+
+.dashboard-widget {
+  min-width: 0;
+  width: 100%;
+}
+
+/* 화면이 좁아지면 한 줄 배치 */
+@media (max-width: 1100px) {
+  .employee-dashboard-content {
+    padding: 0 20px 32px;
+  }
+
+  .employee-dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+.dashboard-container,
+.employee-dashboard-container,
+.employee-dashboard-content,
+.employee-dashboard-grid,
+.dashboard-column,
+.dashboard-widget,
+.bmi-dashboard,
+.exercise-dashboard,
+.health-dashboard,
+.schedule-page,
+.schedule-container,
+.admin-dashboard-grid,
+.admin-dashboard-panel,
+.admin-health-dashboard,
+.checkup-dashboard {
+  background-color: #ffffff;
 }
