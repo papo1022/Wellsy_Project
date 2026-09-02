@@ -12,9 +12,13 @@ function MealDetail() {
     const [amountDescription, setAmountDescription] = useState(""); // 섭취량 (예: 100g, 1공기, 2개)
 
     const [foodInfos, setFoodInfos] = useState([]); // 음식 정보 배열
+
+    const [image, setImage] = useState(null); // 음식 이미지
+    const [imagePreview, setImagePreview] = useState(null); // 음식 이미지 미리보기
+
     const navigate = useNavigate();
 
-    // 음식 분석 버튼 클릭 시 호출되는 함수
+    // 수동 음식 분석 버튼 클릭 시 호출되는 함수
     const handleAnalyzeFood = () => {
         if (!foodName.trim()) {
             alert("음식명을 입력해주세요.");
@@ -39,6 +43,46 @@ function MealDetail() {
         setAmountDescription("");
     };
 
+
+    // AI 이미지 분석 버튼 클릭 시 호출
+    const handleAnalyzeImage = () => {
+
+        if (!image) {
+            alert("식사 사진을 선택해주세요.");
+            return;
+        }
+
+        // 임시 AI 분석 결과
+        const result = [
+            {
+                foodName: "현미밥",
+                amountDescription: "1공기",
+                calories: 300,
+                protein: 6,
+                carbohydrate: 65,
+                fat: 2
+            },
+            {
+                foodName: "계란후라이",
+                amountDescription: "2개",
+                calories: 180,
+                protein: 12,
+                carbohydrate: 1,
+                fat: 14
+            }
+        ];
+
+        setFoodInfos(prev => [
+            ...prev,
+            ...result
+        ]);
+
+        // 분석이 끝난 이미지 초기화
+        setImage(null);
+        setImagePreview(null);
+    };
+
+
     // 음식 정보 변경 시 호출되는 함수
     const handleFoodInfoChange = (index, field, value) => {
 
@@ -56,7 +100,8 @@ function MealDetail() {
         setFoodInfos(prev =>
             prev.filter((_, i) => i !== index));
     };
-
+  
+    // 식사 데이터 제출 시 호출되는 함수
     const handleSubmitMeal = () => {
         if (foodInfos.length === 0) {
             alert("추가된 음식이 없습니다.");
@@ -72,14 +117,53 @@ function MealDetail() {
 
     }
 
+    // 사진 업로드 시 호출되는 함수
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setImage(file);
+            setImagePreview(URL.createObjectURL(file));
+        }
+    };
+
     // 입력 모드 변경 시 호출되는 함수
     const changeInputMode = (mode) => {
         setInputMode(mode);
 
         setFoodName("");
         setAmountDescription("");
-        setFoodInfos([]);
+
+        setImage(null);
+        setImagePreview(null);
+
     };
+
+    // 식사 모드 변경시 호출
+    const changeMealType = (type) => {
+
+        if (foodInfos.length > 0) {
+            if(window.confirm("식사 유형을 변경하면 현재 입력 중인 내용이 초기화됩니다. 계속하시겠습니까?") === false) {
+                return;
+            }
+        }
+
+        setMealType(type);
+
+        // 입력 방식 초기화
+        setInputMode(null);
+
+        // 직접 입력값 초기화
+        setFoodName("");
+        setAmountDescription("");
+
+        // 분석 대기열 초기화
+        setFoodInfos([]);
+
+        // 이미지 초기화
+        setImage(null);
+        setImagePreview(null);
+    };
+
 
     return (
         <div className="crud-card meal-detail">
@@ -93,7 +177,7 @@ function MealDetail() {
                 <button
                     type="button"
                     className={mealType === "아침" ? "active" : ""}
-                    onClick={() => setMealType("아침")}
+                    onClick={() => changeMealType("아침")}
                 >
                     아침
                 </button>
@@ -101,7 +185,7 @@ function MealDetail() {
                 <button
                     type="button"
                     className={mealType === "점심" ? "active" : ""}
-                    onClick={() => setMealType("점심")}
+                    onClick={() => changeMealType("점심")}
                 >
                     점심
                 </button>
@@ -109,7 +193,7 @@ function MealDetail() {
                 <button
                     type="button"
                     className={mealType === "저녁" ? "active" : ""}
-                    onClick={() => setMealType("저녁")}
+                    onClick={() => changeMealType("저녁")}
                 >
                     저녁
                 </button>
@@ -117,7 +201,7 @@ function MealDetail() {
                 <button
                     type="button"
                     className={mealType === "간식" ? "active" : ""}
-                    onClick={() => setMealType("간식")}
+                    onClick={() => changeMealType("간식")}
                 >
                     간식
                 </button>
@@ -177,6 +261,42 @@ function MealDetail() {
                             onClick={handleAnalyzeFood}
                         >
                             분석하기
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {inputMode === "auto" && (
+                <div
+                    className="crud-card"
+                    style={{ width: "100%" }}
+                >
+                    <div className="crud-card-input">
+                        <label>식사 사진</label>
+
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImageChange}
+                        />
+                    </div>
+
+                    {imagePreview && (
+                        <div className="meal-image-preview">
+                            <img
+                                src={imagePreview}
+                                alt="식사 사진 미리보기"
+                            />
+                        </div>
+                    )}
+
+                    <div className="crud-card-buttons">
+                        <button
+                            type="button"
+                            className="btn btn-primary"
+                            onClick={handleAnalyzeImage}
+                        >
+                            AI 분석하기
                         </button>
                     </div>
                 </div>

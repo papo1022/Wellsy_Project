@@ -96,17 +96,23 @@
 
 .health-modal-background {
     position: fixed;
-    inset: 0;
+
+    top: 0;
+    left: 200px;
+
+    width: calc(100vw - 200px);
+    height: 100vh;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
     padding: 20px;
+    box-sizing: border-box;
 
     background: rgba(12, 12, 12, 0.35);
 
-    z-index: 1000;
+    z-index: 900;
 }
 
 .health-modal-content {
@@ -162,12 +168,12 @@
 
 /* 별점 */
 .rating {
-   width: 180px;
+    width: 180px;
 }
 
 .rating__star {
-   cursor: pointer;
-   color: #dabd18b2;
+    cursor: pointer;
+    color: #dabd18b2;
 }
 
 
@@ -249,4 +255,79 @@
     background: var(--color-ivory);
 
     cursor: pointer;
+}
+
+.meal-image-preview {
+    margin: 15px 0;
+    text-align: center;
+}
+
+.meal-image-preview img {
+    width: 100%;
+    max-width: 400px;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+}
+
+
+/* 달력 */
+
+.calendar-detail {
+    width: 1000px;
+    max-width: calc(100vw - 260px);
+    margin: 20px auto;
+}
+
+.calendar-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.calendar-detail-grid .health-card {
+    width: 100%;
+    min-height: auto;
+    padding: 20px;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.calendar-detail-grid .health-card h4 {
+    margin: 0 0 10px;
+}
+
+.calendar-detail-grid .health-card p {
+    margin: 6px 0;
+}
+
+.calendar-detail .fc {
+    width: 100%;
+}
+
+.calendar-detail .fc-daygrid-day-frame {
+    min-height: 120px;
+}
+
+.calendar-detail .fc-daygrid-day-number {
+    padding: 8px;
+    font-size: var(--font-size-body);
+}
+
+.calendar-detail .fc-col-header-cell-cushion {
+    padding: 10px;
+    font-size: var(--font-size-body);
+}
+
+/* 일요일 */
+.calendar-detail .fc-day-sun .fc-col-header-cell-cushion,
+.calendar-detail .fc-day-sun .fc-daygrid-day-number {
+    color: var(--color-error);
+}
+
+/* 토요일 */
+.calendar-detail .fc-day-sat .fc-col-header-cell-cushion,
+.calendar-detail .fc-day-sat .fc-daygrid-day-number {
+    color: #1976d2;
 }
