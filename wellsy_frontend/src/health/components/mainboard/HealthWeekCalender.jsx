@@ -6,7 +6,7 @@ function HealthWeekCalendar() {
     const navigate = useNavigate();
 
     return (
-        <div className="health-card health-calendar-card">
+        <div className="health-main-card health-calendar-card">
         
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <h3>건강 캘린더</h3>

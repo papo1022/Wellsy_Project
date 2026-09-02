@@ -64,7 +64,7 @@ function CalendarDetail() {
 
                                 <div className="calendar-detail-grid">
 
-                                    <div className="health-card">
+                                    <div className="health-main-card">
                                         <h4>신체 정보</h4>
 
                                         <p>키: {healthData.height} cm</p>
@@ -72,7 +72,7 @@ function CalendarDetail() {
                                         <p>BMI: {healthData.bmi}</p>
                                     </div>
 
-                                    <div className="health-card">
+                                    <div className="health-main-card">
                                         <h4>건강 수치</h4>
 
                                         <p>
@@ -85,13 +85,13 @@ function CalendarDetail() {
                                         </p>
                                     </div>
 
-                                    <div className="health-card">
+                                    <div className="health-main-card">
                                         <h4>수면</h4>
 
                                         <p>{healthData.sleepTime}</p>
                                     </div>
 
-                                    <div className="health-card">
+                                    <div className="health-main-card">
                                         <h4>생활 기록</h4>
 
                                         <p>카페인: {healthData.caffeine} mg</p>

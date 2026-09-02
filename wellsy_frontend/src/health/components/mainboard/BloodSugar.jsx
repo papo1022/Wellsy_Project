@@ -8,7 +8,7 @@ function BloodSugar() {
     };
 
     return (
-        <div className="health-card blood-sugar-card">
+        <div className="health-main-card blood-sugar-card">
             <h3>혈당</h3>
 
             <div className="health-card-content">

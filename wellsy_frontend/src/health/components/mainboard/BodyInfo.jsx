@@ -15,7 +15,7 @@ function BodyInfo() {
 
     return (
         <>
-            <div className="health-card body-info-card" onClick={() => setIsOpen(true)}>
+            <div className="health-main-card body-info-card" onClick={() => setIsOpen(true)}>
 
                 <h3>신체 정보</h3>
 

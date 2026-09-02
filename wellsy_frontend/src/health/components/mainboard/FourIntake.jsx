@@ -17,7 +17,7 @@ function FourIntake() {
 
   return (
     <>
-      <div className="health-card four-health-card">
+      <div className="health-main-card four-health-card">
         <h3>오늘의 건강 기록</h3>
 
         <div className="four-health-card-content">

@@ -7,7 +7,7 @@ function HealthGrade() {
     };
 
     return (
-        <div className="health-card health-grade-card">
+        <div className="health-main-card health-grade-card">
             <div className="health-grade-info">
                 <span>현재 건강 등급</span>
                 <strong>{healthGrade.grade}</strong>

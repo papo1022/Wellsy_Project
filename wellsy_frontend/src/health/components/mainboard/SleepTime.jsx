@@ -11,7 +11,7 @@ function SleepTime() {
 
     return (
         <>
-            <div className="health-card sleep-card"
+            <div className="health-main-card sleep-card"
                 onClick={() => setIsOpen(true)}>
                 <h3>수면 기록</h3>
 

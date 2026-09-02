@@ -286,7 +286,7 @@
     margin-top: 15px;
 }
 
-.calendar-detail-grid .health-card {
+.calendar-detail-grid .health-main-card {
     width: 100%;
     min-height: auto;
     padding: 20px;
@@ -294,11 +294,11 @@
     box-sizing: border-box;
 }
 
-.calendar-detail-grid .health-card h4 {
+.calendar-detail-grid .health-main-card h4 {
     margin: 0 0 10px;
 }
 
-.calendar-detail-grid .health-card p {
+.calendar-detail-grid .health-main-card p {
     margin: 6px 0;
 }
 
