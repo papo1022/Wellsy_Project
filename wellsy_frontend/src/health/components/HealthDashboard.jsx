@@ -20,20 +20,28 @@ function HealthDashboard() {
 
 
     return (
-        <div className="health-dashboard">
+        <div className="health-record-dashboard">
             <HealthGrade />
+
+            {/* 건강 캘린더 */}
             <HealthWeekCalendar />
             <div className="health-card-area">
 
                 <div className="health-left-area">
                     <div className="health-top-area">
+                        {/* 혈당, 혈압 */}
                         <BloodSugar />
                         <BloodPressure />
                     </div>
+
+                    {/* 수면 기록 */}
                     <SleepTime />
+
+                    {/* 신체 기록 */}
                     <BodyInfo />
                 </div>
 
+                {/* 오늘의 건강 기록 */}
                 <FourIntake />
                 
             </div>

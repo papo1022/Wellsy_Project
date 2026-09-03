@@ -51,7 +51,7 @@
 }
 /* 입력값 */
 .login-input::placeholder {
-    color: var(--color-cancle);
+    color: var(--color-cancel);
 }
 
 /* 로그인 버튼 */

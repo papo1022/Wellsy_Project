@@ -17,7 +17,7 @@ function FourIntake() {
 
   return (
     <>
-      <div className="health-card four-health-card">
+      <div className="health-main-card four-health-card">
         <h3>오늘의 건강 기록</h3>
 
         <div className="four-health-card-content">
@@ -28,7 +28,7 @@ function FourIntake() {
           >
             <span>식사</span>
 
-            <div>
+            <div className="four-health-card-value">
               <strong>{todayHealth.meal}</strong>
               <small> kcal</small>
             </div>
@@ -40,7 +40,7 @@ function FourIntake() {
           >
             <span>카페인</span>
 
-            <div>
+            <div className="four-health-card-value">
               <strong>{todayHealth.caffeine}</strong>
               <small> mg</small>
             </div>
@@ -52,7 +52,7 @@ function FourIntake() {
           >
             <span>알코올</span>
 
-            <div>
+            <div className="four-health-card-value">
               <strong>{todayHealth.alcohol}</strong>
               <small> g</small>
             </div>
@@ -64,7 +64,7 @@ function FourIntake() {
           >
             <span>담배</span>
 
-            <div>
+            <div className="four-health-card-value">
               <strong>{todayHealth.smoking}</strong>
               <small> 개비</small>
             </div>

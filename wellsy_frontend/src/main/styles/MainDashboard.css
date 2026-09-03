@@ -1,58 +1,201 @@
-.dashboard-container {
-    padding: var(--spacing);
-    background-color: var(--color-ivory);
+:root {
+  --dashboard-green: #f0f5f1;
+  --dashboard-green-soft: #eef6f0;
+  --dashboard-text: #17211a;
+  --dashboard-muted: #7c857f;
 }
 
-/* 간단 프로필 카드 */
+.dashboard-container {
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  padding: 12px 16px 0;
+  box-sizing: border-box;
+  background: #f7f9f7;
+}
+
 .profile-card {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing);
-    background-color: var(--color-white);
-    border-radius: var(--radius-round);
-    padding: 10px;
-    width: fit-content;
-    margin: var(--spacing);
+  display: flex;
+  align-items: center;
+  min-height: 38px;
+  margin-bottom: 8px;
+  gap: 8px;
 }
-/* 프로필 */
+
 .profile-avatar {
-    width: 80px;
-    height: 80px;
-    border-radius: var(--radius-round);
-    background-color: var(--color-primary);
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  border-radius: 50%;
+  background: var(--dashboard-green);
+  cursor: pointer;
 }
+
 .profile-name {
-    font-size: var(--font-size-body);
-    color: var(--color-black);
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  font-size: var(--font-size-body);
+  color: var(--color-black);
+  font-weight: 700;
+  cursor: pointer;
 }
+
 .profile-role {
-    font-size: var(--font-size-button);
-    color: var(--color-cancle);
-    margin-left: var(--spacing);
+  font-size: var(--font-size-button);
+  color: var(--color-cancel);
+  margin-left: var(--spacing);
+  font-weight: 400;
+
 }
 .profile-avatar,
 .profile-name,
 .profile-role {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-/* 로그아웃 버튼 */
 .logout-btn {
-    margin: var(--spacing);
-    font-size: var(--font-size-button);
-    padding: 10px;
-    border: none;
-    border-radius: var(--radius-round);
-    background-color: var(--color-white);
-    cursor: pointer;
-}
-.logout-btn:hover {
-    color: var(--color-white);
-    background-color: var(--color-secondary);
-    opacity: 0.4;
+  margin-left: 6px;
+  padding: 5px 7px;
+  border: 0;
+  background: transparent;
+  color: #556159;
+  font-size: 10px;
+  cursor: pointer;
 }
 
-/* 대시보드 섹션 (건강 통계, 건강검진, 운동 등등) */
-.dashboard-section {
-    margin-top: var(--spacing);
+.logout-btn:hover {
+  color: #6f9f79;
+}
+
+.employee-dashboard-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 850px) 310px !important;
+  justify-content: start !important;
+  column-gap: 12px !important;
+  row-gap: 12px;
+  align-items: start;
+}
+
+.dashboard-column {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dashboard-column-left {
+  width: 100%;
+  max-width: 850px !important;
+  gap: 32px;
+}
+
+.dashboard-column-right {
+  display: flex;
+  width: 310px;
+  min-width: 0;
+  flex-direction: column;
+  gap: 10px;
+  justify-self: start !important;
+}
+
+.dashboard-widget {
+  min-width: 0;
+  overflow: visible;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+@media (max-width: 1300px) {
+  .employee-dashboard-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .dashboard-column-right {
+    width: 100%;
+    justify-self: start;
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard-container {
+    padding: 10px;
+  }
+
+  .profile-card {
+    margin-bottom: 4px;
+  }
+}
+
+/* 사원 대시보드 본문 중앙 정렬 */
+.employee-dashboard-container {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.employee-dashboard-content {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 28px 40px;
+  box-sizing: border-box;
+}
+
+/* 사원 대시보드 좌우 배치 */
+.employee-dashboard-grid {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 2fr) minmax(300px, 1fr);
+
+  gap: 36px;
+  width: 100%;
+  margin-top: 22px;
+  align-items: start;
+}
+
+.dashboard-column {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  min-width: 0;
+  width: 100%;
+}
+
+.dashboard-widget {
+  min-width: 0;
+  width: 100%;
+}
+
+/* 화면이 좁아지면 한 줄 배치 */
+@media (max-width: 1100px) {
+  .employee-dashboard-content {
+    padding: 0 20px 32px;
+  }
+
+  .employee-dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+.dashboard-container,
+.employee-dashboard-container,
+.employee-dashboard-content,
+.employee-dashboard-grid,
+.dashboard-column,
+.dashboard-widget,
+.bmi-dashboard,
+.exercise-dashboard,
+.health-dashboard,
+.schedule-page,
+.schedule-container,
+.admin-dashboard-grid,
+.admin-dashboard-panel,
+.admin-health-dashboard,
+.checkup-dashboard {
+  background-color: #ffffff;
 }
