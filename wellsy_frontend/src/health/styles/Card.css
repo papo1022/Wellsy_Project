@@ -38,44 +38,55 @@
     color: #999;
 }
 
+/* 수정 가능한 카드만 호버 */
+.health-card.sleep-card:hover,
+.health-card.body-info-card:hover {
+  cursor: pointer;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+.health-card.sleep-card:hover h3,
+.health-card.sleep-card:hover span,
+.health-card.sleep-card:hover small,
+.health-card.body-info-card:hover h3,
+.health-card.body-info-card:hover span,
+.health-card.body-info-card:hover small {
+  color: var(--color-white);
+}
 
 /* 콘텐츠 가로 배치 */
-
 .health-card-content {
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start;
   margin-top: var(--spacing);
 }
 
-
 /* 콘텐츠 세로 배치 */
-
 .health-card-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  flex: 1;
+  gap: 5px;
 }
 
 .health-card-item span {
   font-size: var(--font-size-button);
-  color: #777;
+  color: var(--color-grey);
 }
 
 .health-card-item strong {
-  font-size: var(--font-size-h2) ;
+  font-size: var(--font-size-h2);
+  font-weight: 700;
 }
 
 .health-card-item small {
   font-size: var(--font-size-caption);
-  color: #999;
+  color: var(--color-grey);
 }
 
-
-
 /* 오늘의 건강 기록 카드 */
-
 .four-health-card {
   width: 600px;
 }
@@ -91,28 +102,34 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  padding: 10px 14px;
+  padding: 10px var(--spacing);
   min-height: 45px;
-
   background: var(--color-ivory);
   border-radius: var(--radius-sm);
-
   cursor: pointer;
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
 }
 
 .four-health-card-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+.four-health-card-item:hover span,
+.four-health-card-item:hover strong,
+.four-health-card-item:hover small {
+  color: var(--color-white);
 }
 
 .four-health-card-item span {
-  font-size: var(--font-size-button);
-  color: #777;
+  font-size: var(--font-size-body);
+  color: var(--color-grey);
+}
+
+/* 오른쪽 수치 + 단위 세로 배치 및 오른쪽 정렬 */
+.four-health-card-value {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* 오른쪽 끝으로 정렬 */
+  text-align: right;
 }
 
 .four-health-card-item strong {
@@ -121,61 +138,46 @@
 
 .four-health-card-item small {
   font-size: var(--font-size-caption);
-  color: #999;
+  color: var(--color-grey);
 }
 
-
-
 /* 수면 카드 */
-
 .sleep-card {
   width: auto;
 }
-
 .sleep-content {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: var(--spacing);
 }
-
 .sleep-info {
   display: flex;
-  gap: 30px;
+  gap: var(--spacing);
 }
 
 .sleep-graph {
   flex: 1;
   min-height: 150px;
-  border: 1px dashed var(--color-cancle);
+  border: 1px dashed var(--color-cancel);
 }
 
-
-
 /* 신체 정보 카드 */
-
 .body-info-card {
   width: auto;
 }
 
-
-
 /* 건강 등급 카드 */
-
 .health-grade-card {
   width: auto;
   margin-bottom: var(--spacing);
 }
-
 .description {
   margin-top: 10px;
   font-size: var(--font-size-body);
   color: var(--color-black);
 }
 
-
-
 /* 건강 캘린더 */
-
 .health-calendar-card {
   width: auto;
   margin: var(--spacing) 0;
@@ -186,48 +188,60 @@
   text-decoration: none;
 }
 
+.health-calendar-card .fc-day-today {
+  background-color: transparent !important;
+}
+.health-calendar-card .fc-col-header-cell.fc-day-today {
+  background-color: var(--color-primary) !important;
+  color: var(--color-white) !important;
+} /* 자체 내장된 스타일 덮어쓰기 -> !important */
+
+/* 상세보기 버튼 */
+.detail-button {
+  background-color: var(--color-primary);
+  border: none;
+  color: var(--color-white);
+  padding: 10px var(--spacing) 10px var(--spacing);
+  border-radius: var(--radius-round);
+}
+.detail-button:hover {
+  background-color: var(--color-white);
+  color: var(--color-black);
+}
 
 /* 오늘 날짜 강조 */
-
 .health-calendar-card .fc-day-today {
-  background-color: var(--color-ivory) !important;
+  background-color: var(--color-secondary);
+  color: var(--color-white);
 }
 
 .health-calendar-card .fc-day-today .fc-daygrid-day-number {
   font-weight: 700;
 }
 
-
 /* FullCalendar 테두리 */
-
 .health-calendar-card .fc-theme-standard td,
 .health-calendar-card .fc-theme-standard th {
-  border-color: #eeeeee;
+  border-color: var(--color-ivory);
 }
-
 
 /* 상단 툴바 */
-
 .health-calendar-card .fc-toolbar {
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-top: var(--spacing);
+  margin-bottom: var(--spacing);
 }
 
-
-/* 년/월 제목 */
-
+/* 년, 월 제목 */
 .health-calendar-card .fc-toolbar-title {
   font-size: var(--font-size-body);
   font-weight: 700;
 }
 
-
-/* 이전 / 다음 버튼 */
-
+/* 이전, 다음 버튼 */
 .health-calendar-card .fc-button {
   background: var(--color-white);
   color: var(--color-black);
-  border: 1px solid var(--color-cancle);
+  border: 1px solid var(--color-cancel);
   box-shadow: none;
 }
 
@@ -237,16 +251,16 @@
   border-color: var(--color-secondary);
 }
 
-
 /* 요일 */
-
 .health-calendar-card .fc-col-header-cell {
-  padding: 8px 0;
+  padding: 10px 0;
+  font-size: var(--font-size-body);
+  font-weight: 400;
 }
 
-
 /* 날짜 칸 */
-
 .health-calendar-card .fc-daygrid-day {
+  font-size: var(--font-size-body);
+  font-weight: 400;
   height: 70px;
 }

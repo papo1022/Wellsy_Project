@@ -286,13 +286,13 @@ a {
 .schedule-form-group input,
 .schedule-form-group textarea {
   width: 100%;
-  padding: 10px 11px;
   box-sizing: border-box;
-  border: 1px solid #dfe6e1;
-  border-radius: 8px;
   background: #fbfcfb;
   color: #17211a;
-  font-size: 13px;
+  padding: 10px;
+  border: 1px solid var(--color-cancel);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-button);
 }
 
 .schedule-form-group input:focus,
@@ -341,8 +341,8 @@ a {
 }
 
 .schedule-cancel-btn {
-  background: #eef1ef;
-  color: #465149;
+  background: var(--color-cancel);
+  color: var(--color-white);
 }
 
 .schedule-delete-btn {

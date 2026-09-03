@@ -11,17 +11,17 @@
     /* 컬러 */
     --color-primary: #8cb791; /* 주 컬러 */
     --color-secondary: #a9b87d; /* 보조 컬러 */
-    /* natural color (흑백 컬러) */
+    /* Neutral color (중립색) */
     --color-black: #0c0c0c;
     --color-white: #ffffff;
-    --color-ivory: #F6F6F4;
+    --color-ivory: #F6F5F4;
     --color-grey: #767676;
     /* 시스템 컬러 (성공, 오류, 주의, 정보 등등) */
     --color-warning: #f9a825; /* 경고 */
     --color-error: #d32f2f; /* 오류 */
     --color-info: #0091ea; /* 정보 */
     --color-success: #4caf50; /* 성공 */
-    --color-cancle: #c4c5c6; /* 취소 */
+    --color-cancel: #c4c5c6; /* 취소 */
 
     /* 모서리 둥글기 */
     --radius-sm: 10px;
@@ -46,4 +46,6 @@
 
 body {
     font-family: var(--font-family);
+    background-color: var(--color-ivory);
+    margin: 0;
 }

@@ -181,7 +181,7 @@
 .bmi-history td {
   padding: 8px;
   text-align: center;
-  border-bottom: 1px solid var(--wellsy-line);
+  border-bottom: 1px solid var(--color-cancel);
   font-size: 12px;
 }
 

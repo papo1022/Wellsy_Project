@@ -33,29 +33,22 @@
 .checkup-search-box {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-
-  padding: 20px;
-  margin-bottom: 25px;
-
-  background: #ffffff;
-
-  border: 1px solid #e5e5e5;
-  border-radius: 12px;
+  gap: var(--spacing);
+  padding: var(--spacing);
+  margin-bottom: var(--spacing);
+  background: var(--color-white);
+  border: 1px solid var(--color-cancel);
+  border-radius: var(--radius-md);
 }
 
 .checkup-search-box select,
 .checkup-search-box input {
   height: 42px;
-
-  padding: 0 12px;
-
-  border: 1px solid #ddd;
-  border-radius: 8px;
-
-  background: white;
-
-  font-size: 14px;
+  padding: 0 var(--spacing);
+  border: 1px solid var(--color-cancel);
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+  font-size: var(--font-size-button);
 }
 
 .checkup-search-box input {
@@ -164,11 +157,8 @@
 
 .checkup-table th,
 .checkup-table td {
-  padding: 13px 12px;
-
-  border-bottom:
-    1px solid #eee;
-
+  padding: var(--spacing) var(--spacing);
+  border-bottom: 1px solid var(--color-cancel);
   text-align: center;
 
   white-space: nowrap;

@@ -35,16 +35,23 @@
   display: inline-flex;
   align-items: baseline;
   gap: 5px;
-  color: var(--dashboard-text);
-  font-size: 13px;
+  font-size: var(--font-size-body);
+  color: var(--color-black);
   font-weight: 700;
   cursor: pointer;
 }
 
 .profile-role {
-  color: var(--dashboard-muted);
-  font-size: 10px;
+  font-size: var(--font-size-button);
+  color: var(--color-cancel);
+  margin-left: var(--spacing);
   font-weight: 400;
+
+}
+.profile-avatar,
+.profile-name,
+.profile-role {
+  cursor: pointer;
 }
 
 .logout-btn {
@@ -142,8 +149,7 @@
 .employee-dashboard-grid {
   display: grid;
   grid-template-columns:
-    minmax(0, 2fr)
-    minmax(300px, 1fr);
+    minmax(0, 2fr) minmax(300px, 1fr);
 
   gap: 36px;
   width: 100%;
@@ -175,6 +181,7 @@
     gap: 28px;
   }
 }
+
 .dashboard-container,
 .employee-dashboard-container,
 .employee-dashboard-content,

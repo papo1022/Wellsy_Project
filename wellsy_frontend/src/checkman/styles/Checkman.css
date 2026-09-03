@@ -1,532 +1,328 @@
-/* ==========================================
-   전체
-========================================== */
-
+/* 전체 */
 .checkman-dashboard {
     width: 1200px;
-
     margin: 0 auto;
-
-    padding: 30px 20px 60px;
-
+    padding: 30px var(--spacing) 60px;
     box-sizing: border-box;
 }
 
-
-/* ==========================================
-   메뉴
-========================================== */
-
+/* 메뉴 */
 .checkman-menu-area {
     display: flex;
-
     gap: 10px;
-
-    margin-bottom: 20px;
+    margin-bottom: var(--spacing);
 }
 
-
 .checkman-menu-btn {
-    padding: 11px 20px;
-
-    border: 1px solid #ddd;
-
-    border-radius: 20px;
-
-    background: #fff;
-
-    color: #777;
-
+    padding: 10px var(--spacing);
+    border: 1px solid var(--color-cancel);
+    border-radius: var(--radius-md);
+    background: var(--color-white);
+    color: var(--color-grey);
     cursor: pointer;
 }
 
-
 .checkman-menu-active {
-    background: #111;
-
-    border-color: #111;
-
-    color: #fff;
+    background: var(--color-black);
+    border-color: var(--color-black);
+    color: var(--color-white);
 }
-
 
 .checkman-alert-count {
     display: inline-flex;
-
     justify-content: center;
-
     align-items: center;
-
     min-width: 20px;
-
     height: 20px;
-
-    margin-left: 7px;
-
+    margin-left: 10px;
     padding: 0 5px;
-
-    border-radius: 10px;
-
-    background: #df4444;
-
-    color: white;
-
-    font-size: 10px;
+    border-radius: var(--radius-sm);
+    background: var(--color-error);
+    color: var(--color-white);
+    font-size: var(--font-size-body);
 }
 
-
-/* ==========================================
-   카드 영역
-========================================== */
-
+/* 카드 영역 */
 .checkman-card-area {
     display: flex;
-
-    gap: 20px;
-
+    gap: var(--spacing);
     align-items: stretch;
 }
 
-
-/* ==========================================
-   기본 카드
-========================================== */
-
+/* 기본 카드 */
 .checkman-card {
     width: 100%;
-
-    padding: 25px;
-
-    background: #fff;
-
-    border-radius: 16px;
-
-    box-shadow:
-        0 4px 14px rgba(0, 0, 0, 0.08);
-
+    padding: var(--spacing);
+    background: var(--color-white);
+    border-radius: var(--radius-md);
     box-sizing: border-box;
 }
 
-
-/* ==========================================
-   제목
-========================================== */
-
+/* 제목 */
 .checkman-header {
-    padding-bottom: 20px;
-
-    border-bottom: 1px solid #eee;
+    padding-bottom: var(--spacing);
+    border-bottom: 1px solid var(--color-cancel);
 }
-
 
 .checkman-header h2,
 .checkman-detail-header h2 {
     margin: 0;
-
-    font-size: 26px;
+    font-size: var(--font-size-h2);
+    font-weight: 700;
 }
-
 
 .checkman-header p,
 .checkman-detail-header p {
-    margin: 8px 0 0;
-
-    color: #888;
-
-    font-size: 13px;
+    margin: 10px 0 0;
+    color: var(--color-grey);
+    font-size: var(--font-size-body);
 }
 
-
-/* ==========================================
-   검색
-========================================== */
+/* 검색 */
 
 .checkman-search-area {
     display: flex;
-
     align-items: center;
-
     gap: 10px;
-
-    margin: 25px 0;
+    margin: var(--spacing) 0;
 }
-
 
 .checkman-search-area input,
 .checkman-search-area select {
     height: 40px;
-
-    padding: 0 12px;
-
-    border: 1px solid #ddd;
-
-    border-radius: 8px;
-
-    background: #fff;
-
+    padding: 0 var(--spacing);
+    border: 1px solid var(--color-cancel);
+    border-radius: var(--radius-sm);
+    background: var(--color-white);
     box-sizing: border-box;
-
     outline: none;
 }
-
 
 .checkman-search-area input[type="text"] {
     width: 230px;
 }
 
-
 .checkman-search-area input:focus,
 .checkman-search-area select:focus {
-    border-color: #999;
+    border-color: var(--color-grey);
 }
-
 
 .checkman-search-btn {
     height: 40px;
-
-    padding: 0 20px;
-
+    padding: 0 var(--spacing);
     border: none;
-
-    border-radius: 8px;
-
-    background: #111;
-
-    color: #fff;
-
+    border-radius: var(--radius-sm);
+    background: var(--color-black);
+    color: var(--color-white);
     cursor: pointer;
 }
 
-
-/* ==========================================
-   테이블
-========================================== */
-
+/* 테이블 */
 .checkman-table-area {
     width: 100%;
-
     overflow-x: auto;
 }
 
-
 .checkman-table {
     width: 100%;
-
     border-collapse: collapse;
 }
 
-
 .checkman-table th {
-    padding: 15px;
-
-    background: #f8f8f8;
-
-    border-bottom: 1px solid #ddd;
-
-    color: #666;
-
-    font-size: 13px;
-
+    padding: var(--spacing);
+    background: var(--color-ivory);
+    border-bottom: 1px solid var(--color-cancel);
+    color: var(--color-grey);
+    font-size: var(--font-size-body);
     text-align: center;
 }
-
 
 .checkman-table td {
-    padding: 17px 15px;
-
-    border-bottom: 1px solid #eee;
-
-    font-size: 13px;
-
+    padding: var(--spacing);
+    border-bottom: 1px solid var(--color-cancel);
+    font-size: var(--font-size-body);
     text-align: center;
 }
-
 
 .checkman-table-row {
     cursor: pointer;
 }
 
-
 .checkman-table-row:hover {
-    background: #fafafa;
+    background: var(--color-ivory);
 }
-
 
 .checkman-name-cell {
-    font-weight: 600;
+    font-weight: 700;
 }
-
 
 /* 미확인 알림 */
-
 .checkman-unread-row {
-    background: #fffafa;
+    background: var(--color-primary);
 }
 
-
-/* ==========================================
-   메시지
-========================================== */
-
+/* 메시지 */
 .checkman-message-cell {
     max-width: 230px;
-
     overflow: hidden;
-
     text-overflow: ellipsis;
-
     white-space: nowrap;
 }
 
-
-/* ==========================================
-   확인 상태
-========================================== */
-
+/* 확인 상태 */
 .checkman-read,
 .checkman-unread {
     display: inline-flex;
-
     justify-content: center;
-
     align-items: center;
-
     min-width: 70px;
-
     height: 30px;
-
-    padding: 0 12px;
-
-    border-radius: 16px;
-
-    font-size: 11px;
-
+    padding: 0 var(--spacing);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-caption);
     box-sizing: border-box;
 }
 
-
 .checkman-read {
-    background: #eef7f0;
-
-    color: #50815b;
+    background: var(--color-success);
+    color: var(--color-white);
 }
-
 
 .checkman-unread {
-    background: #fff0f0;
-
-    color: #d14b4b;
+    background: var(--color-error);
+    color: var(--color-white);
 }
 
-
-/* ==========================================
-   심각도
-========================================== */
-
+/* 심각도 */
 .checkman-severity {
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
-
     min-width: 55px;
-
-    padding: 5px 9px;
-
-    border-radius: 14px;
-
-    font-size: 11px;
+    padding: 10px var(--spacing);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-caption);
 }
-
 
 .checkman-severity-caution {
-    background: #fff8dd;
-
-    color: #a9851c;
+    background: var(--color-success);
+    color: var(--color-white);
 }
-
 
 .checkman-severity-risk {
-    background: #fff0df;
-
-    color: #d88421;
+    background: var(--color-warning);
+    color: var(--color-white);
 }
-
 
 .checkman-severity-danger {
-    background: #fff0f0;
-
-    color: #d14b4b;
+    background: var(--color-error);
+    color: var(--color-white);
 }
 
-
-/* ==========================================
-   상세 화면
-========================================== */
-
+/* 상세 화면 */
 .checkman-detail-header {
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
-    padding-bottom: 20px;
-
-    border-bottom: 1px solid #eee;
+    padding-bottom: var(--spacing);
+    border-bottom: 1px solid var(--color-cancel);
 }
-
 
 .checkman-detail-section {
-    padding: 25px 0;
-
-    border-bottom: 1px solid #eee;
+    padding: var(--spacing) 0;
+    border-bottom: 1px solid var(--color-cancel);
 }
-
 
 .checkman-detail-section h3 {
-    margin: 0 0 20px;
-
-    font-size: 18px;
+    margin: 0 0 var(--spacing);
+    font-size: var(--font-size-h4);
 }
-
 
 .checkman-detail-grid {
     display: grid;
-
     grid-template-columns:
         repeat(2, 1fr);
-
-    gap: 15px;
+    gap: var(--spacing);
 }
-
 
 .checkman-detail-item {
     display: flex;
-
     flex-direction: column;
-
-    gap: 8px;
-
-    padding: 16px 18px;
-
-    background: #f8f8f8;
-
-    border-radius: 12px;
+    gap: 10px;
+    padding: var(--spacing);
+    background: var(--color-ivory);
+    border-radius: var(--radius-sm);
 }
-
 
 .checkman-detail-item span {
-    color: #888;
-
-    font-size: 12px;
+    color: var(--color-grey);
+    font-size: var(--font-size-body);
 }
-
 
 .checkman-detail-item strong {
-    color: #222;
-
-    font-size: 16px;
+    color: var(--color-black);
+    font-size: var(--font-size-body);
+    font-weight: 400;
 }
-
 
 .checkman-message-box {
-    margin-top: 20px;
-
-    padding: 20px;
-
-    background: #f8f8f8;
-
-    border-radius: 12px;
-
+    margin-top: var(--spacing);
+    padding: var(--spacing);
+    background: var(--color-ivory);
+    border-radius: var(--radius-sm);
     line-height: 1.7;
-
-    color: #555;
+    color: var(--color-black);
 }
 
-
-/* ==========================================
-   버튼
-========================================== */
-
+/* 버튼 */
 .checkman-btn-area {
     display: flex;
-
     justify-content: center;
-
     gap: 10px;
-
-    margin-top: 30px;
+    margin-top: var(--spacing);
 }
-
 
 .checkman-btn {
     height: 40px;
-
-    padding: 0 20px;
-
+    padding: 0 var(--spacing);
     border: none;
-
-    border-radius: 9px;
-
+    border-radius: var(--radius-sm);
     cursor: pointer;
-
-    font-size: 13px;
-
-    font-weight: 600;
+    font-size: var(--font-size-body);
+    font-weight: 700;
 }
-
 
 .checkman-btn-primary {
-    background: #111;
-
-    color: white;
+    background: var(--color-black);
+    color: var(--color-white);
 }
-
 
 .checkman-btn-secondary {
-    background: #eee;
-
-    color: #444;
+    background: var(--color-cancel);
+    color: var(--color-white);
+    border-radius: var(--radius-round);
 }
-
 
 .checkman-detail-btn {
-    padding: 7px 15px;
-
-    border: 1px solid #ddd;
-
-    border-radius: 17px;
-
-    background: #fff;
-
+    padding: 10px var(--spacing);
+    border: 1px solid var(--color-cancel);
+    border-radius: var(--radius-md);
+    background: var(--color-white);
     cursor: pointer;
-
-    font-size: 11px;
+    font-size: var(--font-size-button);
 }
-
 
 .checkman-detail-btn:hover {
-    background: #f5f5f5;
+    background: var(--color-primary);
 }
 
-
-/* ==========================================
-   데이터 없음
-========================================== */
-
+/* 데이터 없음 */
 .checkman-empty {
     padding: 50px !important;
-
-    color: #999 !important;
+    color: var(--color-grey) !important;
 }
 
-
-/* ==========================================
-   반응형
-========================================== */
-
+/* 반응형 */
 @media screen and (max-width: 1250px) {
 
     .checkman-dashboard {
@@ -535,15 +331,12 @@
 
 }
 
-
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 900px) {
 
     .checkman-search-area {
         flex-direction: column;
-
         align-items: stretch;
     }
-
 
     .checkman-detail-grid {
         grid-template-columns: 1fr;

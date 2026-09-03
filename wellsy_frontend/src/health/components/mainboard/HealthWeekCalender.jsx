@@ -11,7 +11,7 @@ function HealthWeekCalendar() {
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <h3>건강 캘린더</h3>
 
-                <button type="button" className="btn btn-primary" onClick={() => navigate("/health/calendar")}>
+                <button type="button" className="detail-button" onClick={() => navigate("/health/calendar")}>
                     상세보기
                 </button>
             </div>

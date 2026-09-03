@@ -62,7 +62,7 @@
 
 .health-card p {
   margin: 4px 0 0;
-  color: #929a95;
+  color: var(--color-cancel);
   font-size: 10px;
 }
 
