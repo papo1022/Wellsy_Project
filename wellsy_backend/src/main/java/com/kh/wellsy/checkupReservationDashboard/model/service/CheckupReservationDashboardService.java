@@ -17,14 +17,14 @@ public class CheckupReservationDashboardService {
             checkupReservationDashboardDao;
 
 
-    public List<CheckupReservationDashboard>
-            selectReservationList(
-                    Integer year,
-                    Integer month,
-                    Integer departmentId,
-                    Integer jobId,
-                    String name,
-                    String status) {
+    // 건강검진 예약 현황 조회
+    public List<CheckupReservationDashboard> selectReservationList(
+            Integer year,
+            Integer month,
+            Integer departmentId,
+            Integer jobId,
+            String name,
+            String status) {
 
         return checkupReservationDashboardDao
                 .selectReservationList(
