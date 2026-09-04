@@ -94,9 +94,8 @@ function ChatWindow() {
                     >
                         {msg.text}
 
-                        {/* 세부 기능(예: 운동 일정 자동 추가) 이어서 구현 */}
+                        {/* 세부 기능(예: 운동 일정 자동 추가)
                         {msg.sender === "ai" && (
-                            
                             <button
                                 className="chat-apply-button"
                                 onClick={() => {
@@ -108,6 +107,7 @@ function ChatWindow() {
                                 일정에 적용하기
                             </button>
                         )}
+                        */}
                     </div>
                 ))}
 

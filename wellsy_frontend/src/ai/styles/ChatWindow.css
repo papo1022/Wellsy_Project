@@ -1,0 +1,110 @@
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: var(--spacing);
+    padding: var(--spacing);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.chat-title {
+    margin: 0;
+    font-size: var(--font-size-h1);
+    font-weight: 700;
+    margin-bottom: var(--spacing);
+}
+
+/* 대화 내용이 쌓이는 영역 (채팅방 배경) */
+.chat-message {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: var(--spacing);
+    padding: var(--spacing);
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* 말풍선 공통 스타일 */
+.chat-bubble {
+    max-width: 65%;
+    padding: var(--spacing);
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-body);
+    word-break: break-word;
+}
+
+/* AI 메시지 (왼쪽 정렬) */
+.chat-bubble.ai {
+    align-self: flex-start;
+    background-color: var(--color-white);
+    color: var(--color-black);
+    border-top-left-radius: 0px;
+}
+
+/* 사용자 메시지 (오른쪽 정렬) */
+.chat-bubble.user {
+    align-self: flex-end;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border-top-right-radius: 0px;
+}
+
+/* 일정에 적용하기 버튼 - 필요 없으면 삭제 */
+/* 원래 버튼형으로 디자인했다가 카드형으로 수정 */
+.chat-apply-button {
+    display: block;
+    width: 200px;
+    height: 100px;
+    margin-top: 10px;
+    font-size: var(--font-size-body);
+    color: var(--color-black);
+    padding: 10px var(--spacing);
+    border: none;
+    border-radius: var(--radius-md);
+    background-color: var(--color-ivory);
+    cursor: pointer;
+    transition: 0.1s ease-in;
+}
+
+.chat-apply-button:hover {
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+}
+
+/* 하단 입력창 영역 */
+.chat-input-area {
+    display: flex;
+    gap: 10px;
+    padding: var(--spacing);
+}
+
+.chat-input {
+    flex: 1;
+    padding: 10px var(--spacing);
+    border: 1px solid var(--color-cancel);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-body);
+}
+
+.chat-input:focus {
+    outline: none;
+    border: 2px solid var(--color-primary);
+}
+
+.chat-send-button {
+    padding: 10px var(--spacing);
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-button);
+    cursor: pointer;
+    transition: 0.1s ease-in;
+}
+
+.chat-send-button:hover {
+    background-color: var(--color-secondary);
+}
