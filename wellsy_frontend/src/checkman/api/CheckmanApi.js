@@ -186,6 +186,29 @@ const approveCheckupReservationApi
     };
 
 
+
+// =========================================
+// 건강검진 예약 취소
+// N -> C / Y -> C
+// =========================================
+
+const cancelCheckupReservationApi
+    = reservationId => {
+
+        return axios.put(
+            `${CHECKUP_RESERVATION_URL}/${reservationId}/cancel`,
+            {},
+            {
+                headers : {
+                    Authorization :
+                        getAuthorization()
+                }
+            }
+        );
+
+    };
+
+
 export {
 
     selectCheckmanListApi,
@@ -202,6 +225,8 @@ export {
 
     selectCheckupReservationListApi,
 
-    approveCheckupReservationApi
+    approveCheckupReservationApi,
+
+    cancelCheckupReservationApi
 
 };

@@ -18,150 +18,105 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CheckupReservationDashboardService {
 
-    private final CheckupReservationDashboardDao
-            checkupReservationDashboardDao;
+    private final CheckupReservationDashboardDao checkupReservationDashboardDao;
+    private final ScheduleDao scheduleDao;
 
-    private final ScheduleDao
-            scheduleDao;
-
-
-    // =========================================
-    // 관리자 건강검진 예약 목록 조회
-    // =========================================
     public List<CheckupReservationDashboard> selectReservationList(
-            Integer year,
-            Integer month,
-            Integer departmentId,
-            Integer jobId,
-            String name,
-            String status) {
+            Integer year, Integer month, Integer departmentId,
+            Integer jobId, String name, String status) {
 
-        return checkupReservationDashboardDao
-                .selectReservationList(
-                        year,
-                        month,
-                        departmentId,
-                        jobId,
-                        name,
-                        status
-                );
+        return checkupReservationDashboardDao.selectReservationList(
+                year, month, departmentId, jobId, name, status
+        );
     }
 
-
-    // =========================================
-    // 관리자 건강검진 예약 승인
-    //
-    // STATUS
-    // N -> Y
-    //
-    // 승인과 동시에
-    // 해당 사원의 SCHEDULE 자동 생성
-    // =========================================
     @Transactional
-    public void approveReservation(
-            Integer reservationId) {
+    public void approveReservation(Integer reservationId) {
 
-
-        // 1. 건강검진 예약 조회
         CheckupReservation reservation =
-                checkupReservationDashboardDao
-                        .findById(reservationId)
+                checkupReservationDashboardDao.findById(reservationId)
                         .orElseThrow(() ->
                                 new RuntimeException(
                                         "건강검진 예약 정보를 찾을 수 없습니다."
                                 )
                         );
 
-
-        // 2. 승인 대기 상태인지 확인
         if (!"N".equals(reservation.getStatus())) {
-
             throw new RuntimeException(
                     "승인 대기 상태의 예약만 승인할 수 있습니다."
             );
         }
 
-
-        // 3. 예약 상태 승인 처리
         reservation.setStatus("Y");
+        checkupReservationDashboardDao.save(reservation);
 
-        checkupReservationDashboardDao.save(
-                reservation
-        );
-
-
-        // 4. 건강검진 시작 날짜/시간
-        // 검진 당일 00:00:00
         LocalDateTime startDate =
-                reservation
-                        .getReservationDate()
-                        .atStartOfDay();
+                reservation.getReservationDate().atStartOfDay();
 
-
-        // 5. 건강검진 종료 날짜/시간
-        // 검진 당일 23:59:59
         LocalDateTime endDate =
-                reservation
-                        .getReservationDate()
-                        .atTime(
-                                23,
-                                59,
-                                59
-                        );
+                reservation.getReservationDate().atTime(23, 59, 59);
 
+        Schedule schedule = new Schedule();
 
-        // 6. 스케줄 생성
-        Schedule schedule =
-                new Schedule();
-
-
-        // 건강검진 신청한 사원 번호
         schedule.setEmployeeNo(
                 reservation.getEmployeeNo()
         );
 
-
-        // 스케줄 제목
         schedule.setTitle(
                 "건강검진"
         );
 
-
-        // 병원명이 있으면 표시
         if (
-                reservation.getHospitalName() != null
-                &&
-                !reservation.getHospitalName().isBlank()
+            reservation.getHospitalName() != null
+            &&
+            !reservation.getHospitalName().isBlank()
         ) {
-
             schedule.setContent(
-                    "건강검진 - "
-                    + reservation.getHospitalName()
+                    "건강검진 - " + reservation.getHospitalName()
             );
-
         } else {
-
             schedule.setContent(
                     "건강검진"
             );
         }
 
+        schedule.setStartDate(startDate);
+        schedule.setEndDate(endDate);
 
-        // 시작 : 00:00:00
-        schedule.setStartDate(
-                startDate
-        );
+        scheduleDao.save(schedule);
+    }
 
+    @Transactional
+    public void cancelReservation(Integer reservationId) {
 
-        // 종료 : 23:59:59
-        schedule.setEndDate(
+        CheckupReservation reservation =
+                checkupReservationDashboardDao.findById(reservationId)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "건강검진 예약 정보를 찾을 수 없습니다."
+                                )
+                        );
+
+        if ("C".equals(reservation.getStatus())) {
+            throw new RuntimeException(
+                    "이미 취소된 예약입니다."
+            );
+        }
+
+        reservation.setStatus("C");
+        checkupReservationDashboardDao.save(reservation);
+
+        LocalDateTime startDate =
+                reservation.getReservationDate().atStartOfDay();
+
+        LocalDateTime endDate =
+                reservation.getReservationDate().atTime(23, 59, 59);
+
+        scheduleDao.deleteByEmployeeNoAndTitleAndStartDateBetween(
+                reservation.getEmployeeNo(),
+                "건강검진",
+                startDate,
                 endDate
-        );
-
-
-        // 7. 스케줄 저장
-        scheduleDao.save(
-                schedule
         );
     }
 }

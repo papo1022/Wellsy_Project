@@ -1,7 +1,14 @@
+/* ==========================================
+   전체
+========================================== */
+
 .checkman-dashboard {
     width: 1200px;
+
     margin: 0 auto;
+
     padding: 30px 20px 60px;
+
     box-sizing: border-box;
 }
 
@@ -60,7 +67,7 @@
 
     border-radius: 10px;
 
-    background: #DF4444;
+    background: #df4444;
 
     color: white;
 
@@ -212,7 +219,7 @@
 .checkman-table th {
     padding: 15px;
 
-    background: #F8F8F8;
+    background: #f8f8f8;
 
     border-bottom: 1px solid #ddd;
 
@@ -241,7 +248,7 @@
 
 
 .checkman-table-row:hover {
-    background: #FAFAFA;
+    background: #fafafa;
 }
 
 
@@ -253,7 +260,7 @@
 /* 미확인 알림 */
 
 .checkman-unread-row {
-    background: #FFFAFA;
+    background: #fffafa;
 }
 
 
@@ -299,16 +306,16 @@
 
 
 .checkman-read {
-    background: #EEF7F0;
+    background: #eef7f0;
 
-    color: #50815B;
+    color: #50815b;
 }
 
 
 .checkman-unread {
-    background: #FFF0F0;
+    background: #fff0f0;
 
-    color: #D14B4B;
+    color: #d14b4b;
 }
 
 
@@ -334,23 +341,23 @@
 
 
 .checkman-severity-caution {
-    background: #FFF8DD;
+    background: #fff8dd;
 
-    color: #A9851C;
+    color: #a9851c;
 }
 
 
 .checkman-severity-risk {
-    background: #FFF0DF;
+    background: #fff0df;
 
-    color: #D88421;
+    color: #d88421;
 }
 
 
 .checkman-severity-danger {
-    background: #FFF0F0;
+    background: #fff0f0;
 
-    color: #D14B4B;
+    color: #d14b4b;
 }
 
 
@@ -404,7 +411,7 @@
 
     padding: 16px 18px;
 
-    background: #F8F8F8;
+    background: #f8f8f8;
 
     border-radius: 12px;
 }
@@ -429,7 +436,7 @@
 
     padding: 20px;
 
-    background: #F8F8F8;
+    background: #f8f8f8;
 
     border-radius: 12px;
 
@@ -501,7 +508,7 @@
 
 
 .checkman-detail-btn:hover {
-    background: #F5F5F5;
+    background: #f5f5f5;
 }
 
 
@@ -525,6 +532,7 @@
     .checkman-dashboard {
         width: 95%;
     }
+
 }
 
 
@@ -540,8 +548,8 @@
     .checkman-detail-grid {
         grid-template-columns: 1fr;
     }
-}
 
+}
 
 /* ==========================================
    건강검진 예약
@@ -551,6 +559,7 @@
 /* 예약 대기 숫자 */
 
 .checkman-reservation-count {
+
     display: inline-flex;
 
     justify-content: center;
@@ -567,7 +576,7 @@
 
     border-radius: 10px;
 
-    background: #3F8F57;
+    background: #3f8f57;
 
     color: white;
 
@@ -582,6 +591,7 @@
 ========================================== */
 
 .checkman-reservation-status {
+
     display: inline-flex;
 
     justify-content: center;
@@ -605,58 +615,33 @@
 /* 승인 대기 */
 
 .checkman-reservation-n {
-    background: #FFF8DD;
 
-    color: #A9851C;
+    background: #fff8dd;
+
+    color: #a9851c;
 }
 
 
 /* 승인 완료 */
 
 .checkman-reservation-y {
-    background: #EEF7F0;
 
-    color: #50815B;
+    background: #eef7f0;
+
+    color: #50815b;
 }
 
 
 /* 취소 */
 
 .checkman-reservation-c {
-    background: #F2F2F2;
+
+    background: #f2f2f2;
 
     color: #888;
 }
 
 
-/* ==========================================
-   승인 버튼
-========================================== */
-
-.checkman-approve-btn {
-    height: 32px;
-
-    padding: 0 16px;
-
-    border: none;
-
-    border-radius: 16px;
-
-    background: #111;
-
-    color: white;
-
-    font-size: 11px;
-
-    font-weight: 600;
-
-    cursor: pointer;
-}
-
-
-.checkman-approve-btn:hover {
-    background: #333;
-}
 
 
 /* ==========================================
@@ -664,7 +649,62 @@
 ========================================== */
 
 .checkman-complete-text {
+
     color: #888;
 
     font-size: 11px;
+}
+
+/* =========================================
+   건강검진 예약 관리 버튼 공통
+========================================= */
+
+.checkman-approve-btn,
+.checkman-cancel-btn {
+    padding: 8px 16px;
+
+    border: none;
+    border-radius: 6px;
+
+    color: white;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease;
+}
+
+
+/* 승인 */
+
+.checkman-approve-btn {
+    background: #2f855a;
+}
+
+.checkman-approve-btn:hover {
+    background: #276749;
+}
+
+
+/* 취소 */
+
+.checkman-cancel-btn {
+    margin-left: 8px;
+    background: #dc3545;
+}
+
+.checkman-cancel-btn:hover {
+    background: #c82333;
+}
+
+
+/* 클릭 */
+
+.checkman-approve-btn:active,
+.checkman-cancel-btn:active {
+    transform: scale(0.97);
 }

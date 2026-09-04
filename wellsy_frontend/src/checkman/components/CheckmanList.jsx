@@ -1,18 +1,19 @@
 import {
-    useEffect,
-    useState
+    useEffect,
+    useState
 } from "react";
 
 import {
-    useNavigate,
-    useSearchParams
+    useNavigate,
+    useSearchParams
 } from "react-router-dom";
 
 import {
-    selectCheckmanListApi,
-    selectCheckmanAlertListApi,
-    selectCheckupReservationListApi,
-    approveCheckupReservationApi
+    selectCheckmanListApi,
+    selectCheckmanAlertListApi,
+    selectCheckupReservationListApi,
+    approveCheckupReservationApi,
+    cancelCheckupReservationApi
 } from "../api/CheckmanApi";
 
 import "../styles/Checkman.css";
@@ -20,1677 +21,1756 @@ import "../styles/Checkman.css";
 
 function CheckmanList() {
 
-    const navigate = useNavigate();
+    const navigate = useNavigate();
 
-    const [searchParams] =
-        useSearchParams();
+    const [searchParams] =
+        useSearchParams();
 
 
-    // =========================================
-    // URL에서 탭 확인
-    //
-    // /checkman
-    // → 직원 건강정보
-    //
-    // /checkman?tab=reservation
-    // → 건강검진 예약 승인
-    // =========================================
+    // =========================================
+    // URL에서 탭 확인
+    //
+    // /checkman
+    // → 직원 건강정보
+    //
+    // /checkman?tab=reservation
+    // → 건강검진 예약 승인
+    // =========================================
 
-    const tab =
-        searchParams.get("tab");
+    const tab =
+        searchParams.get("tab");
 
 
-    // =========================================
-    // 현재 메뉴
-    //
-    // health
-    // alert
-    // reservation
-    // =========================================
+    // =========================================
+    // 현재 메뉴
+    //
+    // health
+    // alert
+    // reservation
+    // =========================================
 
-    const [menu, setMenu] =
-        useState(
-            tab === "reservation"
-                ? "reservation"
-                : tab === "alert"
-                    ? "alert"
-                    : "health"
-        );
+    const [menu, setMenu] =
+        useState(
+            tab === "reservation"
+                ? "reservation"
+                : tab === "alert"
+                    ? "alert"
+                    : "health"
+        );
 
 
-    // =========================================
-    // URL 변경 시 탭도 변경
-    // =========================================
+    // =========================================
+    // URL 변경 시 탭도 변경
+    // =========================================
 
-    useEffect(() => {
+    useEffect(() => {
 
-        if (
-            tab === "reservation"
-        ) {
+        if (
+            tab === "reservation"
+        ) {
 
-            setMenu("reservation");
+            setMenu("reservation");
 
-        } else if (
-            tab === "alert"
-        ) {
+        } else if (
+            tab === "alert"
+        ) {
 
-            setMenu("alert");
+            setMenu("alert");
 
-        } else {
+        } else {
 
-            setMenu("health");
+            setMenu("health");
 
-        }
+        }
 
-    }, [tab]);
+    }, [tab]);
 
 
-    // =========================================
-    // 직원 건강정보
-    // =========================================
+    // =========================================
+    // 직원 건강정보
+    // =========================================
 
-    const [checkmanList, setCheckmanList]
-        = useState([]);
+    const [checkmanList, setCheckmanList]
+        = useState([]);
 
 
-    // =========================================
-    // 건강 이상 알림
-    // =========================================
+    // =========================================
+    // 건강 이상 알림
+    // =========================================
 
-    const [alertList, setAlertList]
-        = useState([]);
+    const [alertList, setAlertList]
+        = useState([]);
 
 
-    // =========================================
-    // 건강검진 예약
-    // =========================================
+    // =========================================
+    // 건강검진 예약
+    // =========================================
 
-    const [reservationList, setReservationList]
-        = useState([]);
+    const [reservationList, setReservationList]
+        = useState([]);
 
 
-    // =========================================
-    // 건강정보 검색조건
-    // =========================================
+    // =========================================
+    // 건강정보 검색조건
+    // =========================================
 
-    const [healthFilter, setHealthFilter]
-        = useState({
+    const [healthFilter, setHealthFilter]
+        = useState({
 
-            keyword : "",
+            keyword : "",
 
-            startDate : "",
+            startDate : "",
 
-            endDate : ""
+            endDate : ""
 
-        });
-    // =========================================
-    // 이상 알림 검색조건
-    // =========================================
+        });
+    // =========================================
+    // 이상 알림 검색조건
+    // =========================================
 
-    const [alertFilter, setAlertFilter]
-        = useState({
+    const [alertFilter, setAlertFilter]
+        = useState({
 
-            keyword : "",
+            keyword : "",
 
-            severity : "",
+            severity : "",
 
-            isRead : "",
+            isRead : "",
 
-            startDate : "",
+            startDate : "",
 
-            endDate : ""
+            endDate : ""
 
-        });
+        });
 
 
-    // =========================================
-    // 예약 검색조건
-    // =========================================
+    // =========================================
+    // 예약 검색조건
+    // =========================================
 
-    const [reservationFilter, setReservationFilter]
-        = useState({
+    const [reservationFilter, setReservationFilter]
+        = useState({
 
-            name : "",
+            name : "",
 
-            status : "N"
+            status : "N"
 
-        });
+        });
 
 
-    // =========================================
-    // 건강정보 검색값 변경
-    // =========================================
+    // =========================================
+    // 건강정보 검색값 변경
+    // =========================================
 
-    const handleHealthChange = e => {
+    const handleHealthChange = e => {
 
-        setHealthFilter({
+        setHealthFilter({
 
-            ...healthFilter,
+            ...healthFilter,
 
-            [e.target.name] :
-                e.target.value
+            [e.target.name] :
+                e.target.value
 
-        });
+        });
 
-    };
+    };
 
 
-    // =========================================
-    // 알림 검색값 변경
-    // =========================================
+    // =========================================
+    // 알림 검색값 변경
+    // =========================================
 
-    const handleAlertChange = e => {
+    const handleAlertChange = e => {
 
-        setAlertFilter({
+        setAlertFilter({
 
-            ...alertFilter,
+            ...alertFilter,
 
-            [e.target.name] :
-                e.target.value
+            [e.target.name] :
+                e.target.value
 
-        });
+        });
 
-    };
+    };
 
 
-    // =========================================
-    // 예약 검색값 변경
-    // =========================================
+    // =========================================
+    // 예약 검색값 변경
+    // =========================================
 
-    const handleReservationChange = e => {
+    const handleReservationChange = e => {
 
-        setReservationFilter({
+        setReservationFilter({
 
-            ...reservationFilter,
+            ...reservationFilter,
 
-            [e.target.name] :
-                e.target.value
+            [e.target.name] :
+                e.target.value
 
-        });
+        });
 
-    };
+    };
 
 
-    // =========================================
-    // 직원 건강정보 조회
-    // =========================================
+    // =========================================
+    // 직원 건강정보 조회
+    // =========================================
 
-    const selectCheckmanList = async () => {
+    const selectCheckmanList = async () => {
 
-        try {
+        try {
 
-            const response
-                = await selectCheckmanListApi(
-                    healthFilter
-                );
+            const response
+                = await selectCheckmanListApi(
+                    healthFilter
+                );
 
 
-            setCheckmanList(
-                response.data
-            );
+            setCheckmanList(
+                response.data
+            );
 
 
-        } catch(error) {
+        } catch(error) {
 
-            console.log(
-                "직원 건강정보 조회 실패!"
-            );
+            console.log(
+                "직원 건강정보 조회 실패!"
+            );
 
-            console.log(error);
+            console.log(error);
 
-        }
+        }
 
-    };
+    };
 
 
-    // =========================================
-    // 건강 이상 알림 조회
-    // =========================================
+    // =========================================
+    // 건강 이상 알림 조회
+    // =========================================
 
-    const selectAlertList = async () => {
+    const selectAlertList = async () => {
 
-        try {
+        try {
 
-            const response
-                = await selectCheckmanAlertListApi(
-                    alertFilter
-                );
+            const response
+                = await selectCheckmanAlertListApi(
+                    alertFilter
+                );
 
 
-            setAlertList(
-                response.data
-            );
+            setAlertList(
+                response.data
+            );
 
 
-        } catch(error) {
+        } catch(error) {
 
-            console.log(
-                "건강 이상 알림 조회 실패!"
-            );
+            console.log(
+                "건강 이상 알림 조회 실패!"
+            );
 
-            console.log(error);
+            console.log(error);
 
-        }
+        }
 
-    };
+    };
 
 
-    // =========================================
-    // 건강검진 예약 조회
-    // =========================================
+    // =========================================
+    // 건강검진 예약 조회
+    // =========================================
 
-    const selectReservationList = async () => {
+    const selectReservationList = async () => {
 
-        try {
+        try {
 
-            const params = {};
+            const params = {};
 
 
-            // 직원 이름
-            if(
-                reservationFilter.name !== ""
-            ) {
+            // 직원 이름
+            if(
+                reservationFilter.name !== ""
+            ) {
 
-                params.name =
-                    reservationFilter.name;
+                params.name =
+                    reservationFilter.name;
 
-            }
+            }
 
 
-            // 상태
-            if(
-                reservationFilter.status !== ""
-            ) {
+            // 상태
+            if(
+                reservationFilter.status !== ""
+            ) {
 
-                params.status =
-                    reservationFilter.status;
+                params.status =
+                    reservationFilter.status;
 
-            }
+            }
 
 
-            const response
-                = await selectCheckupReservationListApi(
-                    params
-                );
+            const response
+                = await selectCheckupReservationListApi(
+                    params
+                );
 
 
-            setReservationList(
-                response.data
-            );
+            setReservationList(
+                response.data
+            );
 
 
-        } catch(error) {
+        } catch(error) {
 
-            console.log(
-                "건강검진 예약 조회 실패!"
-            );
+            console.log(
+                "건강검진 예약 조회 실패!"
+            );
 
-            console.log(error);
+            console.log(error);
 
-        }
+        }
 
-    };
+    };
 
 
-    // =========================================
-    // 최초 조회
-    // =========================================
+    // =========================================
+    // 최초 조회
+    // =========================================
 
-    useEffect(() => {
+    useEffect(() => {
 
-        selectCheckmanList();
+        selectCheckmanList();
 
-        selectAlertList();
+        selectAlertList();
 
-        selectReservationList();
+        selectReservationList();
 
-    }, []);
+    }, []);
 
 
-    // =========================================
-    // 건강정보 검색
-    // =========================================
+    // =========================================
+    // 건강정보 검색
+    // =========================================
 
-    const searchHealth = () => {
+    const searchHealth = () => {
 
-        if(
-            healthFilter.startDate !== ""
-            &&
-            healthFilter.endDate !== ""
-            &&
-            healthFilter.startDate
-                > healthFilter.endDate
-        ) {
+        if(
+            healthFilter.startDate !== ""
+            &&
+            healthFilter.endDate !== ""
+            &&
+            healthFilter.startDate
+                > healthFilter.endDate
+        ) {
 
-            alert(
-                "시작일은 종료일보다 늦을 수 없습니다."
-            );
+            alert(
+                "시작일은 종료일보다 늦을 수 없습니다."
+            );
 
-            return;
+            return;
 
-        }
+        }
 
 
-        selectCheckmanList();
+        selectCheckmanList();
 
-    };
+    };
 
 
-    // =========================================
-    // 건강 이상 알림 검색
-    // =========================================
+    // =========================================
+    // 건강 이상 알림 검색
+    // =========================================
 
-    const searchAlert = () => {
+    const searchAlert = () => {
 
-        if(
-            alertFilter.startDate !== ""
-            &&
-            alertFilter.endDate !== ""
-            &&
-            alertFilter.startDate
-                > alertFilter.endDate
-        ) {
+        if(
+            alertFilter.startDate !== ""
+            &&
+            alertFilter.endDate !== ""
+            &&
+            alertFilter.startDate
+                > alertFilter.endDate
+        ) {
 
-            alert(
-                "시작일은 종료일보다 늦을 수 없습니다."
-            );
+            alert(
+                "시작일은 종료일보다 늦을 수 없습니다."
+            );
 
-            return;
+            return;
 
-        }
+        }
 
 
-        selectAlertList();
+        selectAlertList();
 
-    };
+    };
 
 
-    // =========================================
-    // 건강검진 예약 검색
-    // =========================================
+    // =========================================
+    // 건강검진 예약 검색
+    // =========================================
 
-    const searchReservation = () => {
+    const searchReservation = () => {
 
-        selectReservationList();
+        selectReservationList();
 
-    };
+    };
 
 
-    // =========================================
-    // 건강검진 승인
-    // =========================================
+    // =========================================
+    // 건강검진 승인
+    // =========================================
 
-    const approveReservation
-        = async reservationId => {
+    const approveReservation
+        = async reservationId => {
 
-        if(
-            !window.confirm(
-                "해당 건강검진 예약을 승인하시겠습니까?"
-            )
-        ) {
+        if(
+            !window.confirm(
+                "해당 건강검진 예약을 승인하시겠습니까?"
+            )
+        ) {
 
-            return;
+            return;
 
-        }
+        }
 
 
-        try {
+        try {
 
-            const response
-                = await approveCheckupReservationApi(
-                    reservationId
-                );
+            const response
+                = await approveCheckupReservationApi(
+                    reservationId
+                );
 
 
-            alert(
-                response.data
-                ?? "건강검진 예약이 승인되었습니다."
-            );
+            alert(
+                response.data
+                ?? "건강검진 예약이 승인되었습니다."
+            );
 
 
-            // 승인 후 다시 조회
-            // 기본 N 상태라면 승인된 예약은
-            // 승인 대기 목록에서 바로 사라짐
-            await selectReservationList();
+            // 승인 후 다시 조회
+            // 기본 N 상태라면 승인된 예약은
+            // 승인 대기 목록에서 바로 사라짐
+            await selectReservationList();
 
 
-        } catch(error) {
+        } catch(error) {
 
-            console.log(
-                "건강검진 예약 승인 실패!"
-            );
+            console.log(
+                "건강검진 예약 승인 실패!"
+            );
 
-            console.log(error);
+            console.log(error);
 
 
-            if(
-                error.response?.data
-            ) {
+            if(
+                error.response?.data
+            ) {
 
-                alert(
-                    error.response.data
-                );
+                alert(
+                    error.response.data
+                );
 
-            } else {
+            } else {
 
-                alert(
-                    "건강검진 예약 승인 중 오류가 발생했습니다."
-                );
+                alert(
+                    "건강검진 예약 승인 중 오류가 발생했습니다."
+                );
 
-            }
+            }
 
-        }
+        }
 
-    };
+    };
 
 
-    // =========================================
-    // 알림 심각도 한글변환
-    // =========================================
+    // =========================================
+    // 건강검진 예약 취소
+    // =========================================
 
-    const getSeverityName = severity => {
+    const cancelReservation
+        = async reservationId => {
 
-        switch(severity) {
+        if(
+            !window.confirm(
+                "해당 건강검진 예약을 취소하시겠습니까?"
+            )
+        ) {
 
-            case "DANGER":
-                return "위험";
+            return;
 
-            case "RISK":
-                return "경고";
+        }
 
-            case "CAUTION":
-                return "주의";
 
-            default:
-                return severity ?? "-";
+        try {
 
-        }
+            const response
+                = await cancelCheckupReservationApi(
+                    reservationId
+                );
 
-    };
 
+            alert(
+                response.data
+                ?? "건강검진 예약이 취소되었습니다."
+            );
 
-    // =========================================
-    // 예약 상태 한글
-    // =========================================
 
-    const getReservationStatusName
-        = status => {
+            await selectReservationList();
 
-        switch(status) {
 
-            case "N":
-                return "승인대기";
+        } catch(error) {
 
-            case "Y":
-                return "승인완료";
+            console.log(
+                "건강검진 예약 취소 실패!"
+            );
 
-            case "C":
-                return "취소";
+            console.log(error);
 
-            default:
-                return "-";
 
-        }
+            if(
+                error.response?.data
+            ) {
 
-    };
+                alert(
+                    error.response.data
+                );
 
+            } else {
 
-    // =========================================
-    // 승인 대기 예약 수
-    // =========================================
+                alert(
+                    "건강검진 예약 취소 중 오류가 발생했습니다."
+                );
 
-    const waitingReservationCount
-        = reservationList.filter(
-            reservation =>
-                reservation.status === "N"
-        ).length;
+            }
 
+        }
 
-    // =========================================
-    // 미확인 알림 수
-    // =========================================
+    };
 
-    const unreadAlertCount
-        = alertList.filter(
-            alert =>
-                alert.isRead === "N"
-        ).length;
 
+    // =========================================
+    // 알림 심각도 한글변환
+    // =========================================
 
-    return (
+    const getSeverityName = severity => {
 
-        <div className="checkman-dashboard">
+        switch(severity) {
 
+            case "DANGER":
+                return "위험";
 
-            {/* ================================= */}
-            {/* 상단 메뉴 */}
-            {/* ================================= */}
+            case "RISK":
+                return "경고";
 
-            <div className="checkman-menu-area">
+            case "CAUTION":
+                return "주의";
 
+            default:
+                return severity ?? "-";
 
-                {/* 직원 건강정보 */}
+        }
 
-                <button
-                    type="button"
+    };
 
-                    className={
-                        menu === "health"
-                        ?
-                        "checkman-menu-btn checkman-menu-active"
-                        :
-                        "checkman-menu-btn"
-                    }
 
-                    onClick={ () => {
+    // =========================================
+    // 예약 상태 한글
+    // =========================================
 
-                        setMenu("health");
+    const getReservationStatusName
+        = status => {
 
-                    }}
-                >
-                    직원 건강정보
-                </button>
+        switch(status) {
 
+            case "N":
+                return "승인대기";
 
+            case "Y":
+                return "승인완료";
 
-                {/* 건강 이상 알림 */}
+            case "C":
+                return "취소";
 
-                <button
-                    type="button"
+            default:
+                return "-";
 
-                    className={
-                        menu === "alert"
-                        ?
-                        "checkman-menu-btn checkman-menu-active"
-                        :
-                        "checkman-menu-btn"
-                    }
+        }
 
-                    onClick={ () => {
+    };
 
-                        setMenu("alert");
 
-                    }}
-                >
+    // =========================================
+    // 승인 대기 예약 수
+    // =========================================
 
-                    건강 이상 알림
+    const waitingReservationCount
+        = reservationList.filter(
+            reservation =>
+                reservation.status === "N"
+        ).length;
 
 
-                    {
-                        unreadAlertCount > 0
-                        &&
-                        (
-                            <span className="checkman-alert-count">
+    // =========================================
+    // 미확인 알림 수
+    // =========================================
 
-                                { unreadAlertCount }
+    const unreadAlertCount
+        = alertList.filter(
+            alert =>
+                alert.isRead === "N"
+        ).length;
 
-                            </span>
-                        )
-                    }
 
-                </button>
+    return (
 
+        <div className="checkman-dashboard">
 
 
-                {/* 건강검진 예약 승인 */}
+            {/* ================================= */}
+            {/* 상단 메뉴 */}
+            {/* ================================= */}
 
-                <button
-                    type="button"
+            <div className="checkman-menu-area">
 
-                    className={
-                        menu === "reservation"
-                        ?
-                        "checkman-menu-btn checkman-menu-active"
-                        :
-                        "checkman-menu-btn"
-                    }
 
-                    onClick={ () => {
+                {/* 직원 건강정보 */}
 
-                        setMenu("reservation");
+                <button
+                    type="button"
 
-                        selectReservationList();
+                    className={
+                        menu === "health"
+                        ?
+                        "checkman-menu-btn checkman-menu-active"
+                        :
+                        "checkman-menu-btn"
+                    }
 
-                    }}
-                >
+                    onClick={ () => {
 
-                    예약 승인
+                        setMenu("health");
 
+                    }}
+                >
+                    직원 건강정보
+                </button>
 
-                    {
-                        waitingReservationCount > 0
-                        &&
-                        (
-                            <span className="checkman-reservation-count">
 
-                                {
-                                    waitingReservationCount
-                                }
 
-                            </span>
-                        )
-                    }
+                {/* 건강 이상 알림 */}
 
-                </button>
+                <button
+                    type="button"
 
+                    className={
+                        menu === "alert"
+                        ?
+                        "checkman-menu-btn checkman-menu-active"
+                        :
+                        "checkman-menu-btn"
+                    }
 
-            </div>
+                    onClick={ () => {
 
+                        setMenu("alert");
 
+                    }}
+                >
 
-            {/* ================================= */}
-            {/* 직원 건강정보 탭 */}
-            {/* ================================= */}
+                    건강 이상 알림
 
-            {
-                menu === "health"
-                &&
-                (
 
-                    <div className="checkman-card-area">
+                    {
+                        unreadAlertCount > 0
+                        &&
+                        (
+                            <span className="checkman-alert-count">
 
-                        <div className="checkman-card">
+                                { unreadAlertCount }
 
+                            </span>
+                        )
+                    }
 
-                            <div className="checkman-header">
+                </button>
 
-                                <h2>
-                                    직원 건강정보
-                                </h2>
 
-                                <p>
-                                    직원별 건강기록을 조회하고 건강 상태를 확인합니다.
-                                </p>
 
-                            </div>
+                {/* 건강검진 예약 승인 */}
 
+                <button
+                    type="button"
 
+                    className={
+                        menu === "reservation"
+                        ?
+                        "checkman-menu-btn checkman-menu-active"
+                        :
+                        "checkman-menu-btn"
+                    }
 
-                            {/* 검색 */}
+                    onClick={ () => {
 
-                            <div className="checkman-search-area">
+                        setMenu("reservation");
 
+                        selectReservationList();
 
-                                <input
-                                    type="text"
+                    }}
+                >
 
-                                    name="keyword"
+                    예약 승인
 
-                                    value={
-                                        healthFilter.keyword
-                                    }
 
-                                    onChange={
-                                        handleHealthChange
-                                    }
+                    {
+                        waitingReservationCount > 0
+                        &&
+                        (
+                            <span className="checkman-reservation-count">
 
-                                    placeholder="직원 이름을 입력해주세요."
-                                />
+                                {
+                                    waitingReservationCount
+                                }
 
+                            </span>
+                        )
+                    }
 
-                                <input
-                                    type="date"
+                </button>
 
-                                    name="startDate"
 
-                                    value={
-                                        healthFilter.startDate
-                                    }
+            </div>
 
-                                    onChange={
-                                        handleHealthChange
-                                    }
-                                />
 
 
-                                <span>
-                                    ~
-                                </span>
+            {/* ================================= */}
+            {/* 직원 건강정보 탭 */}
+            {/* ================================= */}
 
+            {
+                menu === "health"
+                &&
+                (
 
-                                <input
-                                    type="date"
+                    <div className="checkman-card-area">
 
-                                    name="endDate"
+                        <div className="checkman-card">
 
-                                    value={
-                                        healthFilter.endDate
-                                    }
 
-                                    onChange={
-                                        handleHealthChange
-                                    }
-                                />
+                            <div className="checkman-header">
 
+                                <h2>
+                                    직원 건강정보
+                                </h2>
 
-                                <button
-                                    type="button"
+                                <p>
+                                    직원별 건강기록을 조회하고 건강 상태를 확인합니다.
+                                </p>
 
-                                    className="checkman-search-btn"
+                            </div>
 
-                                    onClick={
-                                        searchHealth
-                                    }
-                                >
-                                    조회
-                                </button>
 
 
-                            </div>
+                            {/* 검색 */}
 
+                            <div className="checkman-search-area">
 
 
-                            {/* 건강정보 목록 */}
+                                <input
+                                    type="text"
 
-                            <div className="checkman-table-area">
+                                    name="keyword"
 
-                                <table className="checkman-table">
+                                    value={
+                                        healthFilter.keyword
+                                    }
 
-                                    <thead>
+                                    onChange={
+                                        handleHealthChange
+                                    }
 
-                                        <tr>
+                                    placeholder="직원 이름을 입력해주세요."
+                                />
 
-                                            <th>
-                                                이름
-                                            </th>
 
-                                            <th>
-                                                부서
-                                            </th>
+                                <input
+                                    type="date"
 
-                                            <th>
-                                                직급
-                                            </th>
+                                    name="startDate"
 
-                                            <th>
-                                                기록일
-                                            </th>
+                                    value={
+                                        healthFilter.startDate
+                                    }
 
-                                            <th>
-                                                BMI
-                                            </th>
+                                    onChange={
+                                        handleHealthChange
+                                    }
+                                />
 
-                                            <th>
-                                                혈압
-                                            </th>
 
-                                            <th>
-                                                혈당
-                                            </th>
+                                <span>
+                                    ~
+                                </span>
 
-                                        </tr>
 
-                                    </thead>
+                                <input
+                                    type="date"
 
+                                    name="endDate"
 
-                                    <tbody>
+                                    value={
+                                        healthFilter.endDate
+                                    }
 
-                                        {
-                                            checkmanList.length > 0
-                                            ?
-                                            checkmanList.map(
-                                                checkman => (
+                                    onChange={
+                                        handleHealthChange
+                                    }
+                                />
 
-                                                    <tr
-                                                        key={
-                                                            checkman.healthRecordId
-                                                        }
 
-                                                        className="checkman-table-row"
+                                <button
+                                    type="button"
 
-                                                        onClick={ () => {
+                                    className="checkman-search-btn"
 
-                                                            navigate(
-                                                                `/checkman/health/${checkman.healthRecordId}`
-                                                            );
+                                    onClick={
+                                        searchHealth
+                                    }
+                                >
+                                    조회
+                                </button>
 
-                                                        }}
-                                                    >
 
-                                                        <td className="checkman-name-cell">
+                            </div>
 
-                                                            {
-                                                                checkman.employeeName
-                                                            }
 
-                                                        </td>
 
+                            {/* 건강정보 목록 */}
 
-                                                        <td>
+                            <div className="checkman-table-area">
 
-                                                            {
-                                                                checkman.departmentName
-                                                                ??
-                                                                "-"
-                                                            }
+                                <table className="checkman-table">
 
-                                                        </td>
+                                    <thead>
 
+                                        <tr>
 
-                                                        <td>
+                                            <th>
+                                                이름
+                                            </th>
 
-                                                            {
-                                                                checkman.jobName
-                                                                ??
-                                                                "-"
-                                                            }
+                                            <th>
+                                                부서
+                                            </th>
 
-                                                        </td>
+                                            <th>
+                                                직급
+                                            </th>
 
+                                            <th>
+                                                기록일
+                                            </th>
 
-                                                        <td>
+                                            <th>
+                                                BMI
+                                            </th>
 
-                                                            {
-                                                                checkman.recordDate
-                                                                ??
-                                                                "-"
-                                                            }
+                                            <th>
+                                                혈압
+                                            </th>
 
-                                                        </td>
+                                            <th>
+                                                혈당
+                                            </th>
 
+                                        </tr>
 
-                                                        <td>
+                                    </thead>
 
-                                                            {
-                                                                checkman.bmi
-                                                                ??
-                                                                "-"
-                                                            }
 
-                                                        </td>
+                                    <tbody>
 
+                                        {
+                                            checkmanList.length > 0
+                                            ?
+                                            checkmanList.map(
+                                                checkman => (
 
-                                                        <td>
+                                                    <tr
+                                                        key={
+                                                            checkman.healthRecordId
+                                                        }
 
-                                                            {
-                                                                checkman.systolicBp != null
-                                                                &&
-                                                                checkman.diastolicBp != null
-                                                                ?
-                                                                `${checkman.systolicBp}/${checkman.diastolicBp}`
-                                                                :
-                                                                "-"
-                                                            }
+                                                        className="checkman-table-row"
 
-                                                        </td>
+                                                        onClick={ () => {
 
+                                                            navigate(
+                                                                `/checkman/health/${checkman.healthRecordId}`
+                                                            );
 
-                                                        <td>
+                                                        }}
+                                                    >
 
-                                                            {
-                                                                checkman.bloodSugar
-                                                                ??
-                                                                "-"
-                                                            }
+                                                        <td className="checkman-name-cell">
 
-                                                        </td>
+                                                            {
+                                                                checkman.employeeName
+                                                            }
 
-                                                    </tr>
+                                                        </td>
 
-                                                )
-                                            )
-                                            :
-                                            (
 
-                                                <tr>
+                                                        <td>
 
-                                                    <td
-                                                        colSpan="7"
-                                                        className="checkman-empty"
-                                                    >
-                                                        조회된 건강정보가 없습니다.
-                                                    </td>
+                                                            {
+                                                                checkman.departmentName
+                                                                ??
+                                                                "-"
+                                                            }
 
-                                                </tr>
+                                                        </td>
 
-                                            )
-                                        }
 
-                                    </tbody>
+                                                        <td>
 
-                                </table>
+                                                            {
+                                                                checkman.jobName
+                                                                ??
+                                                                "-"
+                                                            }
 
-                            </div>
+                                                        </td>
 
 
-                        </div>
+                                                        <td>
 
-                    </div>
+                                                            {
+                                                                checkman.recordDate
+                                                                ??
+                                                                "-"
+                                                            }
 
-                )
-            }
+                                                        </td>
 
 
+                                                        <td>
 
-            {/* ================================= */}
-            {/* 건강 이상 알림 탭 */}
-            {/* ================================= */}
+                                                            {
+                                                                checkman.bmi
+                                                                ??
+                                                                "-"
+                                                            }
 
-            {
-                menu === "alert"
-                &&
-                (
+                                                        </td>
 
-                    <div className="checkman-card-area">
 
-                        <div className="checkman-card">
+                                                        <td>
 
+                                                            {
+                                                                checkman.systolicBp != null
+                                                                &&
+                                                                checkman.diastolicBp != null
+                                                                ?
+                                                                `${checkman.systolicBp}/${checkman.diastolicBp}`
+                                                                :
+                                                                "-"
+                                                            }
 
-                            <div className="checkman-header">
+                                                        </td>
 
-                                <h2>
-                                    건강 이상 알림
-                                </h2>
 
-                                <p>
-                                    건강검진에서 발생한 이상 알림을 확인합니다.
-                                </p>
+                                                        <td>
 
-                            </div>
+                                                            {
+                                                                checkman.bloodSugar
+                                                                ??
+                                                                "-"
+                                                            }
 
+                                                        </td>
 
+                                                    </tr>
 
-                            {/* 검색 */}
+                                                )
+                                            )
+                                            :
+                                            (
 
-                            <div className="checkman-search-area">
+                                                <tr>
 
+                                                    <td
+                                                        colSpan="7"
+                                                        className="checkman-empty"
+                                                    >
+                                                        조회된 건강정보가 없습니다.
+                                                    </td>
 
-                                <input
-                                    type="text"
+                                                </tr>
 
-                                    name="keyword"
+                                            )
+                                        }
 
-                                    value={
-                                        alertFilter.keyword
-                                    }
+                                    </tbody>
 
-                                    onChange={
-                                        handleAlertChange
-                                    }
+                                </table>
 
-                                    placeholder="직원 이름"
-                                />
+                            </div>
 
 
-                                <select
-                                    name="severity"
+                        </div>
 
-                                    value={
-                                        alertFilter.severity
-                                    }
+                    </div>
 
-                                    onChange={
-                                        handleAlertChange
-                                    }
-                                >
+                )
+            }
 
-                                    <option value="">
-                                        전체 심각도
-                                    </option>
 
-                                    <option value="CAUTION">
-                                        주의
-                                    </option>
 
-                                    <option value="RISK">
-                                        경고
-                                    </option>
+            {/* ================================= */}
+            {/* 건강 이상 알림 탭 */}
+            {/* ================================= */}
 
-                                    <option value="DANGER">
-                                        위험
-                                    </option>
+            {
+                menu === "alert"
+                &&
+                (
 
-                                </select>
+                    <div className="checkman-card-area">
 
+                        <div className="checkman-card">
 
-                                <select
-                                    name="isRead"
 
-                                    value={
-                                        alertFilter.isRead
-                                    }
+                            <div className="checkman-header">
 
-                                    onChange={
-                                        handleAlertChange
-                                    }
-                                >
+                                <h2>
+                                    건강 이상 알림
+                                </h2>
 
-                                    <option value="">
-                                        전체 상태
-                                    </option>
+                                <p>
+                                    건강검진에서 발생한 이상 알림을 확인합니다.
+                                </p>
 
-                                    <option value="N">
-                                        미확인
-                                    </option>
+                            </div>
 
-                                    <option value="Y">
-                                        확인완료
-                                    </option>
 
-                                </select>
 
+                            {/* 검색 */}
 
-                                <input
-                                    type="date"
+                            <div className="checkman-search-area">
 
-                                    name="startDate"
 
-                                    value={
-                                        alertFilter.startDate
-                                    }
+                                <input
+                                    type="text"
 
-                                    onChange={
-                                        handleAlertChange
-                                    }
-                                />
+                                    name="keyword"
 
+                                    value={
+                                        alertFilter.keyword
+                                    }
 
-                                <span>
-                                    ~
-                                </span>
+                                    onChange={
+                                        handleAlertChange
+                                    }
 
+                                    placeholder="직원 이름"
+                                />
 
-                                <input
-                                    type="date"
 
-                                    name="endDate"
+                                <select
+                                    name="severity"
 
-                                    value={
-                                        alertFilter.endDate
-                                    }
+                                    value={
+                                        alertFilter.severity
+                                    }
 
-                                    onChange={
-                                        handleAlertChange
-                                    }
-                                />
+                                    onChange={
+                                        handleAlertChange
+                                    }
+                                >
 
+                                    <option value="">
+                                        전체 심각도
+                                    </option>
 
-                                <button
-                                    type="button"
+                                    <option value="CAUTION">
+                                        주의
+                                    </option>
 
-                                    className="checkman-search-btn"
+                                    <option value="RISK">
+                                        경고
+                                    </option>
 
-                                    onClick={
-                                        searchAlert
-                                    }
-                                >
-                                    조회
-                                </button>
+                                    <option value="DANGER">
+                                        위험
+                                    </option>
 
+                                </select>
 
-                            </div>
 
+                                <select
+                                    name="isRead"
 
+                                    value={
+                                        alertFilter.isRead
+                                    }
 
-                            {/* 알림 목록 */}
+                                    onChange={
+                                        handleAlertChange
+                                    }
+                                >
 
-                            <div className="checkman-table-area">
+                                    <option value="">
+                                        전체 상태
+                                    </option>
 
-                                <table className="checkman-table">
+                                    <option value="N">
+                                        미확인
+                                    </option>
 
-                                    <thead>
+                                    <option value="Y">
+                                        확인완료
+                                    </option>
 
-                                        <tr>
+                                </select>
 
-                                            <th>
-                                                직원
-                                            </th>
 
-                                            <th>
-                                                부서
-                                            </th>
+                                <input
+                                    type="date"
 
-                                            <th>
-                                                알림 유형
-                                            </th>
+                                    name="startDate"
 
-                                            <th>
-                                                심각도
-                                            </th>
+                                    value={
+                                        alertFilter.startDate
+                                    }
 
-                                            <th>
-                                                내용
-                                            </th>
+                                    onChange={
+                                        handleAlertChange
+                                    }
+                                />
 
-                                            <th>
-                                                발생일
-                                            </th>
 
-                                            <th>
-                                                상태
-                                            </th>
+                                <span>
+                                    ~
+                                </span>
 
-                                        </tr>
 
-                                    </thead>
+                                <input
+                                    type="date"
 
+                                    name="endDate"
 
-                                    <tbody>
+                                    value={
+                                        alertFilter.endDate
+                                    }
 
-                                        {
-                                            alertList.length > 0
-                                            ?
-                                            alertList.map(
-                                                alertData => (
+                                    onChange={
+                                        handleAlertChange
+                                    }
+                                />
 
-                                                    <tr
-                                                        key={
-                                                            alertData.alertId
-                                                        }
 
-                                                        className={
-                                                            alertData.isRead === "N"
-                                                            ?
-                                                            "checkman-table-row checkman-unread-row"
-                                                            :
-                                                            "checkman-table-row"
-                                                        }
+                                <button
+                                    type="button"
 
-                                                        onClick={ () => {
+                                    className="checkman-search-btn"
 
-                                                            navigate(
-                                                                `/checkman/alerts/${alertData.alertId}`
-                                                            );
+                                    onClick={
+                                        searchAlert
+                                    }
+                                >
+                                    조회
+                                </button>
 
-                                                        }}
-                                                    >
 
-                                                        <td className="checkman-name-cell">
+                            </div>
 
-                                                            {
-                                                                alertData.employeeName
-                                                            }
 
-                                                        </td>
 
+                            {/* 알림 목록 */}
 
-                                                        <td>
+                            <div className="checkman-table-area">
 
-                                                            {
-                                                                alertData.departmentName
-                                                                ??
-                                                                "-"
-                                                            }
+                                <table className="checkman-table">
 
-                                                        </td>
+                                    <thead>
 
+                                        <tr>
 
-                                                        <td>
+                                            <th>
+                                                직원
+                                            </th>
 
-                                                            {
-                                                                alertData.alertType
-                                                                ??
-                                                                "-"
-                                                            }
+                                            <th>
+                                                부서
+                                            </th>
 
-                                                        </td>
+                                            <th>
+                                                알림 유형
+                                            </th>
 
+                                            <th>
+                                                심각도
+                                            </th>
 
-                                                        <td>
+                                            <th>
+                                                내용
+                                            </th>
 
-                                                            <span
-                                                                className={
-                                                                    `checkman-severity checkman-severity-${alertData.severity?.toLowerCase()}`
-                                                                }
-                                                            >
+                                            <th>
+                                                발생일
+                                            </th>
 
-                                                                {
-                                                                    getSeverityName(
-                                                                        alertData.severity
-                                                                    )
-                                                                }
+                                            <th>
+                                                상태
+                                            </th>
 
-                                                            </span>
+                                        </tr>
 
-                                                        </td>
+                                    </thead>
 
 
-                                                        <td className="checkman-message-cell">
+                                    <tbody>
 
-                                                            {
-                                                                alertData.message
-                                                                ??
-                                                                "-"
-                                                            }
+                                        {
+                                            alertList.length > 0
+                                            ?
+                                            alertList.map(
+                                                alertData => (
 
-                                                        </td>
+                                                    <tr
+                                                        key={
+                                                            alertData.alertId
+                                                        }
 
+                                                        className={
+                                                            alertData.isRead === "N"
+                                                            ?
+                                                            "checkman-table-row checkman-unread-row"
+                                                            :
+                                                            "checkman-table-row"
+                                                        }
 
-                                                        <td>
+                                                        onClick={ () => {
 
-                                                            {
-                                                                alertData.alertCreatedAt
-                                                                ?
-                                                                alertData.alertCreatedAt
-                                                                    .replace(
-                                                                        "T",
-                                                                        " "
-                                                                    )
-                                                                    .substring(
-                                                                        0,
-                                                                        16
-                                                                    )
-                                                                :
-                                                                "-"
-                                                            }
+                                                            navigate(
+                                                                `/checkman/alerts/${alertData.alertId}`
+                                                            );
 
-                                                        </td>
+                                                        }}
+                                                    >
 
+                                                        <td className="checkman-name-cell">
 
-                                                        <td>
+                                                            {
+                                                                alertData.employeeName
+                                                            }
 
-                                                            <span
-                                                                className={
-                                                                    alertData.isRead === "Y"
-                                                                    ?
-                                                                    "checkman-read"
-                                                                    :
-                                                                    "checkman-unread"
-                                                                }
-                                                            >
+                                                        </td>
 
-                                                                {
-                                                                    alertData.isRead === "Y"
-                                                                    ?
-                                                                    "확인완료"
-                                                                    :
-                                                                    "미확인"
-                                                                }
 
-                                                            </span>
+                                                        <td>
 
-                                                        </td>
+                                                            {
+                                                                alertData.departmentName
+                                                                ??
+                                                                "-"
+                                                            }
 
-                                                    </tr>
+                                                        </td>
 
-                                                )
-                                            )
-                                            :
-                                            (
 
-                                                <tr>
+                                                        <td>
 
-                                                    <td
-                                                        colSpan="7"
-                                                        className="checkman-empty"
-                                                    >
-                                                        건강 이상 알림이 없습니다.
-                                                    </td>
+                                                            {
+                                                                alertData.alertType
+                                                                ??
+                                                                "-"
+                                                            }
 
-                                                </tr>
+                                                        </td>
 
-                                            )
-                                        }
 
-                                    </tbody>
+                                                        <td>
 
-                                </table>
+                                                            <span
+                                                                className={
+                                                                    `checkman-severity checkman-severity-${alertData.severity?.toLowerCase()}`
+                                                                }
+                                                            >
 
-                            </div>
+                                                                {
+                                                                    getSeverityName(
+                                                                        alertData.severity
+                                                                    )
+                                                                }
 
+                                                            </span>
 
-                        </div>
+                                                        </td>
 
-                    </div>
 
-                )
-            }
+                                                        <td className="checkman-message-cell">
 
+                                                            {
+                                                                alertData.message
+                                                                ??
+                                                                "-"
+                                                            }
 
+                                                        </td>
 
-            {/* ================================= */}
-            {/* 건강검진 예약 승인 탭 */}
-            {/* ================================= */}
 
-            {
-                menu === "reservation"
-                &&
-                (
+                                                        <td>
 
-                    <div className="checkman-card-area">
+                                                            {
+                                                                alertData.alertCreatedAt
+                                                                ?
+                                                                alertData.alertCreatedAt
+                                                                    .replace(
+                                                                        "T",
+                                                                        " "
+                                                                    )
+                                                                    .substring(
+                                                                        0,
+                                                                        16
+                                                                    )
+                                                                :
+                                                                "-"
+                                                            }
 
-                        <div className="checkman-card">
+                                                        </td>
 
 
-                            <div className="checkman-header">
+                                                        <td>
 
-                                <h2>
-                                    건강검진 예약 승인
-                                </h2>
+                                                            <span
+                                                                className={
+                                                                    alertData.isRead === "Y"
+                                                                    ?
+                                                                    "checkman-read"
+                                                                    :
+                                                                    "checkman-unread"
+                                                                }
+                                                            >
 
-                                <p>
-                                    직원이 신청한 건강검진 예약을 확인하고 승인합니다.
-                                </p>
+                                                                {
+                                                                    alertData.isRead === "Y"
+                                                                    ?
+                                                                    "확인완료"
+                                                                    :
+                                                                    "미확인"
+                                                                }
 
-                            </div>
+                                                            </span>
 
+                                                        </td>
 
+                                                    </tr>
 
-                            {/* 예약 검색 */}
+                                                )
+                                            )
+                                            :
+                                            (
 
-                            <div className="checkman-search-area">
+                                                <tr>
 
+                                                    <td
+                                                        colSpan="7"
+                                                        className="checkman-empty"
+                                                    >
+                                                        건강 이상 알림이 없습니다.
+                                                    </td>
 
-                                <input
-                                    type="text"
+                                                </tr>
 
-                                    name="name"
+                                            )
+                                        }
 
-                                    value={
-                                        reservationFilter.name
-                                    }
+                                    </tbody>
 
-                                    onChange={
-                                        handleReservationChange
-                                    }
+                                </table>
 
-                                    placeholder="직원 이름"
-                                />
+                            </div>
 
 
-                                <select
-                                    name="status"
+                        </div>
 
-                                    value={
-                                        reservationFilter.status
-                                    }
+                    </div>
 
-                                    onChange={
-                                        handleReservationChange
-                                    }
-                                >
+                )
+            }
 
-                                    <option value="N">
-                                        승인대기
-                                    </option>
 
-                                    <option value="Y">
-                                        승인완료
-                                    </option>
 
-                                    <option value="C">
-                                        취소
-                                    </option>
+            {/* ================================= */}
+            {/* 건강검진 예약 승인 탭 */}
+            {/* ================================= */}
 
-                                    <option value="">
-                                        전체
-                                    </option>
+            {
+                menu === "reservation"
+                &&
+                (
 
-                                </select>
+                    <div className="checkman-card-area">
 
+                        <div className="checkman-card">
 
-                                <button
-                                    type="button"
 
-                                    className="checkman-search-btn"
+                            <div className="checkman-header">
 
-                                    onClick={
-                                        searchReservation
-                                    }
-                                >
-                                    조회
-                                </button>
+                                <h2>
+                                    건강검진 예약 승인
+                                </h2>
 
+                                <p>
+                                    직원이 신청한 건강검진 예약을 확인하고 승인합니다.
+                                </p>
 
-                            </div>
+                            </div>
 
 
 
-                            {/* 예약 목록 */}
+                            {/* 예약 검색 */}
 
-                            <div className="checkman-table-area">
+                            <div className="checkman-search-area">
 
-                                <table className="checkman-table">
 
-                                    <thead>
+                                <input
+                                    type="text"
 
-                                        <tr>
+                                    name="name"
 
-                                            <th>
-                                                사번
-                                            </th>
+                                    value={
+                                        reservationFilter.name
+                                    }
 
-                                            <th>
-                                                이름
-                                            </th>
+                                    onChange={
+                                        handleReservationChange
+                                    }
 
-                                            <th>
-                                                부서
-                                            </th>
+                                    placeholder="직원 이름"
+                                />
 
-                                            <th>
-                                                직급
-                                            </th>
 
-                                            <th>
-                                                검진 희망일
-                                            </th>
+                                <select
+                                    name="status"
 
-                                            <th>
-                                                최근 검진일
-                                            </th>
+                                    value={
+                                        reservationFilter.status
+                                    }
 
-                                            <th>
-                                                병원
-                                            </th>
+                                    onChange={
+                                        handleReservationChange
+                                    }
+                                >
 
-                                            <th>
-                                                메모
-                                            </th>
+                                    <option value="N">
+                                        승인대기
+                                    </option>
 
-                                            <th>
-                                                상태
-                                            </th>
+                                    <option value="Y">
+                                        승인완료
+                                    </option>
 
-                                            <th>
-                                                관리
-                                            </th>
+                                    <option value="C">
+                                        취소
+                                    </option>
 
-                                        </tr>
+                                    <option value="">
+                                        전체
+                                    </option>
 
-                                    </thead>
+                                </select>
 
 
-                                    <tbody>
+                                <button
+                                    type="button"
 
-                                        {
-                                            reservationList.length > 0
-                                            ?
-                                            reservationList.map(
-                                                reservation => (
+                                    className="checkman-search-btn"
 
-                                                    <tr
-                                                        key={
-                                                            reservation.reservationId
-                                                        }
-                                                    >
+                                    onClick={
+                                        searchReservation
+                                    }
+                                >
+                                    조회
+                                </button>
 
-                                                        <td>
 
-                                                            {
-                                                                reservation.employeeNo
-                                                            }
+                            </div>
 
-                                                        </td>
 
 
-                                                        <td className="checkman-name-cell">
+                            {/* 예약 목록 */}
 
-                                                            {
-                                                                reservation.name
-                                                            }
+                            <div className="checkman-table-area">
 
-                                                        </td>
+                                <table className="checkman-table">
 
+                                    <thead>
 
-                                                        <td>
+                                        <tr>
 
-                                                            {
-                                                                reservation.departmentName
-                                                                ??
-                                                                "-"
-                                                            }
+                                            <th>
+                                                사번
+                                            </th>
 
-                                                        </td>
+                                            <th>
+                                                이름
+                                            </th>
 
+                                            <th>
+                                                부서
+                                            </th>
 
-                                                        <td>
+                                            <th>
+                                                직급
+                                            </th>
 
-                                                            {
-                                                                reservation.jobName
-                                                                ??
-                                                                "-"
-                                                            }
+                                            <th>
+                                                검진 희망일
+                                            </th>
 
-                                                        </td>
+                                            <th>
+                                                최근 검진일
+                                            </th>
 
+                                            <th>
+                                                병원
+                                            </th>
 
-                                                        <td>
+                                            <th>
+                                                메모
+                                            </th>
 
-                                                            {
-                                                                reservation.reservationDate
-                                                                ??
-                                                                "-"
-                                                            }
+                                            <th>
+                                                상태
+                                            </th>
 
-                                                        </td>
+                                            <th>
+                                                관리
+                                            </th>
 
+                                        </tr>
 
-                                                        <td>
+                                    </thead>
 
-                                                            {
-                                                                reservation.recentCheckupDate
-                                                                ??
-                                                                "-"
-                                                            }
 
-                                                        </td>
+                                    <tbody>
 
+                                        {
+                                            reservationList.length > 0
+                                            ?
+                                            reservationList.map(
+                                                reservation => (
 
-                                                        <td>
+                                                    <tr
+                                                        key={
+                                                            reservation.reservationId
+                                                        }
+                                                    >
 
-                                                            {
-                                                                reservation.hospitalName
-                                                                ??
-                                                                "-"
-                                                            }
+                                                        <td>
 
-                                                        </td>
+                                                            {
+                                                                reservation.employeeNo
+                                                            }
 
+                                                        </td>
 
-                                                        <td className="checkman-message-cell">
 
-                                                            {
-                                                                reservation.memo
-                                                                ??
-                                                                "-"
-                                                            }
+                                                        <td className="checkman-name-cell">
 
-                                                        </td>
+                                                            {
+                                                                reservation.name
+                                                            }
 
+                                                        </td>
 
-                                                        <td>
 
-                                                            <span
-                                                                className={
-                                                                    `checkman-reservation-status checkman-reservation-${reservation.status?.toLowerCase()}`
-                                                                }
-                                                            >
+                                                        <td>
 
-                                                                {
-                                                                    getReservationStatusName(
-                                                                        reservation.status
-                                                                    )
-                                                                }
+                                                            {
+                                                                reservation.departmentName
+                                                                ??
+                                                                "-"
+                                                            }
 
-                                                            </span>
+                                                        </td>
 
-                                                        </td>
 
+                                                        <td>
 
-                                                        <td>
+                                                            {
+                                                                reservation.jobName
+                                                                ??
+                                                                "-"
+                                                            }
 
-                                                            {
-                                                                reservation.status === "N"
-                                                                ?
-                                                                (
+                                                        </td>
 
-                                                                    <button
-                                                                        type="button"
 
-                                                                        className="checkman-approve-btn"
+                                                        <td>
 
-                                                                        onClick={ () => {
+                                                            {
+                                                                reservation.reservationDate
+                                                                ??
+                                                                "-"
+                                                            }
 
-                                                                            approveReservation(
-                                                                                reservation.reservationId
-                                                                            );
+                                                        </td>
 
-                                                                        }}
-                                                                    >
-                                                                        승인
-                                                                    </button>
 
-                                                                )
-                                                                :
-                                                                (
+                                                        <td>
 
-                                                                    <span className="checkman-complete-text">
+                                                            {
+                                                                reservation.recentCheckupDate
+                                                                ??
+                                                                "-"
+                                                            }
 
-                                                                        {
-                                                                            reservation.status === "Y"
-                                                                            ?
-                                                                            "처리완료"
-                                                                            :
-                                                                            "-"
-                                                                        }
+                                                        </td>
 
-                                                                    </span>
 
-                                                                )
-                                                            }
+                                                        <td>
 
-                                                        </td>
+                                                            {
+                                                                reservation.hospitalName
+                                                                ??
+                                                                "-"
+                                                            }
 
-                                                    </tr>
+                                                        </td>
 
-                                                )
-                                            )
-                                            :
-                                            (
 
-                                                <tr>
+                                                        <td className="checkman-message-cell">
 
-                                                    <td
-                                                        colSpan="10"
-                                                        className="checkman-empty"
-                                                    >
-                                                        조회된 건강검진 예약이 없습니다.
-                                                    </td>
+                                                            {
+                                                                reservation.memo
+                                                                ??
+                                                                "-"
+                                                            }
 
-                                                </tr>
+                                                        </td>
 
-                                            )
-                                        }
 
-                                    </tbody>
+                                                        <td>
 
-                                </table>
+                                                            <span
+                                                                className={
+                                                                    `checkman-reservation-status checkman-reservation-${reservation.status?.toLowerCase()}`
+                                                                }
+                                                            >
 
-                            </div>
+                                                                {
+                                                                    getReservationStatusName(
+                                                                        reservation.status
+                                                                    )
+                                                                }
 
+                                                            </span>
 
-                        </div>
+                                                        </td>
 
-                    </div>
 
-                )
-            }
+                                                        <td>
 
+                                                            {
+                                                                reservation.status === "N"
+                                                                ?
+                                                                (
+                                                                    <>
+                                                                        <button
+                                                                            type="button"
+                                                                            className="checkman-approve-btn"
+                                                                            onClick={ () => {
+                                                                                approveReservation(
+                                                                                    reservation.reservationId
+                                                                                );
+                                                                            }}
+                                                                        >
+                                                                            승인
+                                                                        </button>
 
-        </div>
+                                                                        <button
+                                                                            type="button"
+                                                                            className="checkman-cancel-btn"
+                                                                            onClick={ () => {
+                                                                                cancelReservation(
+                                                                                    reservation.reservationId
+                                                                                );
+                                                                            }}
+                                                                        >
+                                                                            취소
+                                                                        </button>
+                                                                    </>
+                                                                )
+                                                                :
+                                                                reservation.status === "Y"
+                                                                ?
+                                                                (
+                                                                    <button
+                                                                        type="button"
+                                                                        className="checkman-cancel-btn"
+                                                                        onClick={ () => {
+                                                                            cancelReservation(
+                                                                                reservation.reservationId
+                                                                            );
+                                                                        }}
+                                                                    >
+                                                                        취소
+                                                                    </button>
+                                                                )
+                                                                :
+                                                                (
+                                                                    <span className="checkman-complete-text">
+                                                                        취소완료
+                                                                    </span>
+                                                                )
+                                                            }
 
-    );
+                                                        </td>
+
+                                                    </tr>
+
+                                                )
+                                            )
+                                            :
+                                            (
+
+                                                <tr>
+
+                                                    <td
+                                                        colSpan="10"
+                                                        className="checkman-empty"
+                                                    >
+                                                        조회된 건강검진 예약이 없습니다.
+                                                    </td>
+
+                                                </tr>
+
+                                            )
+                                        }
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                )
+            }
+
+
+        </div>
+
+    );
 
 }
 
