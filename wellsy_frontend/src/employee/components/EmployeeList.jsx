@@ -1,17 +1,28 @@
-import { useEffect, useMemo, useState } from "react";
+import {
+    useEffect,
+    useMemo,
+    useState
+} from "react";
 
-import { useNavigate } from "react-router-dom";
+import {
+    useNavigate
+} from "react-router-dom";
 
-import { selectEmployeeListApi } from "../api/employeeApi";
+import {
+    selectEmployeeListApi
+} from "../api/employeeApi";
 
-import EmployeeItem from "./EmployeeItem";
+import EmployeeItem
+    from "./EmployeeItem";
 
 import "../styles/Employee.css";
 
 
 function EmployeeList() {
 
-    let navigate = useNavigate();
+
+    let navigate
+        = useNavigate();
 
 
     // =========================================
@@ -32,7 +43,7 @@ function EmployeeList() {
 
     // =========================================
     // 실제 검색에 적용할 값
-    // Enter / 검색 버튼 클릭 시 변경
+    // Enter 시 변경
     // =========================================
 
     const [searchKeyword, setSearchKeyword]
@@ -60,53 +71,74 @@ function EmployeeList() {
 
 
     // =========================================
+    // 페이징
+    // =========================================
+
+    // 현재 페이지
+    const [currentPage, setCurrentPage]
+        = useState(1);
+
+
+    // 한 페이지당 5명
+    const itemsPerPage = 5;
+
+
+    // =========================================
     // 사원 목록 조회
     // =========================================
 
     useEffect(() => {
 
-        const selectEmployeeList = async () => {
 
-            try {
-
-                const response
-                    = await selectEmployeeListApi();
+        const selectEmployeeList
+            = async () => {
 
 
-                console.log(
-                    "사원 목록 :",
-                    response.data
-                );
+                try {
 
 
-                setEmployeeList(
-                    response.data
-                );
+                    const response
+                        = await selectEmployeeListApi();
 
 
-            } catch(error) {
+                    console.log(
+                        "사원 목록 :",
+                        response.data
+                    );
 
-                console.log(
-                    "사원 목록 조회용 ajax 통신 실패!"
-                );
 
-                console.log(error);
-            }
+                    setEmployeeList(
+                        response.data
+                    );
 
-        };
+
+                } catch(error) {
+
+
+                    console.log(
+                        "사원 목록 조회용 ajax 통신 실패!"
+                    );
+
+
+                    console.log(error);
+                }
+
+            };
 
 
         selectEmployeeList();
+
 
     }, []);
 
 
     // =========================================
     // 검색
-    // Enter 또는 검색 버튼
+    // Enter
     // =========================================
 
     const searchEmployee = e => {
+
 
         e.preventDefault();
 
@@ -114,6 +146,10 @@ function EmployeeList() {
         setSearchKeyword(
             inputKeyword.trim()
         );
+
+
+        // 검색하면 1페이지로
+        setCurrentPage(1);
 
     };
 
@@ -128,6 +164,7 @@ function EmployeeList() {
         // 같은 정렬 버튼 다시 클릭
         if(sortType === type) {
 
+
             setSortDirection(
                 sortDirection === "asc"
                 ?
@@ -136,12 +173,24 @@ function EmployeeList() {
                 "asc"
             );
 
+
         } else {
 
-            setSortType(type);
 
-            setSortDirection("asc");
+            setSortType(
+                type
+            );
+
+
+            setSortDirection(
+                "asc"
+            );
+
         }
+
+
+        // 정렬 변경 시 1페이지로
+        setCurrentPage(1);
 
     };
 
@@ -151,6 +200,7 @@ function EmployeeList() {
     // =========================================
 
     const getSortArrow = type => {
+
 
         if(sortType !== type) {
 
@@ -163,6 +213,7 @@ function EmployeeList() {
             " ▲"
             :
             " ▼";
+
     };
 
 
@@ -170,126 +221,268 @@ function EmployeeList() {
     // 검색 + 퇴사자 필터 + 정렬
     // =========================================
 
-    const filteredEmployeeList = useMemo(() => {
+    const filteredEmployeeList
+        = useMemo(() => {
 
 
-        let result = [...employeeList];
+            let result
+                = [...employeeList];
 
 
-        // -----------------------------------------
-        // 이름 검색
-        // -----------------------------------------
+            // -----------------------------------------
+            // 이름 검색
+            // -----------------------------------------
 
-        if(searchKeyword !== "") {
-
-            result = result.filter(
-                employee => {
-
-                    const employeeName
-                        = employee.name ?? "";
+            if(searchKeyword !== "") {
 
 
-                    return employeeName
-                        .toLowerCase()
-                        .includes(
-                            searchKeyword.toLowerCase()
-                        );
+                result = result.filter(
+                    employee => {
 
-                }
+
+                        const employeeName
+                            = employee.name ?? "";
+
+
+                        return employeeName
+                            .toLowerCase()
+                            .includes(
+                                searchKeyword.toLowerCase()
+                            );
+
+                    }
+                );
+
+            }
+
+
+            // -----------------------------------------
+            // 퇴사자만
+            // -----------------------------------------
+
+            if(deletedOnly) {
+
+
+                result = result.filter(
+                    employee =>
+                        employee.status === "N"
+                );
+
+            }
+
+
+            // -----------------------------------------
+            // 정렬
+            // -----------------------------------------
+
+            if(sortType !== "") {
+
+
+                result.sort(
+                    (a, b) => {
+
+
+                        let valueA = "";
+
+                        let valueB = "";
+
+
+                        // 이름
+                        if(sortType === "name") {
+
+
+                            valueA
+                                = a.name ?? "";
+
+
+                            valueB
+                                = b.name ?? "";
+
+                        }
+
+
+                        // 부서
+                        if(sortType === "department") {
+
+
+                            valueA
+                                = a.departmentName ?? "";
+
+
+                            valueB
+                                = b.departmentName ?? "";
+
+                        }
+
+
+                        // 직급
+                        if(sortType === "job") {
+
+
+                            valueA
+                                = a.jobName ?? "";
+
+
+                            valueB
+                                = b.jobName ?? "";
+
+                        }
+
+
+                        const compareResult
+                            = valueA.localeCompare(
+                                valueB,
+                                "ko-KR"
+                            );
+
+
+                        return sortDirection === "asc"
+                            ?
+                            compareResult
+                            :
+                            compareResult * -1;
+
+                    }
+                );
+
+            }
+
+
+            return result;
+
+
+        }, [
+
+            employeeList,
+
+            searchKeyword,
+
+            sortType,
+
+            sortDirection,
+
+            deletedOnly
+
+        ]);
+
+
+    // =========================================
+    // 전체 페이지 수
+    // =========================================
+
+    const totalPages
+        = Math.ceil(
+            filteredEmployeeList.length
+            /
+            itemsPerPage
+        );
+
+
+    // =========================================
+    // 현재 페이지 시작 위치
+    // =========================================
+
+    const startIndex
+        = (
+            currentPage - 1
+        )
+        *
+        itemsPerPage;
+
+
+    // =========================================
+    // 현재 페이지에 보여줄 사원
+    // =========================================
+
+    const currentEmployeeList
+        = filteredEmployeeList.slice(
+
+            startIndex,
+
+            startIndex + itemsPerPage
+        );
+
+
+    // =========================================
+    // 페이지 변경
+    // =========================================
+
+    const changePage = page => {
+
+
+        if(
+            page < 1
+            ||
+            page > totalPages
+        ) {
+
+            return;
+        }
+
+
+        setCurrentPage(
+            page
+        );
+
+    };
+
+
+    // =========================================
+    // 페이지 번호
+    // 최대 5개
+    // =========================================
+
+    const getPageNumbers = () => {
+
+
+        const pageGroupSize = 5;
+
+
+        const startPage
+            = Math.floor(
+                (currentPage - 1)
+                /
+                pageGroupSize
+            )
+            *
+            pageGroupSize
+            +
+            1;
+
+
+        const endPage
+            = Math.min(
+
+                startPage
+                +
+                pageGroupSize
+                -
+                1,
+
+                totalPages
+            );
+
+
+        const pages = [];
+
+
+        for(
+            let page = startPage;
+            page <= endPage;
+            page++
+        ) {
+
+
+            pages.push(
+                page
             );
 
         }
 
 
-        // -----------------------------------------
-        // 퇴사자만
-        // -----------------------------------------
+        return pages;
 
-        if(deletedOnly) {
-
-            result = result.filter(
-                employee =>
-                    employee.status === "N"
-            );
-
-        }
-
-
-        // -----------------------------------------
-        // 정렬
-        // -----------------------------------------
-
-        if(sortType !== "") {
-
-            result.sort((a, b) => {
-
-
-                let valueA = "";
-
-                let valueB = "";
-
-
-                // 이름
-                if(sortType === "name") {
-
-                    valueA
-                        = a.name ?? "";
-
-                    valueB
-                        = b.name ?? "";
-                }
-
-
-                // 부서
-                if(sortType === "department") {
-
-                    valueA
-                        = a.departmentName ?? "";
-
-                    valueB
-                        = b.departmentName ?? "";
-                }
-
-
-                // 직급
-                if(sortType === "job") {
-
-                    valueA
-                        = a.jobName ?? "";
-
-                    valueB
-                        = b.jobName ?? "";
-                }
-
-
-                const compareResult
-                    = valueA.localeCompare(
-                        valueB,
-                        "ko-KR"
-                    );
-
-
-                return sortDirection === "asc"
-                    ?
-                    compareResult
-                    :
-                    compareResult * -1;
-
-            });
-
-        }
-
-
-        return result;
-
-
-    }, [
-        employeeList,
-        searchKeyword,
-        sortType,
-        sortDirection,
-        deletedOnly
-    ]);
+    };
 
 
     return (
@@ -311,31 +504,38 @@ function EmployeeList() {
                         className="employee-search-area"
 
                         onSubmit={
-                        searchEmployee
+                            searchEmployee
                         }
-                        >
+                    >
+
 
                         <div className="employee-search-box">
 
-                        <input
-                            type="text"
 
-                            value={
-                                inputKeyword
-                            }
+                            <input
+                                type="text"
 
-                            onChange={ e => {
+                                value={
+                                    inputKeyword
+                                }
 
-                                setInputKeyword(
-                                    e.target.value
-                                );
+                                onChange={
+                                    e => {
 
-                            }}
 
-                            placeholder="직원 이름을 입력해 주세요"
-                        />
+                                        setInputKeyword(
+                                            e.target.value
+                                        );
+
+                                    }
+                                }
+
+                                placeholder="직원 이름을 입력해 주세요"
+                            />
+
 
                         </div>
+
 
                     </form>
 
@@ -348,6 +548,7 @@ function EmployeeList() {
 
 
                         <div>
+
 
                             <h2>
                                 사원 목록
@@ -370,14 +571,19 @@ function EmployeeList() {
 
                             </p>
 
+
                         </div>
 
 
+                        {/* ================================= */}
                         {/* 정렬 */}
+                        {/* ================================= */}
+
                         <div className="employee-sort-area">
 
 
                             {/* 부서 */}
+
                             <button
                                 type="button"
 
@@ -389,20 +595,25 @@ function EmployeeList() {
                                     "employee-sort-btn"
                                 }
 
-                                onClick={ () => {
+                                onClick={
+                                    () => {
 
-                                    handleSort(
-                                        "department"
-                                    );
+                                        handleSort(
+                                            "department"
+                                        );
 
-                                }}
+                                    }
+                                }
                             >
+
                                 부서별
+
                                 {
                                     getSortArrow(
                                         "department"
                                     )
                                 }
+
                             </button>
 
 
@@ -412,6 +623,7 @@ function EmployeeList() {
 
 
                             {/* 직급 */}
+
                             <button
                                 type="button"
 
@@ -423,20 +635,25 @@ function EmployeeList() {
                                     "employee-sort-btn"
                                 }
 
-                                onClick={ () => {
+                                onClick={
+                                    () => {
 
-                                    handleSort(
-                                        "job"
-                                    );
+                                        handleSort(
+                                            "job"
+                                        );
 
-                                }}
+                                    }
+                                }
                             >
+
                                 직급별
+
                                 {
                                     getSortArrow(
                                         "job"
                                     )
                                 }
+
                             </button>
 
 
@@ -446,6 +663,7 @@ function EmployeeList() {
 
 
                             {/* 이름 */}
+
                             <button
                                 type="button"
 
@@ -457,20 +675,25 @@ function EmployeeList() {
                                     "employee-sort-btn"
                                 }
 
-                                onClick={ () => {
+                                onClick={
+                                    () => {
 
-                                    handleSort(
-                                        "name"
-                                    );
+                                        handleSort(
+                                            "name"
+                                        );
 
-                                }}
+                                    }
+                                }
                             >
+
                                 이름별
+
                                 {
                                     getSortArrow(
                                         "name"
                                     )
                                 }
+
                             </button>
 
 
@@ -480,6 +703,7 @@ function EmployeeList() {
 
 
                             {/* 퇴사자 */}
+
                             <button
                                 type="button"
 
@@ -491,15 +715,23 @@ function EmployeeList() {
                                     "employee-sort-btn"
                                 }
 
-                                onClick={ () => {
+                                onClick={
+                                    () => {
 
-                                    setDeletedOnly(
-                                        !deletedOnly
-                                    );
 
-                                }}
+                                        setDeletedOnly(
+                                            !deletedOnly
+                                        );
+
+
+                                        setCurrentPage(1);
+
+                                    }
+                                }
                             >
+
                                 퇴사자
+
                             </button>
 
 
@@ -521,29 +753,37 @@ function EmployeeList() {
 
                             <thead>
 
+
                                 <tr>
+
 
                                     <th>
                                         이름
                                     </th>
 
+
                                     <th>
                                         부서
                                     </th>
+
 
                                     <th>
                                         직급
                                     </th>
 
+
                                     <th>
                                         권한
                                     </th>
+
 
                                     <th>
                                         입사일
                                     </th>
 
+
                                 </tr>
+
 
                             </thead>
 
@@ -554,12 +794,14 @@ function EmployeeList() {
                                 {
                                     filteredEmployeeList.length > 0
                                     ?
-                                    filteredEmployeeList.map(
+                                    currentEmployeeList.map(
                                         employee => {
+
 
                                             return (
 
                                                 <EmployeeItem
+
                                                     key={
                                                         employee.employeeNo
                                                     }
@@ -567,6 +809,7 @@ function EmployeeList() {
                                                     employee={
                                                         employee
                                                     }
+
                                                 />
 
                                             );
@@ -577,6 +820,7 @@ function EmployeeList() {
                                     (
 
                                         <tr>
+
 
                                             <td
                                                 colSpan="5"
@@ -598,6 +842,7 @@ function EmployeeList() {
 
                                             </td>
 
+
                                         </tr>
 
                                     )
@@ -606,9 +851,160 @@ function EmployeeList() {
 
                             </tbody>
 
+
                         </table>
 
+
                     </div>
+
+
+                    {/* ================================= */}
+                    {/* 페이징 */}
+                    {/* ================================= */}
+
+                    {
+                        totalPages > 0
+                        &&
+                        (
+
+                            <div className="employee-pagination">
+
+
+                                {/* 처음 */}
+
+                                <button
+                                    type="button"
+
+                                    className="employee-page-btn"
+
+                                    disabled={
+                                        currentPage === 1
+                                    }
+
+                                    onClick={
+                                        () =>
+                                            changePage(1)
+                                    }
+                                >
+                                    «
+                                </button>
+
+
+                                {/* 이전 */}
+
+                                <button
+                                    type="button"
+
+                                    className="employee-page-btn"
+
+                                    disabled={
+                                        currentPage === 1
+                                    }
+
+                                    onClick={
+                                        () =>
+                                            changePage(
+                                                currentPage - 1
+                                            )
+                                    }
+                                >
+                                    ‹
+                                </button>
+
+
+                                {/* 페이지 번호 */}
+
+                                {
+                                    getPageNumbers()
+                                        .map(
+                                            page => (
+
+                                                <button
+                                                    type="button"
+
+                                                    key={
+                                                        page
+                                                    }
+
+                                                    className={
+                                                        currentPage === page
+                                                        ?
+                                                        "employee-page-btn employee-page-active"
+                                                        :
+                                                        "employee-page-btn"
+                                                    }
+
+                                                    onClick={
+                                                        () =>
+                                                            changePage(
+                                                                page
+                                                            )
+                                                    }
+                                                >
+
+                                                    {
+                                                        page
+                                                    }
+
+                                                </button>
+
+                                            )
+                                        )
+                                }
+
+
+                                {/* 다음 */}
+
+                                <button
+                                    type="button"
+
+                                    className="employee-page-btn"
+
+                                    disabled={
+                                        currentPage
+                                        ===
+                                        totalPages
+                                    }
+
+                                    onClick={
+                                        () =>
+                                            changePage(
+                                                currentPage + 1
+                                            )
+                                    }
+                                >
+                                    ›
+                                </button>
+
+
+                                {/* 마지막 */}
+
+                                <button
+                                    type="button"
+
+                                    className="employee-page-btn"
+
+                                    disabled={
+                                        currentPage
+                                        ===
+                                        totalPages
+                                    }
+
+                                    onClick={
+                                        () =>
+                                            changePage(
+                                                totalPages
+                                            )
+                                    }
+                                >
+                                    »
+                                </button>
+
+
+                            </div>
+
+                        )
+                    }
 
 
                     {/* ================================= */}
@@ -623,15 +1019,19 @@ function EmployeeList() {
 
                             className="employee-register-btn"
 
-                            onClick={ () => {
+                            onClick={
+                                () => {
 
-                                navigate(
-                                    "/employee/enrollForm"
-                                );
+                                    navigate(
+                                        "/employee/enrollForm"
+                                    );
 
-                            }}
+                                }
+                            }
                         >
+
                             + 사원 등록
+
                         </button>
 
 
@@ -640,7 +1040,9 @@ function EmployeeList() {
 
                 </div>
 
+
             </div>
+
 
         </div>
 

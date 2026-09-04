@@ -2,6 +2,8 @@ package com.kh.wellsy.notice.model.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.kh.wellsy.notice.model.vo.Notice;
 
 public interface NoticeService {
@@ -15,4 +17,9 @@ public interface NoticeService {
     Notice updateNotice(Notice notice);
 
     int deleteNotice(int noticeId);
+    
+    Page<Notice> selectNoticePage(
+    	    int page,
+    	    int size
+    	);
 }

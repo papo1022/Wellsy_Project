@@ -77,10 +77,43 @@ const deleteNoticeApi = noticeId => {
     return response;
 };
 
+const selectNoticePageApi = (
+    page,
+    size
+) => {
+
+
+    return axios.get(
+
+        `${BASE_URL}/page`,
+
+        {
+
+            params : {
+
+                page : page,
+
+                size : size
+
+            },
+
+            headers : {
+
+                Authorization :
+                    getAuthorization()
+
+            }
+
+        }
+
+    );
+};
+
 export {
     selectNoticeListApi,
     insertNoticeApi,
     selectNoticeApi,
     updateNoticeApi,
-    deleteNoticeApi
+    deleteNoticeApi,
+    selectNoticePageApi
 };
