@@ -30,7 +30,9 @@
     --radius-round: 100px;
 
     /* 여백 */
+    --spacing-sm: 10px;
     --spacing: 20px;
+    --spacing-lg: 40px;
 
     /* 폰트 */
     --font-family: "Pretendard", sans-serif;

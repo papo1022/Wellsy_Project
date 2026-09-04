@@ -1,6 +1,7 @@
 package com.kh.wellsy.health.model.service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
@@ -155,6 +156,7 @@ public class HealthServiceImpl implements HealthService {
                 health.getRecordDate());
 
         if (existingHealth == null) {
+            calculateBmi(health);
             return healthDao.save(health);
         }
 
@@ -178,6 +180,24 @@ public class HealthServiceImpl implements HealthService {
             existingHealth.setSmokingCount(health.getSmokingCount());
         }
 
+        calculateBmi(existingHealth);
         return healthDao.save(existingHealth);
+        
     }
+
+    // BMI 계산
+    private void calculateBmi(Health health) {
+        if (health.getHeight() != null && health.getWeight() != null
+                && health.getHeight().compareTo(BigDecimal.ZERO) > 0) {
+
+            BigDecimal heightMeters = health.getHeight().divide(BigDecimal.valueOf(100));
+            BigDecimal bmi = health.getWeight().divide(heightMeters.multiply(heightMeters), 2,
+                    RoundingMode.HALF_UP);
+            health.setBmi(bmi);
+
+        } else {
+            return;
+        }
+    }
+
 }
