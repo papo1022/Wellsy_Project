@@ -238,3 +238,247 @@
   }
 
 }
+
+/* ==========================================
+   취소 카드
+========================================== */
+
+.checkup-cancel-card {
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+
+.checkup-cancel-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 6px 18px
+    rgba(0, 0, 0, 0.10);
+}
+
+
+.checkup-cancel-card-guide {
+  display: block;
+
+  margin-top: 6px;
+
+  color: #888;
+
+  font-size: 11px;
+}
+
+
+/* ==========================================
+   취소 모달 배경
+========================================== */
+
+.checkup-cancel-modal-background {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  padding: 30px;
+
+  background:
+    rgba(0, 0, 0, 0.45);
+
+  z-index: 9999;
+
+  box-sizing: border-box;
+}
+
+
+/* ==========================================
+   취소 모달
+========================================== */
+
+.checkup-cancel-modal {
+  width: 100%;
+
+  max-width: 1000px;
+
+  max-height: 80vh;
+
+  background: white;
+
+  border-radius: 16px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 15px 45px
+    rgba(0, 0, 0, 0.20);
+}
+
+
+/* ==========================================
+   모달 상단
+========================================== */
+
+.checkup-cancel-modal-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 22px 25px;
+
+  border-bottom:
+    1px solid #eeeeee;
+}
+
+
+.checkup-cancel-modal-header h3 {
+  margin: 0 0 5px 0;
+
+  font-size: 20px;
+}
+
+
+.checkup-cancel-modal-header p {
+  margin: 0;
+
+  color: #777;
+
+  font-size: 13px;
+}
+
+
+/* X 버튼 */
+
+.checkup-cancel-modal-x {
+  width: 35px;
+
+  height: 35px;
+
+  border: none;
+
+  background: transparent;
+
+  color: #555;
+
+  font-size: 28px;
+
+  cursor: pointer;
+
+  line-height: 1;
+}
+
+
+.checkup-cancel-modal-x:hover {
+  color: #111;
+}
+
+
+/* ==========================================
+   모달 내용
+========================================== */
+
+.checkup-cancel-modal-content {
+  max-height: 55vh;
+
+  padding: 20px 25px;
+
+  overflow-y: auto;
+
+  overflow-x: auto;
+}
+
+
+/* ==========================================
+   모달 하단
+========================================== */
+
+.checkup-cancel-modal-footer {
+  display: flex;
+
+  justify-content: flex-end;
+
+  padding: 15px 25px;
+
+  border-top:
+    1px solid #eeeeee;
+}
+
+
+.checkup-cancel-modal-footer button {
+  min-width: 80px;
+
+  height: 38px;
+
+  padding: 0 20px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #222;
+
+  color: white;
+
+  font-size: 13px;
+
+  cursor: pointer;
+}
+
+
+.checkup-cancel-modal-footer button:hover {
+  background: #444;
+}
+
+/* ==========================================
+
+   승인 대기 카드
+
+========================================== */
+
+.checkup-waiting-card {
+
+  cursor: pointer;
+
+  transition:
+
+    transform 0.15s ease,
+
+    box-shadow 0.15s ease;
+
+}
+
+
+.checkup-waiting-card:hover {
+
+  transform: translateY(-2px);
+
+  box-shadow:
+
+    0 6px 18px
+
+    rgba(0, 0, 0, 0.10);
+
+}
+
+
+.checkup-waiting-card-guide {
+
+  display: block;
+
+  margin-top: 6px;
+
+  color: #888;
+
+  font-size: 11px;
+
+}

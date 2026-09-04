@@ -1,11 +1,14 @@
 package com.kh.wellsy.check.model.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.wellsy.check.model.dao.CheckupReservationDao;
 import com.kh.wellsy.check.model.vo.CheckupReservation;
+import com.kh.wellsy.schedule.model.dao.ScheduleDao;
 
 import lombok.RequiredArgsConstructor;
 
@@ -14,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class CheckupReservationService {
 
     private final CheckupReservationDao checkupReservationDao;
+    private final ScheduleDao scheduleDao;
 
 
     // =========================================
@@ -48,13 +52,13 @@ public class CheckupReservationService {
                 );
     }
 
+
     // =========================================
     // 관리자 전체 예약 조회
     // =========================================
 
-    public List<CheckupReservation>
-            selectReservationList(
-                    String status) {
+    public List<CheckupReservation> selectReservationList(
+            String status) {
 
         if (
             status == null ||
@@ -64,7 +68,6 @@ public class CheckupReservationService {
             return checkupReservationDao
                     .findAllByOrderByReservationDateAsc();
         }
-
 
         return checkupReservationDao
                 .findByStatusOrderByReservationDateAsc(
@@ -90,7 +93,6 @@ public class CheckupReservationService {
                                 )
                         );
 
-
         if (!"N".equals(reservation.getStatus())) {
 
             throw new RuntimeException(
@@ -98,9 +100,7 @@ public class CheckupReservationService {
             );
         }
 
-
         reservation.setStatus("Y");
-
 
         return checkupReservationDao.save(
                 reservation
@@ -111,8 +111,11 @@ public class CheckupReservationService {
     // =========================================
     // 예약 취소
     // N/Y -> C
+    //
+    // 승인 후 생성된 건강검진 일정도 같이 삭제
     // =========================================
 
+    @Transactional
     public CheckupReservation cancelReservation(
             Integer reservationId) {
 
@@ -126,6 +129,7 @@ public class CheckupReservationService {
                         );
 
 
+        // 이미 취소된 예약
         if ("C".equals(reservation.getStatus())) {
 
             throw new RuntimeException(
@@ -134,11 +138,48 @@ public class CheckupReservationService {
         }
 
 
+        // =========================================
+        // 예약 상태 C로 변경
+        // =========================================
+
         reservation.setStatus("C");
 
+        CheckupReservation result =
+                checkupReservationDao.save(
+                        reservation
+                );
 
-        return checkupReservationDao.save(
+
+        // =========================================
+        // 해당 날짜 건강검진 스케줄 삭제
+        // =========================================
+
+        LocalDateTime startDate =
                 reservation
-        );
+                        .getReservationDate()
+                        .atStartOfDay();
+
+
+        LocalDateTime endDate =
+                reservation
+                        .getReservationDate()
+                        .atTime(
+                                23,
+                                59,
+                                59
+                        );
+
+
+        scheduleDao
+                .deleteByEmployeeNoAndTitleAndStartDateBetween(
+                        reservation.getEmployeeNo(),
+                        "건강검진",
+                        startDate,
+                        endDate
+                );
+
+
+        return result;
     }
+
 }
