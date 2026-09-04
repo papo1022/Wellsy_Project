@@ -22,10 +22,13 @@ function ChatWindow() {
     const [isLoading, setIsLoading] = useState(false);
 
     // 세 메시지가 생길 때마다 스크롤을 맨 아래로 내리기 위한 참조
-    const bottomRef = useRef(null);
+    const messagesContainerRef = useRef(null);
 
     useEffect(() => {
-        bottomRef.current.scrollIntoView({ behavior: "smooth" });
+        // 항상 "그 div 내부 기준으로" 맨 아래로 이동, 바깥 페이지는 안 움직이게
+        if (messagesContainerRef.current) {
+            messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+        }
     }, [messages]);
 
     const handleSend = async () => { // 비동기 요청
@@ -86,7 +89,7 @@ function ChatWindow() {
 
             <h2 className="chat-title">AI 헬스코치</h2>
 
-            <div className="chat-message">
+            <div className="chat-message" ref={messagesContainerRef}>
                 {messages.map((msg, index) => (
                     <div
                         key={index}
@@ -94,9 +97,8 @@ function ChatWindow() {
                     >
                         {msg.text}
 
-                        {/* 세부 기능(예: 운동 일정 자동 추가) 이어서 구현 */}
+                        {/* 세부 기능(예: 운동 일정 자동 추가)
                         {msg.sender === "ai" && (
-                            
                             <button
                                 className="chat-apply-button"
                                 onClick={() => {
@@ -108,13 +110,11 @@ function ChatWindow() {
                                 일정에 적용하기
                             </button>
                         )}
+                        */}
                     </div>
                 ))}
 
                 {isLoading && <div className="chat-bubble ai">입력 중...</div>}
-
-                {/* 스크롤을 맨 아래로 이동시키기 위한 빈 div */}
-                <div ref={bottomRef}></div>
             </div>
 
             <div className="chat-input-area">
