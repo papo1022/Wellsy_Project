@@ -35,6 +35,9 @@ function ChatWindow() {
 
         // 1) 사용자 메시지를 화면에 바로 추가 (응답을 기다리는 동안에도 보이도록)
         const userMessage = { sender: "user", text: input };
+        // 하나의 메시지에는 누가 썼는지(sender)와 무슨 내용인지(text)
+        // 이 '두 개의 정보'가 '하나의 세트'로 묶여야 한다.
+
         setMessages((prev) => [...prev, userMessage]);
         setInput("");
         setIsLoading(true);
@@ -46,7 +49,9 @@ function ChatWindow() {
             // 3) AI 응답을 대화 내역에 추가
             // TODO: 실제 백엔드 응답 구조에 맞춰 response.data 부분 수정 필요
             //       (예: response.data가 문자열인지, { reply: "..."} 객체인지에 따라 다름)
-            const aiMessage = { sender: "ai", text: response.data };
+            const aiMessage = { sender: "ai", text: response.data.reply };
+            // -> 백엔드가 { reply: "..." } 형태로 응답하도록 구현했으므로
+            //    text: response.data => text: response.data.reply 로 수정
             
             setMessages((prev) => [...prev, aiMessage]);
 
