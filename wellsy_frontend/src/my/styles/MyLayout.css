@@ -1,0 +1,112 @@
+/* ==========================================
+   MY PAGE
+========================================== */
+
+.my-page {
+
+    width: 100%;
+
+    max-width: 1150px;
+
+    margin: 0 auto;
+
+    padding: 38px 35px 70px;
+
+    box-sizing: border-box;
+
+    color: #222;
+}
+
+
+/* ==========================================
+   TITLE
+========================================== */
+
+.my-title-area {
+
+    margin-bottom: 28px;
+}
+
+
+.my-title-area h1 {
+
+    margin: 0;
+
+    font-size: 30px;
+
+    font-weight: 700;
+}
+
+
+.my-title-area p {
+
+    margin: 8px 0 0;
+
+    color: #999;
+
+    font-size: 14px;
+}
+
+
+/* ==========================================
+   CARD
+========================================== */
+
+.my-card {
+
+    margin-bottom: 24px;
+
+    padding: 28px 30px;
+
+    box-sizing: border-box;
+
+    border-radius: 18px;
+
+    background: #fff;
+
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, .05);
+}
+
+
+.my-card-header {
+
+    padding-bottom: 20px;
+
+    border-bottom: 1px solid #eee;
+}
+
+
+.my-card-header h2 {
+
+    margin: 0;
+
+    font-size: 21px;
+
+    font-weight: 700;
+}
+
+
+.my-card-header p {
+
+    margin: 7px 0 0;
+
+    color: #999;
+
+    font-size: 12px;
+}
+
+/* ==========================================
+   LOADING
+========================================== */
+
+.my-loading {
+
+    margin-top: 80px;
+
+    padding: 60px;
+
+    color: #999;
+
+    text-align: center;
+}

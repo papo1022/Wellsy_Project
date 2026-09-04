@@ -17,6 +17,8 @@
     "@fullcalendar/timegrid": "^6.1.21",
     "axios": "^1.19.0",
     "bootstrap": "^5.3.8",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^4.2.1",
     "jwt-decode": "^4.0.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",

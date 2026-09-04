@@ -1,0 +1,467 @@
+/* ==========================================
+   CHART SECTION
+========================================== */
+
+.status-chart-section {
+
+    width: 100%;
+
+    padding: 27px 28px 30px;
+
+    box-sizing: border-box;
+
+    border-radius: 18px;
+
+    background: #fff;
+
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+
+/* ==========================================
+   CHART HEADER
+========================================== */
+
+.status-chart-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 26px;
+}
+
+
+.status-chart-header h2 {
+
+    margin: 0;
+
+    color: #222;
+
+    font-size: 20px;
+
+    font-weight: 700;
+}
+
+
+.status-chart-header p {
+
+    margin: 8px 0 0;
+
+    color: #888;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+/* ==========================================
+   CHART GRID
+========================================== */
+
+.status-chart-grid {
+
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 22px;
+}
+
+
+/* ==========================================
+   CHART CARD
+========================================== */
+
+.status-chart-card {
+
+    min-width: 0;
+
+    padding: 22px 22px 18px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #e8e8e8;
+
+    border-radius: 16px;
+
+    background: #fff;
+}
+
+
+/* ==========================================
+   CHART CARD HEADER
+========================================== */
+
+.status-chart-card-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    gap: 15px;
+
+    margin-bottom: 18px;
+}
+
+
+.status-chart-card-header h3 {
+
+    margin: 0;
+
+    color: #222;
+
+    font-size: 18px;
+
+    font-weight: 700;
+}
+
+
+.status-chart-card-header p {
+
+    margin: 6px 0 0;
+
+    color: #999;
+
+    font-size: 12px;
+}
+
+
+/* ==========================================
+   권장 범위 안내
+========================================== */
+
+.status-recommended-label {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    min-height: 30px;
+
+    padding: 0 12px;
+
+    box-sizing: border-box;
+
+    border-radius: 20px;
+
+    background: #e9f4e6;
+
+    color: #557c57;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+
+/* ==========================================
+   실제 차트
+========================================== */
+
+.status-chart {
+
+    width: 100%;
+
+    height: 350px;
+}
+
+
+/* Recharts 기본 글자 */
+
+.status-chart .recharts-cartesian-axis-tick-value {
+
+    fill: #777;
+
+    font-size: 11px;
+}
+
+
+.status-chart .recharts-label-list text {
+
+    fill: #444;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+/* ==========================================
+   RANGE RESULT
+========================================== */
+
+.status-range-result {
+
+    margin-top: 30px;
+
+    padding-top: 25px;
+
+    border-top: 1px solid #eee;
+}
+
+
+.status-range-result h3 {
+
+    margin: 0 0 18px;
+
+    color: #222;
+
+    font-size: 17px;
+
+    font-weight: 700;
+}
+
+
+/* ==========================================
+   RANGE TABLE
+========================================== */
+
+.status-range-table {
+
+    width: 100%;
+
+    overflow: hidden;
+
+    box-sizing: border-box;
+
+    border: 1px solid #e8e8e8;
+
+    border-radius: 12px;
+}
+
+
+/* ==========================================
+   RANGE ROW
+========================================== */
+
+.status-range-row {
+
+    display: grid;
+
+    grid-template-columns:
+        1.35fr
+        1fr
+        1fr
+        1fr
+        1fr;
+
+    align-items: center;
+
+    min-height: 56px;
+
+    padding: 0 20px;
+
+    box-sizing: border-box;
+
+    border-bottom: 1px solid #eee;
+
+    color: #444;
+
+    font-size: 13px;
+}
+
+
+.status-range-row:last-child {
+
+    border-bottom: none;
+}
+
+
+.status-range-row strong {
+
+    color: #222;
+
+    font-weight: 700;
+}
+
+
+/* ==========================================
+   RANGE TABLE HEADER
+========================================== */
+
+.status-range-row-header {
+
+    min-height: 55px;
+
+    background: #f7f7f7;
+
+    color: #555;
+
+    font-weight: 600;
+}
+
+
+/* ==========================================
+   상태 BADGE
+========================================== */
+
+.status-range-row em {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 76px;
+
+    min-height: 29px;
+
+    padding: 4px 10px;
+
+    box-sizing: border-box;
+
+    border-radius: 20px;
+
+    font-style: normal;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+/* ==========================================
+   권장 범위
+========================================== */
+
+.status-range-good {
+
+    background: #e6f4e8;
+
+    color: #3e8150;
+}
+
+
+/* ==========================================
+   부족
+========================================== */
+
+.status-range-low {
+
+    background: #fff3d8;
+
+    color: #9a721c;
+}
+
+
+/* ==========================================
+   초과
+========================================== */
+
+.status-range-high {
+
+    background: #ffe7e7;
+
+    color: #a85656;
+}
+
+
+/* ==========================================
+   데이터 없음
+========================================== */
+
+.status-range-empty {
+
+    background: #eeeeee;
+
+    color: #888;
+}
+
+
+/* ==========================================
+   차트 데이터 없음
+========================================== */
+
+.status-chart-empty {
+
+    width: 100%;
+
+    padding: 70px 20px;
+
+    box-sizing: border-box;
+
+    color: #999;
+
+    font-size: 14px;
+
+    text-align: center;
+}
+
+
+/* ==========================================
+   RESPONSIVE - 1100
+========================================== */
+
+@media screen and (max-width: 1100px) {
+
+    .status-chart-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+
+}
+
+
+/* ==========================================
+   RESPONSIVE - 750
+========================================== */
+
+@media screen and (max-width: 750px) {
+
+    .status-chart-section {
+
+        padding:
+            22px 18px
+            24px;
+    }
+
+
+    .status-chart-card-header {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+
+    .status-chart {
+
+        height: 320px;
+    }
+
+
+    .status-range-table {
+
+        overflow-x: auto;
+    }
+
+
+    .status-range-row {
+
+        min-width: 700px;
+
+        grid-template-columns:
+            1.3fr
+            1fr
+            1fr
+            1fr
+            1fr;
+    }
+
+}

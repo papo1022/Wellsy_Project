@@ -37,7 +37,7 @@ import HealthDashboard from "./health/components/HealthDashboard";
 import MainDashboard from "./main/components/MainDashboard";
 import CheckupReservation from "./check/components/CheckupReservation";
 
-
+import MyPage from "./my/components/MyPage";
 
 import LoginForm from "./login/components/LoginForm";
 import "./login/styles/login.css";
@@ -98,7 +98,7 @@ function App() {
           <Route path="/notice/updateForm" element={<NoticeUpdateForm />} />
 
           {/* 공통 - 마이페이지 */}
-          <Route path="/my" element={<div>공통 - 마이페이지</div>} />
+          <Route path="/my" element={ <MyPage />} />
 
 
         {/* 관리자 - 사원관리 */}
