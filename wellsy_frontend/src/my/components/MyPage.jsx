@@ -483,7 +483,7 @@ function MyPage() {
             });
 
             navigate("/");
-
+            
         } catch(error) {
 
 
