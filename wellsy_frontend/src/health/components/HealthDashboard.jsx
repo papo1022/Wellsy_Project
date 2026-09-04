@@ -1,27 +1,44 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import BloodPressure from "./mainboard/BloodPressure";
 import BloodSugar from "./mainboard/BloodSugar";
 import FourIntake from "./mainboard/FourIntake";
-import SleepTime from "./mainboard/SleepTime";
 import HealthGrade from "./mainboard/HealthGrade";
+import SleepTime from "./mainboard/SleepTime";
 
 import "../../health/styles/Dashboard.css";
 import BodyInfo from "./mainboard/BodyInfo";
 import HealthWeekCalendar from "./mainboard/HealthWeekCalender";
- 
+
 function HealthDashboard() {
 
-    // 화면 깜빡임 없이 URL 주소를 전환해줄 navigate 함수
-    let navigate = useNavigate();
+    const [basicData, setBasicData] = useState(null);
+    const [sleepData, setSleepData] = useState(null);
+    const [healthGrade, setHealthGrade] = useState(null);
 
-    // 조회된 데이터를 담을 배열 형태의 State 변수
-    const [dataList, setDataList] = useState([]);
+    // 컴포넌트가 마운트될 때 오늘의 건강 데이터를 가져옴
+    useEffect(() => {
+        fetch("http://localhost:8006/wellsy/health/1")
+            .then(response => response.json())
+            .then(data => setBasicData(data))
+            .catch(error => console.error("Error fetching health data:", error));
+
+        fetch("http://localhost:8006/wellsy/sleep/1")
+            .then(response => response.json())
+            .then(data => setSleepData(data))
+            .catch(error => console.error("Error fetching sleep data:", error));
+
+        fetch("http://localhost:8006/wellsy/health/grade/1")
+            .then(response => response.text())
+            .then(data => setHealthGrade(data))
+            .catch(error =>
+                console.error("Error fetching health grade:", error)
+            );
+    }, []);
 
 
     return (
         <div className="health-record-dashboard">
-            <HealthGrade />
+            <HealthGrade healthGrade={healthGrade} />
 
             {/* 건강 캘린더 */}
             <HealthWeekCalendar />
@@ -30,20 +47,20 @@ function HealthDashboard() {
                 <div className="health-left-area">
                     <div className="health-top-area">
                         {/* 혈당, 혈압 */}
-                        <BloodSugar />
-                        <BloodPressure />
+                        <BloodSugar bloodSugar={basicData?.bloodSugar} />
+                        <BloodPressure systolicBp={basicData?.systolicBp} diastolicBp={basicData?.diastolicBp} />
                     </div>
 
                     {/* 수면 기록 */}
-                    <SleepTime />
+                    <SleepTime sleepData={sleepData} />
 
                     {/* 신체 기록 */}
-                    <BodyInfo />
+                    <BodyInfo height={basicData?.height} weight={basicData?.weight} bmi={basicData?.bmi} />
                 </div>
 
                 {/* 오늘의 건강 기록 */}
-                <FourIntake />
-                
+                <FourIntake caffeine={basicData?.caffeineAmount} alcohol={basicData?.alcoholAmount} smoking={basicData?.smokingCount} />
+
             </div>
         </div>
     );

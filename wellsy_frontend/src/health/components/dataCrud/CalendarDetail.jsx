@@ -120,6 +120,8 @@ function CalendarDetail() {
                 </div>
             )}
 
+            <br />
+
             <div className="crud-card-buttons">
                 <button
                     type="button"

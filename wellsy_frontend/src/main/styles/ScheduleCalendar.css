@@ -378,3 +378,67 @@ a {
     padding: 18px;
   }
 }
+
+/* ==========================================
+   일정 제목 표시
+========================================== */
+
+.schedule-container .fc .fc-daygrid-event {
+  background: #8fbc97;
+  border: 0;
+  color: #ffffff;
+}
+
+
+/* 시간 숨기기 */
+.schedule-container .fc .fc-event-time {
+  display: none !important;
+}
+
+
+/* 제목 표시 */
+.schedule-container .fc .fc-event-title {
+  display: block;
+
+  width: 100%;
+
+  overflow: hidden;
+
+  white-space: nowrap;
+
+  text-overflow: ellipsis;
+
+  color: #ffffff !important;
+
+  font-size: 8px;
+
+  font-weight: 700;
+}
+
+
+/* FullCalendar 내부 링크 글자도 흰색 */
+.schedule-container .fc .fc-daygrid-event .fc-event-main {
+  color: #ffffff !important;
+}
+
+
+/* 제목 영역 */
+.schedule-container .fc .fc-event-main-frame {
+  display: block;
+
+  width: 100%;
+}
+
+
+/* 점 형태 이벤트 방지 */
+.schedule-container .fc .fc-daygrid-dot-event {
+  background: #8fbc97;
+
+  color: #ffffff;
+}
+
+
+/* 점 제거 */
+.schedule-container .fc .fc-daygrid-event-dot {
+  display: none;
+}

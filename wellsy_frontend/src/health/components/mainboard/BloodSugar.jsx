@@ -1,11 +1,6 @@
 import "../../../health/styles/Card.css";
 
-function BloodSugar() {
-
-    const bloodSugar = {
-        beforeMeal: 90,
-        afterMeal: 135,
-    };
+function BloodSugar({ bloodSugar }) {
 
     return (
         <div className="health-main-card blood-sugar-card">
@@ -13,14 +8,7 @@ function BloodSugar() {
 
             <div className="health-card-content">
                 <div className="health-card-item">
-                    <span>식전</span>
-                    <strong>{bloodSugar.beforeMeal}</strong>
-                    <small>mg/dL</small>
-                </div>
-
-                <div className="health-card-item">
-                    <span>식후</span>
-                    <strong>{bloodSugar.afterMeal}</strong>
+                    <strong>{bloodSugar ?? "-"}</strong>
                     <small>mg/dL</small>
                 </div>
             </div>

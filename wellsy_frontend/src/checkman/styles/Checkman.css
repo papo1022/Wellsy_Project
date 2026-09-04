@@ -343,3 +343,137 @@
     }
 
 }
+
+/* ==========================================
+   건강검진 예약
+========================================== */
+
+
+/* 예약 대기 숫자 */
+
+.checkman-reservation-count {
+
+    display: inline-flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    min-width: 20px;
+
+    height: 20px;
+
+    margin-left: 7px;
+
+    padding: 0 5px;
+
+    border-radius: 10px;
+
+    background: #3f8f57;
+
+    color: white;
+
+    font-size: 10px;
+
+    box-sizing: border-box;
+}
+
+
+/* ==========================================
+   예약 상태
+========================================== */
+
+.checkman-reservation-status {
+
+    display: inline-flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    min-width: 70px;
+
+    height: 30px;
+
+    padding: 0 12px;
+
+    border-radius: 16px;
+
+    font-size: 11px;
+
+    box-sizing: border-box;
+}
+
+
+/* 승인 대기 */
+
+.checkman-reservation-n {
+
+    background: #fff8dd;
+
+    color: #a9851c;
+}
+
+
+/* 승인 완료 */
+
+.checkman-reservation-y {
+
+    background: #eef7f0;
+
+    color: #50815b;
+}
+
+
+/* 취소 */
+
+.checkman-reservation-c {
+
+    background: #f2f2f2;
+
+    color: #888;
+}
+
+
+/* ==========================================
+   승인 버튼
+========================================== */
+
+.checkman-approve-btn {
+
+    height: 32px;
+
+    padding: 0 16px;
+
+    border: none;
+
+    border-radius: 16px;
+
+    background: #111;
+
+    color: white;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+.checkman-approve-btn:hover {
+
+    background: #333;
+}
+
+
+/* ==========================================
+   처리 완료
+========================================== */
+
+.checkman-complete-text {
+
+    color: #888;
+
+    font-size: 11px;
+}

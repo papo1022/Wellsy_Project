@@ -45,6 +45,7 @@
   background-color: var(--color-primary);
   color: var(--color-white);
 }
+
 .health-card.sleep-card:hover h3,
 .health-card.sleep-card:hover span,
 .health-card.sleep-card:hover small,
