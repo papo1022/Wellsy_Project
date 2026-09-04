@@ -536,7 +536,7 @@ function EmployeeList() {
                                     </th>
 
                                     <th>
-                                        건강정보
+                                        권한
                                     </th>
 
                                     <th>

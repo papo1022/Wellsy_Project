@@ -1,0 +1,35 @@
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media screen and (max-width: 900px) {
+
+
+    .my-page {
+
+        padding:
+            25px 20px
+            50px;
+    }
+
+    .my-info-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .my-form-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .my-password-area {
+
+        grid-template-columns:
+            1fr;
+    }
+
+}

@@ -7,6 +7,20 @@ function EmployeeItem(props) {
 
     const employee = props.employee;
 
+    const getRoleName = role => {
+
+    if(
+        role === "ADMIN"
+        ||
+        role === "ROLE_ADMIN"
+    ) {
+
+        return "관리자";
+    }
+
+    return "사원";
+};
+
 
     return (
 
@@ -68,26 +82,27 @@ function EmployeeItem(props) {
 
             {/* 건강정보 */}
             <td>
+                <span
+                    className={
+                        employee.role === "ADMIN"
+                        ||
+                        employee.role === "ROLE_ADMIN"
 
-                <button
-                    type="button"
+                        ?
 
-                    className="employee-health-btn"
+                        "employee-role employee-role-admin"
 
-                    onClick={ e => {
+                        :
 
-                        e.stopPropagation();
-
-
-                        navigate(
-                            `/checkman/employee/${employee.employeeNo}`
-                        );
-
-                    }}
+                        "employee-role employee-role-user"
+                    }
                 >
-                    건강정보
-                </button>
-
+                    {
+                        getRoleName(
+                            employee.role
+                        )
+                    }
+                </span>
             </td>
 
 

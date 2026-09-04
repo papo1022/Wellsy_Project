@@ -1,381 +1,185 @@
-/* 전체 */
-.checkman-dashboard {
-    width: 1200px;
-    margin: 0 auto;
-    padding: 30px var(--spacing) 60px;
-    box-sizing: border-box;
-}
-
-/* 메뉴 */
-.checkman-menu-area {
-    display: flex;
-    gap: 10px;
-    margin-bottom: var(--spacing);
-}
-
-.checkman-menu-btn {
-    padding: 10px var(--spacing);
-    border: 1px solid var(--color-cancel);
-    border-radius: var(--radius-md);
-    background: var(--color-white);
-    color: var(--color-grey);
-    cursor: pointer;
-}
-
-.checkman-menu-active {
-    background: var(--color-black);
-    border-color: var(--color-black);
-    color: var(--color-white);
-}
-
-.checkman-alert-count {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 20px;
-    height: 20px;
-    margin-left: 10px;
-    padding: 0 5px;
-    border-radius: var(--radius-sm);
-    background: var(--color-error);
-    color: var(--color-white);
-    font-size: var(--font-size-body);
-}
-
-/* 카드 영역 */
-.checkman-card-area {
-    display: flex;
-    gap: var(--spacing);
-    align-items: stretch;
-}
-
-/* 기본 카드 */
-.checkman-card {
-    width: 100%;
-    padding: var(--spacing);
-    background: var(--color-white);
-    border-radius: var(--radius-md);
-    box-sizing: border-box;
-}
-
-/* 제목 */
-.checkman-header {
-    padding-bottom: var(--spacing);
-    border-bottom: 1px solid var(--color-cancel);
-}
-
-.checkman-header h2,
-.checkman-detail-header h2 {
-    margin: 0;
-    font-size: var(--font-size-h2);
-    font-weight: 700;
-}
-
-.checkman-header p,
-.checkman-detail-header p {
-    margin: 10px 0 0;
-    color: var(--color-grey);
-    font-size: var(--font-size-body);
-}
-
-/* 검색 */
-
-.checkman-search-area {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: var(--spacing) 0;
-}
-
-.checkman-search-area input,
-.checkman-search-area select {
-    height: 40px;
-    padding: 0 var(--spacing);
-    border: 1px solid var(--color-cancel);
-    border-radius: var(--radius-sm);
-    background: var(--color-white);
-    box-sizing: border-box;
-    outline: none;
-}
-
-.checkman-search-area input[type="text"] {
-    width: 230px;
-}
-
-.checkman-search-area input:focus,
-.checkman-search-area select:focus {
-    border-color: var(--color-grey);
-}
-
-.checkman-search-btn {
-    height: 40px;
-    padding: 0 var(--spacing);
-    border: none;
-    border-radius: var(--radius-sm);
-    background: var(--color-black);
-    color: var(--color-white);
-    cursor: pointer;
-}
-
-/* 테이블 */
-.checkman-table-area {
-    width: 100%;
-    overflow-x: auto;
-}
-
-.checkman-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.checkman-table th {
-    padding: var(--spacing);
-    background: var(--color-ivory);
-    border-bottom: 1px solid var(--color-cancel);
-    color: var(--color-grey);
-    font-size: var(--font-size-body);
-    text-align: center;
-}
-
-.checkman-table td {
-    padding: var(--spacing);
-    border-bottom: 1px solid var(--color-cancel);
-    font-size: var(--font-size-body);
-    text-align: center;
-}
-
-.checkman-table-row {
-    cursor: pointer;
-}
-
-.checkman-table-row:hover {
-    background: var(--color-ivory);
-}
-
-.checkman-name-cell {
-    font-weight: 700;
-}
-
-/* 미확인 알림 */
-.checkman-unread-row {
-    background: var(--color-primary);
-}
-
-/* 메시지 */
-.checkman-message-cell {
-    max-width: 230px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-/* 확인 상태 */
-.checkman-read,
-.checkman-unread {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 70px;
-    height: 30px;
-    padding: 0 var(--spacing);
-    border-radius: var(--radius-md);
-    font-size: var(--font-size-caption);
-    box-sizing: border-box;
-}
-
-.checkman-read {
-    background: var(--color-success);
-    color: var(--color-white);
-}
-
-.checkman-unread {
-    background: var(--color-error);
-    color: var(--color-white);
-}
-
-/* 심각도 */
-.checkman-severity {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 55px;
-    padding: 10px var(--spacing);
-    border-radius: var(--radius-md);
-    font-size: var(--font-size-caption);
-}
-
-.checkman-severity-caution {
-    background: var(--color-success);
-    color: var(--color-white);
-}
-
-.checkman-severity-risk {
-    background: var(--color-warning);
-    color: var(--color-white);
-}
-
-.checkman-severity-danger {
-    background: var(--color-error);
-    color: var(--color-white);
-}
-
-/* 상세 화면 */
-.checkman-detail-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: var(--spacing);
-    border-bottom: 1px solid var(--color-cancel);
-}
-
-.checkman-detail-section {
-    padding: var(--spacing) 0;
-    border-bottom: 1px solid var(--color-cancel);
-}
-
-.checkman-detail-section h3 {
-    margin: 0 0 var(--spacing);
-    font-size: var(--font-size-h4);
-}
-
-.checkman-detail-grid {
-    display: grid;
-    grid-template-columns:
-        repeat(2, 1fr);
-    gap: var(--spacing);
-}
-
-.checkman-detail-item {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: var(--spacing);
-    background: var(--color-ivory);
-    border-radius: var(--radius-sm);
-}
-
-.checkman-detail-item span {
-    color: var(--color-grey);
-    font-size: var(--font-size-body);
-}
-
-.checkman-detail-item strong {
-    color: var(--color-black);
-    font-size: var(--font-size-body);
-    font-weight: 400;
-}
-
-.checkman-message-box {
-    margin-top: var(--spacing);
-    padding: var(--spacing);
-    background: var(--color-ivory);
-    border-radius: var(--radius-sm);
-    line-height: 1.7;
-    color: var(--color-black);
-}
-
-/* 버튼 */
-.checkman-btn-area {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: var(--spacing);
-}
-
-.checkman-btn {
-    height: 40px;
-    padding: 0 var(--spacing);
-    border: none;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    font-size: var(--font-size-body);
-    font-weight: 700;
-}
-
-.checkman-btn-primary {
-    background: var(--color-black);
-    color: var(--color-white);
-}
-
-.checkman-btn-secondary {
-    background: var(--color-cancel);
-    color: var(--color-white);
-    border-radius: var(--radius-round);
-}
-
-.checkman-detail-btn {
-    padding: 10px var(--spacing);
-    border: 1px solid var(--color-cancel);
-    border-radius: var(--radius-md);
-    background: var(--color-white);
-    cursor: pointer;
-    font-size: var(--font-size-button);
-}
-
-.checkman-detail-btn:hover {
-    background: var(--color-primary);
-}
-
-/* 데이터 없음 */
-.checkman-empty {
-    padding: 50px !important;
-    color: var(--color-grey) !important;
-}
-
-/* 반응형 */
-@media screen and (max-width: 1250px) {
-
-    .checkman-dashboard {
-        width: 95%;
-    }
-
-}
-
-@media screen and (max-width: 900px) {
-
-    .checkman-search-area {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .checkman-detail-grid {
-        grid-template-columns: 1fr;
-    }
-
-}
-
 /* ==========================================
-   건강검진 예약
+   CHECKMAN MAIN
 ========================================== */
 
+.checkman-dashboard {
 
-/* 예약 대기 숫자 */
+    width: 100%;
 
-.checkman-reservation-count {
+    min-height: 100vh;
 
-    display: inline-flex;
+    padding: 36px 40px 60px;
+
+    box-sizing: border-box;
+
+    background: #f5f5f3;
+
+    color: #171717;
+}
+
+
+/* ==========================================
+   상단
+========================================== */
+
+.checkman-main-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 40px;
+}
+
+
+.checkman-profile {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    min-width: 230px;
+
+    padding: 8px 28px 8px 8px;
+
+    border-radius: 50px;
+
+    background: white;
+}
+
+
+.checkman-profile-circle {
+
+    display: flex;
 
     justify-content: center;
 
     align-items: center;
 
-    min-width: 20px;
+    width: 64px;
 
-    height: 20px;
+    height: 64px;
 
-    margin-left: 7px;
+    border-radius: 50%;
 
-    padding: 0 5px;
-
-    border-radius: 10px;
-
-    background: #3f8f57;
+    background: #8dbb94;
 
     color: white;
 
-    font-size: 10px;
+    font-size: 24px;
 
-    box-sizing: border-box;
+    font-weight: 700;
+}
+
+
+.checkman-profile-info {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.checkman-profile-info strong {
+
+    font-size: 18px;
+
+    font-weight: 700;
+}
+
+
+.checkman-profile-info span {
+
+    color: #aaa;
+
+    font-size: 15px;
+}
+
+
+.checkman-employee-select {
+
+    min-width: 230px;
+
+    height: 50px;
+
+    padding: 0 18px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 24px;
+
+    background: white;
+
+    font-size: 16px;
+}
+
+
+/* ==========================================
+   전체 3열
+========================================== */
+
+.checkman-card-area {
+
+    display: grid;
+
+    grid-template-columns:
+        1.08fr
+        1fr
+        0.84fr;
+
+    gap: 24px;
+}
+
+
+/* ==========================================
+   왼쪽
+========================================== */
+
+.checkman-left-area {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+
+/* ==========================================
+   가운데
+========================================== */
+
+.checkman-middle-area {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+
+/* ==========================================
+   오른쪽
+========================================== */
+
+.checkman-right-area {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+
+    padding-left: 26px;
+
+    border-left: 1px solid #ddd;
 }
 
 
@@ -383,97 +187,702 @@
    예약 상태
 ========================================== */
 
-.checkman-reservation-status {
+.checkman-section-title {
 
-    display: inline-flex;
+    margin: 0;
+
+    font-size: 19px;
+
+    font-weight: 700;
+}
+
+
+.checkman-today-title {
+
+    margin: 0 0 36px;
+
+    font-size: 24px;
+
+    font-weight: 700;
+}
+
+
+/* ==========================================
+   카드
+========================================== */
+
+.checkman-card {
+
+    box-sizing: border-box;
+
+    border-radius: 24px;
+
+    background: white;
+
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+}
+
+
+/* ==========================================
+   캘린더
+========================================== */
+
+.checkman-calendar-card {
+
+    min-height: 290px;
+
+    padding: 24px;
+
+    background: #101010;
+
+    color: white;
+}
+
+
+.checkman-calendar-title {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+
+.checkman-calendar-title strong {
+
+    font-size: 28px;
+}
+
+
+.checkman-calendar-title span {
+
+    color: #bdbdbd;
+
+    font-size: 14px;
+}
+
+
+.checkman-calendar-date-list {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 20px;
+
+    overflow-x: auto;
+}
+
+
+.checkman-date-button {
+
+    flex-shrink: 0;
+
+    padding: 11px 16px;
+
+    border: none;
+
+    border-radius: 20px;
+
+    background: #292929;
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+.checkman-date-active {
+
+    background: #a6c78f;
+
+    color: #111;
+}
+
+
+/* ==========================================
+   AI 추천
+========================================== */
+
+.checkman-ai-card {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+    margin-top: 22px;
+
+    padding: 20px;
+
+    border-radius: 18px;
+
+    background: #a7c88d;
+}
+
+
+.checkman-ai-card strong {
+
+    font-size: 16px;
+}
+
+
+.checkman-ai-card div {
+
+    padding: 10px 14px;
+
+    border-radius: 18px;
+
+    background: #101010;
+
+    color: white;
+
+    font-size: 13px;
+
+    line-height: 1.4;
+}
+
+
+/* ==========================================
+   혈당 / 혈압
+========================================== */
+
+.checkman-top-area {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 20px;
+}
+
+
+.checkman-blood-sugar-card,
+.checkman-blood-pressure-card {
+
+    min-height: 260px;
+
+    padding: 28px;
+}
+
+
+.checkman-health-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+}
+
+
+.checkman-health-header h2 {
+
+    margin: 0;
+
+    font-size: 24px;
+
+    font-weight: 700;
+}
+
+
+.checkman-health-header span {
+
+    color: #bbb;
+
+    font-size: 16px;
+}
+
+
+.checkman-sugar-icon {
+
+    color: #dedbcf;
+
+    font-size: 54px;
+}
+
+
+.checkman-pressure-icon {
+
+    color: #e32d38;
+
+    font-size: 54px;
+}
+
+
+.checkman-card-content {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 95px;
+}
+
+
+.checkman-card-item {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+
+.checkman-card-item span {
+
+    color: #999;
+
+    font-size: 16px;
+}
+
+
+.checkman-card-item strong {
+
+    font-size: 22px;
+
+    font-weight: 700;
+}
+
+
+/* ==========================================
+   수면
+========================================== */
+
+.checkman-sleep-card {
+
+    min-height: 560px;
+
+    padding: 24px;
+}
+
+
+.checkman-sleep-chart {
+
+    overflow: hidden;
+
+    border-radius: 12px;
+
+    background: #f4f4f4;
+}
+
+
+.checkman-sleep-line {
+
+    display: grid;
+
+    grid-template-columns: repeat(5, 1fr);
+
+    height: 42px;
+}
+
+
+.checkman-sleep-line span {
+
+    border-right: 1px solid #eee;
+}
+
+
+.checkman-awake {
+
+    background: #ffa31a;
+}
+
+
+.checkman-rem {
+
+    background: #91b997;
+}
+
+
+.checkman-light {
+
+    background: #aed8ec;
+}
+
+
+.checkman-deep {
+
+    background: #0698df;
+}
+
+
+/* ==========================================
+   수면 범례
+========================================== */
+
+.checkman-sleep-legend {
+
+    display: flex;
+
+    justify-content: space-around;
+
+    margin-top: 14px;
+
+    padding: 12px 14px;
+
+    border-radius: 10px;
+
+    background: #f8f8f8;
+
+    font-size: 12px;
+}
+
+
+/* ==========================================
+   수면 요약
+========================================== */
+
+.checkman-sleep-summary {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-top: 28px;
+}
+
+
+.checkman-sleep-summary > div:first-child {
+
+    display: flex;
+
+    gap: 30px;
+
+    align-items: center;
+}
+
+
+.checkman-sleep-summary span {
+
+    font-size: 15px;
+
+    color: #444;
+}
+
+
+.checkman-sleep-summary strong {
+
+    font-size: 24px;
+
+    font-weight: 700;
+}
+
+
+/* ==========================================
+   도넛
+========================================== */
+
+.checkman-donut {
+
+    display: flex;
 
     justify-content: center;
 
     align-items: center;
 
-    min-width: 70px;
+    width: 140px;
 
-    height: 30px;
+    height: 140px;
 
-    padding: 0 12px;
+    border-radius: 50%;
 
-    border-radius: 16px;
-
-    font-size: 11px;
-
-    box-sizing: border-box;
+    background:
+        conic-gradient(
+            #91ba98 0 40%,
+            #add8ef 40% 68%,
+            #0698df 68% 86%,
+            #ffac25 86% 100%
+        );
 }
 
 
-/* 승인 대기 */
+.checkman-donut div {
 
-.checkman-reservation-n {
+    display: flex;
 
-    background: #fff8dd;
+    justify-content: center;
 
-    color: #a9851c;
-}
+    align-items: center;
 
+    width: 88px;
 
-/* 승인 완료 */
+    height: 88px;
 
-.checkman-reservation-y {
+    border-radius: 50%;
 
-    background: #eef7f0;
+    background: white;
 
-    color: #50815b;
-}
+    color: #aaa;
 
-
-/* 취소 */
-
-.checkman-reservation-c {
-
-    background: #f2f2f2;
-
-    color: #888;
+    font-size: 14px;
 }
 
 
 /* ==========================================
-   승인 버튼
+   수면 막대
 ========================================== */
 
-.checkman-approve-btn {
+.checkman-sleep-bars {
 
-    height: 32px;
+    display: flex;
 
-    padding: 0 16px;
+    flex-direction: column;
 
-    border: none;
+    gap: 16px;
 
-    border-radius: 16px;
+    margin-top: 32px;
+}
 
-    background: #111;
+
+.checkman-sleep-bars > div {
+
+    display: grid;
+
+    grid-template-columns: 90px 1fr;
+
+    align-items: center;
+
+    font-size: 14px;
+}
+
+
+.checkman-sleep-bars > div > div {
+
+    height: 20px;
+
+    overflow: hidden;
+
+    border-radius: 12px;
+
+    background: #f1f1f1;
+}
+
+
+.checkman-sleep-bars b {
+
+    display: block;
+
+    height: 100%;
+
+    border-radius: 12px;
+}
+
+
+.checkman-awake-bar {
+
+    width: 8%;
+
+    background: #ffa31a;
+}
+
+
+.checkman-rem-bar {
+
+    width: 35%;
+
+    background: #91b997;
+}
+
+
+.checkman-light-bar {
+
+    width: 27%;
+
+    background: #add8ef;
+}
+
+
+.checkman-deep-bar {
+
+    width: 17%;
+
+    background: #0698df;
+}
+
+
+/* ==========================================
+   오른쪽 날짜
+========================================== */
+
+.checkman-selected-date {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    height: 52px;
+
+    padding: 0 20px;
+
+    border-radius: 28px;
+
+    background: #a7c78e;
 
     color: white;
-
-    font-size: 11px;
-
-    font-weight: 600;
-
-    cursor: pointer;
 }
 
 
-.checkman-approve-btn:hover {
+.checkman-selected-date span {
 
-    background: #333;
+    font-size: 16px;
+}
+
+
+.checkman-selected-date strong {
+
+    font-size: 16px;
+
+    font-weight: 700;
 }
 
 
 /* ==========================================
-   처리 완료
+   오늘 건강 기록
 ========================================== */
 
-.checkman-complete-text {
+.checkman-today-card {
 
-    color: #888;
+    display: flex;
 
-    font-size: 11px;
+    justify-content: space-between;
+
+    min-height: 135px;
+
+    padding: 24px;
+
+    box-sizing: border-box;
+
+    border-radius: 24px;
+
+    background: white;
+
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+}
+
+
+.checkman-today-card > div:first-child {
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+}
+
+
+.checkman-today-card h2 {
+
+    margin: 0;
+
+    font-size: 22px;
+
+    font-weight: 700;
+}
+
+
+.checkman-today-card span {
+
+    color: #999;
+
+    font-size: 13px;
+}
+
+
+.checkman-today-value {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+}
+
+
+.checkman-today-value strong {
+
+    color: #88b991;
+
+    font-size: 30px;
+
+    font-weight: 700;
+}
+
+
+/* ==========================================
+   반응형
+========================================== */
+
+@media screen and (max-width: 1400px) {
+
+    .checkman-card-area {
+
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .checkman-right-area {
+
+        grid-column: 1 / -1;
+
+        padding-left: 0;
+
+        border-left: none;
+    }
+}
+
+
+@media screen and (max-width: 900px) {
+
+    .checkman-dashboard {
+
+        padding: 24px 20px 40px;
+    }
+
+    .checkman-main-header {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 16px;
+    }
+
+    .checkman-card-area {
+
+        grid-template-columns: 1fr;
+    }
+
+    .checkman-top-area {
+
+        grid-template-columns: 1fr;
+    }
+
+    .checkman-right-area {
+
+        grid-column: auto;
+    }
+
+    .checkman-profile-info strong {
+
+        font-size: 20px;
+    }
+
+    .checkman-section-title,
+    .checkman-today-title {
+
+        font-size: 19px;
+    }
 }

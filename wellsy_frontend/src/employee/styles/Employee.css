@@ -123,6 +123,7 @@
 
 /* 권한 */
 .employee-role {
+
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -144,12 +145,15 @@
 
 /* 관리자 */
 .employee-role-admin {
-    background: var(--color-primary);
     border: none;
     color: var(--color-white);
 }
 
-/* 건강정보 버튼 */
+
+/* ==========================================
+   건강정보 버튼
+========================================== */
+
 .employee-health-btn {
     min-width: 90px;
     height: 34px;

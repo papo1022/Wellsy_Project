@@ -2,82 +2,287 @@
    전체 화면
 ========================================== */
 .status-dashboard {
-    padding: var(--spacing);
-    background-color: var(--color-ivory);
+
+    width: 100%;
+
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    padding: 30px 35px 70px;
+
+    box-sizing: border-box;
+
+    color: #222;
+}
+
+
+/* ==========================================
+   REPORT DOWNLOAD
+========================================== */
+
+.status-report-download {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 18px;
+}
+
+
+.status-report-download button {
+
+    min-width: 110px;
+
+    height: 42px;
+
+    padding: 0 18px;
+
+    box-sizing: border-box;
+
+    border-radius: 9px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+/* PNG */
+
+.status-png-download-btn {
+
+    border: 1px solid #d5d5d5;
+
+    background: #fff;
+
+    color: #444;
+}
+
+
+.status-png-download-btn:hover {
+
+    background: #f5f5f5;
+
+    border-color: #c6c6c6;
+}
+
+
+/* PDF */
+
+.status-pdf-download-btn {
+
+    border: none;
+
+    background: #91bd98;
+
+    color: #fff;
+}
+
+
+.status-pdf-download-btn:hover {
+
+    background: #7faa87;
+}
+
+
+.status-report-download button:disabled {
+
+    opacity: 0.6;
+
+    cursor: default;
+}
+
+
+/* ==========================================
+   PDF / PNG CAPTURE AREA
+========================================== */
+
+.status-report-capture {
+
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 20px;
+
+    box-sizing: border-box;
 }
 
 /* ==========================================
    페이지 제목
 ========================================== */
 .status-title-area {
-    margin-bottom: var(--spacing);
+
+    width: 100%;
+
+    margin: 0;
+
+    padding: 0 2px 3px;
+
+    box-sizing: border-box;
 }
 
 .status-title-area h2 {
+
     margin: 0;
-    font-size: var(--font-size-h2);
+
+    color: #181818;
+
+    font-size: 29px;
+
+    line-height: 1.3;
+
     font-weight: 700;
 }
 
 .status-title-area p {
-    margin-top: 10px;
-    font-size: var(--font-size-body);
-    color: var(--color-black);
+
+    margin: 9px 0 0;
+
+    color: #777;
+
+    font-size: 14px;
+
+    line-height: 1.5;
 }
 
 /* ==========================================
    검색 조건 카드
 ========================================== */
 .status-filter-card {
-    width: auto;
-    padding: var(--spacing);
-    margin-bottom: var(--spacing);
-    background: var(--color-white);
-    border-radius: var(--radius-md);
+
+    width: 100%;
+
+    padding: 22px 24px;
+
+    box-sizing: border-box;
+
+    background: #fff;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.06);
 }
 
 .status-filter-content {
+
     display: flex;
     align-items: flex-end;
-    gap: var(--spacing);
+
+    flex-wrap: wrap;
+
+    gap: 18px;
 }
 
+
+/* ==========================================
+   검색 개별 항목
+========================================== */
+
 .status-filter-item {
+
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
 .status-filter-item span {
-    font-size: var(--font-size-button);
-    color: var(--color-black);
+
+    color: #666;
+
+    font-size: 13px;
+
+    font-weight: 500;
 }
 
 .status-filter-item select,
 .status-filter-item input {
-    height: 42px;
-    padding: 0 var(--spacing);
-    border: 1px solid var(--color-cancel);
-    border-radius: var(--radius-sm);
-    background: var(--color-white);
+
+    height: 44px;
+
+    padding: 0 14px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #d8d8d8;
+
+    border-radius: 9px;
+
+    background: #fff;
+
+    color: #222;
+
+    font-size: 14px;
+
     outline: none;
+
+    transition: 0.2s;
+}
+
+
+.status-filter-item select {
+
+    min-width: 150px;
+}
+
+
+.status-filter-item input {
+
+    min-width: 180px;
 }
 
 .status-filter-item select:focus,
 .status-filter-item input:focus {
-    border-color: var(--color-black);
+
+    border-color: #91bd98;
+
+    box-shadow:
+        0 0 0 2px rgba(145, 189, 152, 0.08);
 }
 
-/* 조회 버튼 */
+
+/* ==========================================
+   조회 버튼
+========================================== */
+
 .status-search-btn {
-    height: 42px;
-    padding: 0 var(--spacing);
+
+    min-width: 72px;
+
+    height: 44px;
+
+    padding: 0 21px;
+
+    box-sizing: border-box;
+
     border: none;
-    border-radius: var(--radius-round);
-    background-color: var(--color-primary);
-    color: var(--color-white);
+
+    border-radius: 9px;
+
+    background: #111;
+
+    color: #fff;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
     cursor: pointer;
-    font-weight: 700;
+
+    transition: 0.2s;
 }
 
 .status-search-btn:hover {
@@ -89,12 +294,14 @@
    부서별 카드 영역
 ========================================== */
 .status-card-area {
+
+    width: 100%;
+
     display: flex;
-    flex-direction: row;
-    gap: var(--spacing);
-    align-items: stretch;
-    flex-wrap: wrap;
-    margin-bottom: var(--spacing);
+
+    flex-direction: column;
+
+    gap: 18px;
 }
 
 /* ==========================================
@@ -102,10 +309,34 @@
 ========================================== */
 .status-card {
     width: 100%;
-    padding: var(--spacing);
-    background: var(--color-white);
-    border-radius: var(--radius-md);
+
+    min-height: 170px;
+
+    padding: 24px 28px;
+
+    box-sizing: border-box;
+
+    background: #fff;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.06);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
+
+
+.status-card:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 18px rgba(0, 0, 0, 0.08);
+}
+
 
 /* ==========================================
    카드 제목
@@ -114,29 +345,60 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    margin-bottom: 28px;
 }
 
 .status-card-title h3 {
     margin: 0;
-    font-size: var(--font-size-h4);
+
+    color: #222;
+
+    font-size: 19px;
+
+    font-weight: 700;
 }
 
 .status-card-title span {
-    font-size: var(--font-size-body);
-    color: var(--color-black);
-    background: var(--color-ivory);
-    padding: 5px 10px;
-    border-radius: var(--radius-md);
+
+    display: inline-flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    min-width: 44px;
+
+    height: 31px;
+
+    padding: 0 11px;
+
+    box-sizing: border-box;
+
+    border-radius: 20px;
+
+    background: #f6f6f6;
+
+    color: #666;
+
+    font-size: 12px;
+
+    font-weight: 500;
 }
 
 /* ==========================================
    카드 콘텐츠
 ========================================== */
 .status-card-content {
-    display: flex;
-    justify-content: space-around;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
     align-items: center;
-    margin-top: var(--spacing);
+
+    gap: 20px;
 }
 
 /* ==========================================
@@ -145,22 +407,41 @@
 .status-card-item {
     display: flex;
     flex-direction: column;
+
+    justify-content: center;
+
     align-items: center;
-    gap: 5px;
+
+    gap: 7px;
 }
 
 .status-card-item span {
-    font-size: var(--font-size-body);
-    color: var(--color-black);
+
+    color: #666;
+
+    font-size: 14px;
 }
 
 .status-card-item strong {
-    font-size: var(--font-size-h2);
+
+    margin-top: 3px;
+
+    color: #111;
+
+    font-size: 29px;
+
+    line-height: 1;
+
+    font-weight: 700;
 }
 
 .status-card-item small {
-    font-size: var(--font-size-button);
-    color: var(--color-grey);
+
+    margin-top: 3px;
+
+    color: #999;
+
+    font-size: 12px;
 }
 
 /* ==========================================
@@ -168,28 +449,53 @@
 ========================================== */
 .status-empty-card {
     width: 100%;
-    padding: 60px;
+
+    padding: 65px 20px;
+
     box-sizing: border-box;
-    background: var(--color-white);
-    border-radius: var(--radius-md);
+
+    background: #fff;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.06);
+
+    color: #999;
+
+    font-size: 14px;
+
     text-align: center;
-    color: var(--color-grey);
 }
 
 /* ==========================================
    상세 테이블 카드
 ========================================== */
 .status-table-card {
-    width: auto;
-    padding: var(--spacing);
-    background: var(--color-white);
-    border-radius: var(--radius-md);
+
+    width: 100%;
+
+    padding: 26px 28px 22px;
+
+    box-sizing: border-box;
+
+    background: #fff;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.06);
 }
 
 .status-table-card h3 {
-    margin-top: 0;
-    margin-bottom: var(--spacing);
-    font-size: var(--font-size-h4);
+
+    margin: 0 0 22px;
+
+    color: #222;
+
+    font-size: 20px;
+
+    font-weight: 700;
 }
 
 /* ==========================================
@@ -198,24 +504,44 @@
 .status-table {
     width: 100%;
     border-collapse: collapse;
+
+    table-layout: fixed;
 }
 
 .status-table thead {
-    background: var(--color-ivory);
+
+    background: #f7f7f7;
 }
 
 .status-table th {
-    padding: var(--spacing);
-    border-bottom: 1px solid var(--color-cancel);
-    font-size: var(--font-size-body);
-    color: var(--color-black);
+
+    height: 58px;
+
+    padding: 0 12px;
+
+    border-bottom: 1px solid #dcdcdc;
+
+    color: #555;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
     text-align: center;
 }
 
 .status-table td {
-    padding: var(--spacing);
-    border-bottom: 1px solid var(--color-cancel);
-    font-size: var(--font-size-body);
+
+    height: 58px;
+
+    padding: 0 12px;
+
+    border-bottom: 1px solid #e8e8e8;
+
+    color: #333;
+
+    font-size: 14px;
+
     text-align: center;
 }
 
@@ -227,35 +553,157 @@
     background: var(--color-ivory);
 }
 
+
+.status-table tbody tr:last-child td {
+
+    border-bottom: none;
+}
+
+
 .status-department-name {
+
     font-weight: 700;
 }
 
 .status-table-empty {
-    padding: 40px;
-    color: var(--color-grey);
+
+    height: 100px !important;
+
+    padding: 30px !important;
+
+    color: #999 !important;
+
     text-align: center;
 }
 
 /* ==========================================
-   반응형
+   반응형 - 1200
 ========================================== */
-@media screen and (max-width: 1250px) {
+
+@media screen and (max-width: 1200px) {
 
     .status-dashboard {
-        width: 95%;
+
+        width: 100%;
+
+        padding:
+            28px 25px
+            60px;
+    }
+
+
+    .status-card-content {
+
+        gap: 14px;
     }
 }
 
-@media screen and (max-width: 800px) {
+
+/* ==========================================
+   반응형 - 900
+========================================== */
+
+@media screen and (max-width: 900px) {
+
+    .status-dashboard {
+
+        padding:
+            25px 20px
+            50px;
+    }
+
+
+    .status-card-content {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        row-gap: 30px;
+    }
+
+
+    .status-filter-content {
+
+        align-items: stretch;
+    }
+
+}
+
+
+/* ==========================================
+   반응형 - 650
+========================================== */
+
+@media screen and (max-width: 650px) {
+
+    .status-title-area h2 {
+
+        font-size: 24px;
+    }
+
+
+    .status-report-download {
+
+        width: 100%;
+
+        justify-content: stretch;
+    }
+
+
+    .status-report-download button {
+
+        flex: 1;
+    }
+
 
     .status-filter-content {
         flex-direction: column;
         align-items: stretch;
     }
 
+
+    .status-filter-item {
+
+        width: 100%;
+    }
+
+
+    .status-filter-item select,
+    .status-filter-item input {
+
+        width: 100%;
+
+        min-width: 0;
+    }
+
+
+    .status-search-btn {
+
+        width: 100%;
+    }
+
+
+    .status-card {
+
+        padding: 22px 20px;
+    }
+
+
     .status-card-content {
-        flex-wrap: wrap;
-        gap: var(--spacing);
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .status-table-card {
+
+        overflow-x: auto;
+    }
+
+
+    .status-table {
+
+        min-width: 750px;
     }
 }
