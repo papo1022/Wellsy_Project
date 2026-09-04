@@ -1,0 +1,158 @@
+/* =========================================
+   사원 등록 버튼
+========================================= */
+
+.employee-register-btn {
+
+    height: 42px;
+
+    padding: 0 20px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #111;
+
+    color: #fff;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease;
+}
+
+
+.employee-register-btn:hover {
+
+    background: #333;
+}
+
+
+/* =========================================
+   건강정보 버튼
+========================================= */
+
+.employee-health-btn {
+
+    min-width: 90px;
+
+    height: 34px;
+
+    padding: 0 16px;
+
+    border: 1px solid #d8d8d8;
+
+    border-radius: 18px;
+
+    background: #fff;
+
+    color: #333;
+
+    font-size: 12px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+/* =========================================
+   공통 버튼 영역
+========================================= */
+
+.employee-btn-area {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-top: 30px;
+}
+
+
+/* =========================================
+   기본 버튼
+========================================= */
+
+.employee-btn {
+
+    height: 40px;
+
+    padding: 0 20px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+/* =========================================
+   주요 버튼
+========================================= */
+
+.employee-btn-primary {
+
+    background: #111;
+
+    color: #fff;
+}
+
+
+.employee-btn-primary:hover {
+
+    background: #333;
+}
+
+
+/* =========================================
+   일반 버튼
+========================================= */
+
+.employee-btn-secondary {
+
+    background: #eee;
+
+    color: #444;
+}
+
+
+.employee-btn-secondary:hover {
+
+    background: #ddd;
+}
+
+
+/* =========================================
+   퇴사 처리
+========================================= */
+
+.employee-btn-danger {
+
+    background: #ffeded;
+
+    color: #c63d3d;
+}
+
+
+.employee-btn-danger:hover {
+
+    background: #ffdada;
+}

@@ -1,6 +1,7 @@
 /* ==========================================
    전체 화면
 ========================================== */
+
 .status-dashboard {
 
     width: 100%;
@@ -118,11 +119,15 @@
     gap: 20px;
 
     box-sizing: border-box;
+
+    background: #f5f6f4;
 }
+
 
 /* ==========================================
    페이지 제목
 ========================================== */
+
 .status-title-area {
 
     width: 100%;
@@ -133,6 +138,7 @@
 
     box-sizing: border-box;
 }
+
 
 .status-title-area h2 {
 
@@ -147,6 +153,7 @@
     font-weight: 700;
 }
 
+
 .status-title-area p {
 
     margin: 9px 0 0;
@@ -158,9 +165,11 @@
     line-height: 1.5;
 }
 
+
 /* ==========================================
    검색 조건 카드
 ========================================== */
+
 .status-filter-card {
 
     width: 100%;
@@ -176,6 +185,7 @@
     box-shadow:
         0 4px 14px rgba(0, 0, 0, 0.06);
 }
+
 
 .status-filter-content {
 
@@ -195,9 +205,12 @@
 .status-filter-item {
 
     display: flex;
+
     flex-direction: column;
-    gap: 10px;
+
+    gap: 8px;
 }
+
 
 .status-filter-item span {
 
@@ -207,6 +220,7 @@
 
     font-weight: 500;
 }
+
 
 .status-filter-item select,
 .status-filter-item input {
@@ -243,6 +257,7 @@
 
     min-width: 180px;
 }
+
 
 .status-filter-item select:focus,
 .status-filter-item input:focus {
@@ -285,14 +300,17 @@
     transition: 0.2s;
 }
 
+
 .status-search-btn:hover {
-    background-color: var(--color-white);
-    color: var(--color-black);
+
+    background: #333;
 }
+
 
 /* ==========================================
    부서별 카드 영역
 ========================================== */
+
 .status-card-area {
 
     width: 100%;
@@ -304,10 +322,13 @@
     gap: 18px;
 }
 
+
 /* ==========================================
    기본 통계 카드
 ========================================== */
+
 .status-card {
+
     width: 100%;
 
     min-height: 170px;
@@ -341,15 +362,21 @@
 /* ==========================================
    카드 제목
 ========================================== */
+
 .status-card-title {
+
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
 
     margin-bottom: 28px;
 }
 
+
 .status-card-title h3 {
+
     margin: 0;
 
     color: #222;
@@ -358,6 +385,7 @@
 
     font-weight: 700;
 }
+
 
 .status-card-title span {
 
@@ -386,9 +414,11 @@
     font-weight: 500;
 }
 
+
 /* ==========================================
    카드 콘텐츠
 ========================================== */
+
 .status-card-content {
 
     display: grid;
@@ -401,11 +431,15 @@
     gap: 20px;
 }
 
+
 /* ==========================================
    카드 개별 항목
 ========================================== */
+
 .status-card-item {
+
     display: flex;
+
     flex-direction: column;
 
     justify-content: center;
@@ -415,12 +449,14 @@
     gap: 7px;
 }
 
+
 .status-card-item span {
 
     color: #666;
 
     font-size: 14px;
 }
+
 
 .status-card-item strong {
 
@@ -435,6 +471,7 @@
     font-weight: 700;
 }
 
+
 .status-card-item small {
 
     margin-top: 3px;
@@ -444,10 +481,13 @@
     font-size: 12px;
 }
 
+
 /* ==========================================
    데이터 없음
 ========================================== */
+
 .status-empty-card {
+
     width: 100%;
 
     padding: 65px 20px;
@@ -468,9 +508,11 @@
     text-align: center;
 }
 
+
 /* ==========================================
    상세 테이블 카드
 ========================================== */
+
 .status-table-card {
 
     width: 100%;
@@ -487,6 +529,7 @@
         0 4px 14px rgba(0, 0, 0, 0.06);
 }
 
+
 .status-table-card h3 {
 
     margin: 0 0 22px;
@@ -498,20 +541,26 @@
     font-weight: 700;
 }
 
+
 /* ==========================================
    상세 테이블
 ========================================== */
+
 .status-table {
+
     width: 100%;
+
     border-collapse: collapse;
 
     table-layout: fixed;
 }
 
+
 .status-table thead {
 
     background: #f7f7f7;
 }
+
 
 .status-table th {
 
@@ -530,6 +579,7 @@
     text-align: center;
 }
 
+
 .status-table td {
 
     height: 58px;
@@ -545,12 +595,16 @@
     text-align: center;
 }
 
+
 .status-table tbody tr {
+
     transition: background 0.2s;
 }
 
+
 .status-table tbody tr:hover {
-    background: var(--color-ivory);
+
+    background: #fafafa;
 }
 
 
@@ -565,6 +619,7 @@
     font-weight: 700;
 }
 
+
 .status-table-empty {
 
     height: 100px !important;
@@ -575,6 +630,7 @@
 
     text-align: center;
 }
+
 
 /* ==========================================
    반응형 - 1200
@@ -596,6 +652,7 @@
 
         gap: 14px;
     }
+
 }
 
 
@@ -657,7 +714,9 @@
 
 
     .status-filter-content {
+
         flex-direction: column;
+
         align-items: stretch;
     }
 
@@ -706,4 +765,5 @@
 
         min-width: 750px;
     }
+
 }

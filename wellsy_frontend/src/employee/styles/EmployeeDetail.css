@@ -1,0 +1,173 @@
+/* =========================================
+   상세 카드
+========================================= */
+
+.employee-detail-card {
+
+    width: 100%;
+}
+
+
+/* =========================================
+   상세 상단
+========================================= */
+
+.employee-detail-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 15px;
+
+    padding-bottom: 20px;
+
+    border-bottom: 1px solid #eee;
+}
+
+
+.employee-detail-header h2 {
+
+    margin: 0;
+
+    font-size: 26px;
+}
+
+
+.employee-detail-header p {
+
+    margin: 8px 0 0;
+
+    color: #999;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   재직 상태 공통
+========================================= */
+
+.employee-status {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 68px;
+
+    height: 32px;
+
+    padding: 0 14px;
+
+    box-sizing: border-box;
+
+    border-radius: 18px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================
+   재직중
+========================================= */
+
+.employee-status-active {
+
+    border: 1px solid #cfe5d4;
+
+    background: #eef7f0;
+
+    color: #50815b;
+}
+
+
+/* =========================================
+   퇴사
+========================================= */
+
+.employee-status-resigned {
+
+    border: 1px solid #f1c8c8;
+
+    background: #fff0f0;
+
+    color: #d14b4b;
+}
+
+
+/* =========================================
+   상세 영역
+========================================= */
+
+.employee-detail-section {
+
+    padding: 25px 0;
+
+    border-bottom: 1px solid #eee;
+}
+
+
+.employee-detail-section h3 {
+
+    margin: 0 0 20px;
+
+    font-size: 18px;
+}
+
+
+/* =========================================
+   상세 Grid
+========================================= */
+
+.employee-detail-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 15px;
+}
+
+
+/* =========================================
+   상세 항목
+========================================= */
+
+.employee-detail-item {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+    padding: 16px 18px;
+
+    border-radius: 12px;
+
+    background: #f8f8f8;
+}
+
+
+.employee-detail-item span {
+
+    color: #888;
+
+    font-size: 12px;
+}
+
+
+.employee-detail-item strong {
+
+    color: #222;
+
+    font-size: 15px;
+}
