@@ -100,7 +100,26 @@ function MealDetail() {
         setFoodInfos(prev =>
             prev.filter((_, i) => i !== index));
     };
-  
+
+
+    // 식사 영양소 합산
+    const totalNutrition = foodInfos.reduce(
+        (total, food) => {
+            total.calories += Number(food.calories) || 0;
+            total.protein += Number(food.protein) || 0;
+            total.carbohydrate += Number(food.carbohydrate) || 0;
+            total.fat += Number(food.fat) || 0;
+
+            return total;
+        },
+        {
+            calories: 0,
+            protein: 0,
+            carbohydrate: 0,
+            fat: 0
+        }
+    );
+
     // 식사 데이터 제출 시 호출되는 함수
     const handleSubmitMeal = () => {
         const mealData = {
@@ -116,23 +135,23 @@ function MealDetail() {
             },
             body: JSON.stringify(mealData)
         })
-        .then(response => {
-            if (response.ok) {
-                return response.text();
-            } else {
-                throw new Error("식사 저장에 실패했습니다.");
-            }
-        })
+            .then(response => {
+                if (response.ok) {
+                    return response.text();
+                } else {
+                    throw new Error("식사 저장에 실패했습니다.");
+                }
+            })
 
-        .then(data => {
-            console.log("Meal saved successfully:", data);
-            alert("식사가 성공적으로 저장되었습니다.");
-        })
+            .then(data => {
+                console.log("Meal saved successfully:", data);
+                alert("식사가 성공적으로 저장되었습니다.");
+            })
 
-        .catch(error => {
-            console.error("Error:", error);
-            alert("식사 저장에 실패했습니다.");
-        });
+            .catch(error => {
+                console.error("Error:", error);
+                alert("식사 저장에 실패했습니다.");
+            });
 
     };
 
@@ -161,7 +180,7 @@ function MealDetail() {
     const changeMealType = (type) => {
 
         if (foodInfos.length > 0) {
-            if(window.confirm("식사 유형을 변경하면 현재 입력 중인 내용이 초기화됩니다. 계속하시겠습니까?") === false) {
+            if (window.confirm("식사 유형을 변경하면 현재 입력 중인 내용이 초기화됩니다. 계속하시겠습니까?") === false) {
                 return;
             }
         }
@@ -190,6 +209,34 @@ function MealDetail() {
 
             <div className="crud-card-date">
                 2026년 8월 28일
+            </div>
+
+            <div className="meal-summary">
+
+                <div className="meal-summary-card">
+                    <span>칼로리</span>
+                    <strong>{totalNutrition.calories}</strong>
+                    <small> kcal</small>
+                </div>
+
+                <div className="meal-summary-card">
+                    <span>탄수화물</span>
+                    <strong>{totalNutrition.carbohydrate}</strong>
+                    <small> g</small>
+                </div>
+        
+                <div className="meal-summary-card">
+                    <span>단백질</span>
+                    <strong>{totalNutrition.protein}</strong>
+                    <small> g</small>
+                </div>
+
+                <div className="meal-summary-card">
+                    <span>지방</span>
+                    <strong>{totalNutrition.fat}</strong>
+                    <small> g</small>
+                </div>
+
             </div>
 
             <div className="meal-tabs">
