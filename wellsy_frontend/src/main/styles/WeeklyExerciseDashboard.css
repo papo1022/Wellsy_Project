@@ -185,3 +185,35 @@
     padding: 10px 4px;
   }
 }
+
+/* ==========================================
+   승인 대기 카드
+========================================== */
+
+.checkup-waiting-card {
+  cursor: pointer;
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.checkup-waiting-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 6px 18px
+    rgba(0, 0, 0, 0.10);
+}
+
+.checkup-waiting-guide {
+  display: block;
+
+  margin-top: 6px;
+
+  color: #6f9f79;
+
+  font-size: 11px;
+
+  font-weight: 600;
+}

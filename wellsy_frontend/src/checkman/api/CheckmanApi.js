@@ -5,7 +5,11 @@ import {
 } from "../../common/api/commonApi";
 
 
-const BASE_URL = "http://localhost:8006/wellsy/checkman";
+const BASE_URL =
+    "http://localhost:8006/wellsy/checkman";
+
+const CHECKUP_RESERVATION_URL =
+    "http://localhost:8006/wellsy/api/checkup-reservation-dashboard";
 
 
 // =========================================
@@ -134,6 +138,54 @@ const updateCheckmanAlertApi
     };
 
 
+// =========================================
+// 건강검진 예약 목록 조회
+// =========================================
+
+const selectCheckupReservationListApi
+    = params => {
+
+        return axios.get(
+            CHECKUP_RESERVATION_URL,
+            {
+                params : params,
+
+                headers : {
+                    Authorization :
+                        getAuthorization()
+                }
+            }
+        );
+
+    };
+
+
+// =========================================
+// 건강검진 예약 승인
+//
+// N -> Y
+//
+// 백엔드에서 승인과 동시에
+// Schedule 자동 등록
+// =========================================
+
+const approveCheckupReservationApi
+    = reservationId => {
+
+        return axios.put(
+            `${CHECKUP_RESERVATION_URL}/${reservationId}/approve`,
+            {},
+            {
+                headers : {
+                    Authorization :
+                        getAuthorization()
+                }
+            }
+        );
+
+    };
+
+
 export {
 
     selectCheckmanListApi,
@@ -146,6 +198,10 @@ export {
 
     selectCheckmanAlertApi,
 
-    updateCheckmanAlertApi
+    updateCheckmanAlertApi,
+
+    selectCheckupReservationListApi,
+
+    approveCheckupReservationApi
 
 };
