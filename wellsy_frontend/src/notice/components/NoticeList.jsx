@@ -6,6 +6,8 @@ import NoticeItem from "./NoticeItem";
 
 import { useNavigate } from "react-router-dom";
 
+import { jwtDecode } from "jwt-decode";
+
 import "../styles/Notice.css";
 
 function NoticeList() {
@@ -16,6 +18,12 @@ function NoticeList() {
     // 조회된 데이터를 담을 배열 형태의 State 변수
     const [dataList, setDataList] = useState([]);
 
+    // 현재 페이지
+    const [currentPage, setCurrentPage]
+        = useState(1);
+
+    // 한 페이지에 보여줄 공지사항 개수
+    const itemsPerPage = 5;
 
 // 이 컴포넌트가 로딩된 후 최초 한 번 실행
 useEffect(() => {
@@ -52,14 +60,174 @@ useEffect(() => {
 
 }, []);
 
-const loginUser
-    = JSON.parse(
-        localStorage.getItem("loginUser")
-    );
+    // =========================================
+    // 관리자 권한 확인
+    // =========================================
+
+    const getIsAdmin = () => {
+
+    const token
+        = sessionStorage.getItem(
+            "token"
+        );
+
+
+    if(!token) {
+
+        return false;
+    }
+
+
+    try {
+
+        const decoded
+            = jwtDecode(token);
+
+
+        const role
+            = decoded.role
+            ??
+            decoded.authority
+            ??
+            decoded.auth;
+
+
+        return (
+            role === "ADMIN"
+            ||
+            role === "ROLE_ADMIN"
+        );
+
+
+    } catch(error) {
+
+        console.log(
+            "토큰 해석 실패",
+            error
+        );
+
+
+        return false;
+    }
+};
 
 
 const isAdmin
-    = loginUser?.role === "ADMIN";
+    = getIsAdmin();
+    // =========================================
+    // 전체 페이지 수
+    // =========================================
+
+    const totalPages
+        = Math.ceil(
+            dataList.length
+            /
+            itemsPerPage
+        );
+
+
+    // =========================================
+    // 현재 페이지 시작 위치
+    // =========================================
+
+    const startIndex
+        = (
+            currentPage - 1
+        )
+        *
+        itemsPerPage;
+
+
+    // =========================================
+    // 현재 페이지에 보여줄 공지사항
+    // =========================================
+
+    const currentDataList
+        = dataList.slice(
+
+            startIndex,
+
+            startIndex
+            +
+            itemsPerPage
+        );
+
+
+    // =========================================
+    // 페이지 변경
+    // =========================================
+
+    const changePage = page => {
+
+        if(
+            page < 1
+            ||
+            page > totalPages
+        ) {
+
+            return;
+        }
+
+
+        setCurrentPage(
+            page
+        );
+    };
+
+
+    // =========================================
+    // 화면에 표시할 페이지 번호
+    //
+    // 최대 5개씩 표시
+    // =========================================
+
+    const getPageNumbers = () => {
+
+        const pageGroupSize = 5;
+
+
+        const startPage
+            = Math.floor(
+                (currentPage - 1)
+                /
+                pageGroupSize
+            )
+            *
+            pageGroupSize
+            +
+            1;
+
+
+        const endPage
+            = Math.min(
+
+                startPage
+                +
+                pageGroupSize
+                -
+                1,
+
+                totalPages
+            );
+
+
+        const pages = [];
+
+
+        for(
+            let page = startPage;
+            page <= endPage;
+            page++
+        ) {
+
+            pages.push(
+                page
+            );
+        }
+
+
+        return pages;
+    };
 
 
 return (
@@ -141,7 +309,7 @@ return (
                             {
                                 dataList.length > 0
                                 ?
-                                dataList
+                                currentDataList
                                 :
                                 (
                                     <tr>
@@ -162,6 +330,144 @@ return (
                     </table>
 
                 </div>
+
+                {/* ================================= */}
+                {/* 페이징 */}
+                {/* ================================= */}
+
+                {
+                    totalPages > 0
+                    &&
+                    (
+                        <div className="notice-pagination">
+
+
+                            {/* 처음 페이지 */}
+
+                            <button
+                                type="button"
+
+                                className="notice-page-btn"
+
+                                disabled={
+                                    currentPage === 1
+                                }
+
+                                onClick={
+                                    () =>
+                                        changePage(1)
+                                }
+                            >
+                                «
+                            </button>
+
+
+                            {/* 이전 페이지 */}
+
+                            <button
+                                type="button"
+
+                                className="notice-page-btn"
+
+                                disabled={
+                                    currentPage === 1
+                                }
+
+                                onClick={() => changePage(currentPage - 1)}>‹</button>
+
+
+                            {/* 페이지 번호 */}
+
+                            {
+                                getPageNumbers()
+                                    .map(
+                                        page => (
+
+                                            <button
+                                                type="button"
+
+                                                key={
+                                                    page
+                                                }
+
+                                                className={
+                                                    currentPage === page
+                                                    ?
+                                                    "notice-page-btn notice-page-active"
+                                                    :
+                                                    "notice-page-btn"
+                                                }
+
+                                                onClick={
+                                                    () =>
+                                                        changePage(
+                                                            page
+                                                        )
+                                                }
+                                            >
+
+                                                {
+                                                    page
+                                                }
+
+                                            </button>
+
+                                        )
+                                    )
+                            }
+
+
+                            {/* 다음 페이지 */}
+
+                            <button
+                                type="button"
+
+                                className="notice-page-btn"
+
+                                disabled={
+                                    currentPage
+                                    ===
+                                    totalPages
+                                }
+
+                                onClick={
+                                    () =>
+                                        changePage(
+                                            currentPage + 1
+                                        )
+                                }
+                            >
+                                ›
+                            </button>
+
+
+                            {/* 마지막 페이지 */}
+
+                            <button
+                                type="button"
+
+                                className="notice-page-btn"
+
+                                disabled={
+                                    currentPage
+                                    ===
+                                    totalPages
+                                }
+
+                                onClick={
+                                    () =>
+                                        changePage(
+                                            totalPages
+                                        )
+                                }
+                            >
+                                »
+                            </button>
+
+
+                        </div>
+                    )
+                }
 
             </div>
 

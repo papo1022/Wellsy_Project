@@ -381,6 +381,105 @@
     background: #ffdada;
 }
 
+/* ==========================================
+   공지사항 페이징
+========================================== */
+
+.notice-pagination {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 6px;
+
+    margin-top: 25px;
+}
+
+
+/* 페이지 버튼 */
+
+.notice-page-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 36px;
+
+    height: 36px;
+
+    padding: 0 10px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #ddd;
+
+    border-radius: 9px;
+
+    background: #fff;
+
+    color: #666;
+
+    font-size: 13px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+.notice-page-btn:hover:not(:disabled) {
+
+    border-color: #aaa;
+
+    background: #f6f6f6;
+
+    color: #222;
+}
+
+
+/* 현재 페이지 */
+
+.notice-page-active {
+
+    border-color: #111;
+
+    background: #111;
+
+    color: #fff;
+
+    font-weight: 600;
+}
+
+
+.notice-page-active:hover:not(:disabled) {
+
+    border-color: #111;
+
+    background: #111;
+
+    color: #fff;
+}
+
+
+/* 사용 불가능 */
+
+.notice-page-btn:disabled {
+
+    border-color: #eee;
+
+    background: #fafafa;
+
+    color: #ccc;
+
+    cursor: default;
+}
+
 
 /* ==========================================
    반응형
