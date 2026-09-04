@@ -1,0 +1,143 @@
+/* =========================================
+   Form 카드
+========================================= */
+
+.employee-form-card {
+
+    width: 100%;
+}
+
+
+/* =========================================
+   Form 상단
+========================================= */
+
+.employee-form-header {
+
+    margin-bottom: 25px;
+
+    padding-bottom: 20px;
+
+    border-bottom: 1px solid #eee;
+}
+
+
+.employee-form-header h2 {
+
+    margin: 0;
+
+    font-size: 26px;
+}
+
+
+.employee-form-header p {
+
+    margin: 8px 0 0;
+
+    color: #999;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   Form Section
+========================================= */
+
+.employee-form-section {
+
+    padding: 25px 0;
+
+    border-bottom: 1px solid #eee;
+}
+
+
+.employee-form-section h3 {
+
+    margin: 0 0 20px;
+
+    font-size: 18px;
+}
+
+
+/* =========================================
+   Form Grid
+========================================= */
+
+.employee-form-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 20px;
+}
+
+
+/* =========================================
+   입력 항목
+========================================= */
+
+.employee-form-item {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+
+.employee-form-item label {
+
+    color: #555;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+.employee-form-item input,
+.employee-form-item select {
+
+    width: 100%;
+
+    height: 44px;
+
+    padding: 0 14px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #ddd;
+
+    border-radius: 9px;
+
+    background: #fafafa;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+.employee-form-item input:focus,
+.employee-form-item select:focus {
+
+    border-color: #999;
+
+    background: #fff;
+}
+
+
+.employee-form-item input:disabled {
+
+    background: #eee;
+
+    color: #888;
+}

@@ -7,4 +7,7 @@ public interface HealthService {
 
     // 건강 등급 가져오기
     String getHealthGrade(int employeeNo);
+
+    // 건강기록 수정 또는 추가
+    Health saveOrUpdateHealth(Health health);
 }

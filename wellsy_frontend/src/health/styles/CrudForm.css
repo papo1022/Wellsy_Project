@@ -106,7 +106,6 @@
 .unit-toggle,
 .meal-tabs {
     display: inline-flex;
-    margin-bottom: var(--spacing);
     padding: 5px;
     background: var(--color-ivory);
     border-radius: var(--radius-sm);

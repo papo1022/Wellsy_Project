@@ -1,24 +1,60 @@
 import { useState } from "react";
 import "../../styles/CrudForm.css";
 
-function BodyForm({ onClose }) {
+function BodyForm({ onClose, onHealthUpdate }) {
 
     const [height, setHeight] = useState("");
     const [weight, setWeight] = useState("");
 
-    const handleSubmit = (e) => {
+    const todayText = new Date().toLocaleDateString("ko-KR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+    });
 
-        if(height === "" || weight === "") {
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        if (height === "" || weight === "") {
             alert("키와 몸무게를 모두 입력해주세요.");
             return;
         }
 
-        console.log("키:", Number(height));
-        console.log("몸무게:", Number(weight));
-        e.preventDefault();
-        
-        alert("신체 정보가 저장되었습니다.");
-        onClose();
+        const today = new Date().toISOString().split("T")[0];
+
+        const healthData = {
+            employeeNo: 1,
+            recordDate: today,
+            height: Number(height),
+            weight: Number(weight)
+        };
+
+        fetch("http://localhost:8006/wellsy/health", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(healthData)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("신체 정보 저장 실패");
+                }
+
+                return response.json();
+            })
+            .then(data => {
+                console.log("저장 결과:", data);
+
+                onHealthUpdate();
+
+                alert("신체 정보가 저장되었습니다.");
+                onClose();
+            })
+            .catch(error => {
+                console.error(error);
+                alert("신체 정보 저장 중 오류가 발생했습니다.");
+            });
     };
 
     return (
@@ -27,7 +63,7 @@ function BodyForm({ onClose }) {
             <h2>신체 정보 기록</h2>
 
             <div className="crud-card-date">
-                2026년 8월 26일
+                {todayText}
             </div>
 
             <div className="crud-card-input">

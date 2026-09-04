@@ -14,4 +14,5 @@ public interface HealthDao extends JpaRepository<Health, Integer> {
         int employeeNo,
         LocalDate recordDate
     );
+    
 }

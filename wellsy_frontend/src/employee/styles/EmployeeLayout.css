@@ -1,0 +1,101 @@
+/* =========================================
+   전체 화면
+========================================= */
+
+.employee-dashboard {
+
+    width: 1200px;
+
+    margin: 0 auto;
+
+    padding: 30px 20px 60px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   페이지 제목
+========================================= */
+
+.employee-page-title {
+
+    margin-bottom: 12px;
+}
+
+
+/* =========================================
+   카드 영역
+========================================= */
+
+.employee-card-area {
+
+    display: flex;
+
+    flex-direction: row;
+
+    gap: 20px;
+
+    align-items: stretch;
+}
+
+
+/* =========================================
+   기본 카드
+========================================= */
+
+.employee-card {
+
+    width: 280px;
+
+    padding: 20px;
+
+    background: #fff;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.08);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* =========================================
+   넓은 카드
+========================================= */
+
+.employee-list-card,
+.employee-detail-card,
+.employee-form-card {
+
+    width: 100%;
+}
+
+
+/* =========================================
+   카드 콘텐츠
+========================================= */
+
+.employee-card-content {
+
+    width: 100%;
+
+    margin-top: 20px;
+}
+
+
+/* =========================================
+   데이터 없음
+========================================= */
+
+.employee-empty {
+
+    height: 150px !important;
+
+    color: #999 !important;
+
+    text-align: center !important;
+}

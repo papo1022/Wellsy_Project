@@ -12,7 +12,8 @@ import {
     selectCheckmanListApi,
     selectCheckmanAlertListApi,
     selectCheckupReservationListApi,
-    approveCheckupReservationApi
+    approveCheckupReservationApi,
+    cancelCheckupReservationApi
 } from "../api/CheckmanApi";
 
 import "../styles/Checkman.css";
@@ -116,11 +117,11 @@ function CheckmanList() {
     const [healthFilter, setHealthFilter]
         = useState({
 
-            keyword: "",
+            keyword : "",
 
-            startDate: "",
+            startDate : "",
 
-            endDate: ""
+            endDate : ""
 
         });
     // =========================================
@@ -130,15 +131,15 @@ function CheckmanList() {
     const [alertFilter, setAlertFilter]
         = useState({
 
-            keyword: "",
+            keyword : "",
 
-            severity: "",
+            severity : "",
 
-            isRead: "",
+            isRead : "",
 
-            startDate: "",
+            startDate : "",
 
-            endDate: ""
+            endDate : ""
 
         });
 
@@ -150,9 +151,9 @@ function CheckmanList() {
     const [reservationFilter, setReservationFilter]
         = useState({
 
-            name: "",
+            name : "",
 
-            status: "N"
+            status : "N"
 
         });
 
@@ -167,7 +168,7 @@ function CheckmanList() {
 
             ...healthFilter,
 
-            [e.target.name]:
+            [e.target.name] :
                 e.target.value
 
         });
@@ -185,7 +186,7 @@ function CheckmanList() {
 
             ...alertFilter,
 
-            [e.target.name]:
+            [e.target.name] :
                 e.target.value
 
         });
@@ -203,7 +204,7 @@ function CheckmanList() {
 
             ...reservationFilter,
 
-            [e.target.name]:
+            [e.target.name] :
                 e.target.value
 
         });
@@ -230,7 +231,7 @@ function CheckmanList() {
             );
 
 
-        } catch (error) {
+        } catch(error) {
 
             console.log(
                 "직원 건강정보 조회 실패!"
@@ -262,7 +263,7 @@ function CheckmanList() {
             );
 
 
-        } catch (error) {
+        } catch(error) {
 
             console.log(
                 "건강 이상 알림 조회 실패!"
@@ -287,7 +288,7 @@ function CheckmanList() {
 
 
             // 직원 이름
-            if (
+            if(
                 reservationFilter.name !== ""
             ) {
 
@@ -298,7 +299,7 @@ function CheckmanList() {
 
 
             // 상태
-            if (
+            if(
                 reservationFilter.status !== ""
             ) {
 
@@ -319,7 +320,7 @@ function CheckmanList() {
             );
 
 
-        } catch (error) {
+        } catch(error) {
 
             console.log(
                 "건강검진 예약 조회 실패!"
@@ -353,13 +354,13 @@ function CheckmanList() {
 
     const searchHealth = () => {
 
-        if (
+        if(
             healthFilter.startDate !== ""
             &&
             healthFilter.endDate !== ""
             &&
             healthFilter.startDate
-            > healthFilter.endDate
+                > healthFilter.endDate
         ) {
 
             alert(
@@ -382,13 +383,13 @@ function CheckmanList() {
 
     const searchAlert = () => {
 
-        if (
+        if(
             alertFilter.startDate !== ""
             &&
             alertFilter.endDate !== ""
             &&
             alertFilter.startDate
-            > alertFilter.endDate
+                > alertFilter.endDate
         ) {
 
             alert(
@@ -423,65 +424,130 @@ function CheckmanList() {
     const approveReservation
         = async reservationId => {
 
-            if (
-                !window.confirm(
-                    "해당 건강검진 예약을 승인하시겠습니까?"
-                )
+        if(
+            !window.confirm(
+                "해당 건강검진 예약을 승인하시겠습니까?"
+            )
+        ) {
+
+            return;
+
+        }
+
+
+        try {
+
+            const response
+                = await approveCheckupReservationApi(
+                    reservationId
+                );
+
+
+            alert(
+                response.data
+                ?? "건강검진 예약이 승인되었습니다."
+            );
+
+
+            // 승인 후 다시 조회
+            // 기본 N 상태라면 승인된 예약은
+            // 승인 대기 목록에서 바로 사라짐
+            await selectReservationList();
+
+
+        } catch(error) {
+
+            console.log(
+                "건강검진 예약 승인 실패!"
+            );
+
+            console.log(error);
+
+
+            if(
+                error.response?.data
             ) {
 
-                return;
+                alert(
+                    error.response.data
+                );
 
-            }
-
-
-            try {
-
-                const response
-                    = await approveCheckupReservationApi(
-                        reservationId
-                    );
-
+            } else {
 
                 alert(
-                    response.data
-                    ?? "건강검진 예약이 승인되었습니다."
+                    "건강검진 예약 승인 중 오류가 발생했습니다."
                 );
-
-
-                // 승인 후 다시 조회
-                // 기본 N 상태라면 승인된 예약은
-                // 승인 대기 목록에서 바로 사라짐
-                await selectReservationList();
-
-
-            } catch (error) {
-
-                console.log(
-                    "건강검진 예약 승인 실패!"
-                );
-
-                console.log(error);
-
-
-                if (
-                    error.response?.data
-                ) {
-
-                    alert(
-                        error.response.data
-                    );
-
-                } else {
-
-                    alert(
-                        "건강검진 예약 승인 중 오류가 발생했습니다."
-                    );
-
-                }
 
             }
 
-        };
+        }
+
+    };
+
+
+    // =========================================
+    // 건강검진 예약 취소
+    // =========================================
+
+    const cancelReservation
+        = async reservationId => {
+
+        if(
+            !window.confirm(
+                "해당 건강검진 예약을 취소하시겠습니까?"
+            )
+        ) {
+
+            return;
+
+        }
+
+
+        try {
+
+            const response
+                = await cancelCheckupReservationApi(
+                    reservationId
+                );
+
+
+            alert(
+                response.data
+                ?? "건강검진 예약이 취소되었습니다."
+            );
+
+
+            await selectReservationList();
+
+
+        } catch(error) {
+
+            console.log(
+                "건강검진 예약 취소 실패!"
+            );
+
+            console.log(error);
+
+
+            if(
+                error.response?.data
+            ) {
+
+                alert(
+                    error.response.data
+                );
+
+            } else {
+
+                alert(
+                    "건강검진 예약 취소 중 오류가 발생했습니다."
+                );
+
+            }
+
+        }
+
+    };
 
 
     // =========================================
@@ -490,7 +556,7 @@ function CheckmanList() {
 
     const getSeverityName = severity => {
 
-        switch (severity) {
+        switch(severity) {
 
             case "DANGER":
                 return "위험";
@@ -516,23 +582,23 @@ function CheckmanList() {
     const getReservationStatusName
         = status => {
 
-            switch (status) {
+        switch(status) {
 
-                case "N":
-                    return "승인대기";
+            case "N":
+                return "승인대기";
 
-                case "Y":
-                    return "승인완료";
+            case "Y":
+                return "승인완료";
 
-                case "C":
-                    return "취소";
+            case "C":
+                return "취소";
 
-                default:
-                    return "-";
+            default:
+                return "-";
 
-            }
+        }
 
-        };
+    };
 
 
     // =========================================
@@ -576,13 +642,13 @@ function CheckmanList() {
 
                     className={
                         menu === "health"
-                            ?
-                            "checkman-menu-btn checkman-menu-active"
-                            :
-                            "checkman-menu-btn"
+                        ?
+                        "checkman-menu-btn checkman-menu-active"
+                        :
+                        "checkman-menu-btn"
                     }
 
-                    onClick={() => {
+                    onClick={ () => {
 
                         setMenu("health");
 
@@ -600,13 +666,13 @@ function CheckmanList() {
 
                     className={
                         menu === "alert"
-                            ?
-                            "checkman-menu-btn checkman-menu-active"
-                            :
-                            "checkman-menu-btn"
+                        ?
+                        "checkman-menu-btn checkman-menu-active"
+                        :
+                        "checkman-menu-btn"
                     }
 
-                    onClick={() => {
+                    onClick={ () => {
 
                         setMenu("alert");
 
@@ -622,7 +688,7 @@ function CheckmanList() {
                         (
                             <span className="checkman-alert-count">
 
-                                {unreadAlertCount}
+                                { unreadAlertCount }
 
                             </span>
                         )
@@ -639,13 +705,13 @@ function CheckmanList() {
 
                     className={
                         menu === "reservation"
-                            ?
-                            "checkman-menu-btn checkman-menu-active"
-                            :
-                            "checkman-menu-btn"
+                        ?
+                        "checkman-menu-btn checkman-menu-active"
+                        :
+                        "checkman-menu-btn"
                     }
 
-                    onClick={() => {
+                    onClick={ () => {
 
                         setMenu("reservation");
 
@@ -827,123 +893,123 @@ function CheckmanList() {
 
                                         {
                                             checkmanList.length > 0
-                                                ?
-                                                checkmanList.map(
-                                                    checkman => (
+                                            ?
+                                            checkmanList.map(
+                                                checkman => (
 
-                                                        <tr
-                                                            key={
-                                                                checkman.healthRecordId
+                                                    <tr
+                                                        key={
+                                                            checkman.healthRecordId
+                                                        }
+
+                                                        className="checkman-table-row"
+
+                                                        onClick={ () => {
+
+                                                            navigate(
+                                                                `/checkman/health/${checkman.healthRecordId}`
+                                                            );
+
+                                                        }}
+                                                    >
+
+                                                        <td className="checkman-name-cell">
+
+                                                            {
+                                                                checkman.employeeName
                                                             }
 
-                                                            className="checkman-table-row"
-
-                                                            onClick={() => {
-
-                                                                navigate(
-                                                                    `/checkman/health/${checkman.healthRecordId}`
-                                                                );
-
-                                                            }}
-                                                        >
-
-                                                            <td className="checkman-name-cell">
-
-                                                                {
-                                                                    checkman.employeeName
-                                                                }
-
-                                                            </td>
+                                                        </td>
 
 
-                                                            <td>
+                                                        <td>
 
-                                                                {
-                                                                    checkman.departmentName
-                                                                    ??
-                                                                    "-"
-                                                                }
+                                                            {
+                                                                checkman.departmentName
+                                                                ??
+                                                                "-"
+                                                            }
 
-                                                            </td>
-
-
-                                                            <td>
-
-                                                                {
-                                                                    checkman.jobName
-                                                                    ??
-                                                                    "-"
-                                                                }
-
-                                                            </td>
+                                                        </td>
 
 
-                                                            <td>
+                                                        <td>
 
-                                                                {
-                                                                    checkman.recordDate
-                                                                    ??
-                                                                    "-"
-                                                                }
+                                                            {
+                                                                checkman.jobName
+                                                                ??
+                                                                "-"
+                                                            }
 
-                                                            </td>
-
-
-                                                            <td>
-
-                                                                {
-                                                                    checkman.bmi
-                                                                    ??
-                                                                    "-"
-                                                                }
-
-                                                            </td>
+                                                        </td>
 
 
-                                                            <td>
+                                                        <td>
 
-                                                                {
-                                                                    checkman.systolicBp != null
-                                                                        &&
-                                                                        checkman.diastolicBp != null
-                                                                        ?
-                                                                        `${checkman.systolicBp}/${checkman.diastolicBp}`
-                                                                        :
-                                                                        "-"
-                                                                }
+                                                            {
+                                                                checkman.recordDate
+                                                                ??
+                                                                "-"
+                                                            }
 
-                                                            </td>
+                                                        </td>
 
 
-                                                            <td>
+                                                        <td>
 
-                                                                {
-                                                                    checkman.bloodSugar
-                                                                    ??
-                                                                    "-"
-                                                                }
+                                                            {
+                                                                checkman.bmi
+                                                                ??
+                                                                "-"
+                                                            }
 
-                                                            </td>
+                                                        </td>
 
-                                                        </tr>
 
-                                                    )
-                                                )
-                                                :
-                                                (
+                                                        <td>
 
-                                                    <tr>
+                                                            {
+                                                                checkman.systolicBp != null
+                                                                &&
+                                                                checkman.diastolicBp != null
+                                                                ?
+                                                                `${checkman.systolicBp}/${checkman.diastolicBp}`
+                                                                :
+                                                                "-"
+                                                            }
 
-                                                        <td
-                                                            colSpan="7"
-                                                            className="checkman-empty"
-                                                        >
-                                                            조회된 건강정보가 없습니다.
+                                                        </td>
+
+
+                                                        <td>
+
+                                                            {
+                                                                checkman.bloodSugar
+                                                                ??
+                                                                "-"
+                                                            }
+
                                                         </td>
 
                                                     </tr>
 
                                                 )
+                                            )
+                                            :
+                                            (
+
+                                                <tr>
+
+                                                    <td
+                                                        colSpan="7"
+                                                        className="checkman-empty"
+                                                    >
+                                                        조회된 건강정보가 없습니다.
+                                                    </td>
+
+                                                </tr>
+
+                                            )
                                         }
 
                                     </tbody>
@@ -1169,157 +1235,157 @@ function CheckmanList() {
 
                                         {
                                             alertList.length > 0
-                                                ?
-                                                alertList.map(
-                                                    alertData => (
+                                            ?
+                                            alertList.map(
+                                                alertData => (
 
-                                                        <tr
-                                                            key={
-                                                                alertData.alertId
+                                                    <tr
+                                                        key={
+                                                            alertData.alertId
+                                                        }
+
+                                                        className={
+                                                            alertData.isRead === "N"
+                                                            ?
+                                                            "checkman-table-row checkman-unread-row"
+                                                            :
+                                                            "checkman-table-row"
+                                                        }
+
+                                                        onClick={ () => {
+
+                                                            navigate(
+                                                                `/checkman/alerts/${alertData.alertId}`
+                                                            );
+
+                                                        }}
+                                                    >
+
+                                                        <td className="checkman-name-cell">
+
+                                                            {
+                                                                alertData.employeeName
                                                             }
 
-                                                            className={
-                                                                alertData.isRead === "N"
+                                                        </td>
+
+
+                                                        <td>
+
+                                                            {
+                                                                alertData.departmentName
+                                                                ??
+                                                                "-"
+                                                            }
+
+                                                        </td>
+
+
+                                                        <td>
+
+                                                            {
+                                                                alertData.alertType
+                                                                ??
+                                                                "-"
+                                                            }
+
+                                                        </td>
+
+
+                                                        <td>
+
+                                                            <span
+                                                                className={
+                                                                    `checkman-severity checkman-severity-${alertData.severity?.toLowerCase()}`
+                                                                }
+                                                            >
+
+                                                                {
+                                                                    getSeverityName(
+                                                                        alertData.severity
+                                                                    )
+                                                                }
+
+                                                            </span>
+
+                                                        </td>
+
+
+                                                        <td className="checkman-message-cell">
+
+                                                            {
+                                                                alertData.message
+                                                                ??
+                                                                "-"
+                                                            }
+
+                                                        </td>
+
+
+                                                        <td>
+
+                                                            {
+                                                                alertData.alertCreatedAt
+                                                                ?
+                                                                alertData.alertCreatedAt
+                                                                    .replace(
+                                                                        "T",
+                                                                        " "
+                                                                    )
+                                                                    .substring(
+                                                                        0,
+                                                                        16
+                                                                    )
+                                                                :
+                                                                "-"
+                                                            }
+
+                                                        </td>
+
+
+                                                        <td>
+
+                                                            <span
+                                                                className={
+                                                                    alertData.isRead === "Y"
                                                                     ?
-                                                                    "checkman-table-row checkman-unread-row"
+                                                                    "checkman-read"
                                                                     :
-                                                                    "checkman-table-row"
-                                                            }
-
-                                                            onClick={() => {
-
-                                                                navigate(
-                                                                    `/checkman/alerts/${alertData.alertId}`
-                                                                );
-
-                                                            }}
-                                                        >
-
-                                                            <td className="checkman-name-cell">
+                                                                    "checkman-unread"
+                                                                }
+                                                            >
 
                                                                 {
-                                                                    alertData.employeeName
+                                                                    alertData.isRead === "Y"
+                                                                    ?
+                                                                    "확인완료"
+                                                                    :
+                                                                    "미확인"
                                                                 }
 
-                                                            </td>
+                                                            </span>
 
-
-                                                            <td>
-
-                                                                {
-                                                                    alertData.departmentName
-                                                                    ??
-                                                                    "-"
-                                                                }
-
-                                                            </td>
-
-
-                                                            <td>
-
-                                                                {
-                                                                    alertData.alertType
-                                                                    ??
-                                                                    "-"
-                                                                }
-
-                                                            </td>
-
-
-                                                            <td>
-
-                                                                <span
-                                                                    className={
-                                                                        `checkman-severity checkman-severity-${alertData.severity?.toLowerCase()}`
-                                                                    }
-                                                                >
-
-                                                                    {
-                                                                        getSeverityName(
-                                                                            alertData.severity
-                                                                        )
-                                                                    }
-
-                                                                </span>
-
-                                                            </td>
-
-
-                                                            <td className="checkman-message-cell">
-
-                                                                {
-                                                                    alertData.message
-                                                                    ??
-                                                                    "-"
-                                                                }
-
-                                                            </td>
-
-
-                                                            <td>
-
-                                                                {
-                                                                    alertData.alertCreatedAt
-                                                                        ?
-                                                                        alertData.alertCreatedAt
-                                                                            .replace(
-                                                                                "T",
-                                                                                " "
-                                                                            )
-                                                                            .substring(
-                                                                                0,
-                                                                                16
-                                                                            )
-                                                                        :
-                                                                        "-"
-                                                                }
-
-                                                            </td>
-
-
-                                                            <td>
-
-                                                                <span
-                                                                    className={
-                                                                        alertData.isRead === "Y"
-                                                                            ?
-                                                                            "checkman-read"
-                                                                            :
-                                                                            "checkman-unread"
-                                                                    }
-                                                                >
-
-                                                                    {
-                                                                        alertData.isRead === "Y"
-                                                                            ?
-                                                                            "확인완료"
-                                                                            :
-                                                                            "미확인"
-                                                                    }
-
-                                                                </span>
-
-                                                            </td>
-
-                                                        </tr>
-
-                                                    )
-                                                )
-                                                :
-                                                (
-
-                                                    <tr>
-
-                                                        <td
-                                                            colSpan="7"
-                                                            className="checkman-empty"
-                                                        >
-                                                            건강 이상 알림이 없습니다.
                                                         </td>
 
                                                     </tr>
 
                                                 )
+                                            )
+                                            :
+                                            (
+
+                                                <tr>
+
+                                                    <td
+                                                        colSpan="7"
+                                                        className="checkman-empty"
+                                                    >
+                                                        건강 이상 알림이 없습니다.
+                                                    </td>
+
+                                                </tr>
+
+                                            )
                                         }
 
                                     </tbody>
@@ -1495,182 +1561,196 @@ function CheckmanList() {
 
                                         {
                                             reservationList.length > 0
-                                                ?
-                                                reservationList.map(
-                                                    reservation => (
+                                            ?
+                                            reservationList.map(
+                                                reservation => (
 
-                                                        <tr
-                                                            key={
-                                                                reservation.reservationId
+                                                    <tr
+                                                        key={
+                                                            reservation.reservationId
+                                                        }
+                                                    >
+
+                                                        <td>
+
+                                                            {
+                                                                reservation.employeeNo
                                                             }
-                                                        >
 
-                                                            <td>
+                                                        </td>
+
+
+                                                        <td className="checkman-name-cell">
+
+                                                            {
+                                                                reservation.name
+                                                            }
+
+                                                        </td>
+
+
+                                                        <td>
+
+                                                            {
+                                                                reservation.departmentName
+                                                                ??
+                                                                "-"
+                                                            }
+
+                                                        </td>
+
+
+                                                        <td>
+
+                                                            {
+                                                                reservation.jobName
+                                                                ??
+                                                                "-"
+                                                            }
+
+                                                        </td>
+
+
+                                                        <td>
+
+                                                            {
+                                                                reservation.reservationDate
+                                                                ??
+                                                                "-"
+                                                            }
+
+                                                        </td>
+
+
+                                                        <td>
+
+                                                            {
+                                                                reservation.recentCheckupDate
+                                                                ??
+                                                                "-"
+                                                            }
+
+                                                        </td>
+
+
+                                                        <td>
+
+                                                            {
+                                                                reservation.hospitalName
+                                                                ??
+                                                                "-"
+                                                            }
+
+                                                        </td>
+
+
+                                                        <td className="checkman-message-cell">
+
+                                                            {
+                                                                reservation.memo
+                                                                ??
+                                                                "-"
+                                                            }
+
+                                                        </td>
+
+
+                                                        <td>
+
+                                                            <span
+                                                                className={
+                                                                    `checkman-reservation-status checkman-reservation-${reservation.status?.toLowerCase()}`
+                                                                }
+                                                            >
 
                                                                 {
-                                                                    reservation.employeeNo
+                                                                    getReservationStatusName(
+                                                                        reservation.status
+                                                                    )
                                                                 }
 
-                                                            </td>
+                                                            </span>
+
+                                                        </td>
 
 
-                                                            <td className="checkman-name-cell">
+                                                        <td>
 
-                                                                {
-                                                                    reservation.name
-                                                                }
+                                                            {
+                                                                reservation.status === "N"
+                                                                ?
+                                                                (
+                                                                    <>
+                                                                        <button
+                                                                            type="button"
+                                                                            className="checkman-approve-btn"
+                                                                            onClick={ () => {
+                                                                                approveReservation(
+                                                                                    reservation.reservationId
+                                                                                );
+                                                                            }}
+                                                                        >
+                                                                            승인
+                                                                        </button>
 
-                                                            </td>
+                                                                        <button
+                                                                            type="button"
+                                                                            className="checkman-cancel-btn"
+                                                                            onClick={ () => {
+                                                                                cancelReservation(
+                                                                                    reservation.reservationId
+                                                                                );
+                                                                            }}
+                                                                        >
+                                                                            취소
+                                                                        </button>
+                                                                    </>
+                                                                )
+                                                                :
+                                                                reservation.status === "Y"
+                                                                ?
+                                                                (
+                                                                    <button
+                                                                        type="button"
+                                                                        className="checkman-cancel-btn"
+                                                                        onClick={ () => {
+                                                                            cancelReservation(
+                                                                                reservation.reservationId
+                                                                            );
+                                                                        }}
+                                                                    >
+                                                                        취소
+                                                                    </button>
+                                                                )
+                                                                :
+                                                                (
+                                                                    <span className="checkman-complete-text">
+                                                                        취소완료
+                                                                    </span>
+                                                                )
+                                                            }
 
-
-                                                            <td>
-
-                                                                {
-                                                                    reservation.departmentName
-                                                                    ??
-                                                                    "-"
-                                                                }
-
-                                                            </td>
-
-
-                                                            <td>
-
-                                                                {
-                                                                    reservation.jobName
-                                                                    ??
-                                                                    "-"
-                                                                }
-
-                                                            </td>
-
-
-                                                            <td>
-
-                                                                {
-                                                                    reservation.reservationDate
-                                                                    ??
-                                                                    "-"
-                                                                }
-
-                                                            </td>
-
-
-                                                            <td>
-
-                                                                {
-                                                                    reservation.recentCheckupDate
-                                                                    ??
-                                                                    "-"
-                                                                }
-
-                                                            </td>
-
-
-                                                            <td>
-
-                                                                {
-                                                                    reservation.hospitalName
-                                                                    ??
-                                                                    "-"
-                                                                }
-
-                                                            </td>
-
-
-                                                            <td className="checkman-message-cell">
-
-                                                                {
-                                                                    reservation.memo
-                                                                    ??
-                                                                    "-"
-                                                                }
-
-                                                            </td>
-
-
-                                                            <td>
-
-                                                                <span
-                                                                    className={
-                                                                        `checkman-reservation-status checkman-reservation-${reservation.status?.toLowerCase()}`
-                                                                    }
-                                                                >
-
-                                                                    {
-                                                                        getReservationStatusName(
-                                                                            reservation.status
-                                                                        )
-                                                                    }
-
-                                                                </span>
-
-                                                            </td>
-
-
-                                                            <td>
-
-                                                                {
-                                                                    reservation.status === "N"
-                                                                        ?
-                                                                        (
-
-                                                                            <button
-                                                                                type="button"
-
-                                                                                className="checkman-approve-btn"
-
-                                                                                onClick={() => {
-
-                                                                                    approveReservation(
-                                                                                        reservation.reservationId
-                                                                                    );
-
-                                                                                }}
-                                                                            >
-                                                                                승인
-                                                                            </button>
-
-                                                                        )
-                                                                        :
-                                                                        (
-
-                                                                            <span className="checkman-complete-text">
-
-                                                                                {
-                                                                                    reservation.status === "Y"
-                                                                                        ?
-                                                                                        "처리완료"
-                                                                                        :
-                                                                                        "-"
-                                                                                }
-
-                                                                            </span>
-
-                                                                        )
-                                                                }
-
-                                                            </td>
-
-                                                        </tr>
-
-                                                    )
-                                                )
-                                                :
-                                                (
-
-                                                    <tr>
-
-                                                        <td
-                                                            colSpan="10"
-                                                            className="checkman-empty"
-                                                        >
-                                                            조회된 건강검진 예약이 없습니다.
                                                         </td>
 
                                                     </tr>
 
                                                 )
+                                            )
+                                            :
+                                            (
+
+                                                <tr>
+
+                                                    <td
+                                                        colSpan="10"
+                                                        className="checkman-empty"
+                                                    >
+                                                        조회된 건강검진 예약이 없습니다.
+                                                    </td>
+
+                                                </tr>
+
+                                            )
                                         }
 
                                     </tbody>

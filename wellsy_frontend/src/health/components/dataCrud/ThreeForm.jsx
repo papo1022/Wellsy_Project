@@ -1,8 +1,8 @@
+import { useState } from "react";
 import "../../../health/styles/Card.css";
 import "../../styles/CrudForm.css";
-import { useState } from "react";
 
-function ThreeForm({ onClose }) {
+function ThreeForm({ onClose, onHealthUpdate }) {
 
     const [coffee, setCoffee] = useState("");
     const [coffeeUnit, setCoffeeUnit] = useState("glass");
@@ -18,26 +18,76 @@ function ThreeForm({ onClose }) {
 
     const [smoking, setSmoking] = useState("");
 
+    const todayText = new Date().toLocaleDateString("ko-KR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+    });
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log({
-            coffee: Number(coffee),
 
-            beer: Number(beer),
-            beerUnit,
+        const COFFEE_ML_PER_GLASS = 250;
+        const COFFINE_PER_ML = 0.12;
 
-            soju: Number(soju),
-            sojuUnit,
+        const BEER_PERCENT = 0.05;
+        const SOJU_PERCENT = 0.16;
 
-            etcAlcoholPercent: Number(etcPercent),
-            etcAmount: Number(etc),
+        const today = new Date().toISOString().split("T")[0];
 
-            smoking: Number(smoking)
-        });
+        let caffineAmount = 0;
+        if (coffee !== "") {
+            caffineAmount = coffeeUnit === "glass" ? Number(coffee) * COFFEE_ML_PER_GLASS * COFFINE_PER_ML : Number(coffee);
+        }
 
-        alert("음주/흡연/카페인 정보가 저장되었습니다.");
-        onClose();
+        let alcoholAmount = 0;
+        if (beer !== "") {
+            alcoholAmount += beerUnit === "glass" ? Number(beer) * 500 * BEER_PERCENT : Number(beer) * BEER_PERCENT;
+        }
+        if (soju !== "") {
+            alcoholAmount += sojuUnit === "glass" ? Number(soju) * 50 * SOJU_PERCENT : Number(soju) * SOJU_PERCENT;
+        }
+
+        if (etc !== "") {
+            alcoholAmount += Number(etc) * (etcPercent / 100);
+        }
+
+
+        const healthData = {
+            employeeNo: 1,
+            recordDate: today,
+            caffineAmount,
+            alcoholAmount,
+            smoking: smoking === "" ? 0 : Number(smoking)
+        };
+
+        fetch("http://localhost:8006/wellsy/health", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(healthData)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("음주/흡연/카페인 정보 저장 실패");
+                }
+
+                return response.json();
+            })
+            .then(data => {
+                console.log("저장 결과:", data);
+
+                onHealthUpdate();
+
+                alert("음주/흡연/카페인 정보가 저장되었습니다.");
+                onClose();
+            })
+            .catch(error => {
+                console.error(error);
+                alert("음주/흡연/카페인 입력 값이 올바르지 않거나 서버 저장에 실패했습니다.");
+            });
 
     };
 
@@ -62,8 +112,12 @@ function ThreeForm({ onClose }) {
             <h2>음주/흡연/카페인 기록</h2>
 
             <div className="crud-card-date">
-                2026년 8월 26일
+                {todayText}
             </div>
+
+            <div className="alert alert-warning" role="alert">
+                입력하지 않은 기존 값은 전부 0으로 덮어 씌워집니다.
+            </div>  
 
             <div className="crud-card-input">
                 <label>커피</label>
@@ -77,6 +131,7 @@ function ThreeForm({ onClose }) {
                         type="number"
                         value={coffee}
                         min={0}
+                        max={coffeeUnit === "glass" ? 100 : 10000}
                         step={coffeeUnit === "glass" ? 0.5 : 1}
                         placeholder="0"
                         onChange={(e) => setCoffee(e.target.value)}
@@ -110,7 +165,7 @@ function ThreeForm({ onClose }) {
                         type="number"
                         value={beer}
                         min={0}
-                        max={5000}
+                        max={beerUnit === "glass" ? 100 : 10000}
                         step={1}
                         placeholder={0}
                         onChange={(e) => setBeer(e.target.value)}
@@ -139,7 +194,7 @@ function ThreeForm({ onClose }) {
                         type="number"
                         value={soju}
                         min={0}
-                        max={5000}
+                        max={sojuUnit === "glass" ? 100 : 10000}
                         step={1}
                         placeholder={0}
                         onChange={(e) => setSoju(e.target.value)}
@@ -197,7 +252,7 @@ function ThreeForm({ onClose }) {
                         type="number"
                         value={smoking}
                         min={0}
-                        max={100}
+                        max={200}
                         step={1}
                         placeholder={0}
                         onChange={(e) => setSmoking(e.target.value)}
