@@ -3,13 +3,7 @@ import "../../../health/styles/Card.css";
 import "../../../health/styles/CrudForm.css";
 import BodyForm from "../dataCrud/BodyForm";
 
-function BodyInfo() {
-
-    const bodyInfo = {
-        height: 175.2,
-        weight: 72.5,
-        bmi: 23.6
-    };
+function BodyInfo({ height, weight, bmi }) {
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -22,19 +16,19 @@ function BodyInfo() {
                 <div className="health-card-content">
                     <div className="health-card-item">
                         <span>키</span>
-                        <strong>{bodyInfo.height}</strong>
+                        <strong>{height ?? "-"}</strong>
                         <small>cm</small>
                     </div>
 
                     <div className="health-card-item">
                         <span>몸무게</span>
-                        <strong>{bodyInfo.weight}</strong>
+                        <strong>{weight ?? "-"}</strong>
                         <small>kg</small>
                     </div>
 
                     <div className="health-card-item">
                         <span>BMI</span>
-                        <strong>{bodyInfo.bmi}</strong>
+                        <strong>{bmi ?? "-"}</strong>
                     </div>
                 </div>
             </div>

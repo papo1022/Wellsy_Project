@@ -5,13 +5,13 @@ import java.time.LocalDate;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.kh.wellsy.health.model.vo.Health;
+import com.kh.wellsy.health.model.vo.SleepRecord;
 
 @Repository
-public interface HealthDao extends JpaRepository<Health, Integer> {
+public interface SleepDao extends JpaRepository<SleepRecord, Integer> {
 
-    Health findByEmployeeNoAndRecordDate(
+    SleepRecord findByEmployeeNoAndSleepDate(
         int employeeNo,
-        LocalDate recordDate
-    );
+        LocalDate sleepDate
+    ); 
 }

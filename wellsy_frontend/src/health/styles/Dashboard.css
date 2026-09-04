@@ -1,6 +1,8 @@
 .health-record-dashboard {
-  width: 100%;
-  max-width: none;
+  width: 1200px;
+  max-width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
   padding: var(--spacing);
   background-color: var(--color-ivory);
 }

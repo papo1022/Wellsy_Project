@@ -1,10 +1,6 @@
 import "../../../health/styles/Card.css";
 
-function BloodPressure() {
-    const bloodPressure = {
-        diastolic: "120 / 80",
-        systolic: "130 / 85",
-    };
+function BloodPressure( {systolicBp, diastolicBp }) {
 
     return (
         <div className="health-main-card blood-pressure-card">
@@ -13,12 +9,12 @@ function BloodPressure() {
             <div className="health-card-content">
                 <div className="health-card-item">
                     <span>최저</span>
-                    <strong>{bloodPressure.diastolic}</strong>
+                    <strong>{diastolicBp ?? "-"}</strong>
                 </div>
 
                 <div className="health-card-item">
                     <span>최고</span>
-                    <strong>{bloodPressure.systolic}</strong>
+                    <strong>{systolicBp ?? "-"}</strong>
                 </div>
             </div>
         </div>
