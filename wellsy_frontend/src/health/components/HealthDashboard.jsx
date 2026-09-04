@@ -38,7 +38,7 @@ function HealthDashboard() {
 
     return (
         <div className="health-record-dashboard">
-            <HealthGrade healthGrade={healthGrade} />
+            <HealthGrade grade={healthGrade} />
 
             {/* 건강 캘린더 */}
             <HealthWeekCalendar />
