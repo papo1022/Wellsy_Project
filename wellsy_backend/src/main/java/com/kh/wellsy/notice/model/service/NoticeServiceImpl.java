@@ -3,6 +3,10 @@ package com.kh.wellsy.notice.model.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,5 +65,36 @@ public class NoticeServiceImpl implements NoticeService{
 	public int deleteNotice(int noticeId) {
 		
 		return noticeDao.deleteNotice(noticeId);
+	}
+	
+	@Override
+	public Page<Notice> selectNoticePage(
+	        int page,
+	        int size
+	) {
+
+
+	    // =========================================
+	    // 정렬
+	    //
+	    // 고정 공지 먼저
+	    // 그 다음 최신 공지
+	    // =========================================
+
+	    Sort sort
+	        = Sort.by(
+	            Sort.Order.desc("isPinned"),
+	            Sort.Order.desc("noticeId")
+	        );
+
+
+	    Pageable pageable
+	        = PageRequest.of(
+	            page,
+	            size,
+	            sort
+	        );
+
+	    return noticeDao.findByStatus("Y", pageable);
 	}
 }
