@@ -20,7 +20,6 @@ public class HealthController {
         return healthService.getTodayHealth(employeeNo);
     }
 
-    // 오늘의 건강 등급 가져오기
     @GetMapping("/health/grade/{employeeNo}")
     public String getHealthGrade(@PathVariable int employeeNo) {
         return healthService.getHealthGrade(employeeNo);
