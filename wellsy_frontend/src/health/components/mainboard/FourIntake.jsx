@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../../../health/styles/Card.css";
 import ThreeForm from "../dataCrud/ThreeForm";
 
-function FourIntake({ meal, caffeine, alcohol, smoking }) {
+function FourIntake({ meal, caffeine, alcohol, smoking, onHealthUpdate }) {
   const navigate = useNavigate();
 
   const [isThreeOpen, setIsThreeOpen] = useState(false);
@@ -22,7 +22,7 @@ function FourIntake({ meal, caffeine, alcohol, smoking }) {
             <span>식사</span>
 
             <div className="four-health-card-value">
-              <strong>{meal ? meal : "-"}</strong>
+              <strong>{meal ?? "-"}</strong>
               <small> kcal</small>
             </div>
           </div>
@@ -34,7 +34,7 @@ function FourIntake({ meal, caffeine, alcohol, smoking }) {
             <span>카페인</span>
 
             <div className="four-health-card-value">
-              <strong>{caffeine ? caffeine : "-"}</strong>
+              <strong>{caffeine ?? "-"}</strong>
               <small> mg</small>
             </div>
           </div>
@@ -46,7 +46,7 @@ function FourIntake({ meal, caffeine, alcohol, smoking }) {
             <span>알코올</span>
 
             <div className="four-health-card-value">
-              <strong>{alcohol ? alcohol : "-"}</strong>
+              <strong>{alcohol ?? "-"}</strong>
               <small> g</small>
             </div>
           </div>
@@ -58,7 +58,7 @@ function FourIntake({ meal, caffeine, alcohol, smoking }) {
             <span>담배</span>
 
             <div className="four-health-card-value">
-              <strong>{smoking ? smoking : "-"}</strong>
+              <strong>{smoking ?? "-"}</strong>
               <small> 개비</small>
             </div>
           </div>
@@ -69,7 +69,7 @@ function FourIntake({ meal, caffeine, alcohol, smoking }) {
       {isThreeOpen && (
         <div className="health-modal-background">
           <div className="health-modal-content">
-            <ThreeForm onClose={() => setIsThreeOpen(false)} />
+            <ThreeForm onClose={() => setIsThreeOpen(false)} onHealthUpdate={onHealthUpdate} />
           </div>
         </div>
       )}

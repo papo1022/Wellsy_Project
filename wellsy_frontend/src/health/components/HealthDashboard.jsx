@@ -17,10 +17,7 @@ function HealthDashboard() {
 
     // 컴포넌트가 마운트될 때 오늘의 건강 데이터를 가져옴
     useEffect(() => {
-        fetch("http://localhost:8006/wellsy/health/1")
-            .then(response => response.json())
-            .then(data => setBasicData(data))
-            .catch(error => console.error("Error fetching health data:", error));
+        fetchHealthData();
 
         fetch("http://localhost:8006/wellsy/sleep/1")
             .then(response => response.json())
@@ -35,10 +32,18 @@ function HealthDashboard() {
             );
     }, []);
 
+    const fetchHealthData = () => {
+        console.log("Fetching health data...");
+        fetch("http://localhost:8006/wellsy/health/1")
+            .then(response => response.json())
+            .then(data => setBasicData(data))
+            .catch(error => console.error("Error fetching health data:", error));
+    };
+
 
     return (
         <div className="health-record-dashboard">
-            <HealthGrade healthGrade={healthGrade} />
+            <HealthGrade grade={healthGrade} />
 
             {/* 건강 캘린더 */}
             <HealthWeekCalendar />
@@ -55,11 +60,11 @@ function HealthDashboard() {
                     <SleepTime sleepData={sleepData} />
 
                     {/* 신체 기록 */}
-                    <BodyInfo height={basicData?.height} weight={basicData?.weight} bmi={basicData?.bmi} />
+                    <BodyInfo height={basicData?.height} weight={basicData?.weight} bmi={basicData?.bmi} onHealthUpdate={fetchHealthData} />
                 </div>
 
                 {/* 오늘의 건강 기록 */}
-                <FourIntake caffeine={basicData?.caffeineAmount} alcohol={basicData?.alcoholAmount} smoking={basicData?.smokingCount} />
+                <FourIntake caffeine={basicData?.caffeineAmount} alcohol={basicData?.alcoholAmount} smoking={basicData?.smokingCount} onHealthUpdate={fetchHealthData}/>
 
             </div>
         </div>

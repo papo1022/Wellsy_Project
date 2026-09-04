@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.wellsy.health.model.vo.SleepRecord;
 
 @Repository
-public interface SleepDao extends JpaRepository<SleepRecord, Integer> {
+public interface SleepRecordDao extends JpaRepository<SleepRecord, Integer> {
 
     SleepRecord findByEmployeeNoAndSleepDate(
         int employeeNo,

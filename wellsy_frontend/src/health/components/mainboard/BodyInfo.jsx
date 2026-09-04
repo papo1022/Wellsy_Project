@@ -3,7 +3,7 @@ import "../../../health/styles/Card.css";
 import "../../../health/styles/CrudForm.css";
 import BodyForm from "../dataCrud/BodyForm";
 
-function BodyInfo({ height, weight, bmi }) {
+function BodyInfo({ height, weight, bmi, onHealthUpdate }) {
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -36,7 +36,7 @@ function BodyInfo({ height, weight, bmi }) {
             {isOpen && (
                 <div className="health-modal-background">
                     <div className="health-modal-content">
-                        <BodyForm onClose={() => setIsOpen(false)} />
+                        <BodyForm onClose={() => setIsOpen(false)} onHealthUpdate={onHealthUpdate} />
                     </div>
                 </div>
             )}
