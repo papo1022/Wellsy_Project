@@ -19,4 +19,9 @@ public class HealthController {
     public Health getTodayHealth(@PathVariable int employeeNo) {
         return healthService.getTodayHealth(employeeNo);
     }
+
+    @GetMapping("/health/grade/{employeeNo}")
+    public String getHealthGrade(@PathVariable int employeeNo) {
+        return healthService.getHealthGrade(employeeNo);
+    }
 }

@@ -103,19 +103,38 @@ function MealDetail() {
   
     // 식사 데이터 제출 시 호출되는 함수
     const handleSubmitMeal = () => {
-        if (foodInfos.length === 0) {
-            alert("추가된 음식이 없습니다.");
-            return;
-        }
-
         const mealData = {
+            employeeNo: 1,
             mealType,
             mealItems: foodInfos
         };
 
-        console.log("저장할 식사 데이터:", mealData);
+        fetch("http://localhost:8006/wellsy/meal", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(mealData)
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.text();
+            } else {
+                throw new Error("식사 저장에 실패했습니다.");
+            }
+        })
 
-    }
+        .then(data => {
+            console.log("Meal saved successfully:", data);
+            alert("식사가 성공적으로 저장되었습니다.");
+        })
+
+        .catch(error => {
+            console.error("Error:", error);
+            alert("식사 저장에 실패했습니다.");
+        });
+
+    };
 
     // 사진 업로드 시 호출되는 함수
     const handleImageChange = (e) => {

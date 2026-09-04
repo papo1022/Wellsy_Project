@@ -18,8 +18,8 @@ public class MealController {
     }
 
     @PostMapping("/meal")
-    public ResponseEntity<Void> saveMeal(@RequestBody Map<String, Object> mealData) {
+    public ResponseEntity<String> saveMeal(@RequestBody Map<String, Object> mealData) {
         mealService.saveMeal(mealData);
-        return ResponseEntity.ok().build(); 
+        return ResponseEntity.ok("Meal saved successfully"); 
     }
 }

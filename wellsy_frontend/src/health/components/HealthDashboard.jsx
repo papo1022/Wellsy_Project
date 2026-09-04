@@ -8,11 +8,12 @@ import SleepTime from "./mainboard/SleepTime";
 import "../../health/styles/Dashboard.css";
 import BodyInfo from "./mainboard/BodyInfo";
 import HealthWeekCalendar from "./mainboard/HealthWeekCalender";
-  
+
 function HealthDashboard() {
 
     const [basicData, setBasicData] = useState(null);
     const [sleepData, setSleepData] = useState(null);
+    const [healthGrade, setHealthGrade] = useState(null);
 
     // 컴포넌트가 마운트될 때 오늘의 건강 데이터를 가져옴
     useEffect(() => {
@@ -25,12 +26,19 @@ function HealthDashboard() {
             .then(response => response.json())
             .then(data => setSleepData(data))
             .catch(error => console.error("Error fetching sleep data:", error));
+
+        fetch("http://localhost:8006/wellsy/health/grade/1")
+            .then(response => response.text())
+            .then(data => setHealthGrade(data))
+            .catch(error =>
+                console.error("Error fetching health grade:", error)
+            );
     }, []);
 
 
     return (
         <div className="health-record-dashboard">
-            <HealthGrade />
+            <HealthGrade healthGrade={healthGrade} />
 
             {/* 건강 캘린더 */}
             <HealthWeekCalendar />
@@ -52,7 +60,7 @@ function HealthDashboard() {
 
                 {/* 오늘의 건강 기록 */}
                 <FourIntake caffeine={basicData?.caffeineAmount} alcohol={basicData?.alcoholAmount} smoking={basicData?.smokingCount} />
-                
+
             </div>
         </div>
     );

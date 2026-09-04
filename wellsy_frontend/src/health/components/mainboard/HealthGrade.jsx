@@ -1,16 +1,21 @@
 import "../../../health/styles/Card.css";
+import { useState, useEffect } from "react";
+function HealthGrade({ grade }) {
+    console.log("grade:", grade);
 
-function HealthGrade() {
-    const healthGrade = {
-        grade: "정상 B",
-        date: "2026-08-26"
+    const gradeText = {
+        normal: "정상",
+        interest: "관심",
+        caution: "주의",
+        warning: "경고",
+        danger: "위험"
     };
 
     return (
         <div className="health-main-card health-grade-card">
             <div className="health-grade-info">
                 <span>현재 건강 등급</span><br/>
-                <strong>{healthGrade.grade}</strong>
+                <strong>{gradeText[grade] ?? "-"}</strong>
             </div>
 
             <hr />
