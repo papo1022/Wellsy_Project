@@ -8,7 +8,7 @@ const BASE_URL = "http://localhost:8006/wellsy"
 const sendChatMessage = (message) => {
 
     return axios({
-        url: '${BASE_URL}/ai/chat',
+        url: `${BASE_URL}/ai/chat`,
         method: "post",
         data: { message }, // 위에서 받아온 매개변수 message를 백엔드로 보낼 JSON에 담음
     });

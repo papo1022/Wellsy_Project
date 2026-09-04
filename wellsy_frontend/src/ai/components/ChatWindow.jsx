@@ -26,7 +26,7 @@ function ChatWindow() {
 
     useEffect(() => {
         bottomRef.current.scrollIntoView({ behavior: "smooth" });
-    }, [message]);
+    }, [messages]);
 
     const handleSend = async () => { // 비동기 요청
         
