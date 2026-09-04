@@ -38,6 +38,7 @@ import MainDashboard from "./main/components/MainDashboard";
 import CheckupReservation from "./check/components/CheckupReservation";
 
 import MyPage from "./my/components/MyPage";
+import ChatWindow from "./ai/components/ChatWindow";
 
 import LoginForm from "./login/components/LoginForm";
 import "./login/styles/login.css";
@@ -87,7 +88,7 @@ function App() {
           <Route path="/check" element={<CheckupReservation />} />
 
           {/* 사원 - AI 챗봇 */}
-          <Route path="/chat" element={<div>사원 - AI 챗봇</div>} />
+          <Route path="/chat" element={<ChatWindow />} />
 
 
 
