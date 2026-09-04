@@ -5,6 +5,9 @@ import {
 
 import axios from "axios";
 
+import CheckupReservationDashboard
+  from "./CheckupReservationDashboard";
+
 import "../styles/AdminHealthDashboard.css";
 
 
@@ -75,7 +78,11 @@ function AdminHealthDashboard() {
 
 
   return (
-    <div className="admin-health-dashboard">
+    <div className="admin-dashboard-grid">
+
+      <section className="admin-dashboard-panel">
+
+        <div className="admin-health-dashboard">
 
       <h2>
         직원 건강정보 조회
@@ -193,6 +200,7 @@ function AdminHealthDashboard() {
                 <td>
 
                   <button
+                    className="health-detail-btn"
                     onClick={() =>
                       setSelectedEmployee(
                         employee
@@ -308,6 +316,17 @@ function AdminHealthDashboard() {
 
         )
       }
+
+        </div>
+
+      </section>
+
+
+      <section className="admin-dashboard-panel">
+
+        <CheckupReservationDashboard />
+
+      </section>
 
     </div>
   );

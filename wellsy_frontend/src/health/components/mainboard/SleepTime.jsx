@@ -2,16 +2,22 @@ import { useState } from "react";
 import "../../../health/styles/Card.css";
 import SleepForm from "../dataCrud/SleepForm";
 
-function SleepTime() {
+function SleepTime({ sleepData }) {
     const [isOpen, setIsOpen] = useState(false);
-    const sleep = {
-        duration: 8.2,
-        quality: 4,
-    };
+
+    let duration = "-";
+
+    if (sleepData?.sleepStart && sleepData?.sleepEnd) {
+        const start = new Date(sleepData.sleepStart);
+        const end = new Date(sleepData.sleepEnd);
+
+        const diffMs = end - start;
+        duration = (diffMs / (1000 * 60 * 60)).toFixed(1);
+    }
 
     return (
         <>
-            <div className="health-card sleep-card"
+            <div className="health-main-card sleep-card"
                 onClick={() => setIsOpen(true)}>
                 <h3>수면 기록</h3>
 
@@ -21,13 +27,13 @@ function SleepTime() {
                     <div className="sleep-info">
                         <div className="health-card-item">
                             <span>수면 시간</span>
-                            <strong>{sleep.duration}</strong>
+                            <strong>{duration}</strong>
                             <small>시간</small>
                         </div>
 
                         <div className="health-card-item">
                             <span>수면 품질</span>
-                            <strong>{sleep.quality}</strong>
+                            <strong>{sleepData?.sleepQuality ?? "-"}</strong>
                             <small>/ 5</small>
                         </div>
                     </div>

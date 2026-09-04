@@ -27,7 +27,7 @@ function NoticeItem(props) {
                     item.isPinned === 1
                     ?
                     <span className="notice-pin">
-                        고정
+                        필수
                     </span>
                     :
                     "-"

@@ -1,32 +1,24 @@
 /* 공통 디자인 */
-
 .crud-card {
     width: 500px;
     margin-bottom: 20px;
     padding: 30px;
-
-    background: var(--color-white);
-    border: 1px solid rgba(140, 183, 145, 0.25);
     border-radius: var(--radius-md);
-
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
-
     box-sizing: border-box;
+    background-color: var(--color-white);
 }
 
 .crud-card h2 {
     margin: 0 0 8px;
-
     font-size: var(--font-size-h2);
     font-weight: 700;
     color: var(--color-black);
 }
 
 .crud-card-date {
-    margin-bottom: 30px;
-
+    margin-bottom: var(--spacing);
     font-size: var(--font-size-caption);
-    color: #777;
+    color: var(--color-grey);
 }
 
 .crud-card-input {
@@ -47,7 +39,6 @@
 .crud-card-input label {
     display: block;
     margin-bottom: 8px;
-
     font-size: var(--font-size-h4);
     font-weight: 700;
     color: var(--color-black);
@@ -61,135 +52,114 @@
 
 .crud-card-input-value input {
     flex: 1;
-
-    padding: 12px 14px;
-
-    border: 1px solid #ddd;
+    padding: 10px var(--spacing);
+    border: 1px solid var(--color-cancel);
     border-radius: var(--radius-sm);
-
     font-family: var(--font-family);
     font-size: var(--font-size-body);
-
     outline: none;
-
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
 }
 
 .crud-card-input-value input:focus {
     border-color: var(--color-primary);
-
-    box-shadow:
-        0 0 0 3px rgba(140, 183, 145, 0.15);
 }
 
 .crud-card-input-value span {
     width: 35px;
-
     font-size: var(--font-size-body);
-    color: #777;
+    color: var(--color-grey);
 }
 
+.crud-card-buttons {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+}
 
 /* 모달 */
-
 .health-modal-background {
     position: fixed;
-    inset: 0;
+
+    top: 0;
+    left: 200px;
+
+    width: calc(100vw - 200px);
+    height: 100vh;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    padding: 20px;
+    padding: var(--spacing);
+    box-sizing: border-box;
 
     background: rgba(12, 12, 12, 0.35);
 
-    z-index: 1000;
+    z-index: 900;
 }
 
 .health-modal-content {
     position: relative;
 }
 
-
 /* 단위 전환 버튼 */
-
 .unit-toggle,
 .meal-tabs {
     display: inline-flex;
-
-    margin-bottom: 12px;
-
-    padding: 3px;
-
+    margin-bottom: var(--spacing);
+    padding: 5px;
     background: var(--color-ivory);
     border-radius: var(--radius-sm);
 }
 
 .unit-toggle button,
 .meal-tabs button {
-    padding: 7px 16px;
-
+    padding: 10px var(--spacing);
     border: none;
-    border-radius: 8px;
-
+    border-radius: var(--radius-md);
     background: transparent;
-
-    color: #777;
-
+    color: var(--color-grey);
     font-family: var(--font-family);
     font-size: var(--font-size-button);
     font-weight: 700;
-
     cursor: pointer;
-
-    transition:
-        background 0.2s ease,
-        color 0.2s ease,
-        box-shadow 0.2s ease;
 }
 
 .unit-toggle button.active,
 .meal-tabs button.active {
     background: var(--color-primary);
     color: var(--color-white);
-
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
-
 
 /* 별점 */
 .rating {
-   width: 180px;
+    width: 180px;
 }
 
 .rating__star {
    cursor: pointer;
-   color: #dabd18b2;
+   color: var(--color-warning);
 }
-
 
 /* 식사 상세 */
 .food-info-card {
     width: 100%;
-    padding: 20px;
-    margin-bottom: 15px;
+    padding: var(--spacing);
+    margin-bottom: var(--spacing);
 }
 
 .food-info-row {
     display: flex;
-    gap: 20px;
+    gap: var(--spacing);
 }
 
 .food-info-row .crud-card-input {
     flex: 1;
-    margin-bottom: 15px;
+    margin-bottom: var(--spacing);
 }
 
 .nutrition-row {
-    gap: 15px;
+    gap: var(--spacing);
 }
 
 .nutrition-row .crud-card-input-value input {
@@ -201,15 +171,14 @@
     width: auto;
 }
 
-
-
 .meal-detail {
     width: 100%;
     max-width: 1000px;
-    margin: 20px auto;
+    margin: var(--spacing) auto;
 }
 
 .meal-tabs {
+    background-color: transparent;
     display: flex;
     gap: 10px;
     margin-bottom: var(--spacing);
@@ -218,13 +187,10 @@
 .meal-tabs button {
     flex: 1;
     padding: 10px;
-
     border: 1px solid var(--color-primary);
     border-radius: var(--radius-sm);
-
     background: var(--color-white);
     color: var(--color-primary);
-
     cursor: pointer;
 }
 
@@ -241,12 +207,125 @@
 
 .meal-input-method button {
     flex: 1;
-    padding: 20px;
-
-    border: 1px solid #ddd;
+    padding: var(--spacing);
+    border: none;
     border-radius: var(--radius-sm);
-
-    background: var(--color-ivory);
-
+    background-color: var(--color-ivory);
+    color: var(--color-grey);
     cursor: pointer;
+}
+
+.meal-image-preview {
+    margin: 15px 0;
+    text-align: center;
+}
+
+.meal-image-preview img {
+    width: 100%;
+    max-width: 400px;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+}
+
+
+/* 달력 */
+
+.calendar-detail {
+    width: 1000px;
+    max-width: calc(100vw - 260px);
+    margin: 20px auto;
+}
+
+.calendar-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.calendar-detail-grid .health-main-card {
+    width: 100%;
+    min-height: auto;
+    padding: 20px;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.calendar-detail-grid .health-main-card h4 {
+    margin: 0 0 10px;
+}
+
+.calendar-detail-grid .health-main-card p {
+    margin: 6px 0;
+}
+
+.calendar-detail .fc {
+    width: 100%;
+}
+
+.calendar-detail .fc-daygrid-day-frame {
+    min-height: 120px;
+}
+
+.calendar-detail .fc-daygrid-day-number {
+    padding: 8px;
+    font-size: var(--font-size-body);
+}
+
+.calendar-detail .fc-col-header-cell-cushion {
+    padding: 10px;
+    font-size: var(--font-size-body);
+}
+
+/* 일요일 */
+.calendar-detail .fc-day-sun .fc-col-header-cell-cushion,
+.calendar-detail .fc-day-sun .fc-daygrid-day-number {
+    color: var(--color-error);
+}
+
+/* 토요일 */
+.calendar-detail .fc-day-sat .fc-col-header-cell-cushion,
+.calendar-detail .fc-day-sat .fc-daygrid-day-number {
+    color: #1976d2;
+    transition: all 0.1s ease-in-out;
+}
+
+/* active 상태 스타일 */
+.meal-input-method button.active {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    border-color: var(--color-primary);
+    font-weight: 700;
+}
+
+/* 버튼 */
+.btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    border-radius: var(--radius-round);
+    padding: 10px var(--spacing) 10px var(--spacing);
+}
+.btn-primary:hover {
+    background-color: var(--color-white);
+    color: var(--color-black);
+}
+
+.btn-analyze {
+    background-color: var(--color-secondary);
+    color: #ffffff;
+}
+
+.btn-secondary {
+    background-color: var(--color-cancel);
+    color: var(--color-white);
+    border: none;
+    border-radius: var(--radius-round);
+    padding: 10px var(--spacing) 10px var(--spacing);
+}
+.btn-secondary:hover {
+    background-color: var(--color-white);
+    color: var(--color-black);
 }

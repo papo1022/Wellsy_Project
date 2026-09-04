@@ -3,19 +3,30 @@ import {
   useState
 } from "react";
 
+import {
+  useNavigate
+} from "react-router-dom";
+
 import axios from "axios";
 
 import "../styles/CheckupReservationDashboard.css";
 
 
 const API_URL =
-  "http://localhost:8006/wellsy/api/admin/checkup-reservations";
+  "http://localhost:8006/wellsy/api/checkup-reservation-dashboard";
 
 
 function CheckupReservationDashboard() {
 
+  const navigate =
+    useNavigate();
+
   const today =
     new Date();
+
+  // ======================================
+  // 검색 조건
+  // ======================================
 
   const [year, setYear] =
     useState(
@@ -39,11 +50,24 @@ function CheckupReservationDashboard() {
   const [status, setStatus] =
     useState("");
 
+
+  // ======================================
+  // 예약 목록
+  // ======================================
+
   const [reservationList, setReservationList] =
     useState([]);
 
   const [loading, setLoading] =
     useState(true);
+
+
+  // ======================================
+  // 취소 명단 모달
+  // ======================================
+
+  const [cancelModalOpen, setCancelModalOpen] =
+    useState(false);
 
 
   // ======================================
@@ -85,11 +109,9 @@ function CheckupReservationDashboard() {
             }
           );
 
-
         setReservationList(
           response.data
         );
-
 
       } catch (error) {
 
@@ -119,12 +141,8 @@ function CheckupReservationDashboard() {
 
 
   // ======================================
-  // 요약 정보
+  // 승인 완료
   // ======================================
-
-  const totalCount =
-    reservationList.length;
-
 
   const reservationCount =
     reservationList.filter(
@@ -133,6 +151,10 @@ function CheckupReservationDashboard() {
     ).length;
 
 
+  // ======================================
+  // 승인 대기
+  // ======================================
+
   const notCompletedCount =
     reservationList.filter(
       (item) =>
@@ -140,11 +162,57 @@ function CheckupReservationDashboard() {
     ).length;
 
 
-  const cancelCount =
+  // ======================================
+  // 취소 목록
+  // ======================================
+
+  const cancelList =
     reservationList.filter(
       (item) =>
         item.status === "C"
-    ).length;
+    );
+
+
+  // ======================================
+  // 취소 인원수
+  // ======================================
+
+  const cancelCount =
+    cancelList.length;
+
+
+  // ======================================
+  // 일반 예약 테이블
+  // 취소건 제외
+  // ======================================
+
+  const visibleReservationList =
+    reservationList.filter(
+      (item) =>
+        item.status !== "C"
+    );
+
+
+  // ======================================
+  // 취소 모달 열기
+  // ======================================
+
+  const openCancelModal = () => {
+
+    setCancelModalOpen(true);
+
+  };
+
+
+  // ======================================
+  // 취소 모달 닫기
+  // ======================================
+
+  const closeCancelModal = () => {
+
+    setCancelModalOpen(false);
+
+  };
 
 
   return (
@@ -167,7 +235,6 @@ function CheckupReservationDashboard() {
         </p>
 
       </div>
-
 
 
       {/* ===================================
@@ -202,7 +269,6 @@ function CheckupReservationDashboard() {
           </option>
 
         </select>
-
 
 
         {/* 월 */}
@@ -243,7 +309,6 @@ function CheckupReservationDashboard() {
         </select>
 
 
-
         {/* 부서 */}
 
         <select
@@ -273,7 +338,6 @@ function CheckupReservationDashboard() {
           </option>
 
         </select>
-
 
 
         {/* 직급 */}
@@ -307,7 +371,6 @@ function CheckupReservationDashboard() {
         </select>
 
 
-
         {/* 예약 상태 */}
 
         <select
@@ -325,19 +388,14 @@ function CheckupReservationDashboard() {
           </option>
 
           <option value="Y">
-            예약
+            승인 완료
           </option>
 
           <option value="N">
-            미완료
-          </option>
-
-          <option value="C">
-            취소
+            승인 대기
           </option>
 
         </select>
-
 
 
         {/* 이름 */}
@@ -355,7 +413,6 @@ function CheckupReservationDashboard() {
         />
 
 
-
         {/* 조회 */}
 
         <button
@@ -367,9 +424,7 @@ function CheckupReservationDashboard() {
           조회
         </button>
 
-
       </div>
-
 
 
       {/* ===================================
@@ -379,43 +434,67 @@ function CheckupReservationDashboard() {
       <div className="checkup-card-container">
 
 
-        <div className="checkup-card">
+       {/* 승인 완료 */}
 
-          <span>
-            예약
-          </span>
+<div className="checkup-card">
 
-          <strong>
-            {reservationCount}
-          </strong>
+  <span>
+    승인 완료
+  </span>
 
-          <p>
-            명
-          </p>
+  <strong>
+    {reservationCount}
+  </strong>
 
-        </div>
+  <p>
+    명
+  </p>
 
-
-
-        <div className="checkup-card">
-
-          <span>
-            미완료
-          </span>
-
-          <strong>
-            {notCompletedCount}
-          </strong>
-
-          <p>
-            명
-          </p>
-
-        </div>
+</div>
 
 
+{/* 승인 대기 */}
 
-        <div className="checkup-card">
+<div
+  className="checkup-card checkup-waiting-card"
+  onClick={
+    () =>
+      navigate(
+        "/checkman?tab=reservation"
+      )
+  }
+>
+
+  <span>
+    승인 대기
+  </span>
+
+  <strong>
+    {notCompletedCount}
+  </strong>
+
+  <p>
+    명
+  </p>
+
+  <small className="checkup-waiting-card-guide">
+    클릭하여 예약 승인
+  </small>
+
+</div>
+
+
+        {/* ===================================
+            취소 카드
+            클릭하면 모달 표시
+        =================================== */}
+
+        <div
+          className="checkup-card checkup-cancel-card"
+          onClick={
+            openCancelModal
+          }
+        >
 
           <span>
             취소
@@ -429,15 +508,17 @@ function CheckupReservationDashboard() {
             명
           </p>
 
-        </div>
+          <small className="checkup-cancel-card-guide">
+            클릭하여 명단 확인
+          </small>
 
+        </div>
 
       </div>
 
 
-
       {/* ===================================
-          목록
+          예약 직원 목록
       =================================== */}
 
       <div className="checkup-table-box">
@@ -456,143 +537,358 @@ function CheckupReservationDashboard() {
               </p>
 
             )
-            : reservationList.length === 0
-            ? (
 
-              <p className="checkup-message">
-                조회된 건강검진 예약 정보가 없습니다.
-              </p>
+            : visibleReservationList.length === 0
 
-            )
-            : (
+              ? (
 
-              <table className="checkup-table">
+                <p className="checkup-message">
+                  조회된 건강검진 예약 정보가 없습니다.
+                </p>
 
-                <thead>
+              )
 
-                  <tr>
+              : (
 
-                    <th>
-                      예약번호
-                    </th>
+                <table className="checkup-table">
 
-                    <th>
-                      사번
-                    </th>
+                  <thead>
 
-                    <th>
-                      이름
-                    </th>
+                    <tr>
 
-                    <th>
-                      부서
-                    </th>
+                      <th>
+                        예약번호
+                      </th>
 
-                    <th>
-                      직급
-                    </th>
+                      <th>
+                        사번
+                      </th>
 
-                    <th>
-                      예약일
-                    </th>
+                      <th>
+                        이름
+                      </th>
 
-                    <th>
-                      최근 검진일
-                    </th>
+                      <th>
+                        부서
+                      </th>
 
-                    <th>
-                      병원
-                    </th>
+                      <th>
+                        직급
+                      </th>
 
-                    <th>
-                      상태
-                    </th>
+                      <th>
+                        예약일
+                      </th>
 
-                    <th>
-                      메모
-                    </th>
+                      <th>
+                        최근 검진일
+                      </th>
 
-                  </tr>
+                      <th>
+                        병원
+                      </th>
 
-                </thead>
+                      <th>
+                        상태
+                      </th>
+
+                      <th>
+                        메모
+                      </th>
+
+                    </tr>
+
+                  </thead>
 
 
-                <tbody>
+                  <tbody>
 
-                  {
-                    reservationList.map(
-                      (item) => (
+                    {
+                      visibleReservationList.map(
+                        (item) => (
 
-                        <tr
-                          key={
-                            item.reservationId
-                          }
-                        >
-
-                          <td>
-                            {item.reservationId}
-                          </td>
-
-                          <td>
-                            {item.employeeNo}
-                          </td>
-
-                          <td>
-                            {item.name}
-                          </td>
-
-                          <td>
-                            {item.departmentName ?? "-"}
-                          </td>
-
-                          <td>
-                            {item.jobName ?? "-"}
-                          </td>
-
-                          <td>
-                            {item.reservationDate ?? "-"}
-                          </td>
-
-                          <td>
-                            {item.recentCheckupDate ?? "-"}
-                          </td>
-
-                          <td>
-                            {item.hospitalName ?? "-"}
-                          </td>
-
-                          <td>
-                            {
-                              getStatusName(
-                                item.status
-                              )
+                          <tr
+                            key={
+                              item.reservationId
                             }
-                          </td>
+                          >
 
-                          <td>
-                            {item.memo ?? "-"}
-                          </td>
+                            <td>
+                              {item.reservationId}
+                            </td>
 
-                        </tr>
+                            <td>
+                              {item.employeeNo}
+                            </td>
 
+                            <td>
+                              {item.name}
+                            </td>
+
+                            <td>
+                              {item.departmentName ?? "-"}
+                            </td>
+
+                            <td>
+                              {item.jobName ?? "-"}
+                            </td>
+
+                            <td>
+                              {item.reservationDate ?? "-"}
+                            </td>
+
+                            <td>
+                              {item.recentCheckupDate ?? "-"}
+                            </td>
+
+                            <td>
+                              {item.hospitalName ?? "-"}
+                            </td>
+
+                            <td>
+                              {
+                                getStatusName(
+                                  item.status
+                                )
+                              }
+                            </td>
+
+                            <td>
+                              {item.memo ?? "-"}
+                            </td>
+
+                          </tr>
+
+                        )
                       )
-                    )
-                  }
+                    }
 
-                </tbody>
+                  </tbody>
 
-              </table>
+                </table>
 
-            )
+              )
         }
 
       </div>
 
 
+      {/* ===================================
+          취소 명단 모달
+      =================================== */}
+
+      {
+        cancelModalOpen
+        &&
+        (
+
+          <div
+            className="checkup-cancel-modal-background"
+
+            onMouseDown={
+              (e) => {
+
+                if (
+                  e.target ===
+                  e.currentTarget
+                ) {
+
+                  closeCancelModal();
+
+                }
+
+              }
+            }
+          >
+
+            <div className="checkup-cancel-modal">
+
+
+              {/* 모달 제목 */}
+
+              <div className="checkup-cancel-modal-header">
+
+                <div>
+
+                  <h3>
+                    취소 예약 명단
+                  </h3>
+
+                  <p>
+                    {year}년 {month}월 취소 예약
+                    {" "}
+                    {cancelCount}건
+                  </p>
+
+                </div>
+
+
+                <button
+                  type="button"
+                  className="checkup-cancel-modal-x"
+                  onClick={
+                    closeCancelModal
+                  }
+                >
+                  ×
+                </button>
+
+              </div>
+
+
+              {/* 취소 명단 */}
+
+              <div className="checkup-cancel-modal-content">
+
+                {
+                  cancelList.length === 0
+                  ?
+                  (
+
+                    <p className="checkup-message">
+                      취소된 예약이 없습니다.
+                    </p>
+
+                  )
+                  :
+                  (
+
+                    <table className="checkup-table">
+
+                      <thead>
+
+                        <tr>
+
+                          <th>
+                            예약번호
+                          </th>
+
+                          <th>
+                            사번
+                          </th>
+
+                          <th>
+                            이름
+                          </th>
+
+                          <th>
+                            부서
+                          </th>
+
+                          <th>
+                            직급
+                          </th>
+
+                          <th>
+                            예약일
+                          </th>
+
+                          <th>
+                            병원
+                          </th>
+
+                          <th>
+                            메모
+                          </th>
+
+                        </tr>
+
+                      </thead>
+
+
+                      <tbody>
+
+                        {
+                          cancelList.map(
+                            (item) => (
+
+                              <tr
+                                key={
+                                  item.reservationId
+                                }
+                              >
+
+                                <td>
+                                  {item.reservationId}
+                                </td>
+
+                                <td>
+                                  {item.employeeNo}
+                                </td>
+
+                                <td>
+                                  {item.name}
+                                </td>
+
+                                <td>
+                                  {item.departmentName ?? "-"}
+                                </td>
+
+                                <td>
+                                  {item.jobName ?? "-"}
+                                </td>
+
+                                <td>
+                                  {item.reservationDate ?? "-"}
+                                </td>
+
+                                <td>
+                                  {item.hospitalName ?? "-"}
+                                </td>
+
+                                <td>
+                                  {item.memo ?? "-"}
+                                </td>
+
+                              </tr>
+
+                            )
+                          )
+                        }
+
+                      </tbody>
+
+                    </table>
+
+                  )
+                }
+
+              </div>
+
+
+              {/* 닫기 버튼 */}
+
+              <div className="checkup-cancel-modal-footer">
+
+                <button
+                  type="button"
+                  onClick={
+                    closeCancelModal
+                  }
+                >
+                  닫기
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        )
+      }
+
+
     </div>
+
   );
+
 }
 
+
+// ======================================
+// 예약 상태
+// ======================================
 
 function getStatusName(status) {
 
@@ -600,7 +896,7 @@ function getStatusName(status) {
     status === "Y"
   ) {
 
-    return "예약";
+    return "승인 완료";
 
   }
 
@@ -609,7 +905,7 @@ function getStatusName(status) {
     status === "N"
   ) {
 
-    return "미완료";
+    return "승인 대기";
 
   }
 
@@ -624,6 +920,7 @@ function getStatusName(status) {
 
 
   return "-";
+
 }
 
 

@@ -1,26 +1,35 @@
 .checkup-dashboard {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: var(--spacing);
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-/* 제목 */
+
+/* ======================================
+   제목
+====================================== */
+
 .checkup-title {
-  margin-bottom: var(--spacing);
+  margin-bottom: 25px;
 }
 
 .checkup-title h2 {
-  margin: 0 0 10px;
-  font-size: var(--font-size-h3);
+  margin: 0 0 8px;
+  font-size: 28px;
 }
 
 .checkup-title p {
   margin: 0;
-  color: var(--color-grey);
+  color: #777;
 }
 
 
-/* 검색 조건 */
+/* ======================================
+   검색 조건
+====================================== */
+
 .checkup-search-box {
   display: flex;
   flex-wrap: wrap;
@@ -28,7 +37,7 @@
   padding: var(--spacing);
   margin-bottom: var(--spacing);
   background: var(--color-white);
-  border: 1px solid var(--color-cancle);
+  border: 1px solid var(--color-cancel);
   border-radius: var(--radius-md);
 }
 
@@ -36,7 +45,7 @@
 .checkup-search-box input {
   height: 42px;
   padding: 0 var(--spacing);
-  border: 1px solid var(--color-cancle);
+  border: 1px solid var(--color-cancel);
   border-radius: var(--radius-sm);
   background: var(--color-white);
   font-size: var(--font-size-button);
@@ -48,12 +57,17 @@
 
 .checkup-search-btn {
   height: 42px;
-  padding: 0 var(--spacing);
+
+  padding: 0 25px;
+
   border: none;
-  border-radius: var(--radius-sm);
-  background: var(--color-success);
-  color: var(--color-white);
-  font-size: var(--font-size-button);
+  border-radius: 8px;
+
+  background: #2f855a;
+  color: white;
+
+  font-size: 14px;
+
   cursor: pointer;
 }
 
@@ -61,78 +75,123 @@
   opacity: 0.9;
 }
 
-/* 요약 카드 */
+
+/* ======================================
+   요약 카드
+====================================== */
 
 .checkup-card-container {
   display: grid;
+
   grid-template-columns:
-    repeat(4, 1fr);
-  gap: var(--spacing);
-  margin-bottom: var(--spacing);
+    repeat(3, 1fr);
+
+  gap: 20px;
+
+  margin-bottom: 30px;
 }
 
 .checkup-card {
-  padding: var(--spacing);
-  background: var(--color-white);
-  border-radius: var(--radius-md);
+  padding: 25px;
+
+  background: white;
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 3px 15px
+    rgba(0, 0, 0, 0.07);
 }
 
 .checkup-card span {
   display: block;
-  margin-bottom: var(--spacing);
-  color: var(--color-grey);
+
+  margin-bottom: 12px;
+
+  color: #777;
 }
 
 .checkup-card strong {
   display: inline-block;
-  font-size: var(--font-size-h2);
+
+  font-size: 30px;
 }
 
 .checkup-card p {
   display: inline-block;
+
   margin: 0 0 0 5px;
-  color: var(--color-grey);
+
+  color: #777;
 }
 
-/* 테이블 */
+
+/* ======================================
+   테이블
+====================================== */
+
 .checkup-table-box {
-  padding: var(--spacing);
-  background: var(--color-white);
-  border-radius: var(--radius-md);
+  padding: 25px;
+
+  background: white;
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 3px 15px
+    rgba(0, 0, 0, 0.07);
+
   overflow-x: auto;
 }
 
 .checkup-table-box h3 {
   margin-top: 0;
-  margin-bottom: var(--spacing);
+  margin-bottom: 20px;
 }
 
 .checkup-table {
   width: 100%;
+
   border-collapse: collapse;
 }
 
 .checkup-table th,
 .checkup-table td {
   padding: var(--spacing) var(--spacing);
-  border-bottom: 1px solid var(--color-cancle);
+  border-bottom: 1px solid var(--color-cancel);
   text-align: center;
+
   white-space: nowrap;
 }
 
 .checkup-table th {
+  background: #f7f9f8;
+
   font-weight: 600;
 }
 
-
-/* 메시지 */
-.checkup-message {
-  padding: var(--spacing);
-  text-align: center;
-  color: var(--color-grey);
+.checkup-table tbody tr:hover {
+  background: #f8faf9;
 }
 
-/* 모바일 (반응형) */
+
+/* ======================================
+   메시지
+====================================== */
+
+.checkup-message {
+  padding: 30px;
+
+  text-align: center;
+
+  color: #777;
+}
+
+
+/* ======================================
+   반응형
+====================================== */
+
 @media (
   max-width: 900px
 ) {
@@ -144,12 +203,13 @@
 
 }
 
+
 @media (
   max-width: 600px
 ) {
 
   .checkup-dashboard {
-    padding: var(--spacing);
+    padding: 15px;
   }
 
   .checkup-search-box {
@@ -166,5 +226,249 @@
     grid-template-columns:
       1fr;
   }
+
+}
+
+/* ==========================================
+   취소 카드
+========================================== */
+
+.checkup-cancel-card {
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+
+.checkup-cancel-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 6px 18px
+    rgba(0, 0, 0, 0.10);
+}
+
+
+.checkup-cancel-card-guide {
+  display: block;
+
+  margin-top: 6px;
+
+  color: #888;
+
+  font-size: 11px;
+}
+
+
+/* ==========================================
+   취소 모달 배경
+========================================== */
+
+.checkup-cancel-modal-background {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  padding: 30px;
+
+  background:
+    rgba(0, 0, 0, 0.45);
+
+  z-index: 9999;
+
+  box-sizing: border-box;
+}
+
+
+/* ==========================================
+   취소 모달
+========================================== */
+
+.checkup-cancel-modal {
+  width: 100%;
+
+  max-width: 1000px;
+
+  max-height: 80vh;
+
+  background: white;
+
+  border-radius: 16px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 15px 45px
+    rgba(0, 0, 0, 0.20);
+}
+
+
+/* ==========================================
+   모달 상단
+========================================== */
+
+.checkup-cancel-modal-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 22px 25px;
+
+  border-bottom:
+    1px solid #eeeeee;
+}
+
+
+.checkup-cancel-modal-header h3 {
+  margin: 0 0 5px 0;
+
+  font-size: 20px;
+}
+
+
+.checkup-cancel-modal-header p {
+  margin: 0;
+
+  color: #777;
+
+  font-size: 13px;
+}
+
+
+/* X 버튼 */
+
+.checkup-cancel-modal-x {
+  width: 35px;
+
+  height: 35px;
+
+  border: none;
+
+  background: transparent;
+
+  color: #555;
+
+  font-size: 28px;
+
+  cursor: pointer;
+
+  line-height: 1;
+}
+
+
+.checkup-cancel-modal-x:hover {
+  color: #111;
+}
+
+
+/* ==========================================
+   모달 내용
+========================================== */
+
+.checkup-cancel-modal-content {
+  max-height: 55vh;
+
+  padding: 20px 25px;
+
+  overflow-y: auto;
+
+  overflow-x: auto;
+}
+
+
+/* ==========================================
+   모달 하단
+========================================== */
+
+.checkup-cancel-modal-footer {
+  display: flex;
+
+  justify-content: flex-end;
+
+  padding: 15px 25px;
+
+  border-top:
+    1px solid #eeeeee;
+}
+
+
+.checkup-cancel-modal-footer button {
+  min-width: 80px;
+
+  height: 38px;
+
+  padding: 0 20px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #222;
+
+  color: white;
+
+  font-size: 13px;
+
+  cursor: pointer;
+}
+
+
+.checkup-cancel-modal-footer button:hover {
+  background: #444;
+}
+
+/* ==========================================
+
+   승인 대기 카드
+
+========================================== */
+
+.checkup-waiting-card {
+
+  cursor: pointer;
+
+  transition:
+
+    transform 0.15s ease,
+
+    box-shadow 0.15s ease;
+
+}
+
+
+.checkup-waiting-card:hover {
+
+  transform: translateY(-2px);
+
+  box-shadow:
+
+    0 6px 18px
+
+    rgba(0, 0, 0, 0.10);
+
+}
+
+
+.checkup-waiting-card-guide {
+
+  display: block;
+
+  margin-top: 6px;
+
+  color: #888;
+
+  font-size: 11px;
 
 }

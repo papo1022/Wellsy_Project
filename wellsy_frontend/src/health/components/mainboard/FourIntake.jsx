@@ -3,21 +3,14 @@ import { useNavigate } from "react-router-dom";
 import "../../../health/styles/Card.css";
 import ThreeForm from "../dataCrud/ThreeForm";
 
-function FourIntake() {
+function FourIntake({ meal, caffeine, alcohol, smoking }) {
   const navigate = useNavigate();
-
-  const todayHealth = {
-    meal: 2819,
-    caffeine: 250,
-    alcohol: 11,
-    smoking: 3,
-  };
 
   const [isThreeOpen, setIsThreeOpen] = useState(false);
 
   return (
     <>
-      <div className="health-card four-health-card">
+      <div className="health-main-card four-health-card">
         <h3>오늘의 건강 기록</h3>
 
         <div className="four-health-card-content">
@@ -28,8 +21,8 @@ function FourIntake() {
           >
             <span>식사</span>
 
-            <div>
-              <strong>{todayHealth.meal}</strong>
+            <div className="four-health-card-value">
+              <strong>{meal ? meal : "-"}</strong>
               <small> kcal</small>
             </div>
           </div>
@@ -40,8 +33,8 @@ function FourIntake() {
           >
             <span>카페인</span>
 
-            <div>
-              <strong>{todayHealth.caffeine}</strong>
+            <div className="four-health-card-value">
+              <strong>{caffeine ? caffeine : "-"}</strong>
               <small> mg</small>
             </div>
           </div>
@@ -52,8 +45,8 @@ function FourIntake() {
           >
             <span>알코올</span>
 
-            <div>
-              <strong>{todayHealth.alcohol}</strong>
+            <div className="four-health-card-value">
+              <strong>{alcohol ? alcohol : "-"}</strong>
               <small> g</small>
             </div>
           </div>
@@ -64,8 +57,8 @@ function FourIntake() {
           >
             <span>담배</span>
 
-            <div>
-              <strong>{todayHealth.smoking}</strong>
+            <div className="four-health-card-value">
+              <strong>{smoking ? smoking : "-"}</strong>
               <small> 개비</small>
             </div>
           </div>

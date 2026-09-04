@@ -35,6 +35,7 @@ import Footer from "./common/components/Footer";
 import Header from "./common/components/Header";
 import HealthDashboard from "./health/components/HealthDashboard";
 import MainDashboard from "./main/components/MainDashboard";
+import CheckupReservation from "./check/components/CheckupReservation";
 
 import MyPage from "./my/components/MyPage";
 
@@ -83,7 +84,7 @@ function App() {
   
 
           {/* 사원 - 건강검진 */}
-          <Route path="/check" element={<div>사원 - 건강검진</div>} />
+          <Route path="/check" element={<CheckupReservation />} />
 
           {/* 사원 - AI 챗봇 */}
           <Route path="/chat" element={<div>사원 - AI 챗봇</div>} />

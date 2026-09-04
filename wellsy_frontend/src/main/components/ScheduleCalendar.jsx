@@ -186,12 +186,69 @@ function ScheduleCalendar() {
             event.end
           )
 
+        
+
       });
 
 
       setModalOpen(true);
 
     };
+
+    // ======================================
+// 일정 마우스 오버
+// 제목 + 시작시간 ~ 종료시간 표시
+// ======================================
+
+const handleEventDidMount = (info) => {
+
+  const event =
+    info.event;
+
+
+  const title =
+    event.title || "일정";
+
+
+  const startTime =
+    formatTime(
+      event.start
+    );
+
+
+  const endTime =
+    formatTime(
+      event.end
+    );
+
+
+  let tooltipText = title;
+
+
+  if (
+    startTime &&
+    endTime
+  ) {
+
+    tooltipText =
+      `${title}\n${startTime} ~ ${endTime}`;
+
+  } else if (
+    startTime
+  ) {
+
+    tooltipText =
+      `${title}\n${startTime}`;
+
+  }
+
+
+  info.el.setAttribute(
+    "title",
+    tooltipText
+  );
+
+};
 
 
   // ======================================
@@ -485,25 +542,38 @@ function ScheduleCalendar() {
         </div>
 
 
-      <FullCalendar
+    <FullCalendar
+
   plugins={[
     dayGridPlugin,
     timeGridPlugin,
     interactionPlugin
   ]}
+
   initialView="dayGridMonth"
+
   locale="ko"
+
   events={events}
+
   selectable={true}
+
   dateClick={handleDateClick}
+
   eventClick={handleEventClick}
+
+  eventDidMount={handleEventDidMount}
+
+  displayEventTime={false}
+
   height="auto"
+
   headerToolbar={{
     left: "prev,next today",
     center: "title",
     right: ""
   }}
-  
+
 />
 
 
@@ -786,6 +856,43 @@ function ScheduleCalendar() {
     </div>
 
   );
+
+}
+
+
+// datetime-local 형식 변환
+// ======================================
+// 툴팁 시간 표시용
+// ======================================
+
+function formatTime(date) {
+
+  if (!date) {
+
+    return "";
+
+  }
+
+
+  const hour =
+    String(
+      date.getHours()
+    ).padStart(
+      2,
+      "0"
+    );
+
+
+  const minute =
+    String(
+      date.getMinutes()
+    ).padStart(
+      2,
+      "0"
+    );
+
+
+  return `${hour}:${minute}`;
 
 }
 

@@ -1,23 +1,32 @@
-.health-card-area {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  align-items: stretch;
+.health-record-dashboard {
+  width: 1200px;
+  max-width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: var(--spacing);
+  background-color: var(--color-ivory);
 }
 
 .health-card-area {
   display: flex;
-  gap: 20px;
+  flex-direction: row;
+  gap: var(--spacing);
   align-items: stretch;
 }
 
 .health-left-area {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--spacing);
 }
 
 .health-top-area {
   display: flex;
-  gap: 20px;
+  gap: var(--spacing);
+}
+
+.health-top-area>* {
+  flex: 1;
+  min-width: 0;
+  gap: var(--spacing);
 }
