@@ -36,9 +36,9 @@ function ThreeForm({ onClose, onHealthUpdate }) {
 
         const today = new Date().toISOString().split("T")[0];
 
-        let caffineAmount = 0;
+        let caffeineAmount = 0;
         if (coffee !== "") {
-            caffineAmount = coffeeUnit === "glass" ? Number(coffee) * COFFEE_ML_PER_GLASS * COFFINE_PER_ML : Number(coffee);
+            caffeineAmount = coffeeUnit === "glass" ? Number(coffee) * COFFEE_ML_PER_GLASS * COFFINE_PER_ML : Number(coffee);
         }
 
         let alcoholAmount = 0;
@@ -57,10 +57,12 @@ function ThreeForm({ onClose, onHealthUpdate }) {
         const healthData = {
             employeeNo: 1,
             recordDate: today,
-            caffineAmount,
+            caffeineAmount,
             alcoholAmount,
-            smoking: smoking === "" ? 0 : Number(smoking)
+            smokingCount: smoking === "" ? 0 : Number(smoking)
         };
+
+        console.log(healthData);
 
         fetch("http://localhost:8006/wellsy/health", {
             method: "POST",
