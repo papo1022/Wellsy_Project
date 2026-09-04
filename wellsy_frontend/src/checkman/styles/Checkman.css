@@ -642,36 +642,6 @@
 }
 
 
-/* ==========================================
-   승인 버튼
-========================================== */
-
-.checkman-approve-btn {
-
-    height: 32px;
-
-    padding: 0 16px;
-
-    border: none;
-
-    border-radius: 16px;
-
-    background: #111;
-
-    color: white;
-
-    font-size: 11px;
-
-    font-weight: 600;
-
-    cursor: pointer;
-}
-
-
-.checkman-approve-btn:hover {
-
-    background: #333;
-}
 
 
 /* ==========================================
@@ -683,4 +653,58 @@
     color: #888;
 
     font-size: 11px;
+}
+
+/* =========================================
+   건강검진 예약 관리 버튼 공통
+========================================= */
+
+.checkman-approve-btn,
+.checkman-cancel-btn {
+    padding: 8px 16px;
+
+    border: none;
+    border-radius: 6px;
+
+    color: white;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease;
+}
+
+
+/* 승인 */
+
+.checkman-approve-btn {
+    background: #2f855a;
+}
+
+.checkman-approve-btn:hover {
+    background: #276749;
+}
+
+
+/* 취소 */
+
+.checkman-cancel-btn {
+    margin-left: 8px;
+    background: #dc3545;
+}
+
+.checkman-cancel-btn:hover {
+    background: #c82333;
+}
+
+
+/* 클릭 */
+
+.checkman-approve-btn:active,
+.checkman-cancel-btn:active {
+    transform: scale(0.97);
 }

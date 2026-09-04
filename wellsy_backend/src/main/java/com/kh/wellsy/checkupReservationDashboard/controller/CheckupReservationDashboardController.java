@@ -22,69 +22,41 @@ import lombok.RequiredArgsConstructor;
 @CrossOrigin(origins = "http://localhost:5173")
 public class CheckupReservationDashboardController {
 
-    private final CheckupReservationDashboardService
-            checkupReservationDashboardService;
+    private final CheckupReservationDashboardService checkupReservationDashboardService;
 
-
-    // =========================================
-    // 관리자 건강검진 예약 조회
-    //
-    // GET
-    // /api/checkup-reservation-dashboard
-    // =========================================
     @GetMapping
     public List<CheckupReservationDashboard> selectReservationList(
+            @RequestParam(required = false) Integer year,
+            @RequestParam(required = false) Integer month,
+            @RequestParam(required = false) Integer departmentId,
+            @RequestParam(required = false) Integer jobId,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String status) {
 
-            @RequestParam(required = false)
-            Integer year,
-
-            @RequestParam(required = false)
-            Integer month,
-
-            @RequestParam(required = false)
-            Integer departmentId,
-
-            @RequestParam(required = false)
-            Integer jobId,
-
-            @RequestParam(required = false)
-            String name,
-
-            @RequestParam(required = false)
-            String status) {
-
-
-        return checkupReservationDashboardService
-                .selectReservationList(
-                        year,
-                        month,
-                        departmentId,
-                        jobId,
-                        name,
-                        status
-                );
+        return checkupReservationDashboardService.selectReservationList(
+                year, month, departmentId, jobId, name, status
+        );
     }
 
-
-    // =========================================
-    // 관리자 건강검진 예약 승인
-    //
-    // PUT
-    // /api/checkup-reservation-dashboard/1/approve
-    // =========================================
     @PutMapping("/{reservationId}/approve")
     public ResponseEntity<String> approveReservation(
             @PathVariable Integer reservationId) {
 
-
-        checkupReservationDashboardService
-                .approveReservation(
-                        reservationId
-                );
-
+        checkupReservationDashboardService.approveReservation(reservationId);
 
         return ResponseEntity.ok(
                 "건강검진 예약이 승인되었습니다."
+        );
+    }
+
+    @PutMapping("/{reservationId}/cancel")
+    public ResponseEntity<String> cancelReservation(
+            @PathVariable Integer reservationId) {
+
+        checkupReservationDashboardService.cancelReservation(reservationId);
+
+        return ResponseEntity.ok(
+                "건강검진 예약이 취소되었습니다."
         );
     }
 }

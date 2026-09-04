@@ -12,7 +12,8 @@ import {
     selectCheckmanListApi,
     selectCheckmanAlertListApi,
     selectCheckupReservationListApi,
-    approveCheckupReservationApi
+    approveCheckupReservationApi,
+    cancelCheckupReservationApi
 } from "../api/CheckmanApi";
 
 import "../styles/Checkman.css";
@@ -475,6 +476,71 @@ function CheckmanList() {
 
                 alert(
                     "건강검진 예약 승인 중 오류가 발생했습니다."
+                );
+
+            }
+
+        }
+
+    };
+
+
+    // =========================================
+    // 건강검진 예약 취소
+    // =========================================
+
+    const cancelReservation
+        = async reservationId => {
+
+        if(
+            !window.confirm(
+                "해당 건강검진 예약을 취소하시겠습니까?"
+            )
+        ) {
+
+            return;
+
+        }
+
+
+        try {
+
+            const response
+                = await cancelCheckupReservationApi(
+                    reservationId
+                );
+
+
+            alert(
+                response.data
+                ?? "건강검진 예약이 취소되었습니다."
+            );
+
+
+            await selectReservationList();
+
+
+        } catch(error) {
+
+            console.log(
+                "건강검진 예약 취소 실패!"
+            );
+
+            console.log(error);
+
+
+            if(
+                error.response?.data
+            ) {
+
+                alert(
+                    error.response.data
+                );
+
+            } else {
+
+                alert(
+                    "건강검진 예약 취소 중 오류가 발생했습니다."
                 );
 
             }
@@ -1614,39 +1680,53 @@ function CheckmanList() {
                                                                 reservation.status === "N"
                                                                 ?
                                                                 (
+                                                                    <>
+                                                                        <button
+                                                                            type="button"
+                                                                            className="checkman-approve-btn"
+                                                                            onClick={ () => {
+                                                                                approveReservation(
+                                                                                    reservation.reservationId
+                                                                                );
+                                                                            }}
+                                                                        >
+                                                                            승인
+                                                                        </button>
 
+                                                                        <button
+                                                                            type="button"
+                                                                            className="checkman-cancel-btn"
+                                                                            onClick={ () => {
+                                                                                cancelReservation(
+                                                                                    reservation.reservationId
+                                                                                );
+                                                                            }}
+                                                                        >
+                                                                            취소
+                                                                        </button>
+                                                                    </>
+                                                                )
+                                                                :
+                                                                reservation.status === "Y"
+                                                                ?
+                                                                (
                                                                     <button
                                                                         type="button"
-
-                                                                        className="checkman-approve-btn"
-
+                                                                        className="checkman-cancel-btn"
                                                                         onClick={ () => {
-
-                                                                            approveReservation(
+                                                                            cancelReservation(
                                                                                 reservation.reservationId
                                                                             );
-
                                                                         }}
                                                                     >
-                                                                        승인
+                                                                        취소
                                                                     </button>
-
                                                                 )
                                                                 :
                                                                 (
-
                                                                     <span className="checkman-complete-text">
-
-                                                                        {
-                                                                            reservation.status === "Y"
-                                                                            ?
-                                                                            "처리완료"
-                                                                            :
-                                                                            "-"
-                                                                        }
-
+                                                                        취소완료
                                                                     </span>
-
                                                                 )
                                                             }
 
