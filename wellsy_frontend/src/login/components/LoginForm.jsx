@@ -76,9 +76,9 @@ function LoginForm({ setToken }) {
 
                 <button className="login-button" onClick={handleLogin}>로그인</button>
 
-                {result && <p className="login-error">{result}</p>}
+                <Link className="login-forgot" to="/find-account">아이디 / 비밀번호 찾기</Link>
 
-                <Link className="login-forgot" to="/find-account">아이디/비밀번호 찾기</Link>
+                {result && <p className="login-error">{result}</p>}
 
             </div>
 
