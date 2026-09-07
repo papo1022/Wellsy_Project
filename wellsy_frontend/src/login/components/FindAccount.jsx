@@ -27,45 +27,68 @@ function FindAccount() {
     const [newPassword, setNewPassword] = useState("");
     const [pwResult, setPwResult] = useState("");
 
+    // 탭 전환 핸들러 (상태 초기화)
+    const handleTabChange = (selectedTab) => {
+        setTab(selectedTab);
+        setStep(1);
+        setFindResult("");
+        setPwResult("");
+    }
+
     // step 1: 아이디/이메일 입력
     const handleSendCode = async () => {
 
-        const response = await sendResetCodeApi(loginId, pwEmail);
+        try{
+            const response = await sendResetCodeApi(loginId, pwEmail);
 
-        setPwResult(response.data);
+            setPwResult(response.data);
 
-        if(response.data.includes("발송")) {
+            if(response.data.includes("발송")) {
 
-            setStep(2);
+                setStep(2);
+            }
+        } catch(error) {
+
+            setPwResult("인증번호 발송 실패")
         }
     };
 
     // step 2: 인증번호 입력
     const handleValidateCode = async () => {
 
-        const response = await validateResetCodeApi(pwEmail, certNo);
+        try {
+            const response = await validateResetCodeApi(pwEmail, certNo);
 
-        if(response.data === true) {
+            if(response.data === true) {
 
-            setPwResult("인증 확인되었습니다. 새 비밀번호를 입력해주세요.");
-            setStep(3);
+                setPwResult("인증 확인되었습니다. 새 비밀번호를 입력해주세요.");
+                setStep(3);
 
-        } else {
+            } else {
 
-            setPwResult("인증번호가 일치하지 않습니다.");
+                setPwResult("인증번호가 일치하지 않습니다.");
+            }
+        } catch(error) {
+            
+            setPwResult("인증 검증 실패");
         }
     };
 
     // step 3: 새 비밀번호 입력
     const handleResetPassword = async () => {
 
-        const response = await resetPasswordApi(loginId, pwEmail, certNo, newPassword);
+        try {
+            const response = await resetPasswordApi(loginId, pwEmail, certNo, newPassword);
 
-        setPwResult(response.data);
+            setPwResult(response.data);
 
-        if(response.data.includes("변경")) {
+            if(response.data.includes("변경")) {
 
-            setStep(4);
+                setStep(4);
+            }
+        } catch(error) {
+
+            setPwResult("비밀번호 변경 실패");
         }
     };
 
@@ -121,35 +144,45 @@ function FindAccount() {
                         <button onClick={handleSendCode}>인증번호 발송</button>
                     </>
                 )}
+
+                {/* Step 2 */}
+                {step === 2 && (
+                    <>
+                        <input
+                            placeholder="인증번호 6자리"
+                            value={certNo}
+                            onChange={(e) => setCertNo(e.target.value)}
+                        />
+                        <button onClick={handleValidateCode}>인증 확인</button>
+                    </>
+                )}
+
+                {/* Step 3 */}
+                {step === 3 && (
+                    <>
+                        <input
+                            placeholder="새 비밀번호"
+                            type="password"
+                            value={newPassword}
+                            onChange={(e) => setNewPassword(e.target.value)}
+                        />
+                        <button onClick={handleResetPassword}>비밀번호 변경</button>
+                    </>
+                )}
+
+                {pwResult && <p>{pwResult}</p>}
             </div>
         )}
 
-        {/* Step 2 */}
-        {step === 2 && (
-            <>
-                <input
-                    placeholder="인증번호 6자리"
-                    value={certNo}
-                    onChange={(e) => setCertNo(e.target.value)}
-                />
-                <button onClick={handleValidateCode}>인증 확인</button>
-            </>
+        {/* Step 4: 완료 안내 */}
+        {step === 4 && (
+            <div>
+                <p>비밀번호가 성공적으로 변경되었습니다.</p>
+                <button onClick={() => handleTabChange("id")}>로그인하러 가기</button>
+            </div>
         )}
 
-        {/* Step 3 */}
-        {step === 3 && (
-            <>
-                <input
-                    placeholder="새 비밀번호"
-                    type="password"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                />
-                <button onClick={handleResetPassword}>비밀번호 변경</button>
-            </>
-        )}
-
-        {pwResult && <p>{pwResult}</p>}
+        {pwResult && step !== 4 && <p className="result-message">{pwResult}</p>}
 
         </div>
     );
