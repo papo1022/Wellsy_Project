@@ -40,15 +40,6 @@ function SleepTime({ sleepData, onHealthUpdate, employeeNo }) {
             diffHours / 24 * 360;
     }
 
-
-    if (sleepData?.sleepStart && sleepData?.sleepEnd) {
-        const start = new Date(sleepData.sleepStart);
-        const end = new Date(sleepData.sleepEnd);
-
-        const diffMs = end - start;
-        duration = (diffMs / (1000 * 60 * 60)).toFixed(1);
-    }
-
     return (
         <>
             <div className="health-main-card sleep-card"
@@ -96,11 +87,11 @@ function SleepTime({ sleepData, onHealthUpdate, employeeNo }) {
 
                         <div className="sleep-clock-info">
                             <span>
-                                취침 <strong>{sleepStartText}</strong>
+                                <strong>{sleepStartText}</strong> 취침
                             </span>
 
                             <span>
-                                기상 <strong>{sleepEndText}</strong>
+                                <strong>{sleepEndText}</strong> 기상
                             </span>
                         </div>
 

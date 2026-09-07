@@ -42,7 +42,7 @@ import ChatWindow from "./ai/components/ChatWindow";
 
 import LoginForm from "./login/components/LoginForm";
 import "./login/styles/login.css";
-
+import FindAccount from "./login/components/FindAccount";
 
 function App() {
 
@@ -53,11 +53,11 @@ function App() {
   if(token == null) {
 
     return (
-
-      <div>
-        <LoginForm setToken={setToken} />
-      </div>
-
+      <Routes>
+        <Route path="/login" element={<LoginForm setToken={setToken} />}/>
+        <Route path="/find-account" element={<FindAccount />}/>
+        <Route path="*" element={<LoginForm setToken={setToken} />}/>
+      </Routes>
     );
   }
 
