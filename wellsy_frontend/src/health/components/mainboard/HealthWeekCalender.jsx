@@ -9,7 +9,7 @@ function HealthWeekCalendar() {
         <div className="health-main-card health-calendar-card">
         
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <h3>건강 캘린더</h3>
+                <h3>건강 / 운동 캘린더</h3>
 
                 <button type="button" className="detail-button" onClick={() => navigate("/health/calendar")}>
                     상세보기
