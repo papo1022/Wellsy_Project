@@ -32,7 +32,7 @@ public class AccountController {
 	@PostMapping("/send-cert")
 	public ResponseEntity<String> sendResetCode(@RequestBody Map<String, String> body) {
 		
-		boolean success = accountService.sendResetCode(body.get("loginId"), body.get(body));
+		boolean success = accountService.sendResetCode(body.get("loginId"), body.get("email"));
 		
 		return ResponseEntity.ok(success
 				? "인증번호가 발송되었습니다."
