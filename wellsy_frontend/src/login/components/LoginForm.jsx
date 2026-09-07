@@ -4,6 +4,8 @@ import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
 
+import { Link } from "react-router-dom";
+
 // App.jsx로부터 setToken 함수를 전달받음
 function LoginForm({ setToken }) {
     const navigate = useNavigate();
@@ -75,6 +77,8 @@ function LoginForm({ setToken }) {
                 <button className="login-button" onClick={handleLogin}>로그인</button>
 
                 {result && <p className="login-error">{result}</p>}
+
+                <Link className="login-forgot" to="/find-account">아이디/비밀번호 찾기</Link>
 
             </div>
 

@@ -88,68 +88,68 @@ function FindAccount() {
                 >
                     비밀번호 재설정
                 </button>
+        </div>
 
-                {tab === "id" && (
-                    <div className="find-account-form">
-                        <input
-                            placeholder="가입한 이메일을 입력하세요"
-                            value={findEmail}
-                            onChange={(e) => setFindEmail(e.target.value)}
-                        />
+        {tab === "id" && (
+            <div className="find-account-form">
+                <input
+                    placeholder="가입한 이메일을 입력하세요"
+                    value={findEmail}
+                    onChange={(e) => setFindEmail(e.target.value)}
+                />
 
-                        <button onClick={handleFindId}>아이디 찾기</button>
-                        {findResult && <p>{findResult}</p>}
-                    </div>
-                )}
-                
-                {/* Step 1 */}
-                {tab === "password" && (
-                    <div className="find-account-form">
-                        {step === 1 && (
-                            <>
-                                <input 
-                                    placeholder="아이디"
-                                    value={loginId}
-                                    onChange={(e) => setLoginId(e.target.value)}
-                                />
-                                <input
-                                    placeholder="가입한 이메일"
-                                    value={pwEmail}
-                                    onChange={(e) => setPwEmail(e.target.value)}
-                                />
-                                <button onClick={handleSendCode}>인증번호 발송</button>
-                            </>
-                        )}
-                    </div>
-                )}
-
-                {/* Step 2 */}
-                {step === 2 && (
-                    <>
-                        <input
-                            placeholder="인증번호 6자리"
-                            value={certNo}
-                            onChange={(e) => setCertNo(e.target.value)}
-                        />
-                        <button onClick={handleValidateCode}>인증 확인</button>
-                    </>
-                )}
-
-                {/* Step 3 */}
-                {step === 3 && (
-                    <>
-                        <input
-                            placeholder="새 비밀번호"
-                            type="password"
-                            value={newPassword}
-                            onChange={(e) => setNewPassword(e.target.value)}
-                        />
-                        <button onClick={handleResetPassword}>비밀번호 변경</button>
-                    </>
-                )}
-
-                {pwResult && <p>{pwResult}</p>}
+                <button onClick={handleFindId}>아이디 찾기</button>
+                {findResult && <p>{findResult}</p>}
             </div>
+        )}
+        
+        {/* Step 1 */}
+        {tab === "password" && (
+            <div className="find-account-form">
+                {step === 1 && (
+                    <>
+                        <input 
+                            placeholder="아이디"
+                            value={loginId}
+                            onChange={(e) => setLoginId(e.target.value)}
+                        />
+                        <input
+                            placeholder="가입한 이메일"
+                            value={pwEmail}
+                            onChange={(e) => setPwEmail(e.target.value)}
+                        />
+                        <button onClick={handleSendCode}>인증번호 발송</button>
+                    </>
+                )}
+            </div>
+        )}
+
+        {/* Step 2 */}
+        {step === 2 && (
+            <>
+                <input
+                    placeholder="인증번호 6자리"
+                    value={certNo}
+                    onChange={(e) => setCertNo(e.target.value)}
+                />
+                <button onClick={handleValidateCode}>인증 확인</button>
+            </>
+        )}
+
+        {/* Step 3 */}
+        {step === 3 && (
+            <>
+                <input
+                    placeholder="새 비밀번호"
+                    type="password"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                />
+                <button onClick={handleResetPassword}>비밀번호 변경</button>
+            </>
+        )}
+
+        {pwResult && <p>{pwResult}</p>}
 
         </div>
     );
