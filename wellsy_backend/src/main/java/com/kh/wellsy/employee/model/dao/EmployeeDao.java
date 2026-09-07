@@ -20,6 +20,12 @@ public interface EmployeeDao extends JpaRepository<Employee, Integer>{
 	// 재직중인 사원 상세 조회
 	Employee findByEmployeeNoAndStatus(int employeeNo, String status);
 	
+	// 아이디 찾기용
+	Optional<Employee> findByEmailAndStatus(String email, String status);
+	
+	// 비밀번호 재설정용
+	Optional<Employee> findByLoginIdAndEmailAndStatus(String loginId, String status);
+	
 	// 로그인용 조회
 	// 메소드 이름 규칙(findBy + 필드명 + And + 필드명)
 	// Spring이 "WHERE LOGIN_ID = ? AND STATUS = ?" SQL을 자동으로 만들어서 실행
