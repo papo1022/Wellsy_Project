@@ -1,91 +1,177 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 import "../../../health/styles/Card.css";
+import {
+    saveMealApi,
+    selectTodayMealApi,
+    analyzeMealTextApi,
+    analyzeMealImageApi
+} from "../../api/mealApi";
 import "../../styles/CrudForm.css";
 
 function MealDetail() {
+    const token = sessionStorage.getItem("token");
 
-    const [mealType, setMealType] = useState("아침"); // 아침 ~ 간식
-    const [inputMode, setInputMode] = useState(null); // null, "auto", "manual"
+    const employeeNo = token
+        ? jwtDecode(token).employeeNo
+        : null;
 
-    const [foodName, setFoodName] = useState(""); // 음식명
-    const [amountDescription, setAmountDescription] = useState(""); // 섭취량 (예: 100g, 1공기, 2개)
 
-    const [foodInfos, setFoodInfos] = useState([]); // 음식 정보 배열
+    const [mealType, setMealType] = useState("아침");
+    const [inputMode, setInputMode] = useState(null);
 
-    const [image, setImage] = useState(null); // 음식 이미지
-    const [imagePreview, setImagePreview] = useState(null); // 음식 이미지 미리보기
+    const [foodName, setFoodName] = useState("");
+    const [amountDescription, setAmountDescription] = useState("");
+
+    // 현재 입력 중이며 아직 DB에 저장되지 않은 음식
+    const [foodInfos, setFoodInfos] = useState([]);
+
+    // DB에 저장된 오늘 전체 영양소 합계
+    const [todayNutrition, setTodayNutrition] = useState({
+        calories: 0,
+        protein: 0,
+        carbohydrate: 0,
+        fat: 0
+    });
+
+    // DB에 저장된 오늘 식사 기록
+    const [todayMeals, setTodayMeals] = useState([]);
+    const [deletedMealItemIds, setDeletedMealItemIds] = useState([]);
+
+    const [image, setImage] = useState(null);
+    const [imagePreview, setImagePreview] = useState(null);
 
     const navigate = useNavigate();
 
-    // 수동 음식 분석 버튼 클릭 시 호출되는 함수
-    const handleAnalyzeFood = () => {
+    const todayText = new Date().toLocaleDateString("ko-KR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+    });
+
+    const fetchTodayMeals = async () => {
+
+        if (!employeeNo) {
+            console.error("employeeNo가 없습니다.");
+            return;
+        }
+
+        try {
+            const response = await selectTodayMealApi(employeeNo);
+
+            setTodayMeals(response.data.meals || []);
+            setTodayNutrition(
+                response.data.totalNutrition || {
+                    calories: 0,
+                    protein: 0,
+                    carbohydrate: 0,
+                    fat: 0
+                }
+            );
+
+        } catch (error) {
+            console.error(
+                "오늘 식사 조회 오류:",
+                error
+            );
+        }
+    };
+
+    useEffect(() => {
+        fetchTodayMeals();
+    }, []);
+
+    // 현재 선택한 식사 유형의 DB 기록만 추출
+    const selectedMeals = todayMeals.filter(
+        meal => meal.mealType === mealType
+    );
+
+    const handleAnalyzeFood = async () => {
+
         if (!foodName.trim()) {
             alert("음식명을 입력해주세요.");
             return;
         }
 
-        const result = [
-            {
+        if (!amountDescription.trim()) {
+            alert("섭취량을 입력해주세요.");
+            return;
+        }
+
+        try {
+
+            const response = await analyzeMealTextApi(
                 foodName,
-                amountDescription,
-                calories: 165,
-                protein: 31,
-                carbohydrate: 0,
-                fat: 3.6
-            }
-        ];
+                amountDescription
+            );
 
-        setFoodInfos(prev => [...prev, ...result]);
+            const result = response.data;
 
-        // 입력 필드 초기화
-        setFoodName("");
-        setAmountDescription("");
+            setFoodInfos(prev => [
+                ...prev,
+                {
+                    foodName: result.foodName ?? foodName,
+                    amountDescription:
+                        result.amountDescription ?? amountDescription,
+                    calories: result.calories ?? 0,
+                    protein: result.protein ?? 0,
+                    carbohydrate: result.carbohydrate ?? 0,
+                    fat: result.fat ?? 0
+                }
+            ]);
+
+            setFoodName("");
+            setAmountDescription("");
+
+        } catch (error) {
+
+            console.error("AI 음식 분석 실패:", error);
+
+            alert("음식 분석에 실패했습니다.");
+        }
     };
 
-
-    // AI 이미지 분석 버튼 클릭 시 호출
-    const handleAnalyzeImage = () => {
+    // AI 이미지 분석
+    const handleAnalyzeImage = async () => {
 
         if (!image) {
             alert("식사 사진을 선택해주세요.");
             return;
         }
 
-        // 임시 AI 분석 결과
-        const result = [
-            {
-                foodName: "현미밥",
-                amountDescription: "1공기",
-                calories: 300,
-                protein: 6,
-                carbohydrate: 65,
-                fat: 2
-            },
-            {
-                foodName: "계란후라이",
-                amountDescription: "2개",
-                calories: 180,
-                protein: 12,
-                carbohydrate: 1,
-                fat: 14
+        try {
+
+            const response = await analyzeMealImageApi(image);
+
+            const foods = response.data?.foods || [];
+
+            if (foods.length === 0) {
+                alert("사진에서 음식 정보를 찾지 못했습니다.");
+                return;
             }
-        ];
 
-        setFoodInfos(prev => [
-            ...prev,
-            ...result
-        ]);
+            setFoodInfos(prev => [
+                ...prev,
+                ...foods
+            ]);
 
-        // 분석이 끝난 이미지 초기화
-        setImage(null);
-        setImagePreview(null);
+            setImage(null);
+            setImagePreview(null);
+
+        } catch (error) {
+
+            console.error(
+                "AI 식사 사진 분석 실패:",
+                error
+            );
+
+            alert("식사 사진 분석에 실패했습니다.");
+        }
     };
 
-
-    // 음식 정보 변경 시 호출되는 함수
+    // 새로 분석한 음식 정보 수정
     const handleFoodInfoChange = (index, field, value) => {
-
         setFoodInfos(prev =>
             prev.map((food, i) =>
                 i === index
@@ -95,77 +181,140 @@ function MealDetail() {
         );
     };
 
-    // 음식 정보 삭제 시 호출되는 함수
-    const handleDeleteFoodInfo = (index) => {
+    // 새로 분석한 음식 삭제
+    const handleDeleteFoodInfo = index => {
         setFoodInfos(prev =>
-            prev.filter((_, i) => i !== index));
+            prev.filter((_, i) => i !== index)
+        );
     };
 
+    // DB에 저장된 음식 정보 수정
+    const handleSavedItemChange = (
+        mealRecordId,
+        mealItemId,
+        field,
+        value
+    ) => {
 
-    // 식사 영양소 합산
-    const totalNutrition = foodInfos.reduce(
-        (total, food) => {
-            total.calories += Number(food.calories) || 0;
-            total.protein += Number(food.protein) || 0;
-            total.carbohydrate += Number(food.carbohydrate) || 0;
-            total.fat += Number(food.fat) || 0;
+        setTodayMeals(prevMeals =>
+            prevMeals.map(meal => {
 
-            return total;
-        },
-        {
-            calories: 0,
-            protein: 0,
-            carbohydrate: 0,
-            fat: 0
-        }
-    );
-
-    // 식사 데이터 제출 시 호출되는 함수
-    const handleSubmitMeal = () => {
-        const mealData = {
-            employeeNo: 1,
-            mealType,
-            mealItems: foodInfos
-        };
-
-        fetch("http://localhost:8006/wellsy/meal", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(mealData)
-        })
-            .then(response => {
-                if (response.ok) {
-                    return response.text();
-                } else {
-                    throw new Error("식사 저장에 실패했습니다.");
+                if (meal.mealRecordId !== mealRecordId) {
+                    return meal;
                 }
+
+                return {
+                    ...meal,
+                    items: meal.items.map(item =>
+                        item.mealItemId === mealItemId
+                            ? {
+                                ...item,
+                                [field]: value
+                            }
+                            : item
+                    )
+                };
             })
-
-            .then(data => {
-                console.log("Meal saved successfully:", data);
-                alert("식사가 성공적으로 저장되었습니다.");
-            })
-
-            .catch(error => {
-                console.error("Error:", error);
-                alert("식사 저장에 실패했습니다.");
-            });
-
+        );
     };
 
-    // 사진 업로드 시 호출되는 함수
-    const handleImageChange = (e) => {
+    // DB에 저장된 음식 삭제
+    const handleSavedItemDelete = (
+        mealRecordId,
+        mealItemId
+    ) => {
+
+        setDeletedMealItemIds(prev => [
+            ...prev,
+            mealItemId
+        ]);
+
+        setTodayMeals(prevMeals =>
+            prevMeals.map(meal => {
+
+                if (meal.mealRecordId !== mealRecordId) {
+                    return meal;
+                }
+
+                return {
+                    ...meal,
+                    items: meal.items.filter(
+                        item =>
+                            item.mealItemId !== mealItemId
+                    )
+                };
+            })
+        );
+    };
+
+    // 식사 저장
+    const handleSubmitMeal = async () => {
+
+        try {
+
+            // 현재 선택된 끼니의 기존 DB 음식
+            const savedItems = todayMeals
+                .filter(
+                    meal =>
+                        meal.mealType === mealType
+                )
+                .flatMap(
+                    meal => meal.items || []
+                );
+
+            // 기존 음식 + 새 음식
+            const allMealItems = [
+                ...savedItems,
+                ...foodInfos
+            ];
+
+            const mealData = {
+                employeeNo: employeeNo,
+                mealType: mealType,
+                mealItems: allMealItems,
+                deletedMealItemIds:
+                    deletedMealItemIds
+            };
+
+            await saveMealApi(mealData);
+
+            alert("식사 기록이 저장되었습니다.");
+
+            // 신규 입력 초기화
+            setFoodInfos([]);
+
+            // 삭제 목록 초기화
+            setDeletedMealItemIds([]);
+
+            setFoodName("");
+            setAmountDescription("");
+
+            // DB 다시 조회
+            await fetchTodayMeals();
+
+        } catch (error) {
+
+            console.error(
+                "식사 저장 실패:",
+                error
+            );
+
+            alert("식사 기록 저장에 실패했습니다.");
+        }
+    };
+
+    // 사진 업로드
+    const handleImageChange = e => {
         const file = e.target.files[0];
+
         if (file) {
             setImage(file);
             setImagePreview(URL.createObjectURL(file));
         }
     };
 
-    // 입력 모드 변경 시 호출되는 함수
-    const changeInputMode = (mode) => {
+    // 입력 모드 변경
+    const changeInputMode = mode => {
         setInputMode(mode);
 
         setFoodName("");
@@ -173,106 +322,88 @@ function MealDetail() {
 
         setImage(null);
         setImagePreview(null);
-
     };
 
-    // 식사 모드 변경시 호출
-    const changeMealType = (type) => {
+    // 아침 / 점심 / 저녁 / 간식 변경
+    const changeMealType = type => {
+        if (mealType === type) {
+            return;
+        }
 
         if (foodInfos.length > 0) {
-            if (window.confirm("식사 유형을 변경하면 현재 입력 중인 내용이 초기화됩니다. 계속하시겠습니까?") === false) {
+            const confirmed = window.confirm(
+                "식사 유형을 변경하면 현재 입력 중인 내용이 초기화됩니다. 계속하시겠습니까?"
+            );
+
+            if (!confirmed) {
                 return;
             }
         }
 
         setMealType(type);
-
-        // 입력 방식 초기화
         setInputMode(null);
-
-        // 직접 입력값 초기화
         setFoodName("");
         setAmountDescription("");
-
-        // 분석 대기열 초기화
         setFoodInfos([]);
-
-        // 이미지 초기화
         setImage(null);
         setImagePreview(null);
     };
-
 
     return (
         <div className="crud-card meal-detail">
             <h2>식사 기록</h2>
 
             <div className="crud-card-date">
-                2026년 8월 28일
+                {todayText}
             </div>
 
+            {/* 오늘 전체 영양소 합계 */}
             <div className="meal-summary">
-
                 <div className="meal-summary-card">
                     <span>칼로리</span>
-                    <strong>{totalNutrition.calories}</strong>
+                    <strong>{todayNutrition.calories ?? 0}</strong>
                     <small> kcal</small>
                 </div>
 
                 <div className="meal-summary-card">
                     <span>탄수화물</span>
-                    <strong>{totalNutrition.carbohydrate}</strong>
+                    <strong>{todayNutrition.carbohydrate ?? 0}</strong>
                     <small> g</small>
                 </div>
-        
+
                 <div className="meal-summary-card">
                     <span>단백질</span>
-                    <strong>{totalNutrition.protein}</strong>
+                    <strong>{todayNutrition.protein ?? 0}</strong>
                     <small> g</small>
                 </div>
 
                 <div className="meal-summary-card">
                     <span>지방</span>
-                    <strong>{totalNutrition.fat}</strong>
+                    <strong>{todayNutrition.fat ?? 0}</strong>
                     <small> g</small>
                 </div>
-
             </div>
 
+            {/* 식사 유형 선택 */}
             <div className="meal-tabs">
-                <button
-                    type="button"
-                    className={mealType === "아침" ? "active" : ""}
-                    onClick={() => changeMealType("아침")}
-                >
-                    아침
-                </button>
-
-                <button
-                    type="button"
-                    className={mealType === "점심" ? "active" : ""}
-                    onClick={() => changeMealType("점심")}
-                >
-                    점심
-                </button>
-
-                <button
-                    type="button"
-                    className={mealType === "저녁" ? "active" : ""}
-                    onClick={() => changeMealType("저녁")}
-                >
-                    저녁
-                </button>
-
-                <button
-                    type="button"
-                    className={mealType === "간식" ? "active" : ""}
-                    onClick={() => changeMealType("간식")}
-                >
-                    간식
-                </button>
+                {[
+                    "아침",
+                    "점심",
+                    "저녁",
+                    "간식"
+                ].map(type => (
+                    <button
+                        key={type}
+                        type="button"
+                        className={mealType === type ? "active" : ""}
+                        onClick={() => changeMealType(type)}
+                    >
+                        {type}
+                    </button>
+                ))}
             </div>
 
+            {/* 입력 방식 */}
             <div className="meal-input-method">
                 <button
                     type="button"
@@ -291,6 +422,7 @@ function MealDetail() {
                 </button>
             </div>
 
+            {/* 직접 입력 */}
             {inputMode === "manual" && (
                 <div
                     className="meal-manual-input"
@@ -303,7 +435,7 @@ function MealDetail() {
                             <input
                                 type="text"
                                 value={foodName}
-                                onChange={(e) => setFoodName(e.target.value)}
+                                onChange={e => setFoodName(e.target.value)}
                                 placeholder="예: 닭가슴살"
                             />
                         </div>
@@ -316,7 +448,7 @@ function MealDetail() {
                             <input
                                 type="text"
                                 value={amountDescription}
-                                onChange={(e) => setAmountDescription(e.target.value)}
+                                onChange={e => setAmountDescription(e.target.value)}
                                 placeholder="예: 100g, 1공기, 2개"
                             />
                         </div>
@@ -334,6 +466,7 @@ function MealDetail() {
                 </div>
             )}
 
+            {/* AI 이미지 입력 */}
             {inputMode === "auto" && (
                 <div
                     className="crud-card"
@@ -370,16 +503,16 @@ function MealDetail() {
                 </div>
             )}
 
+            {/* 새로 분석한 음식 */}
             {foodInfos.length > 0 && (
                 <div>
-                    <h3>AI 분석 결과</h3>
+                    <h3>분석 결과</h3>
 
                     {foodInfos.map((food, index) => (
                         <div
                             className="crud-card food-info-card"
                             key={index}
                         >
-                            {/* 음식 기본 정보 */}
                             <div className="food-info-row">
                                 <div className="crud-card-input">
                                     <label>음식명</label>
@@ -387,7 +520,7 @@ function MealDetail() {
                                         <input
                                             type="text"
                                             value={food.foodName}
-                                            onChange={(e) =>
+                                            onChange={e =>
                                                 handleFoodInfoChange(
                                                     index,
                                                     "foodName",
@@ -404,7 +537,7 @@ function MealDetail() {
                                         <input
                                             type="text"
                                             value={food.amountDescription}
-                                            onChange={(e) =>
+                                            onChange={e =>
                                                 handleFoodInfoChange(
                                                     index,
                                                     "amountDescription",
@@ -416,7 +549,6 @@ function MealDetail() {
                                 </div>
                             </div>
 
-                            {/* 영양 정보 */}
                             <div className="food-info-row nutrition-row">
                                 <div className="crud-card-input">
                                     <label>칼로리</label>
@@ -424,7 +556,7 @@ function MealDetail() {
                                         <input
                                             type="number"
                                             value={food.calories}
-                                            onChange={(e) =>
+                                            onChange={e =>
                                                 handleFoodInfoChange(
                                                     index,
                                                     "calories",
@@ -442,7 +574,7 @@ function MealDetail() {
                                         <input
                                             type="number"
                                             value={food.protein}
-                                            onChange={(e) =>
+                                            onChange={e =>
                                                 handleFoodInfoChange(
                                                     index,
                                                     "protein",
@@ -460,7 +592,7 @@ function MealDetail() {
                                         <input
                                             type="number"
                                             value={food.carbohydrate}
-                                            onChange={(e) =>
+                                            onChange={e =>
                                                 handleFoodInfoChange(
                                                     index,
                                                     "carbohydrate",
@@ -478,7 +610,7 @@ function MealDetail() {
                                         <input
                                             type="number"
                                             value={food.fat}
-                                            onChange={(e) =>
+                                            onChange={e =>
                                                 handleFoodInfoChange(
                                                     index,
                                                     "fat",
@@ -505,6 +637,162 @@ function MealDetail() {
                 </div>
             )}
 
+            {/* DB에 이미 저장된 현재 식사 유형 기록 */}
+            <div className="saved-meal-list">
+                <h3>{mealType} 식사 기록</h3>
+
+                {selectedMeals.length === 0 ? (
+                    <p className="saved-meal-empty">
+                        저장된 {mealType} 식사 기록이 없습니다.
+                    </p>
+                ) : (
+                    selectedMeals.map(meal => (
+                        <div 
+                            className="saved-meal-grid"
+                            key={meal.mealRecordId}>
+                            {meal.items?.map(food => (
+                                <div
+                                    className="crud-card food-info-card"
+                                    key={food.mealItemId}
+                                >
+                                    <div className="food-info-row">
+                                        <div className="crud-card-input">
+                                            <label>음식명</label>
+                                            <div className="crud-card-input-value">
+                                                <input
+                                                    type="text"
+                                                    value={food.foodName ?? ""}
+                                                    onChange={e =>
+                                                        handleSavedItemChange(
+                                                            meal.mealRecordId,
+                                                            food.mealItemId,
+                                                            "foodName",
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="crud-card-input">
+                                            <label>섭취량</label>
+                                            <div className="crud-card-input-value">
+                                                <input
+                                                    type="text"
+                                                    value={food.amountDescription ?? ""}
+                                                    onChange={e =>
+                                                        handleSavedItemChange(
+                                                            meal.mealRecordId,
+                                                            food.mealItemId,
+                                                            "amountDescription",
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="food-info-row nutrition-row">
+                                        <div className="crud-card-input">
+                                            <label>칼로리</label>
+                                            <div className="crud-card-input-value">
+                                                <input
+                                                    type="number"
+                                                    value={food.calories ?? ""}
+                                                    onChange={e =>
+                                                        handleSavedItemChange(
+                                                            meal.mealRecordId,
+                                                            food.mealItemId,
+                                                            "calories",
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                />
+                                                <span>kcal</span>
+                                            </div>
+                                        </div>
+
+                                        <div className="crud-card-input">
+                                            <label>단백질</label>
+                                            <div className="crud-card-input-value">
+                                                <input
+                                                    type="number"
+                                                    value={food.protein ?? ""}
+                                                    onChange={e =>
+                                                        handleSavedItemChange(
+                                                            meal.mealRecordId,
+                                                            food.mealItemId,
+                                                            "protein",
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                />
+                                                <span>g</span>
+                                            </div>
+                                        </div>
+
+                                        <div className="crud-card-input">
+                                            <label>탄수화물</label>
+                                            <div className="crud-card-input-value">
+                                                <input
+                                                    type="number"
+                                                    value={food.carbohydrate ?? ""}
+                                                    onChange={e =>
+                                                        handleSavedItemChange(
+                                                            meal.mealRecordId,
+                                                            food.mealItemId,
+                                                            "carbohydrate",
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                />
+                                                <span>g</span>
+                                            </div>
+                                        </div>
+
+                                        <div className="crud-card-input">
+                                            <label>지방</label>
+                                            <div className="crud-card-input-value">
+                                                <input
+                                                    type="number"
+                                                    value={food.fat ?? ""}
+                                                    onChange={e =>
+                                                        handleSavedItemChange(
+                                                            meal.mealRecordId,
+                                                            food.mealItemId,
+                                                            "fat",
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                />
+                                                <span>g</span>
+                                            </div>
+                                        </div>
+                                        <button
+                                            type="button"
+                                            className="btn-secondary"
+                                            onClick={() =>
+                                                handleSavedItemDelete(
+                                                    meal.mealRecordId,
+                                                    food.mealItemId
+                                                )
+                                            }
+                                        >
+                                            삭제
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
+
+
+                        </div>
+
+
+                    ))
+                )}
+            </div>
+
             <div className="crud-card-buttons">
                 <button
                     type="button"
@@ -513,7 +801,9 @@ function MealDetail() {
                 >
                     저장하기
                 </button>
+
                 &nbsp;&nbsp;
+
                 <button
                     type="button"
                     className="btn btn-secondary"
@@ -525,4 +815,5 @@ function MealDetail() {
         </div>
     );
 }
+
 export default MealDetail;

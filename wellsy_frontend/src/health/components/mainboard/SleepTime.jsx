@@ -2,10 +2,44 @@ import { useState } from "react";
 import "../../../health/styles/Card.css";
 import SleepForm from "../dataCrud/SleepForm";
 
-function SleepTime({ sleepData }) {
+function SleepTime({ sleepData, onHealthUpdate, employeeNo }) {
     const [isOpen, setIsOpen] = useState(false);
 
     let duration = "-";
+    let sleepStartText = "-";
+    let sleepEndText = "-";
+    let sleepStartAngle = 0;
+    let sleepDurationAngle = 0;
+
+    if (sleepData?.sleepStart && sleepData?.sleepEnd) {
+
+        const start = new Date(sleepData.sleepStart);
+        const end = new Date(sleepData.sleepEnd);
+
+        const diffMs = end - start;
+        const diffHours = diffMs / (1000 * 60 * 60);
+
+        duration = diffHours.toFixed(1);
+
+        sleepStartText =
+            `${String(start.getHours()).padStart(2, "0")}:` +
+            `${String(start.getMinutes()).padStart(2, "0")}`;
+
+        sleepEndText =
+            `${String(end.getHours()).padStart(2, "0")}:` +
+            `${String(end.getMinutes()).padStart(2, "0")}`;
+
+        // 하루 24시간 = 360도
+        sleepStartAngle =
+            (
+                start.getHours() +
+                start.getMinutes() / 60
+            ) / 24 * 360;
+
+        sleepDurationAngle =
+            diffHours / 24 * 360;
+    }
+
 
     if (sleepData?.sleepStart && sleepData?.sleepEnd) {
         const start = new Date(sleepData.sleepStart);
@@ -39,7 +73,59 @@ function SleepTime({ sleepData }) {
                     </div>
 
                     {/* 오른쪽: 추후 그래프 영역 */}
-                    <div className="sleep-graph">
+                    <div className="sleep-clock-wrapper">
+
+                        <div
+                            className="sleep-clock"
+                            style={{
+                                background: sleepData
+                                    ? `conic-gradient(
+                    from ${sleepStartAngle}deg,
+                    var(--color-primary) 0deg,
+                    var(--color-primary) ${sleepDurationAngle}deg,
+                    #eeeeee ${sleepDurationAngle}deg,
+                    #eeeeee 360deg
+                )`
+                                    : "#eeeeee"
+                            }}
+                        >
+                            <div className="sleep-clock-inner">
+                                <strong>
+                                    {duration !== "-"
+                                        ? `${duration}시간`
+                                        : "-"}
+                                </strong>
+
+                                <span>수면</span>
+                            </div>
+
+                            <span className="clock-label clock-00">
+                                00
+                            </span>
+
+                            <span className="clock-label clock-06">
+                                06
+                            </span>
+
+                            <span className="clock-label clock-12">
+                                12
+                            </span>
+
+                            <span className="clock-label clock-18">
+                                18
+                            </span>
+                        </div>
+
+                        <div className="sleep-clock-info">
+                            <span>
+                                취침 <strong>{sleepStartText}</strong>
+                            </span>
+
+                            <span>
+                                기상 <strong>{sleepEndText}</strong>
+                            </span>
+                        </div>
+
                     </div>
 
                 </div>
@@ -49,7 +135,7 @@ function SleepTime({ sleepData }) {
                 isOpen && (
                     <div className="health-modal-background">
                         <div className="health-modal-content">
-                            <SleepForm onClose={() => setIsOpen(false)} />
+                            <SleepForm onClose={() => setIsOpen(false)} onHealthUpdate={onHealthUpdate} employeeNo={employeeNo} />
                         </div>
                     </div>
                 )

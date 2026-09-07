@@ -264,6 +264,45 @@
     color: var(--color-grey);
 }
 
+/* 저장된 식사 기록 3열 배치 */
+.saved-meal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    width: 100%;
+}
+
+/* 저장된 음식 카드만 작은 카드 형태 */
+.saved-meal-grid .food-info-card {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* 음식명 / 섭취량 세로 배치 */
+.saved-meal-grid .food-info-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* 영양정보는 카드 내부에서 2 x 2 */
+.saved-meal-grid .nutrition-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+/* 작은 카드 안의 input이 튀어나오지 않도록 */
+.saved-meal-grid .crud-card-input,
+.saved-meal-grid .crud-card-input-value,
+.saved-meal-grid input {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
 
 /* 달력 */
 
@@ -366,4 +405,102 @@
 .btn-secondary:hover {
     background-color: var(--color-white);
     color: var(--color-black);
+}
+
+.sleep-clock-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.sleep-clock {
+    position: relative;
+
+    width: 180px;
+    height: 180px;
+
+    border-radius: 50%;
+
+    flex-shrink: 0;
+}
+
+.sleep-clock-inner {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    width: 125px;
+    height: 125px;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+    background: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.sleep-clock-inner strong {
+    font-size: 24px;
+}
+
+.sleep-clock-inner span {
+    margin-top: 4px;
+    font-size: 13px;
+    color: #777;
+}
+
+.clock-label {
+    position: absolute;
+
+    font-size: 11px;
+    font-weight: 600;
+    color: #666;
+}
+
+/* 자정 */
+.clock-00 {
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* 오전 6시 */
+.clock-06 {
+    right: 7px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* 낮 12시 */
+.clock-12 {
+    bottom: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* 오후 6시 */
+.clock-18 {
+    left: 7px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.sleep-clock-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.sleep-clock-info span {
+    color: #777;
+}
+
+.sleep-clock-info strong {
+    margin-left: 8px;
+    color: #333;
 }

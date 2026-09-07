@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../../../health/styles/Card.css";
 import ThreeForm from "../dataCrud/ThreeForm";
 
-function FourIntake({ meal, caffeine, alcohol, smoking, onHealthUpdate }) {
+function FourIntake({ meal, caffeine, alcohol, smoking, onHealthUpdate, employeeNo }) {
   const navigate = useNavigate();
 
   const [isThreeOpen, setIsThreeOpen] = useState(false);
@@ -69,7 +69,7 @@ function FourIntake({ meal, caffeine, alcohol, smoking, onHealthUpdate }) {
       {isThreeOpen && (
         <div className="health-modal-background">
           <div className="health-modal-content">
-            <ThreeForm onClose={() => setIsThreeOpen(false)} onHealthUpdate={onHealthUpdate} />
+            <ThreeForm onClose={() => setIsThreeOpen(false)} onHealthUpdate={onHealthUpdate} employeeNo={employeeNo} />
           </div>
         </div>
       )}

@@ -3,4 +3,6 @@ import java.util.Map;
 
 public interface MealService {
     void saveMeal(Map<String, Object> mealData); 
+
+    Map<String, Object> getTodayMeal(Integer employeeNo);
 }
