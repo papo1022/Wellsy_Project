@@ -8,18 +8,11 @@ function FindAccount() {
     // "password": 비밀번호 재설정 탭
     const [tab, setTab] = useState("id");
 
-    // 아이디 찾기
+    // 아이디 찾기 상태(useState)
     const [findEmail, setFindEmail] = useState("");
     const [findResult, setFindResult] = useState("");
 
-    const handleFindId = async () => {
-
-        const response = await findIdApi(findEmail);
-
-        setFindResult(response.data);
-    };
-
-    // 비밀번호 재설정
+    // 비밀번호 재설정 상태
     const [step, setStep] = useState(1); // step 숫자 설정
     const [loginId, setLoginId] = useState("");
     const [pwEmail, setPwEmail] = useState("");
@@ -34,6 +27,19 @@ function FindAccount() {
         setFindResult("");
         setPwResult("");
     }
+
+    // 아이디 찾기
+    const handleFindId = async () => {
+
+        try {
+            const response = await findIdApi(findEmail);
+
+            setFindResult(response.data);
+        } catch(error) {
+
+            setFindResult("아이디 찾기 중 오류가 발생했습니다.");
+        }
+    };
 
     // step 1: 아이디/이메일 입력
     const handleSendCode = async () => {
@@ -100,14 +106,14 @@ function FindAccount() {
             <div className="find-account-tabs">
                 <button
                     className={tab === "id" ? "active" : ""}
-                    onClick={() => setTab("id")}
+                    onClick={() => handleTabChange("id")}
                 >
                     아이디 찾기
                 </button>
 
                 <button
                     className={tab === "password" ? "active" : ""}
-                    onClick={() => setTab("password")}
+                    onClick={() => handleTabChange("password")}
                 >
                     비밀번호 재설정
                 </button>
@@ -170,20 +176,19 @@ function FindAccount() {
                     </>
                 )}
 
-                {pwResult && <p>{pwResult}</p>}
+                {/* Step 4: 완료 안내 */}
+                {step === 4 && (
+                    <div className="success-step">
+                        <p>비밀번호가 성공적으로 변경되었습니다.</p>
+                        <button onClick={() => handleTabChange("id")}>아이디 찾기로 이동</button>
+                    </div>
+                )}
+                
+                {step !== 4 && pwResult && (
+                    <p className="result-message">{pwResult}</p>
+                )}
             </div>
         )}
-
-        {/* Step 4: 완료 안내 */}
-        {step === 4 && (
-            <div>
-                <p>비밀번호가 성공적으로 변경되었습니다.</p>
-                <button onClick={() => handleTabChange("id")}>로그인하러 가기</button>
-            </div>
-        )}
-
-        {pwResult && step !== 4 && <p className="result-message">{pwResult}</p>}
-
         </div>
     );
 }

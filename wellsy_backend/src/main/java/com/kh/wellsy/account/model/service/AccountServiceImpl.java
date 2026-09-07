@@ -55,7 +55,7 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public boolean sendResetCode(String loginId, String email) {
 		
-		Optional<Employee> result = employeeDao.findByLoginIdAndEmailAndStatus(loginId, email, "EMPLOYED");
+		Optional<Employee> result = employeeDao.findByLoginIdAndEmailAndStatus(loginId, email, "Y");
 		
 		if(result.isEmpty()) {
 			
@@ -93,7 +93,7 @@ public class AccountServiceImpl implements AccountService {
 			return false;
 		}
 		
-		Optional<Employee> result = employeeDao.findByLoginIdAndEmailAndStatus(loginId, email, "EMPLOYED");
+		Optional<Employee> result = employeeDao.findByLoginIdAndEmailAndStatus(loginId, email, "Y");
 		
 		if(result.isEmpty()) {
 			
