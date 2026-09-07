@@ -16,4 +16,10 @@ public interface ExerciseRecordDao
             LocalDate startDate,
             LocalDate endDate
     );
+
+    List<ExerciseRecord>
+    findByEmployeeNoAndExerciseDate(
+            Integer employeeNo,
+            LocalDate exerciseDate
+    );
 }

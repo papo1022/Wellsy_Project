@@ -60,12 +60,6 @@ function SleepTime({ sleepData, onHealthUpdate, employeeNo }) {
                     {/* 왼쪽: 기존 수면 정보 */}
                     <div className="sleep-info">
                         <div className="health-card-item">
-                            <span>수면 시간</span>
-                            <strong>{duration}</strong>
-                            <small>시간</small>
-                        </div>
-
-                        <div className="health-card-item">
                             <span>수면 품질</span>
                             <strong>{sleepData?.sleepQuality ?? "-"}</strong>
                             <small>/ 5</small>
@@ -98,22 +92,6 @@ function SleepTime({ sleepData, onHealthUpdate, employeeNo }) {
 
                                 <span>수면</span>
                             </div>
-
-                            <span className="clock-label clock-00">
-                                00
-                            </span>
-
-                            <span className="clock-label clock-06">
-                                06
-                            </span>
-
-                            <span className="clock-label clock-12">
-                                12
-                            </span>
-
-                            <span className="clock-label clock-18">
-                                18
-                            </span>
                         </div>
 
                         <div className="sleep-clock-info">
