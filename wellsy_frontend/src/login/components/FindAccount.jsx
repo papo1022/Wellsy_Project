@@ -16,7 +16,7 @@ function FindAccount() {
 
         const response = await findIdApi(findEmail);
 
-        setFindEmail(response.data);
+        setFindResult(response.data);
     };
 
     // 비밀번호 재설정
@@ -32,7 +32,7 @@ function FindAccount() {
 
         const response = await sendResetCodeApi(loginId, pwEmail);
 
-        setPwEmail(response.data);
+        setPwResult(response.data);
 
         if(response.data.includes("발송")) {
 
