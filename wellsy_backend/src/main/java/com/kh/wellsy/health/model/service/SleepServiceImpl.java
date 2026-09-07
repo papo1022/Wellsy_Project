@@ -26,6 +26,10 @@ public class SleepServiceImpl implements SleepService {
     @Override
     public SleepRecord saveOrUpdateSleepRecord(SleepRecord sleepRecord) {
 
+        LocalDate today = LocalDate.now();
+        
+        sleepRecord.setSleepDate(today);
+
         SleepRecord existingSleep = sleepDao.findByEmployeeNoAndSleepDate(
                 sleepRecord.getEmployeeNo(),
                 sleepRecord.getSleepDate());

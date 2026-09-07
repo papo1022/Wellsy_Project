@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../../../health/styles/Card.css";
 import "../../styles/CrudForm.css";
 
-function ThreeForm({ onClose, onHealthUpdate }) {
+function ThreeForm({ onClose, onHealthUpdate, employeeNo }) {
 
     const [coffee, setCoffee] = useState("");
     const [coffeeUnit, setCoffeeUnit] = useState("glass");
@@ -55,7 +55,7 @@ function ThreeForm({ onClose, onHealthUpdate }) {
 
 
         const healthData = {
-            employeeNo: 1,
+            employeeNo: employeeNo,
             recordDate: today,
             caffeineAmount,
             alcoholAmount,

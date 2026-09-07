@@ -5,6 +5,8 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -25,6 +27,7 @@ public class ExerciseRecord {
 
     @Id
     @Column(name = "EXERCISE_RECORD_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer exerciseRecordId;
 
     @Column(name = "EMPLOYEE_NO", nullable = false)

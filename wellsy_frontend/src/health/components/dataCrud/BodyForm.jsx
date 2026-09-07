@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../../styles/CrudForm.css";
 
-function BodyForm({ onClose, onHealthUpdate }) {
+function BodyForm({ onClose, onHealthUpdate, employeeNo }) {
 
     const [height, setHeight] = useState("");
     const [weight, setWeight] = useState("");
@@ -23,7 +23,7 @@ function BodyForm({ onClose, onHealthUpdate }) {
         const today = new Date().toISOString().split("T")[0];
 
         const healthData = {
-            employeeNo: 1,
+            employeeNo: employeeNo,
             recordDate: today,
             height: Number(height),
             weight: Number(weight)

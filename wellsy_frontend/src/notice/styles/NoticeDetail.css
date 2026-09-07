@@ -1,0 +1,80 @@
+/* ==========================================
+   상세조회
+========================================== */
+
+.notice-detail-header {
+
+    padding-bottom: 25px;
+
+    border-bottom: 1px solid #eee;
+}
+
+
+.notice-detail-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.notice-detail-title h3 {
+
+    margin: 0;
+
+    font-size: 23px;
+
+    font-weight: 700;
+}
+
+
+/* ==========================================
+   상세 기본 정보
+========================================== */
+
+.notice-detail-info {
+
+    display: flex;
+
+    gap: 30px;
+
+    margin-top: 20px;
+
+    font-size: 13px;
+
+    color: #777;
+}
+
+
+.notice-detail-info strong {
+
+    color: #333;
+}
+
+
+/* ==========================================
+   상세 내용
+========================================== */
+
+.notice-detail-content {
+
+    min-height: 300px;
+
+    margin-top: 30px;
+
+    padding: 25px;
+
+    box-sizing: border-box;
+
+    background: #f8f8f8;
+
+    border-radius: 12px;
+
+    font-size: 15px;
+
+    line-height: 1.8;
+
+    white-space: pre-wrap;
+}

@@ -1,0 +1,160 @@
+/* ==========================================
+   목록 상단
+========================================== */
+
+.notice-list-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 25px;
+}
+
+
+.notice-list-header h3 {
+
+    margin: 0;
+
+    font-size: 21px;
+
+    font-weight: 700;
+}
+
+
+/* ==========================================
+   공지사항 테이블
+========================================== */
+
+.notice-table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+
+.notice-table thead {
+
+    background: #f7f7f7;
+}
+
+
+.notice-table th {
+
+    padding: 16px 12px;
+
+    border-bottom: 1px solid #e4e4e4;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    color: #555;
+
+    text-align: center;
+}
+
+
+.notice-table td {
+
+    padding: 17px 12px;
+
+    border-bottom: 1px solid #eeeeee;
+
+    font-size: 14px;
+
+    color: #333;
+
+    text-align: center;
+}
+
+
+/* ==========================================
+   테이블 행
+========================================== */
+
+.notice-table-row {
+
+    cursor: pointer;
+
+    transition: background 0.2s;
+}
+
+
+.notice-table-row:hover {
+
+    background: #fafafa;
+}
+
+
+/* ==========================================
+   제목
+========================================== */
+
+.notice-title-cell {
+
+    text-align: left !important;
+
+    font-weight: 600;
+}
+
+
+/* ==========================================
+   데이터 없음
+========================================== */
+
+.notice-empty {
+
+    padding: 50px !important;
+
+    text-align: center !important;
+
+    color: #999 !important;
+}
+
+
+/* ==========================================
+   상단 고정 표시
+========================================== */
+
+.notice-pin {
+
+    display: inline-block;
+
+    padding: 5px 9px;
+
+    background: #f0f0f0;
+
+    border-radius: 7px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+/* ==========================================
+   전체 / 검색 결과 건수
+========================================== */
+
+.notice-total-count {
+
+    margin: 6px 0 0;
+
+    color: #999;
+
+    font-size: 12px;
+}
+
+
+.notice-total-count strong {
+
+    color: #555;
+
+    font-weight: 600;
+}

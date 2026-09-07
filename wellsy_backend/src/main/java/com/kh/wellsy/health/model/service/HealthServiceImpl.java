@@ -149,40 +149,55 @@ public class HealthServiceImpl implements HealthService {
 
     // 건강기록 수정 또는 추가
     @Override
+
     public Health saveOrUpdateHealth(Health health) {
+
+        LocalDate today = LocalDate.now();
+
+        // 오늘 기록으로 고정
+        health.setRecordDate(today);
 
         Health existingHealth = healthDao.findByEmployeeNoAndRecordDate(
                 health.getEmployeeNo(),
-                health.getRecordDate());
+                today);
 
+        // 오늘 기록이 없으면 새로 생성
         if (existingHealth == null) {
+
             calculateBmi(health);
+
             return healthDao.save(health);
         }
 
+        // 오늘 기록이 있으면 필요한 값만 수정
         if (health.getHeight() != null) {
-            existingHealth.setHeight(health.getHeight());
+            existingHealth.setHeight(
+                    health.getHeight());
         }
 
         if (health.getWeight() != null) {
-            existingHealth.setWeight(health.getWeight());
+            existingHealth.setWeight(
+                    health.getWeight());
         }
 
         if (health.getCaffeineAmount() != null) {
-            existingHealth.setCaffeineAmount(health.getCaffeineAmount());
+            existingHealth.setCaffeineAmount(
+                    health.getCaffeineAmount());
         }
 
         if (health.getAlcoholAmount() != null) {
-            existingHealth.setAlcoholAmount(health.getAlcoholAmount());
+            existingHealth.setAlcoholAmount(
+                    health.getAlcoholAmount());
         }
 
         if (health.getSmokingCount() != null) {
-            existingHealth.setSmokingCount(health.getSmokingCount());
+            existingHealth.setSmokingCount(
+                    health.getSmokingCount());
         }
 
         calculateBmi(existingHealth);
+
         return healthDao.save(existingHealth);
-        
     }
 
     // BMI 계산

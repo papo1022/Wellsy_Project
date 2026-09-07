@@ -1,0 +1,62 @@
+/* ==========================================
+   1250px 이하
+========================================== */
+
+@media screen and (max-width: 1250px) {
+
+    .notice-dashboard {
+
+        width: 95%;
+    }
+
+}
+
+
+/* ==========================================
+   800px 이하
+========================================== */
+
+@media screen and (max-width: 800px) {
+
+    .notice-detail-info {
+
+        flex-direction: column;
+
+        gap: 8px;
+    }
+
+
+    .notice-card {
+
+        padding: 20px;
+    }
+
+
+    .notice-search-area {
+
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+
+    .notice-search-box {
+
+        width: 100%;
+    }
+
+
+    .notice-search-btn {
+
+        width: 100%;
+    }
+
+
+    .notice-list-header {
+
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+}

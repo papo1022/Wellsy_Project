@@ -19,7 +19,7 @@ function LoginForm({ setToken }) {
 
             const response = await loginEmployeeApi({ loginId, password });
 
-            if(response.data) {
+            if (response.data) {
                 // 서버가 JWT 문자열을 응답으로 줌 -> 로그인 성공
 
                 const token = response.data;

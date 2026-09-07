@@ -1,8 +1,7 @@
 import "../../../health/styles/Card.css";
-import { useState, useEffect } from "react";
 function HealthGrade({ grade }) {
     console.log("grade:", grade);
-
+ 
     const gradeText = {
         normal: "정상",
         interest: "관심",
