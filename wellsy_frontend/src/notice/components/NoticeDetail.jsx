@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 
 import { selectNoticeApi, deleteNoticeApi } from "../api/noticeApi";
 
+import { jwtDecode } from "jwt-decode";
+
 import "../styles/Notice.css";
 
 function NoticeDetail() {
@@ -97,6 +99,54 @@ const deleteNotice = async () => {
     }
 };
 
+const getIsAdmin = () => {
+
+
+    const token
+        = sessionStorage.getItem(
+            "token"
+        );
+
+
+    if(!token) {
+
+        return false;
+    }
+
+
+    try {
+
+
+        const decoded
+            = jwtDecode(token);
+
+
+        const role
+            = decoded.role
+            ??
+            decoded.authority
+            ??
+            decoded.auth;
+
+
+        return (
+            role === "ADMIN"
+            ||
+            role === "ROLE_ADMIN"
+        );
+
+
+    } catch(error) {
+
+        return false;
+    }
+
+};
+
+
+const isAdmin
+    = getIsAdmin();
+
 
 return (
 
@@ -187,13 +237,13 @@ return (
 
                 </div>
 
-
-                {/* 버튼 */}
                 <div className="notice-btn-area">
 
+                    {/* 모든 권한 노출 */}
 
                     <button
                         type="button"
+
                         className="notice-btn notice-btn-secondary"
 
                         onClick={ () => {
@@ -208,40 +258,57 @@ return (
                     </button>
 
 
-                    <button
-                        type="button"
-                        className="notice-btn notice-btn-warning"
+                    {/* 관리자만 노출 */}
 
-                        onClick={ () => {
+                    {
+                        isAdmin
+                        &&
+                        (
+                            <>
 
-                            navigate(
+                                <button
+                                    type="button"
 
-                                "/notice/updateForm",
+                                    className="notice-btn notice-btn-warning"
 
-                                {
-                                    state : {
-                                        noticeId : noticeId
+                                    onClick={ () => {
+
+                                        navigate(
+
+                                            "/notice/updateForm",
+
+                                            {
+                                                state : {
+
+                                                    noticeId :
+                                                        noticeId
+
+                                                }
+                                            }
+
+                                        );
+
+                                    }}
+                                >
+                                    수정하기
+                                </button>
+
+
+                                <button
+                                    type="button"
+
+                                    className="notice-btn notice-btn-danger"
+
+                                    onClick={
+                                        deleteNotice
                                     }
-                                }
+                                >
+                                    삭제하기
+                                </button>
 
-                            );
-
-                        }}
-                    >
-                        수정하기
-                    </button>
-
-
-                    <button
-                        type="button"
-                        className="notice-btn notice-btn-danger"
-
-                        onClick={
-                            deleteNotice
-                        }
-                    >
-                        삭제하기
-                    </button>
+                            </>
+                        )
+                    }
 
 
                 </div>

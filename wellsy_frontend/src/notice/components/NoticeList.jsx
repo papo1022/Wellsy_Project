@@ -1,64 +1,125 @@
-import { useState, useEffect } from "react";
+import {
+    useEffect,
+    useMemo,
+    useState
+} from "react";
 
-import { selectNoticeListApi } from "../api/noticeApi";
+import {
+    useNavigate
+} from "react-router-dom";
+
+import {
+    jwtDecode
+} from "jwt-decode";
+
+import {
+    selectNoticeListApi
+} from "../api/noticeApi";
 
 import NoticeItem from "./NoticeItem";
 
-import { useNavigate } from "react-router-dom";
-
-import { jwtDecode } from "jwt-decode";
-
 import "../styles/Notice.css";
+
 
 function NoticeList() {
 
-    // 화면 깜빡임 없이 URL 주소를 전환해줄 navigate 함수
-    let navigate = useNavigate();
 
-    // 조회된 데이터를 담을 배열 형태의 State 변수
-    const [dataList, setDataList] = useState([]);
+    // =========================================
+    // 페이지 이동
+    // =========================================
 
+    const navigate
+        = useNavigate();
+
+
+    // =========================================
+    // 공지사항 목록
+    // =========================================
+
+    const [dataList, setDataList]
+        = useState([]);
+
+
+    // =========================================
     // 현재 페이지
+    // =========================================
+
     const [currentPage, setCurrentPage]
         = useState(1);
 
+
+    // =========================================
+    // 검색창 입력값
+    // =========================================
+
+    const [inputKeyword, setInputKeyword]
+        = useState("");
+
+
+    // =========================================
+    // 실제 검색에 적용되는 값
+    // =========================================
+
+    const [searchKeyword, setSearchKeyword]
+        = useState("");
+
+
+    // =========================================
     // 한 페이지에 보여줄 공지사항 개수
+    // =========================================
+
     const itemsPerPage = 5;
 
-// 이 컴포넌트가 로딩된 후 최초 한 번 실행
-useEffect(() => {
 
-    const setNoticeList = async () => {
+    // =========================================
+    // 공지사항 목록 조회
+    // =========================================
 
-        try {
+    useEffect(() => {
 
-            const response = await selectNoticeListApi();
 
-            // 응답데이터
-            const items = response.data;
+        const setNoticeList = async () => {
 
-            const trArr = items.map((item) => {
 
-                return (
-                    <NoticeItem
-                        key={ item.noticeId }
-                        item={ item }
-                    />
+            try {
+
+
+                const response
+                    = await selectNoticeListApi();
+
+
+                // =====================================
+                // JSX가 아니라
+                // 실제 공지사항 데이터를 저장
+                // =====================================
+
+                setDataList(
+                    response.data
+                    ??
+                    []
                 );
-            });
 
-            setDataList(trArr);
 
-        } catch(error) {
+            } catch(error) {
 
-            console.log("공지사항 목록 조회용 ajax 통신 실패!");
-            console.log(error);
-        }
-    };
 
-    setNoticeList();
+                console.log(
+                    "공지사항 목록 조회용 ajax 통신 실패!"
+                );
 
-}, []);
+
+                console.log(error);
+
+            }
+
+        };
+
+
+        setNoticeList();
+
+
+    }, []);
+
 
     // =========================================
     // 관리자 권한 확인
@@ -66,63 +127,137 @@ useEffect(() => {
 
     const getIsAdmin = () => {
 
-    const token
-        = sessionStorage.getItem(
-            "token"
+
+        const token
+            = sessionStorage.getItem(
+                "token"
+            );
+
+
+        if(!token) {
+
+            return false;
+        }
+
+
+        try {
+
+
+            const decoded
+                = jwtDecode(token);
+
+
+            const role
+                = decoded.role
+                ??
+                decoded.authority
+                ??
+                decoded.auth;
+
+
+            return (
+                role === "ADMIN"
+                ||
+                role === "ROLE_ADMIN"
+            );
+
+
+        } catch(error) {
+
+
+            console.log(
+                "토큰 해석 실패",
+                error
+            );
+
+
+            return false;
+        }
+
+    };
+
+
+    const isAdmin
+        = getIsAdmin();
+
+
+    // =========================================
+    // 공지사항 검색
+    // =========================================
+
+    const searchNotice = e => {
+
+
+        e.preventDefault();
+
+
+        setSearchKeyword(
+            inputKeyword.trim()
         );
 
 
-    if(!token) {
+        // 검색 시 1페이지로 이동
+        setCurrentPage(1);
 
-        return false;
-    }
-
-
-    try {
-
-        const decoded
-            = jwtDecode(token);
+    };
 
 
-        const role
-            = decoded.role
-            ??
-            decoded.authority
-            ??
-            decoded.auth;
+    // =========================================
+    // 검색된 공지사항
+    // =========================================
+
+    const filteredNoticeList
+        = useMemo(() => {
 
 
-        return (
-            role === "ADMIN"
-            ||
-            role === "ROLE_ADMIN"
-        );
+            // 검색어 없음
+            if(searchKeyword === "") {
+
+                return dataList;
+            }
 
 
-    } catch(error) {
-
-        console.log(
-            "토큰 해석 실패",
-            error
-        );
+            // 제목 검색
+            return dataList.filter(
+                notice => {
 
 
-        return false;
-    }
-};
+                    const title
+                        = notice.title
+                        ??
+                        "";
 
 
-const isAdmin
-    = getIsAdmin();
+                    return title
+                        .toLowerCase()
+                        .includes(
+                            searchKeyword
+                                .toLowerCase()
+                        );
+
+                }
+            );
+
+
+        }, [
+            dataList,
+            searchKeyword
+        ]);
+
+
     // =========================================
     // 전체 페이지 수
+    //
+    // 검색 결과 기준
     // =========================================
 
     const totalPages
         = Math.ceil(
-            dataList.length
+
+            filteredNoticeList.length
             /
             itemsPerPage
+
         );
 
 
@@ -140,16 +275,19 @@ const isAdmin
 
     // =========================================
     // 현재 페이지에 보여줄 공지사항
+    //
+    // 검색 결과에서 5개씩 자름
     // =========================================
 
     const currentDataList
-        = dataList.slice(
+        = filteredNoticeList.slice(
 
             startIndex,
 
             startIndex
             +
             itemsPerPage
+
         );
 
 
@@ -158,6 +296,7 @@ const isAdmin
     // =========================================
 
     const changePage = page => {
+
 
         if(
             page < 1
@@ -172,16 +311,18 @@ const isAdmin
         setCurrentPage(
             page
         );
+
     };
 
 
     // =========================================
-    // 화면에 표시할 페이지 번호
+    // 페이지 번호
     //
     // 최대 5개씩 표시
     // =========================================
 
     const getPageNumbers = () => {
+
 
         const pageGroupSize = 5;
 
@@ -208,6 +349,7 @@ const isAdmin
                 1,
 
                 totalPages
+
             );
 
 
@@ -220,116 +362,258 @@ const isAdmin
             page++
         ) {
 
+
             pages.push(
                 page
             );
+
         }
 
 
         return pages;
+
     };
 
 
-return (
+    return (
 
         <div className="notice-dashboard">
 
 
-            {/* 공지사항 전체 카드 */}
-            <div className="notice-card">
+            {/* ================================= */}
+            {/* 공지사항 검색 */}
+            {/* ================================= */}
+
+            <form
+                className="notice-search-area"
+
+                onSubmit={
+                    searchNotice
+                }
+            >
 
 
-                {/* 공지사항 상단 영역 */}
-                <div className="notice-list-header">
+                <div className="notice-search-box">
 
-                    <h3>
-                        공지사항 목록
-                    </h3>
-        {
-            isAdmin
-                &&
-                (
-                    <button
-                        type="button"
-                        className="notice-btn notice-btn-primary"
-                        onClick={ () => {
 
-                            navigate("/notice/enrollForm");
+                    <input
+                        type="text"
 
-                        }}
-                    >
-                        글작성
-                    </button>
-                )
-        }
+                        value={
+                            inputKeyword
+                        }
+
+                        onChange={
+                            e => {
+
+                                setInputKeyword(
+                                    e.target.value
+                                );
+
+                            }
+                        }
+
+                        placeholder="공지사항 제목을 검색해 주세요"
+                    />
+
 
                 </div>
 
 
+                <button
+                    type="submit"
+
+                    className="notice-search-btn"
+                >
+                    검색
+                </button>
+
+
+            </form>
+
+
+            {/* ================================= */}
+            {/* 공지사항 전체 카드 */}
+            {/* ================================= */}
+
+            <div className="notice-card">
+
+
+                {/* ================================= */}
+                {/* 공지사항 상단 영역 */}
+                {/* ================================= */}
+
+                <div className="notice-list-header">
+
+
+                    <div>
+
+
+                        <h3>
+                            공지사항 목록
+                        </h3>
+
+
+                        <p className="notice-total-count">
+
+                            {
+                                searchKeyword !== ""
+                                ?
+                                `검색 결과 ${filteredNoticeList.length}건`
+                                :
+                                `전체 ${dataList.length}건`
+                            }
+
+                        </p>
+
+
+                    </div>
+
+
+                    {/* 관리자만 글작성 */}
+
+                    {
+                        isAdmin
+                        &&
+                        (
+
+                            <button
+                                type="button"
+
+                                className="notice-btn notice-btn-primary"
+
+                                onClick={
+                                    () => {
+
+                                        navigate(
+                                            "/notice/enrollForm"
+                                        );
+
+                                    }
+                                }
+                            >
+                                글작성
+                            </button>
+
+                        )
+                    }
+
+
+                </div>
+
+
+                {/* ================================= */}
                 {/* 공지사항 목록 */}
+                {/* ================================= */}
+
                 <div className="notice-card-content">
+
 
                     <table className="notice-table">
 
+
                         <thead>
 
+
                             <tr>
+
 
                                 <th width="100">
                                     글번호
                                 </th>
 
+
                                 <th width="100">
                                     고정여부
                                 </th>
+
 
                                 <th width="500">
                                     제목
                                 </th>
 
+
                                 <th width="150">
                                     작성자
                                 </th>
+
 
                                 <th width="200">
                                     작성일
                                 </th>
 
+
                                 <th width="100">
                                     조회수
                                 </th>
 
+
                             </tr>
+
 
                         </thead>
 
 
                         <tbody>
 
+
                             {
-                                dataList.length > 0
+                                currentDataList.length > 0
                                 ?
-                                currentDataList
+                                currentDataList.map(
+                                    item => (
+
+                                        <NoticeItem
+
+                                            key={
+                                                item.noticeId
+                                            }
+
+                                            item={
+                                                item
+                                            }
+
+                                        />
+
+                                    )
+                                )
                                 :
                                 (
+
                                     <tr>
+
 
                                         <td
                                             colSpan="6"
+
                                             className="notice-empty"
                                         >
-                                            등록된 공지사항이 없습니다.
+
+                                            {
+                                                searchKeyword !== ""
+                                                ?
+                                                "검색된 공지사항이 없습니다."
+                                                :
+                                                "등록된 공지사항이 없습니다."
+                                            }
+
                                         </td>
 
+
                                     </tr>
+
                                 )
                             }
 
+
                         </tbody>
+
 
                     </table>
 
+
                 </div>
+
 
                 {/* ================================= */}
                 {/* 페이징 */}
@@ -339,10 +623,11 @@ return (
                     totalPages > 0
                     &&
                     (
+
                         <div className="notice-pagination">
 
 
-                            {/* 처음 페이지 */}
+                            {/* 처음 */}
 
                             <button
                                 type="button"
@@ -362,7 +647,7 @@ return (
                             </button>
 
 
-                            {/* 이전 페이지 */}
+                            {/* 이전 */}
 
                             <button
                                 type="button"
@@ -373,7 +658,15 @@ return (
                                     currentPage === 1
                                 }
 
-                                onClick={() => changePage(currentPage - 1)}>‹</button>
+                                onClick={
+                                    () =>
+                                        changePage(
+                                            currentPage - 1
+                                        )
+                                }
+                            >
+                                ‹
+                            </button>
 
 
                             {/* 페이지 번호 */}
@@ -391,7 +684,9 @@ return (
                                                 }
 
                                                 className={
-                                                    currentPage === page
+                                                    currentPage
+                                                    ===
+                                                    page
                                                     ?
                                                     "notice-page-btn notice-page-active"
                                                     :
@@ -417,7 +712,7 @@ return (
                             }
 
 
-                            {/* 다음 페이지 */}
+                            {/* 다음 */}
 
                             <button
                                 type="button"
@@ -441,7 +736,7 @@ return (
                             </button>
 
 
-                            {/* 마지막 페이지 */}
+                            {/* 마지막 */}
 
                             <button
                                 type="button"
@@ -466,15 +761,22 @@ return (
 
 
                         </div>
+
                     )
                 }
 
+
             </div>
+
 
         </div>
     );
+
 }
 
 
+// =========================================
 // 내보내기
+// =========================================
+
 export default NoticeList;

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -61,6 +62,7 @@ public class NoticeController {
 	}
 	
 	// 공지사항 수정용 컨트롤러
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/notice/{noticeId}")
 	public ResponseEntity<String> updateNotice(@PathVariable int noticeId,
 											   @RequestBody Notice notice) {
@@ -78,6 +80,7 @@ public class NoticeController {
 	}
 	
 	// 공지사항 삭제용 컨트롤러
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/notice/{noticeId}")
 	public ResponseEntity<String> deleteNotice(@PathVariable int noticeId) {
 		
