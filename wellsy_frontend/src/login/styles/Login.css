@@ -73,5 +73,15 @@
     margin-top: 10px;
     color: var(--color-error);
     font-size: var(--font-size-body);
+    font-weight: 700;
+    text-align: center;
+}
+
+/* 아이디 / 비밀번호 찾기 */
+.login-forgot {
+    display: block;
+    margin: 10px auto;
+    color: var(--color-grey);
+    font-size: var(--font-size-button);
     text-align: center;
 }
