@@ -2,7 +2,7 @@ name: Deploy Spring Boot
 
 on:
   push:
-    branches: [main]
+    branches: [jaeyoung-yamltest]
     paths:
       - "wellsy_backend/**"
       - ".github/workflows/backend-deploy.yml"

@@ -2,7 +2,7 @@ name: Deploy React
 
 on:
   push:
-    branches: [main]
+    branches: [jaeyoung-yamltest]
     paths:
       - "wellsy_frontend/**"
       - ".github/workflows/frontend-deploy.yml"
