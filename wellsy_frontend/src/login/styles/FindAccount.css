@@ -65,3 +65,21 @@
     text-align: center;
     margin: 0;
 }
+
+.success-step {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing);
+    align-items: center;
+}
+
+.success-step button {
+    width: 100%;
+    padding: 14px 0;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-button);
+    cursor: pointer;
+}

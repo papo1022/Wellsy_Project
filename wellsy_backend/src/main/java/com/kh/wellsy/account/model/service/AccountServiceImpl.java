@@ -33,7 +33,7 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public boolean findId(String email) {
 		
-		Optional<Employee> result = employeeDao.findByEmailAndStatus(email, "EMPLOYED");
+		Optional<Employee> result = employeeDao.findByEmailAndStatus(email, "Y");
 		
 		if(result.isEmpty()) {
 			
