@@ -24,7 +24,7 @@ public interface EmployeeDao extends JpaRepository<Employee, Integer>{
 	Optional<Employee> findByEmailAndStatus(String email, String status);
 	
 	// 비밀번호 재설정용
-	Optional<Employee> findByLoginIdAndEmailAndStatus(String loginId, String status);
+	Optional<Employee> findByLoginIdAndEmailAndStatus(String loginId, String email, String status);
 	
 	// 로그인용 조회
 	// 메소드 이름 규칙(findBy + 필드명 + And + 필드명)

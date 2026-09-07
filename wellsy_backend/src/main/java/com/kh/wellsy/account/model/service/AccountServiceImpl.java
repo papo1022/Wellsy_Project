@@ -15,7 +15,7 @@ import com.kh.wellsy.employee.model.dao.EmployeeDao;
 import com.kh.wellsy.employee.model.vo.Employee;
 
 @Service
-public class AccountServiceImpl {
+public class AccountServiceImpl implements AccountService {
 
 	@Autowired
 	private EmployeeDao employeeDao;
@@ -33,7 +33,7 @@ public class AccountServiceImpl {
 	@Override
 	public boolean findId(String email) {
 		
-		Optional<Employee> result = employeeDao.findByEmailAndStauts(email, "EMPLOYED");
+		Optional<Employee> result = employeeDao.findByEmailAndStatus(email, "EMPLOYED");
 		
 		if(result.isEmpty()) {
 			
@@ -93,7 +93,7 @@ public class AccountServiceImpl {
 			return false;
 		}
 		
-		Optional<Employee> result = employeeDao.findByLoginIdAndEmailAndStatus(loginId, "EMPLOYED");
+		Optional<Employee> result = employeeDao.findByLoginIdAndEmailAndStatus(loginId, email, "EMPLOYED");
 		
 		if(result.isEmpty()) {
 			
