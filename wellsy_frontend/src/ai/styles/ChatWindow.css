@@ -108,3 +108,35 @@
 .chat-send-button:hover {
     background-color: var(--color-secondary);
 }
+
+/* AI 말풍선 내부 마크다운 태그 스타일 정돈 */
+.chat-bubble.ai p {
+    margin: 0 0 8px 0; /* 단락 하단 여백 */
+}
+
+.chat-bubble.ai p:last-child {
+    margin-bottom: 0; /* 마지막 단락은 여백 제거 */
+}
+
+.chat-bubble.ai ul, 
+.chat-bubble.ai ol {
+    margin: 5px 0 10px var(--spacing);
+    padding: 0;
+}
+
+.chat-bubble.ai li {
+    margin-bottom: 4px;
+}
+
+.chat-bubble.ai strong {
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
+.chat-bubble.ai h1, 
+.chat-bubble.ai h2, 
+.chat-bubble.ai h3 {
+    margin: 10px 0 5px 0;
+    font-size: var(--font-size-body);
+    font-weight: bold;
+}

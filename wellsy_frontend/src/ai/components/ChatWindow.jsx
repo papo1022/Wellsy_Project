@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 // 기본 React Hooks (데이터 상태 저장, 화면 처음 켜질 시 API 가져오기 등)
 import { sendChatMessage } from "../api/aiApi";
 // API 폴더에서 만들어 둔 'AI 챗봇에게 메시지를 보내는 함수' 가져오기
+import ReactMarkdown from "react-markdown";
+import remarkGfm from 'remark-gfm';
 import "../styles/ChatWindow.css";
 // 스타일 (CSS)
 
@@ -95,7 +97,15 @@ function ChatWindow() {
                         key={index}
                         className={msg.sender === "user" ? "chat-bubble user" : "chat-bubble ai"}
                     >
-                        {msg.text}
+                        {/* 2) 기존 {msg.text} 대신 ReactMarkdown으로 렌더링 */}
+                        {msg.sender === "ai" ? (
+                            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                {msg.text}
+                            </ReactMarkdown>
+                        ) : (
+                            /* 유저가 보낸 일반 텍스트는 그대로 출력 */
+                            msg.text
+                        )}
 
                         {/* 세부 기능(예: 운동 일정 자동 추가)
                         {msg.sender === "ai" && (
