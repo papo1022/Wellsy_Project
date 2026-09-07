@@ -1,0 +1,101 @@
+/* ==========================================
+   공지사항 검색 영역
+========================================== */
+
+.notice-search-area {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 25px;
+}
+
+
+/* ==========================================
+   검색창
+========================================== */
+
+.notice-search-box {
+
+    width: 360px;
+}
+
+
+.notice-search-box input {
+
+    width: 100%;
+
+    height: 42px;
+
+    padding: 0 16px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #d9d9d9;
+
+    border-radius: 10px;
+
+    background: #fff;
+
+    color: #333;
+
+    font-size: 13px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.notice-search-box input::placeholder {
+
+    color: #aaa;
+}
+
+
+.notice-search-box input:focus {
+
+    border-color: #91bd98;
+
+    box-shadow:
+        0 0 0 3px rgba(145, 189, 152, 0.12);
+}
+
+
+/* ==========================================
+   검색 버튼
+========================================== */
+
+.notice-search-btn {
+
+    height: 42px;
+
+    padding: 0 20px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #111;
+
+    color: #fff;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+.notice-search-btn:hover {
+
+    background: #333;
+}
