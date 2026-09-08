@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { loginEmployeeApi } from "../api/LoginApi";
+import { loginEmployeeApi } from "../api/loginApi";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
