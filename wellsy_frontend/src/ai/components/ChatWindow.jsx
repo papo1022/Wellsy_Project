@@ -1,144 +1,141 @@
 import { useState, useEffect, useRef } from 'react';
-// 기본 React Hooks (데이터 상태 저장, 화면 처음 켜질 시 API 가져오기 등)
-import { sendChatMessage } from "../api/aiApi";
-// API 폴더에서 만들어 둔 'AI 챗봇에게 메시지를 보내는 함수' 가져오기
+import { jwtDecode } from "jwt-decode";
 import ReactMarkdown from "react-markdown";
-import remarkGfm from 'remark-gfm';
+import { sendChatMessage, getRoomMessages } from "../api/aiApi";
+import ChatSidebar from "./ChatSidebar";
 import "../styles/ChatWindow.css";
-// 스타일 (CSS)
 
 function ChatWindow() {
 
-    // 대화 내역을 저장하는 배열
-    // 각 원소는 { sender: "user" | "ai", text: "메시지 내용" } 형태
-    const [messages, setMessages] = useState ([
-        // useState에 message 내용 저장
-        
-        { sender: "ai", text: "안녕하세요! 저는 Wellsy의 AI 헬스코치예요. 평소 운동량이나 목표를 알려주시면 맞춤 플랜을 짜 드릴게요. 😊" }
+    // 로그인한 사원 번호 꺼내기
+    const token = sessionStorage.getItem("token");
+    const employeeNo = token ? jwtDecode(token).employeeNo : null;
+
+    const [roomId, setRoomId] = useState(null); // 지금 보고 있는 채팅방 (null이면 새 대화)
+    const [messages, setMessages] = useState([
+        { sender: "ai", text: "안녕하세요! 저는 Wellsy의 AI 헬스코치예요. 무엇을 도와드릴까요? 😊"}
     ]);
-
-    // 사용자가 지금 입력창에 타이핑 중인 내용
     const [input, setInput] = useState("");
-
-    // 응답을 기다리는 중인지 (로딩 표시용)
     const [isLoading, setIsLoading] = useState(false);
-
-    // 세 메시지가 생길 때마다 스크롤을 맨 아래로 내리기 위한 참조
     const messagesContainerRef = useRef(null);
 
+    // 메시지가 생길 때마다 아래로 자동 스크롤 (useRef 사용)
     useEffect(() => {
-        // 항상 "그 div 내부 기준으로" 맨 아래로 이동, 바깥 페이지는 안 움직이게
+
         if (messagesContainerRef.current) {
             messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
         }
     }, [messages]);
 
-    const handleSend = async () => { // 비동기 요청
+    // 사이드바에서 방을 클릭했을 때 - 그 방의 이력을 불러와서 화면에 표시
+    const handleSelectRoom = async (selectedRoomId) => {
+
+        setRoomId(selectedRoomId);
+        const response = await getRoomMessages(selectedRoomId);
+
+        // DB에 저장된 형태({ senderType, messageContent })를
+        // 화면에서 쓰는 형태({ sender, text })로 변환
+        const loaded = response.data.map((m) => ({
+            sender: m.senderType === "USER" ? "user" : "ai",
+            text: m.messagesContent,
+        }));
+
+        setMessages(loaded);
+    };
+
+    // "새 채팅" 클릭 시 - 초기 화면으로
+    const handleNewChat = () => {
         
-        // 빈 메시지는 전송 안 함
-        if (input.trim() === "") return;
+        setRoomId(null);
+        setMessages([
+            { sender: "ai", text: "안녕하세요! 새로운 상담을 시작할게요. 무엇이 궁금하신가요? 😊" }
+        ]);
+    };
 
-        // 1) 사용자 메시지를 화면에 바로 추가 (응답을 기다리는 동안에도 보이도록)
+    const handleSend = async () => {
+
+        if(input.trim() === "") return;
+
         const userMessage = { sender: "user", text: input };
-        // 하나의 메시지에는 누가 썼는지(sender)와 무슨 내용인지(text)
-        // 이 '두 개의 정보'가 '하나의 세트'로 묶여야 한다.
-
         setMessages((prev) => [...prev, userMessage]);
+
+        const currentInput = input;
         setInput("");
         setIsLoading(true);
 
         try {
-            // 2) 백엔드에 메시지 전송
-            const response = await sendChatMessage(input);
+            const response = await sendChatMessage(roomId, employeeNo, currentInput);
 
-            // 3) AI 응답을 대화 내역에 추가
-            // TODO: 실제 백엔드 응답 구조에 맞춰 response.data 부분 수정 필요
-            //       (예: response.data가 문자열인지, { reply: "..."} 객체인지에 따라 다름)
-            const aiMessage = { sender: "ai", text: response.data.reply };
-            // -> 백엔드가 { reply: "..." } 형태로 응답하도록 구현했으므로
-            //    text: response.data => text: response.data.reply 로 수정
-            
+            // 첫 메시지였다면 서버가 새로 만든 roomId를 알려줌 -> 저장
+            if(roomId == null) {
+
+                setRoomId(response.data.chatRoomId);
+            }
+
+            const aiMessage = { sender: "ai", text: response.data.messagesContent };
             setMessages((prev) => [...prev, aiMessage]);
 
         } catch(error) {
-            // 백엔드 API가 아직 준비가 안 됐거나 에러가 났을 때 - 임시 안내 메시지
-            const errorMessage = {
+
+            setMessages((prev) => [...prev, {
                 sender: "ai",
                 text: "연동 준비 중입니다. 잠시 후 다시 시도해 주세요."
-            };
-
-            setMessages((prev) => [...prev, errorMessage]);
+            }]);
 
             console.error("AI 챗봇 에러: ", error);
 
         } finally {
-
             setIsLoading(false);
         }
     };
 
-    // Enter 키로도 전송이 가능하게
     const handleKeyDown = (e) => {
 
-        if (e.key === "Enter") {
-            handleSend();
-        }
+        if(e.key === "Enter") handleSend();
     };
 
-    // 화면 꾸리기
+    // 화면
     return (
-        <div className="chat-container">
 
-            <h2 className="chat-title">AI 헬스코치</h2>
+        <div className="chat-page">
+            <ChatSidebar 
+                employeeNo={employeeNo}
+                selectedRoomId={roomId}
+                onSelectRoom={handleSelectRoom}
+                onNewChat={handleNewChat}
+            />
 
-            <div className="chat-message" ref={messagesContainerRef}>
-                {messages.map((msg, index) => (
-                    <div
-                        key={index}
-                        className={msg.sender === "user" ? "chat-bubble user" : "chat-bubble ai"}
-                    >
-                        {/* 2) 기존 {msg.text} 대신 ReactMarkdown으로 렌더링 */}
-                        {msg.sender === "ai" ? (
-                            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                                {msg.text}
-                            </ReactMarkdown>
-                        ) : (
-                            /* 유저가 보낸 일반 텍스트는 그대로 출력 */
-                            msg.text
-                        )}
+            <div className="chat-container">
+                <h2 className="chat-title">AI 헬스코치</h2>
 
-                        {/* 세부 기능(예: 운동 일정 자동 추가)
-                        {msg.sender === "ai" && (
-                            <button
-                                className="chat-apply-button"
-                                onClick={() => {
-                                    // TODO: 여기서 AI가 짜준 운동 일정을
-                                    //       일일 운동 일정 페이지(/health/calendar 등)에 자동 등록하는 로직 구현
+                <div className="chat-message" ref={messagesContainerRef}>
+                    {messages.map((msg, index) => (
+                        <div
+                            key={index}
+                            className={msg.sender === "user" ? "chat-bubble user" : "chat-bubble ai"}
+                        >
+                            {msg.sender === "ai" ? (
+                                <ReactMarkdown>{msg.text}</ReactMarkdown>
+                            ) : (
+                                msg.text
+                            )}
+                        </div>
+                    ))}
+                    {isLoading && <div className="chat-bubble ai">입력 중...</div>}
+                </div>
 
-                                    console.log("일정에 적용하기 버튼 클릭됨")
-                                }}>
-                                일정에 적용하기
-                            </button>
-                        )}
-                        */}
-                    </div>
-                ))}
+                <div className="chat-input-area">
+                    <input
+                        className="chat-input"
+                        placeholder="메시지를 입력하세요"
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        onKeyDown={handleKeyDown}
+                    />
+                    <button className="chat-send-button" onClick={handleSend}>전송</button>
+                </div>
 
-                {isLoading && <div className="chat-bubble ai">입력 중...</div>}
             </div>
-
-            <div className="chat-input-area">
-                <input 
-                    className="chat-input"
-                    placeholder="메시지를 입력하세요"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                />
-                <button className="chat-send-button" onClick={handleSend}>
-                    전송
-                </button>
-            </div>       
         </div>
     );
 }

@@ -1,4 +1,15 @@
+/* 사이드바와 채팅창을 나란히 감싸는 영역 */
+.chat-page {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+/* 메인 채팅 컨테이너 */
 .chat-container {
+    flex: 1;
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -15,7 +26,7 @@
     margin-bottom: var(--spacing);
 }
 
-/* 대화 내용이 쌓이는 영역 (채팅방 배경) */
+/* 대화 메시지 영역 */
 .chat-message {
     flex: 1;
     overflow-y: auto;
@@ -36,7 +47,7 @@
     word-break: break-word;
 }
 
-/* AI 메시지 (왼쪽 정렬) */
+/* AI 메시지 */
 .chat-bubble.ai {
     align-self: flex-start;
     background-color: var(--color-white);
@@ -44,7 +55,7 @@
     border-top-left-radius: 0px;
 }
 
-/* 사용자 메시지 (오른쪽 정렬) */
+/* 사용자 메시지 */
 .chat-bubble.user {
     align-self: flex-end;
     background-color: var(--color-primary);
@@ -52,8 +63,7 @@
     border-top-right-radius: 0px;
 }
 
-/* 일정에 적용하기 버튼 - 필요 없으면 삭제 */
-/* 원래 버튼형으로 디자인했다가 카드형으로 수정 */
+/* 카드형 버튼 */
 .chat-apply-button {
     display: block;
     width: 200px;
@@ -74,7 +84,7 @@
     color: var(--color-white);
 }
 
-/* 하단 입력창 영역 */
+/* 하단 입력 영역 */
 .chat-input-area {
     display: flex;
     gap: 10px;
@@ -109,13 +119,13 @@
     background-color: var(--color-secondary);
 }
 
-/* AI 말풍선 내부 마크다운 태그 스타일 정돈 */
+/* AI 말풍선 내 마크다운 스타일 */
 .chat-bubble.ai p {
-    margin: 0 0 8px 0; /* 단락 하단 여백 */
+    margin: 0 0 8px 0;
 }
 
 .chat-bubble.ai p:last-child {
-    margin-bottom: 0; /* 마지막 단락은 여백 제거 */
+    margin-bottom: 0;
 }
 
 .chat-bubble.ai ul, 

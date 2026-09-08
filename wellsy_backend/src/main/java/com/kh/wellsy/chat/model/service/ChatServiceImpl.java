@@ -44,7 +44,7 @@ public class ChatServiceImpl implements ChatService {
 			
 			// 방 제목은 사용자의 첫 메시지 앞부분으로 자동 지정
 			room.setTitle(message.length() > 20 ? message.substring(0, 20) + "..." : message);
-			room.setCreateAt(LocalDateTime.now());
+			room.setCreatedAt(LocalDateTime.now());
 			room = chatRoomDao.save(room);
 			
 		} else {

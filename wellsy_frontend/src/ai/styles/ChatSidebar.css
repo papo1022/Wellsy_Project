@@ -1,0 +1,78 @@
+/* 사이드바 기본 스타일 */
+.chat-sidebar {
+    background-color: transparent;
+    color: var(--color-black);
+    height: 100vh;
+    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+    transition: width 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+}
+
+/* 1. 접힌 상태: 고정 폭을 차지하며 레이아웃 내 나란히 위치 */
+.chat-sidebar.closed {
+    position: relative;
+    width: 40px;
+    padding: var(--spacing) 0;
+    align-items: center;
+    box-shadow: none;
+}
+
+/* 2. 펼쳐진 상태: absolute로 우측 채팅 영역 위로 오버레이 + 그림자 */
+.chat-sidebar.open {
+    position: absolute;
+    background-color: var(--color-white);
+    color: var(--color-black);
+    top: 0;
+    left: 0;
+    width: 220px;
+    padding: var(--spacing);
+    box-shadow: 8px 0 20px rgba(0, 0, 0, 0.3);
+}
+
+/* 사이드바 내부 요소 */
+.chat-sidebar-toggle {
+    background: none;
+    border: none;
+    color: var(--color-grey);
+    cursor: pointer;
+    font-size: var(--font-size-button);
+    margin-bottom: var(--spacing);
+}
+
+.chat-sidebar-new {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    margin-bottom: var(--spacing);
+    font-size: var(--font-size-button);
+}
+
+.chat-sidebar-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.chat-sidebar-item {
+    padding: 10px var(--spacing);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-caption);
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chat-sidebar-item:hover,
+.chat-sidebar-item.active {
+    background-color: var(--color-primary);
+}

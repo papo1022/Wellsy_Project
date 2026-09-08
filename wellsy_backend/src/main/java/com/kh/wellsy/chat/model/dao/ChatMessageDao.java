@@ -1,9 +1,7 @@
 package com.kh.wellsy.chat.model.dao;
 
 import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.kh.wellsy.chat.model.vo.ChatMessageEntity;
 
 public interface ChatMessageDao extends JpaRepository<ChatMessageEntity, Integer> {

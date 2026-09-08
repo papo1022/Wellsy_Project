@@ -31,7 +31,7 @@ public class ChatRoom {
 	private String title;
 	
 	@Column(name = "CREATED_AT")
-	private LocalDateTime createAt;
+	private LocalDateTime createdAt;
 	
 	@Column(name = "EMPLOYEE_NO")
 	private int employeeNo;
