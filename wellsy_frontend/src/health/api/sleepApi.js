@@ -34,7 +34,24 @@ const saveSleepApi = sleepData => {
     );
 };
 
+// 특정 날짜 수면 기록 조회
+const getSleepByDateApi = (
+    employeeNo,
+    date
+) => {
+
+    return axios.get(
+        `${BASE_URL}/${employeeNo}`,
+        {
+            params: {
+                date
+            }
+        }
+    );
+};
+
 export {
     selectTodaySleepApi,
-    saveSleepApi
+    saveSleepApi,
+    getSleepByDateApi
 };

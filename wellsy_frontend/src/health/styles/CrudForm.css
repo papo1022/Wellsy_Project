@@ -1,29 +1,89 @@
-/* 공통 디자인 */
+/* =========================================================
+   공통 CRUD 카드
+========================================================= */
+
 .crud-card {
     width: 500px;
     margin-bottom: 20px;
     padding: 30px;
-    border-radius: var(--radius-md);
-    box-sizing: border-box;
+
     background-color: var(--color-white);
+
+    border-radius: var(--radius-md);
+
+    box-sizing: border-box;
 }
 
 .crud-card h2 {
     margin: 0 0 8px;
+
     font-size: var(--font-size-h2);
     font-weight: 700;
+
     color: var(--color-black);
 }
 
 .crud-card-date {
     margin-bottom: var(--spacing);
+
     font-size: var(--font-size-caption);
     color: var(--color-grey);
 }
 
+
+/* =========================================================
+   공통 입력
+========================================================= */
+
 .crud-card-input {
     margin-bottom: var(--spacing);
 }
+
+.crud-card-input label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: var(--font-size-h4);
+    font-weight: 700;
+
+    color: var(--color-black);
+}
+
+.crud-card-input-value {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+}
+
+.crud-card-input-value input {
+    flex: 1;
+
+    padding: 10px var(--spacing);
+
+    border: 1px solid var(--color-cancel);
+    border-radius: var(--radius-sm);
+
+    font-family: var(--font-family);
+    font-size: var(--font-size-body);
+
+    outline: none;
+}
+
+.crud-card-input-value input:focus {
+    border-color: var(--color-primary);
+}
+
+.crud-card-input-value span {
+    width: 35px;
+
+    font-size: var(--font-size-body);
+    color: var(--color-grey);
+}
+
+
+/* number input 화살표 제거 */
 
 .crud-card input[type="number"]::-webkit-inner-spin-button,
 .crud-card input[type="number"]::-webkit-outer-spin-button {
@@ -36,47 +96,69 @@
     appearance: textfield;
 }
 
-.crud-card-input label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: var(--font-size-h4);
-    font-weight: 700;
-    color: var(--color-black);
-}
 
-.crud-card-input-value {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.crud-card-input-value input {
-    flex: 1;
-    padding: 10px var(--spacing);
-    border: 1px solid var(--color-cancel);
-    border-radius: var(--radius-sm);
-    font-family: var(--font-family);
-    font-size: var(--font-size-body);
-    outline: none;
-}
-
-.crud-card-input-value input:focus {
-    border-color: var(--color-primary);
-}
-
-.crud-card-input-value span {
-    width: 35px;
-    font-size: var(--font-size-body);
-    color: var(--color-grey);
-}
+/* =========================================================
+   공통 버튼 영역
+========================================================= */
 
 .crud-card-buttons {
     display: flex;
     align-items: center;
+
+    gap: 10px;
+
     margin-bottom: 40px;
 }
 
-/* 모달 */
+
+/* =========================================================
+   버튼
+========================================================= */
+
+.btn-primary {
+    padding: 10px var(--spacing);
+
+    background-color: var(--color-primary);
+    color: var(--color-white);
+
+    border: none;
+    border-radius: var(--radius-round);
+
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-white);
+    color: var(--color-black);
+}
+
+.btn-secondary {
+    padding: 10px var(--spacing);
+
+    background-color: var(--color-cancel);
+    color: var(--color-white);
+
+    border: none;
+    border-radius: var(--radius-round);
+
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-white);
+    color: var(--color-black);
+}
+
+.btn-analyze {
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+}
+
+
+/* =========================================================
+   모달
+========================================================= */
+
 .health-modal-background {
     position: fixed;
 
@@ -91,9 +173,10 @@
     align-items: center;
 
     padding: var(--spacing);
-    box-sizing: border-box;
 
     background: rgba(12, 12, 12, 0.35);
+
+    box-sizing: border-box;
 
     z-index: 900;
 }
@@ -102,25 +185,36 @@
     position: relative;
 }
 
-/* 단위 전환 버튼 */
+
+/* =========================================================
+   단위 전환 / 식사 탭
+========================================================= */
+
 .unit-toggle,
 .meal-tabs {
     display: inline-flex;
+
     padding: 5px;
+
     background: var(--color-ivory);
+
     border-radius: var(--radius-sm);
 }
 
 .unit-toggle button,
 .meal-tabs button {
     padding: 10px var(--spacing);
-    border: none;
-    border-radius: var(--radius-md);
+
     background: transparent;
     color: var(--color-grey);
+
+    border: none;
+    border-radius: var(--radius-md);
+
     font-family: var(--font-family);
     font-size: var(--font-size-button);
     font-weight: 700;
+
     cursor: pointer;
 }
 
@@ -130,66 +224,53 @@
     color: var(--color-white);
 }
 
-/* 별점 */
+
+/* =========================================================
+   별점
+========================================================= */
+
 .rating {
     width: 180px;
 }
 
 .rating__star {
-    cursor: pointer;
     color: var(--color-warning);
+    cursor: pointer;
 }
 
-/* 식사 상세 */
-.food-info-card {
-    width: 100%;
-    padding: var(--spacing);
-    margin-bottom: var(--spacing);
-}
 
-.food-info-row {
-    display: flex;
-    gap: var(--spacing);
-}
-
-.food-info-row .crud-card-input {
-    flex: 1;
-    margin-bottom: var(--spacing);
-}
-
-.nutrition-row {
-    gap: var(--spacing);
-}
-
-.nutrition-row .crud-card-input-value input {
-    min-width: 0;
-    width: 100%;
-}
-
-.nutrition-row .crud-card-input-value span {
-    width: auto;
-}
+/* =========================================================
+   식사 상세
+========================================================= */
 
 .meal-detail {
     width: 100%;
     max-width: 1000px;
+
     margin: var(--spacing) auto;
 }
 
 .meal-tabs {
-    background-color: transparent;
     display: flex;
+
     gap: 10px;
+
     margin-bottom: var(--spacing);
+
+    background-color: transparent;
 }
 
 .meal-tabs button {
     flex: 1;
+
     padding: 10px;
-    border: 1px solid var(--color-primary);
-    border-radius: var(--radius-sm);
+
     background: var(--color-white);
     color: var(--color-primary);
+
+    border: 1px solid var(--color-primary);
+    border-radius: var(--radius-sm);
+
     cursor: pointer;
 }
 
@@ -200,22 +281,38 @@
 
 .meal-input-method {
     display: flex;
+
     gap: var(--spacing);
+
     margin-bottom: var(--spacing);
 }
 
 .meal-input-method button {
     flex: 1;
+
     padding: var(--spacing);
-    border: none;
-    border-radius: var(--radius-sm);
+
     background-color: var(--color-ivory);
     color: var(--color-grey);
+
+    border: none;
+    border-radius: var(--radius-sm);
+
     cursor: pointer;
+}
+
+.meal-input-method button.active {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+
+    border: none;
+
+    font-weight: 700;
 }
 
 .meal-image-preview {
     margin: 15px 0;
+
     text-align: center;
 }
 
@@ -223,31 +320,84 @@
     width: 100%;
     max-width: 400px;
     max-height: 300px;
+
     object-fit: cover;
+
     border-radius: var(--radius-sm);
 }
 
-/* 오늘 식사 영양 요약 */
+
+/* =========================================================
+   음식 카드
+========================================================= */
+
+.food-info-card {
+    width: 100%;
+
+    padding: var(--spacing);
+    margin-bottom: var(--spacing);
+}
+
+.food-info-row {
+    display: flex;
+
+    gap: var(--spacing);
+}
+
+.food-info-row .crud-card-input {
+    flex: 1;
+
+    margin-bottom: var(--spacing);
+}
+
+.nutrition-row {
+    gap: var(--spacing);
+}
+
+.nutrition-row .crud-card-input-value input {
+    width: 100%;
+    min-width: 0;
+}
+
+.nutrition-row .crud-card-input-value span {
+    width: auto;
+}
+
+
+/* =========================================================
+   오늘 식사 영양 요약
+========================================================= */
+
 .meal-summary {
     display: grid;
+
     grid-template-columns: repeat(4, 1fr);
+
     gap: var(--spacing);
+
     margin-bottom: var(--spacing);
 }
 
 .meal-summary-card {
     width: auto;
+
     padding: var(--spacing);
+
     background-color: var(--color-ivory);
+
     border: 1px solid rgba(140, 183, 145, 0.25);
     border-radius: var(--radius-sm);
+
     text-align: center;
+
     box-sizing: border-box;
 }
 
 .meal-summary-card span {
     display: block;
+
     margin-bottom: 8px;
+
     font-size: var(--font-size-button);
     color: var(--color-grey);
 }
@@ -255,75 +405,94 @@
 .meal-summary-card strong {
     font-size: var(--font-size-h2);
     font-weight: 700;
+
     color: var(--color-black);
 }
 
 .meal-summary-card small {
     margin-left: 4px;
+
     font-size: var(--font-size-caption);
     color: var(--color-grey);
 }
 
-/* 저장된 식사 기록 3열 배치 */
+
+/* =========================================================
+   저장된 식사 기록
+========================================================= */
+
 .saved-meal-grid {
     display: grid;
+
     grid-template-columns: repeat(3, minmax(0, 1fr));
+
     gap: 16px;
+
     width: 100%;
 }
 
-/* 저장된 음식 카드만 작은 카드 형태 */
 .saved-meal-grid .food-info-card {
     width: 100%;
     min-width: 0;
+
     margin: 0;
+
     box-sizing: border-box;
 }
 
-/* 음식명 / 섭취량 세로 배치 */
 .saved-meal-grid .food-info-row {
     display: flex;
     flex-direction: column;
+
     gap: 10px;
 }
 
-/* 영양정보는 카드 내부에서 2 x 2 */
 .saved-meal-grid .nutrition-row {
     display: grid;
+
     grid-template-columns: repeat(2, minmax(0, 1fr));
+
     gap: 10px;
 }
 
-/* 작은 카드 안의 input이 튀어나오지 않도록 */
 .saved-meal-grid .crud-card-input,
 .saved-meal-grid .crud-card-input-value,
 .saved-meal-grid input {
     width: 100%;
     min-width: 0;
+
     box-sizing: border-box;
 }
 
 
-/* 달력 */
+/* =========================================================
+   캘린더
+========================================================= */
 
 .calendar-detail {
     width: 1000px;
     max-width: calc(100vw - 260px);
+
     margin: 20px auto;
 }
 
 .calendar-detail-grid {
     display: grid;
+
     grid-template-columns: repeat(2, 1fr);
+
     gap: 15px;
+
     margin-top: 15px;
 }
 
 .calendar-detail-grid .health-main-card {
     width: 100%;
     min-height: auto;
+
     padding: 20px;
     margin: 0;
+
     box-sizing: border-box;
 }
 
@@ -345,71 +514,296 @@
 
 .calendar-detail .fc-daygrid-day-number {
     padding: 8px;
+
     font-size: var(--font-size-body);
 }
 
 .calendar-detail .fc-col-header-cell-cushion {
     padding: 10px;
+
     font-size: var(--font-size-body);
 }
 
+
 /* 일요일 */
+
 .calendar-detail .fc-day-sun .fc-col-header-cell-cushion,
 .calendar-detail .fc-day-sun .fc-daygrid-day-number {
     color: var(--color-error);
 }
 
+
 /* 토요일 */
+
 .calendar-detail .fc-day-sat .fc-col-header-cell-cushion,
 .calendar-detail .fc-day-sat .fc-daygrid-day-number {
     color: #1976d2;
+
     transition: all 0.1s ease-in-out;
 }
 
-/* active 상태 스타일 */
-.meal-input-method button.active {
-    background-color: var(--color-primary);
-    color: var(--color-white);
-    border: none;
+
+/* =========================================================
+   캘린더 상세 모달
+========================================================= */
+
+.calendar-modal-layout {
+    display: flex;
+
+    justify-content: center;
+    align-items: flex-start;
+
+    gap: 20px;
+
+    width: 100%;
+    max-width: calc(100vw - 260px);
+
+    box-sizing: border-box;
+}
+
+.calendar-health-panel {
+    width: 700px;
+    min-width: 0;
+
+    max-height: 80vh;
+
+    overflow-y: auto;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   운동 사이드 패널
+========================================================= */
+
+.exercise-side-panel {
+    width: 440px;
+    min-width: 0;
+
+    max-height: 85vh;
+
+    padding: 18px 20px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    box-sizing: border-box;
+}
+
+.exercise-form {
+    width: 100%;
+    min-width: 0;
+
+    box-sizing: border-box;
+}
+
+.exercise-form h2 {
+    margin: 0 0 6px;
+}
+
+.exercise-form h3 {
+    margin: 16px 0 10px;
+}
+
+.exercise-form .crud-card-date {
+    margin-bottom: 12px;
+}
+
+
+/* =========================================================
+   운동 입력
+========================================================= */
+
+.exercise-form .crud-card-input {
+    width: 100%;
+    min-width: 0;
+
+    margin-bottom: 8px;
+
+    box-sizing: border-box;
+}
+
+.exercise-form .crud-card-input label {
+    margin-bottom: 4px;
+}
+
+.exercise-form .crud-card-input-value {
+    width: 100%;
+    min-width: 0;
+
+    box-sizing: border-box;
+}
+
+.exercise-form .crud-card-input input {
+    width: 100%;
+    min-width: 0;
+
+    min-height: 38px;
+
+    padding: 8px 10px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   운동 카드
+========================================================= */
+
+.exercise-info-card {
+    width: 100%;
+    min-width: 0;
+
+    padding: 12px;
+    margin-bottom: 12px;
+
+    background: #f7f7f5;
+
+    border-radius: var(--radius-md);
+
+    box-sizing: border-box;
+}
+
+.exercise-info-summary {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin: 8px 0;
+}
+
+.exercise-info-summary span {
+    padding: 5px 10px;
+
+    background-color: var(--color-white);
+
+    border-radius: var(--radius-round);
+
+    font-size: var(--font-size-caption);
+}
+
+
+/* =========================================================
+   운동 결과 2 x 2
+========================================================= */
+
+.exercise-result-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 8px;
+
+    width: 100%;
+    min-width: 0;
+
+    margin: 10px 0;
+
+    box-sizing: border-box;
+}
+
+.exercise-result-item {
+    min-width: 0;
+
+    padding: 8px 10px;
+
+    background: var(--color-white);
+
+    border-radius: var(--radius-sm);
+
+    box-sizing: border-box;
+}
+
+.exercise-result-item > span {
+    display: block;
+
+    margin-bottom: 4px;
+
+    font-size: var(--font-size-caption);
+    color: var(--color-grey);
+}
+
+.exercise-result-value {
+    display: flex;
+    align-items: center;
+
+    gap: 6px;
+
+    width: 100%;
+    min-width: 0;
+}
+
+.exercise-result-value input {
+    width: 100%;
+    min-width: 0;
+
+    padding: 5px 7px;
+
+    background: var(--color-white);
+
+    border: 1px solid rgba(140, 183, 145, 0.4);
+    border-radius: 6px;
+
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+
+    outline: none;
+
+    box-sizing: border-box;
+}
+
+.exercise-result-value input:focus {
     border-color: var(--color-primary);
+}
+
+.exercise-result-value small {
+    flex-shrink: 0;
+
+    font-size: var(--font-size-caption);
+    color: var(--color-grey);
+}
+
+
+/* 예상 소모 */
+
+.exercise-result-value.readonly {
+    min-height: 32px;
+}
+
+.exercise-result-value.readonly strong {
+    font-size: 20px;
     font-weight: 700;
 }
 
-/* 버튼 */
-.btn-primary {
-    background-color: var(--color-primary);
-    color: var(--color-white);
-    border: none;
-    border-radius: var(--radius-round);
-    padding: 10px var(--spacing) 10px var(--spacing);
+
+/* 운동 버튼 */
+
+.exercise-form .crud-card-buttons {
+    display: flex;
+
+    justify-content: flex-end;
+    align-items: center;
+
+    gap: 8px;
+
+    width: 100%;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
-.btn-primary:hover {
-    background-color: var(--color-white);
-    color: var(--color-black);
-}
 
-.btn-analyze {
-    background-color: var(--color-secondary);
-    color: #ffffff;
-}
-
-.btn-secondary {
-    background-color: var(--color-cancel);
-    color: var(--color-white);
-    border: none;
-    border-radius: var(--radius-round);
-    padding: 10px var(--spacing) 10px var(--spacing);
-}
-
-.btn-secondary:hover {
-    background-color: var(--color-white);
-    color: var(--color-black);
-}
+/* =========================================================
+   수면 시계
+========================================================= */
 
 .sleep-clock-wrapper {
     display: flex;
     align-items: center;
+
     gap: 30px;
 }
 
@@ -435,13 +829,14 @@
 
     transform: translate(-50%, -50%);
 
-    border-radius: 50%;
-    background: white;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    background: var(--color-white);
+
+    border-radius: 50%;
 }
 
 .sleep-clock-inner strong {
@@ -450,49 +845,15 @@
 
 .sleep-clock-inner span {
     margin-top: 4px;
+
     font-size: 13px;
     color: #777;
-}
-
-.clock-label {
-    position: absolute;
-
-    font-size: 11px;
-    font-weight: 600;
-    color: #666;
-}
-
-/* 자정 */
-.clock-00 {
-    top: 6px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-/* 오전 6시 */
-.clock-06 {
-    right: 7px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-/* 낮 12시 */
-.clock-12 {
-    bottom: 6px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-/* 오후 6시 */
-.clock-18 {
-    left: 7px;
-    top: 50%;
-    transform: translateY(-50%);
 }
 
 .sleep-clock-info {
     display: flex;
     flex-direction: column;
+
     gap: 12px;
 }
 
@@ -502,5 +863,67 @@
 
 .sleep-clock-info strong {
     margin-left: 8px;
+
     color: #333;
+}
+
+
+/* =========================================================
+   수면 시계 라벨
+========================================================= */
+
+.clock-label {
+    position: absolute;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    color: #666;
+}
+
+.clock-00 {
+    top: 6px;
+    left: 50%;
+
+    transform: translateX(-50%);
+}
+
+.clock-06 {
+    top: 50%;
+    right: 7px;
+
+    transform: translateY(-50%);
+}
+
+.clock-12 {
+    bottom: 6px;
+    left: 50%;
+
+    transform: translateX(-50%);
+}
+
+.clock-18 {
+    top: 50%;
+    left: 7px;
+
+    transform: translateY(-50%);
+}
+
+
+/* =========================================================
+   반응형
+========================================================= */
+
+@media (max-width: 1200px) {
+
+    .calendar-modal-layout {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .calendar-health-panel,
+    .exercise-side-panel {
+        width: 100%;
+        max-width: 700px;
+    }
 }

@@ -195,7 +195,7 @@
   gap: 28px;
 }
 
-.sleep-clock-info > span {
+.sleep-clock-info>span {
   display: flex;
   align-items: baseline;
   gap: 12px;
@@ -319,4 +319,52 @@
   font-size: var(--font-size-body);
   font-weight: 400;
   height: 70px;
+}
+
+.health-grade-value {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+/* 정상 */
+.grade-normal {
+  color: #4f8f5b;
+}
+
+/* 관심 */
+.grade-interest {
+  color: #8ca34a;
+}
+
+/* 주의 */
+.grade-caution {
+  color: #d49a2a;
+}
+
+/* 경고 */
+.grade-warning {
+  color: #d56b32;
+}
+
+/* 위험 */
+.grade-danger {
+  color: #c94b4b;
+}
+
+/* 등급 없음 */
+.grade-none {
+  color: #888888;
+}
+
+.health-calendar-card .fc-event,
+.calendar-detail .fc-event {
+    background: transparent;
+    border: none;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.health-calendar-card .fc-event-title {
+  color: var(--color-primary);
 }

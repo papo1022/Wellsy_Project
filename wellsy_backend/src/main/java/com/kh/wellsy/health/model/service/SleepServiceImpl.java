@@ -27,7 +27,7 @@ public class SleepServiceImpl implements SleepService {
     public SleepRecord saveOrUpdateSleepRecord(SleepRecord sleepRecord) {
 
         LocalDate today = LocalDate.now();
-        
+
         sleepRecord.setSleepDate(today);
 
         SleepRecord existingSleep = sleepDao.findByEmployeeNoAndSleepDate(
@@ -44,5 +44,15 @@ public class SleepServiceImpl implements SleepService {
         }
 
         return sleepDao.save(sleepRecord);
+    }
+
+    @Override
+    public SleepRecord getSleepRecordByDate(
+            int employeeNo,
+            LocalDate date) {
+
+        return sleepDao.findByEmployeeNoAndSleepDate(
+                employeeNo,
+                date);
     }
 }

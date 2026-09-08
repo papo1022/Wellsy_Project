@@ -1,6 +1,7 @@
 package com.kh.wellsy.health.model.dao;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -14,5 +15,7 @@ public interface HealthDao extends JpaRepository<Health, Integer> {
         int employeeNo,
         LocalDate recordDate
     );
+
+    List<Health> findByEmployeeNo(int employeeNo);
     
 }
