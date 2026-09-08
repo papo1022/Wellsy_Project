@@ -3,7 +3,7 @@ import axios from "axios";
 import { getAuthorization } from "../../common/api/commonApi";
 
 // 공통 URL
-const BASE_URL = "http://localhost:8006/wellsy/status";
+const BASE_URL = "/wellsy/status";
 
 
 // ===========================================

@@ -17,12 +17,7 @@ import {
     updatePasswordApi
 } from "../api/myApi";
 
-import "../styles/My.css";
-import "../styles/MyLayout.css";
-import "../styles/MyProfile.css";
-import "../styles/MyInfo.css";
-import "../styles/MyForm.css";
-import "../styles/MyResponsive.css";
+import "../styles/MyPage.css";
 
 function MyPage() {
 

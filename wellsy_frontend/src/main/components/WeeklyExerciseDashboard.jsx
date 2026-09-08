@@ -13,7 +13,7 @@ import {
 
 import "../styles/WeeklyExerciseDashboard.css";
 
-const API_URL = "http://localhost:8006/wellsy/api/exercise/weekly";
+const API_URL = "/wellsy/api/exercise/weekly";
 const EMPLOYEE_NO = 1;
 
 function WeeklyExerciseDashboard() {

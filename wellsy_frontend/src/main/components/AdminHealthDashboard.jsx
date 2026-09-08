@@ -13,7 +13,7 @@ import "../styles/AdminHealthDashboard.css";
 
 
 const API_URL =
-  "http://localhost:8006/wellsy/api/admin/health";
+  "/wellsy/api/admin/health";
 
 
 function AdminHealthDashboard() {

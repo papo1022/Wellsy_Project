@@ -29,7 +29,7 @@ function BodyForm({ onClose, onHealthUpdate, employeeNo }) {
             weight: Number(weight)
         };
 
-        fetch("http://localhost:8006/wellsy/health", {
+        fetch("/wellsy/health", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

@@ -36,7 +36,7 @@
   - `components/*.jsx` for UI
   - `styles/*.css` for feature styling
 - Routing is centralized in `src/App.jsx`.
-- API modules currently use hardcoded local backend URLs (e.g., `http://localhost:8006/wellsy/...`), so backend path/port changes require frontend API updates.
+- API modules currently use hardcoded local backend URLs (e.g., `/wellsy/...`), so backend path/port changes require frontend API updates.
 
 ## Security and configuration notes
 - Backend uses `spring.profiles.active=local` and expects DB credentials in `application-local.properties`.

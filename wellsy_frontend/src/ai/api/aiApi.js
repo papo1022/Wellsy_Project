@@ -1,7 +1,7 @@
 import axios from 'axios';
 // 백엔드 API를 호출하고 데이터를 받아옴
 
-const BASE_URL = "http://localhost:8006/wellsy"
+const BASE_URL = "/wellsy"
 
 // AI 챗봇에게 메시지를 보내는 함수
 // TODO: 실제 정확한 엔드 포인트(/ai/chat 등)가 필요함, 추후 정해지면 수정할 것
