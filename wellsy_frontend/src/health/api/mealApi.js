@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getAuthorization } from "../../common/api/commonApi";
 
-const BASE_URL = "http://localhost:8006/wellsy/meal";
+const BASE_URL = "/wellsy/meal";
 
 // 식사 기록 저장
 const saveMealApi = mealData => {

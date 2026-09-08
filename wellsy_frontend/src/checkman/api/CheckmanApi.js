@@ -6,10 +6,10 @@ import {
 
 
 const BASE_URL =
-    "http://localhost:8006/wellsy/checkman";
+    "/wellsy/checkman";
 
 const CHECKUP_RESERVATION_URL =
-    "http://localhost:8006/wellsy/api/checkup-reservation-dashboard";
+    "/wellsy/api/checkup-reservation-dashboard";
 
 
 // =========================================

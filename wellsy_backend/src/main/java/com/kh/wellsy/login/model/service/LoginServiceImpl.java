@@ -1,8 +1,12 @@
 package com.kh.wellsy.login.model.service;
 
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+
+import com.kh.wellsy.employee.model.dao.EmployeeDao;
 import com.kh.wellsy.employee.model.vo.Employee;
 import com.kh.wellsy.login.model.dao.EmployeeRepository;
 

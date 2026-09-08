@@ -5,6 +5,7 @@ import java.math.RoundingMode;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,11 +37,24 @@ public class HealthServiceImpl implements HealthService {
         return healthDao.findByEmployeeNoAndRecordDate(employeeNo, today);
     }
 
-    // 건강 등급 계산
+    // 오늘 건강 등급
     @Override
     public String getHealthGrade(int employeeNo) {
 
-        Health health = getTodayHealth(employeeNo);
+        return getHealthGrade(
+                employeeNo,
+                LocalDate.now());
+    }
+
+    // 건강 등급 계산
+    @Override
+    public String getHealthGrade(
+            int employeeNo,
+            LocalDate date) {
+
+        Health health = getHealthByDate(
+                employeeNo,
+                date);
 
         if (health == null) {
             return null;
@@ -50,8 +64,13 @@ public class HealthServiceImpl implements HealthService {
 
         // BMI
         if (health.getBmi() != null) {
-            String grade = calculateGrade("BMI", health.getBmi());
-            finalGrade = getHigherGrade(finalGrade, grade);
+            String grade = calculateGrade(
+                    "BMI",
+                    health.getBmi());
+
+            finalGrade = getHigherGrade(
+                    finalGrade,
+                    grade);
         }
 
         // 혈당
@@ -59,33 +78,45 @@ public class HealthServiceImpl implements HealthService {
             String grade = calculateGrade(
                     "BLOOD_SUGAR",
                     health.getBloodSugar());
-            finalGrade = getHigherGrade(finalGrade, grade);
+
+            finalGrade = getHigherGrade(
+                    finalGrade,
+                    grade);
         }
 
         // 수축기 혈압
         if (health.getSystolicBp() != null) {
             String grade = calculateGrade(
                     "SYSTOLIC_BP",
-                    BigDecimal.valueOf(health.getSystolicBp()));
-            finalGrade = getHigherGrade(finalGrade, grade);
+                    BigDecimal.valueOf(
+                            health.getSystolicBp()));
+
+            finalGrade = getHigherGrade(
+                    finalGrade,
+                    grade);
         }
 
         // 이완기 혈압
         if (health.getDiastolicBp() != null) {
             String grade = calculateGrade(
                     "DIASTOLIC_BP",
-                    BigDecimal.valueOf(health.getDiastolicBp()));
-            finalGrade = getHigherGrade(finalGrade, grade);
+                    BigDecimal.valueOf(
+                            health.getDiastolicBp()));
+
+            finalGrade = getHigherGrade(
+                    finalGrade,
+                    grade);
         }
 
-        // 수면시간
-        SleepRecord sleepRecord = sleepRecordDao.findByEmployeeNoAndSleepDate(
-                employeeNo,
-                LocalDate.now());
+        // 수면 시간
+        SleepRecord sleepRecord = sleepRecordDao
+                .findByEmployeeNoAndSleepDate(
+                        employeeNo,
+                        date);
 
-        if (sleepRecord != null
-                && sleepRecord.getSleepStart() != null
-                && sleepRecord.getSleepEnd() != null) {
+        if (sleepRecord != null &&
+                sleepRecord.getSleepStart() != null &&
+                sleepRecord.getSleepEnd() != null) {
 
             Duration duration = Duration.between(
                     sleepRecord.getSleepStart(),
@@ -98,7 +129,9 @@ public class HealthServiceImpl implements HealthService {
                     "SLEEP_TIME",
                     sleepHours);
 
-            finalGrade = getHigherGrade(finalGrade, grade);
+            finalGrade = getHigherGrade(
+                    finalGrade,
+                    grade);
         }
 
         return finalGrade;
@@ -149,7 +182,6 @@ public class HealthServiceImpl implements HealthService {
 
     // 건강기록 수정 또는 추가
     @Override
-
     public Health saveOrUpdateHealth(Health health) {
 
         LocalDate today = LocalDate.now();
@@ -215,4 +247,52 @@ public class HealthServiceImpl implements HealthService {
         }
     }
 
+    // 특정 날짜 건강 기록
+    @Override
+    public Health getHealthByDate(
+            int employeeNo,
+            LocalDate date) {
+
+        return healthDao
+                .findByEmployeeNoAndRecordDate(
+                        employeeNo,
+                        date);
+    }
+
+    // 오늘 건강 기록
+    @Override
+    public List<LocalDate> getHealthRecordDates(int employeeNo) {
+
+        return healthDao.findByEmployeeNo(employeeNo)
+                .stream()
+                .map(Health::getRecordDate)
+                .toList();
+    }
+
+    // 건강 등급
+    @Override
+    public List<Map<String, Object>> getHealthCalendar(
+            int employeeNo) {
+
+        return healthDao.findByEmployeeNo(employeeNo)
+                .stream()
+                .map(health -> {
+
+                    LocalDate date = health.getRecordDate();
+
+                    String grade = getHealthGrade(
+                            employeeNo,
+                            date);
+
+                    return Map.<String, Object>of(
+                            "date",
+                            date,
+
+                            "grade",
+                            grade == null
+                                    ? "none"
+                                    : grade);
+                })
+                .toList();
+    }
 }

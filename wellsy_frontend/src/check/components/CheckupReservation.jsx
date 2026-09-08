@@ -6,7 +6,7 @@ import "../style/CheckupReservation.css";
 
 
 const API_URL =
-  "http://localhost:8006/wellsy/api/checkup-reservations";
+  "/wellsy/api/checkup-reservations";
 
 
 function CheckupReservation() {

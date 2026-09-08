@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { findIdApi, sendResetCodeApi, validateResetCodeApi, resetPasswordApi } from "../api/accountApi";
 import "../styles/FindAccount.css";
 
 function FindAccount() {
+
+    const navigate = useNavigate();
 
     // "id": 아이디 찾기 탭
     // "password": 비밀번호 재설정 탭
@@ -180,7 +183,9 @@ function FindAccount() {
                 {step === 4 && (
                     <div className="success-step">
                         <p>비밀번호가 성공적으로 변경되었습니다.</p>
+
                         <button onClick={() => handleTabChange("id")}>아이디 찾기로 이동</button>
+                        <button onClick={() => navigate("/login")}>로그인으로 이동</button>
                     </div>
                 )}
                 

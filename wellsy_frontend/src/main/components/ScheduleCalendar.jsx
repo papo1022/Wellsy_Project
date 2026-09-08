@@ -21,7 +21,7 @@ import "../styles/ScheduleCalendar.css";
 
 
 const API_URL =
-  "http://localhost:8006/wellsy/api/schedules";
+  "/wellsy/api/schedules";
 
 
 // 로그인 연동 전 임시 사원번호
