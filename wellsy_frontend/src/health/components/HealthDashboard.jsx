@@ -35,7 +35,7 @@ function HealthDashboard() {
 
     const fetchHealthData = () => {
 
-        return fetch(`http://localhost:8006/wellsy/health/${employeeNo}`)
+        return fetch(`/wellsy/health/${employeeNo}`)
             .then(response => {
 
                 if (!response.ok) {
@@ -65,7 +65,7 @@ function HealthDashboard() {
 
     const fetchSleepData = () => {
 
-        return fetch(`http://localhost:8006/wellsy/sleep/${employeeNo}`)
+        return fetch(`/wellsy/sleep/${employeeNo}`)
             .then(response => {
 
                 if (!response.ok) {
@@ -96,7 +96,7 @@ function HealthDashboard() {
     const fetchHealthGrade = () => {
 
         return fetch(
-            `http://localhost:8006/wellsy/health/grade/${employeeNo}`
+            `/wellsy/health/grade/${employeeNo}`
         )
             .then(response => response.text())
             .then(data => {

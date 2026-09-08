@@ -4,7 +4,7 @@ import "../styles/HealthStatsDashboard.css";
 
 
 const API_URL =
-  "http://localhost:8006/wellsy/api/health-stats";
+  "/wellsy/api/health-stats";
 
 const EMPLOYEE_NO = 1;
 

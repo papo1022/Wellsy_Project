@@ -14,7 +14,7 @@ import {
 
 import "../styles/BmiDashboard.css";
 
-const API_URL = "http://localhost:8006/wellsy/api/bmi";
+const API_URL = "/wellsy/api/bmi";
 const EMPLOYEE_NO = 1;
 
 function BmiDashboard() {

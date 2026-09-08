@@ -6,7 +6,7 @@ import {
 
 
 const BASE_URL
-    = "http://localhost:8006/wellsy/my";
+    = "/wellsy/my";
 
 // =========================================
 // 마이페이지 조회

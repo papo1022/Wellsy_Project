@@ -637,7 +637,6 @@
 
     box-sizing: border-box;
 }
-   반응형
 
 @media screen and (max-width: 1250px) {
 
@@ -811,7 +810,7 @@
 .checkman-approve-btn:active,
 .checkman-cancel-btn:active {
     transform: scale(0.97);
-
+}
 /* 승인 완료 */
 
 .checkman-reservation-y {

@@ -3,7 +3,7 @@ import axios from "axios";
 import { getAuthorization } from "../../common/api/commonApi";
 
 // 공통 URL 변수처리
-const BASE_URL = "http://localhost:8006/wellsy/notice";
+const BASE_URL = "/wellsy/notice";
 
 // 공지사항 목록 조회용
 const selectNoticeListApi = () => {

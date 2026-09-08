@@ -5,7 +5,7 @@ import {
 } from "../../common/api/commonApi";
 
 const BASE_URL =
-    "http://localhost:8006/wellsy/sleep";
+    "/wellsy/sleep";
 
 // 오늘 수면 기록 조회
 const selectTodaySleepApi = employeeNo => {

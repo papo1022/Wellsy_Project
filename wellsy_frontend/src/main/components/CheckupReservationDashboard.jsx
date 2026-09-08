@@ -13,7 +13,7 @@ import "../styles/CheckupReservationDashboard.css";
 
 
 const API_URL =
-  "http://localhost:8006/wellsy/api/checkup-reservation-dashboard";
+  "/wellsy/api/checkup-reservation-dashboard";
 
 
 function CheckupReservationDashboard() {

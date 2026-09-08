@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8006/wellsy";
+const BASE_URL = "/wellsy";
 
 // 로그인 함수 요청
 // employee 객체 { loginId, password }를 받아서 백엔드에 POST 요청
