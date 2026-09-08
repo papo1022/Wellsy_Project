@@ -4,7 +4,9 @@ name: Deploy React
 
 on:
   push:
-    branches: [jaeyoung-yamltest]
+    branches: 
+      - main_sub
+      - jaeyoung
     # paths:
     #   - "wellsy_frontend/**"
     #   - ".github/workflows/frontend-deploy.yml"
