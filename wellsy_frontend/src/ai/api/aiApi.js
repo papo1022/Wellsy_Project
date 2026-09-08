@@ -20,5 +20,11 @@ const getRoomMessages = roomId => {
     return axios.get(`${BASE_URL}/ai/rooms/${roomId}/messages`);
 };
 
+// 채팅방 삭제
+const deleteRoom = roomId => {
+
+    return axios.delete(`${BASE_URL}/ai/rooms/${roomId}`);
+}
+
 // 내보내기
-export { sendChatMessage, getRoomList, getRoomMessages };
+export { sendChatMessage, getRoomList, getRoomMessages, deleteRoom };

@@ -8,4 +8,7 @@ public interface ChatMessageDao extends JpaRepository<ChatMessageEntity, Integer
 
 	// 특정 채팅방의 대화 내역을 시간순으로 조회
 	List<ChatMessageEntity> findByChatRoomIdOrderBySentAtAsc(int chatRoomId);
+
+	// 메시지 일괄 삭제 메서드
+	void deleteByChatRoomId(int roomId);
 }

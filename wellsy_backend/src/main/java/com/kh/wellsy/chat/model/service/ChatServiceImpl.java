@@ -12,6 +12,8 @@ import com.kh.wellsy.chat.model.dao.ChatRoomDao;
 import com.kh.wellsy.chat.model.vo.ChatMessageEntity;
 import com.kh.wellsy.chat.model.vo.ChatRoom;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class ChatServiceImpl implements ChatService {
 	
@@ -40,7 +42,7 @@ public class ChatServiceImpl implements ChatService {
 			// 만약 채팅방이 없다면 (즉, 새 대화라면)
 			room = new ChatRoom();
 			room.setEmployeeNo(employeeNo);
-			room.setCosultationType("HEALTH_COACH");
+			room.setConsultationType("HEALTH_COACH");
 			
 			// 방 제목은 사용자의 첫 메시지 앞부분으로 자동 지정
 			room.setTitle(message.length() > 20 ? message.substring(0, 20) + "..." : message);
@@ -91,5 +93,17 @@ public class ChatServiceImpl implements ChatService {
 	public List<ChatMessageEntity> getMessages(int roomId) {
 		
 		return chatMessageDao.findByChatRoomIdOrderBySentAtAsc(roomId);
+	}
+	
+	// 채팅방 삭제 시 해당 방의 메시지들도 함께 삭제
+	@Override
+	@Transactional
+	public void deleteRoom(int roomId) {
+		
+		// 1. 해당 방의 메시지 내역 삭제
+		chatMessageDao.deleteByChatRoomId(roomId);
+		
+		// 2. 채팅방 삭제
+		chatRoomDao.deleteById(roomId);
 	}
 }

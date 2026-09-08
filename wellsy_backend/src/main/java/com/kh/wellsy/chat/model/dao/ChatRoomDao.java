@@ -8,4 +8,7 @@ public interface ChatRoomDao extends JpaRepository<ChatRoom, Integer> {
 
 	// 사원별 채팅방 목록을 최신순으로 조회 (왼쪽 사이드바 목록용)
 	List<ChatRoom> findByEmployeeNoOrderByCreatedAtDesc(int employeeNo);
+	
+	// 메시지 일괄 삭제 메서드
+	void deleteByChatRoomId(int chatRoomId);
 }

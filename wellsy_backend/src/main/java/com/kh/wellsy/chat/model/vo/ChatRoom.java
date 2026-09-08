@@ -24,7 +24,7 @@ public class ChatRoom {
 	
 	// 만약 운동 추천 등 채팅방 용도별 세부 기능을 나눌 생각이라면 이 값 사용
 	@Column(name = "CONSULTATION_TYPE")
-	private String cosultationType;
+	private String consultationType;
 	
 	// 채팅방 이름
 	@Column(name = "TITLE")

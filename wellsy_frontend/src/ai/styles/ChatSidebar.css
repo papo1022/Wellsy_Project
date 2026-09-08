@@ -63,16 +63,50 @@
 }
 
 .chat-sidebar-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 10px var(--spacing);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-round);
     font-size: var(--font-size-caption);
     cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.chat-sidebar-item:hover,
+.chat-sidebar-item.active {
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+}
+
+.chat-room-title {
+    flex: 1;
+    min-width: 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.chat-sidebar-item:hover,
-.chat-sidebar-item.active {
-    background-color: var(--color-primary);
+/* 채팅방 삭제 */
+.chat-room-delete-btn {
+    background: none;
+    border: none;
+    color: var(--color-grey);
+    font-size: var(--font-size-button);
+    cursor: pointer;
+    padding: 2px 6px;
+    margin-left: 8px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat-sidebar-item.active .chat-room-delete-btn {
+    color: var(--color-white);
+}
+
+.chat-room-delete-btn:hover {
+    color: var(--color-white);
 }

@@ -14,4 +14,7 @@ public interface ChatService {
 	
 	// 특정 채팅방의 대화 내역 전체
 	List<ChatMessageEntity> getMessages(int roomId);
+	
+	// 채팅방 삭제 매서드
+	void deleteRoom(int roomId);
 }

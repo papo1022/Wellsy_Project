@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { jwtDecode } from "jwt-decode";
 import ReactMarkdown from "react-markdown";
-import { sendChatMessage, getRoomMessages } from "../api/aiApi";
+import { sendChatMessage, getRoomList, getRoomMessages, deleteRoom } from "../api/aiApi";
 import ChatSidebar from "./ChatSidebar";
 import "../styles/ChatWindow.css";
 
@@ -37,7 +37,7 @@ function ChatWindow() {
         // 화면에서 쓰는 형태({ sender, text })로 변환
         const loaded = response.data.map((m) => ({
             sender: m.senderType === "USER" ? "user" : "ai",
-            text: m.messagesContent,
+            text: m.messageContent,
         }));
 
         setMessages(loaded);
@@ -72,7 +72,7 @@ function ChatWindow() {
                 setRoomId(response.data.chatRoomId);
             }
 
-            const aiMessage = { sender: "ai", text: response.data.messagesContent };
+            const aiMessage = { sender: "ai", text: response.data.messageContent };
             setMessages((prev) => [...prev, aiMessage]);
 
         } catch(error) {
