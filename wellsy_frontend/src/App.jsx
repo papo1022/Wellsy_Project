@@ -27,8 +27,6 @@ import StatusList from "./status/components/StatusList";
 import StatusDetail from "./status/components/StatusDetail";
 
 import CheckmanList from "./checkman/components/CheckmanList";
-import CheckmanEmployeeHealth from "./checkman/components/CheckmanEmployeeHealth";
-import CheckmanHealthDetail from "./checkman/components/CheckmanHealthDetail";
 import CheckmanAlertDetail from "./checkman/components/CheckmanAlertDetail";
 
 import Footer from "./common/components/Footer";
@@ -42,7 +40,7 @@ import ChatWindow from "./ai/components/ChatWindow";
 
 import LoginForm from "./login/components/LoginForm";
 import "./login/styles/login.css";
-import FindAccount from "./login/components/FindAccount";
+
 
 function App() {
 
@@ -53,11 +51,11 @@ function App() {
   if(token == null) {
 
     return (
-      <Routes>
-        <Route path="/login" element={<LoginForm setToken={setToken} />}/>
-        <Route path="/find-account" element={<FindAccount />}/>
-        <Route path="*" element={<LoginForm setToken={setToken} />}/>
-      </Routes>
+
+      <div>
+        <LoginForm setToken={setToken} />
+      </div>
+
     );
   }
 
@@ -114,8 +112,6 @@ function App() {
         {/* ================================= */}
 
         <Route path="/checkman" element={ <CheckmanList /> } />
-        <Route path="/checkman/employee/:employeeNo" element={ <CheckmanEmployeeHealth /> } />
-        <Route path="/checkman/health/:healthRecordId" element={ <CheckmanHealthDetail /> } />
         <Route path="/checkman/alerts/:alertId" element={ <CheckmanAlertDetail /> } />
 
           {/* 관리자 - 통계 / 건강 리포트 */}

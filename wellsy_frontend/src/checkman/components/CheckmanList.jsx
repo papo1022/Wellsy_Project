@@ -9,7 +9,6 @@ import {
 } from "react-router-dom";
 
 import {
-    selectCheckmanListApi,
     selectCheckmanAlertListApi,
     selectCheckupReservationListApi,
     approveCheckupReservationApi,
@@ -31,7 +30,7 @@ function CheckmanList() {
     // URL에서 탭 확인
     //
     // /checkman
-    // → 직원 건강정보
+    // → 건강 이상 알림
     //
     // /checkman?tab=reservation
     // → 건강검진 예약 승인
@@ -44,7 +43,6 @@ function CheckmanList() {
     // =========================================
     // 현재 메뉴
     //
-    // health
     // alert
     // reservation
     // =========================================
@@ -53,9 +51,7 @@ function CheckmanList() {
         useState(
             tab === "reservation"
                 ? "reservation"
-                : tab === "alert"
-                    ? "alert"
-                    : "health"
+                : "alert"
         );
 
 
@@ -71,27 +67,13 @@ function CheckmanList() {
 
             setMenu("reservation");
 
-        } else if (
-            tab === "alert"
-        ) {
-
-            setMenu("alert");
-
         } else {
 
-            setMenu("health");
+            setMenu("alert");
 
         }
 
     }, [tab]);
-
-
-    // =========================================
-    // 직원 건강정보
-    // =========================================
-
-    const [checkmanList, setCheckmanList]
-        = useState([]);
 
 
     // =========================================
@@ -110,20 +92,6 @@ function CheckmanList() {
         = useState([]);
 
 
-    // =========================================
-    // 건강정보 검색조건
-    // =========================================
-
-    const [healthFilter, setHealthFilter]
-        = useState({
-
-            keyword : "",
-
-            startDate : "",
-
-            endDate : ""
-
-        });
     // =========================================
     // 이상 알림 검색조건
     // =========================================
@@ -159,24 +127,6 @@ function CheckmanList() {
 
 
     // =========================================
-    // 건강정보 검색값 변경
-    // =========================================
-
-    const handleHealthChange = e => {
-
-        setHealthFilter({
-
-            ...healthFilter,
-
-            [e.target.name] :
-                e.target.value
-
-        });
-
-    };
-
-
-    // =========================================
     // 알림 검색값 변경
     // =========================================
 
@@ -208,38 +158,6 @@ function CheckmanList() {
                 e.target.value
 
         });
-
-    };
-
-
-    // =========================================
-    // 직원 건강정보 조회
-    // =========================================
-
-    const selectCheckmanList = async () => {
-
-        try {
-
-            const response
-                = await selectCheckmanListApi(
-                    healthFilter
-                );
-
-
-            setCheckmanList(
-                response.data
-            );
-
-
-        } catch(error) {
-
-            console.log(
-                "직원 건강정보 조회 실패!"
-            );
-
-            console.log(error);
-
-        }
 
     };
 
@@ -339,42 +257,11 @@ function CheckmanList() {
 
     useEffect(() => {
 
-        selectCheckmanList();
-
         selectAlertList();
 
         selectReservationList();
 
     }, []);
-
-
-    // =========================================
-    // 건강정보 검색
-    // =========================================
-
-    const searchHealth = () => {
-
-        if(
-            healthFilter.startDate !== ""
-            &&
-            healthFilter.endDate !== ""
-            &&
-            healthFilter.startDate
-                > healthFilter.endDate
-        ) {
-
-            alert(
-                "시작일은 종료일보다 늦을 수 없습니다."
-            );
-
-            return;
-
-        }
-
-
-        selectCheckmanList();
-
-    };
 
 
     // =========================================
@@ -635,28 +522,6 @@ function CheckmanList() {
             <div className="checkman-menu-area">
 
 
-                {/* 직원 건강정보 */}
-
-                <button
-                    type="button"
-
-                    className={
-                        menu === "health"
-                        ?
-                        "checkman-menu-btn checkman-menu-active"
-                        :
-                        "checkman-menu-btn"
-                    }
-
-                    onClick={ () => {
-
-                        setMenu("health");
-
-                    }}
-                >
-                    직원 건강정보
-                </button>
-
 
 
                 {/* 건강 이상 알림 */}
@@ -742,289 +607,6 @@ function CheckmanList() {
 
             </div>
 
-
-
-            {/* ================================= */}
-            {/* 직원 건강정보 탭 */}
-            {/* ================================= */}
-
-            {
-                menu === "health"
-                &&
-                (
-
-                    <div className="checkman-card-area">
-
-                        <div className="checkman-card">
-
-
-                            <div className="checkman-header">
-
-                                <h2>
-                                    직원 건강정보
-                                </h2>
-
-                                <p>
-                                    직원별 건강기록을 조회하고 건강 상태를 확인합니다.
-                                </p>
-
-                            </div>
-
-
-
-                            {/* 검색 */}
-
-                            <div className="checkman-search-area">
-
-
-                                <input
-                                    type="text"
-
-                                    name="keyword"
-
-                                    value={
-                                        healthFilter.keyword
-                                    }
-
-                                    onChange={
-                                        handleHealthChange
-                                    }
-
-                                    placeholder="직원 이름을 입력해주세요."
-                                />
-
-
-                                <input
-                                    type="date"
-
-                                    name="startDate"
-
-                                    value={
-                                        healthFilter.startDate
-                                    }
-
-                                    onChange={
-                                        handleHealthChange
-                                    }
-                                />
-
-
-                                <span>
-                                    ~
-                                </span>
-
-
-                                <input
-                                    type="date"
-
-                                    name="endDate"
-
-                                    value={
-                                        healthFilter.endDate
-                                    }
-
-                                    onChange={
-                                        handleHealthChange
-                                    }
-                                />
-
-
-                                <button
-                                    type="button"
-
-                                    className="checkman-search-btn"
-
-                                    onClick={
-                                        searchHealth
-                                    }
-                                >
-                                    조회
-                                </button>
-
-
-                            </div>
-
-
-
-                            {/* 건강정보 목록 */}
-
-                            <div className="checkman-table-area">
-
-                                <table className="checkman-table">
-
-                                    <thead>
-
-                                        <tr>
-
-                                            <th>
-                                                이름
-                                            </th>
-
-                                            <th>
-                                                부서
-                                            </th>
-
-                                            <th>
-                                                직급
-                                            </th>
-
-                                            <th>
-                                                기록일
-                                            </th>
-
-                                            <th>
-                                                BMI
-                                            </th>
-
-                                            <th>
-                                                혈압
-                                            </th>
-
-                                            <th>
-                                                혈당
-                                            </th>
-
-                                        </tr>
-
-                                    </thead>
-
-
-                                    <tbody>
-
-                                        {
-                                            checkmanList.length > 0
-                                            ?
-                                            checkmanList.map(
-                                                checkman => (
-
-                                                    <tr
-                                                        key={
-                                                            checkman.healthRecordId
-                                                        }
-
-                                                        className="checkman-table-row"
-
-                                                        onClick={ () => {
-
-                                                            navigate(
-                                                                `/checkman/health/${checkman.healthRecordId}`
-                                                            );
-
-                                                        }}
-                                                    >
-
-                                                        <td className="checkman-name-cell">
-
-                                                            {
-                                                                checkman.employeeName
-                                                            }
-
-                                                        </td>
-
-
-                                                        <td>
-
-                                                            {
-                                                                checkman.departmentName
-                                                                ??
-                                                                "-"
-                                                            }
-
-                                                        </td>
-
-
-                                                        <td>
-
-                                                            {
-                                                                checkman.jobName
-                                                                ??
-                                                                "-"
-                                                            }
-
-                                                        </td>
-
-
-                                                        <td>
-
-                                                            {
-                                                                checkman.recordDate
-                                                                ??
-                                                                "-"
-                                                            }
-
-                                                        </td>
-
-
-                                                        <td>
-
-                                                            {
-                                                                checkman.bmi
-                                                                ??
-                                                                "-"
-                                                            }
-
-                                                        </td>
-
-
-                                                        <td>
-
-                                                            {
-                                                                checkman.systolicBp != null
-                                                                &&
-                                                                checkman.diastolicBp != null
-                                                                ?
-                                                                `${checkman.systolicBp}/${checkman.diastolicBp}`
-                                                                :
-                                                                "-"
-                                                            }
-
-                                                        </td>
-
-
-                                                        <td>
-
-                                                            {
-                                                                checkman.bloodSugar
-                                                                ??
-                                                                "-"
-                                                            }
-
-                                                        </td>
-
-                                                    </tr>
-
-                                                )
-                                            )
-                                            :
-                                            (
-
-                                                <tr>
-
-                                                    <td
-                                                        colSpan="7"
-                                                        className="checkman-empty"
-                                                    >
-                                                        조회된 건강정보가 없습니다.
-                                                    </td>
-
-                                                </tr>
-
-                                            )
-                                        }
-
-                                    </tbody>
-
-                                </table>
-
-                            </div>
-
-
-                        </div>
-
-                    </div>
-
-                )
-            }
 
 
 

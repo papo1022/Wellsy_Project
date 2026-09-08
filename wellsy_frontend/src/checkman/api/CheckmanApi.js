@@ -13,68 +13,6 @@ const CHECKUP_RESERVATION_URL =
 
 
 // =========================================
-// 전체 직원 건강정보 조회
-// 이름 / 기간 검색
-// =========================================
-
-const selectCheckmanListApi = params => {
-
-    return axios.get(
-        `${BASE_URL}/health`,
-        {
-            params : params,
-
-            headers : {
-                Authorization :
-                    getAuthorization()
-            }
-        }
-    );
-
-};
-
-
-// =========================================
-// 특정 직원 건강정보 전체조회
-// =========================================
-
-const selectEmployeeCheckmanListApi
-    = employeeNo => {
-
-        return axios.get(
-            `${BASE_URL}/health/employee/${employeeNo}`,
-            {
-                headers : {
-                    Authorization :
-                        getAuthorization()
-                }
-            }
-        );
-
-    };
-
-
-// =========================================
-// 건강정보 상세조회
-// =========================================
-
-const selectCheckmanApi
-    = healthRecordId => {
-
-        return axios.get(
-            `${BASE_URL}/health/${healthRecordId}`,
-            {
-                headers : {
-                    Authorization :
-                        getAuthorization()
-                }
-            }
-        );
-
-    };
-
-
-// =========================================
 // 건강 이상 알림 목록
 // =========================================
 
@@ -84,10 +22,10 @@ const selectCheckmanAlertListApi
         return axios.get(
             `${BASE_URL}/alerts`,
             {
-                params : params,
+                params: params,
 
-                headers : {
-                    Authorization :
+                headers: {
+                    Authorization:
                         getAuthorization()
                 }
             }
@@ -106,8 +44,8 @@ const selectCheckmanAlertApi
         return axios.get(
             `${BASE_URL}/alerts/${alertId}`,
             {
-                headers : {
-                    Authorization :
+                headers: {
+                    Authorization:
                         getAuthorization()
                 }
             }
@@ -128,8 +66,8 @@ const updateCheckmanAlertApi
             `${BASE_URL}/alerts/${alertId}/read`,
             {},
             {
-                headers : {
-                    Authorization :
+                headers: {
+                    Authorization:
                         getAuthorization()
                 }
             }
@@ -148,10 +86,10 @@ const selectCheckupReservationListApi
         return axios.get(
             CHECKUP_RESERVATION_URL,
             {
-                params : params,
+                params: params,
 
-                headers : {
-                    Authorization :
+                headers: {
+                    Authorization:
                         getAuthorization()
                 }
             }
@@ -162,7 +100,6 @@ const selectCheckupReservationListApi
 
 // =========================================
 // 건강검진 예약 승인
-//
 // N -> Y
 //
 // 백엔드에서 승인과 동시에
@@ -176,15 +113,14 @@ const approveCheckupReservationApi
             `${CHECKUP_RESERVATION_URL}/${reservationId}/approve`,
             {},
             {
-                headers : {
-                    Authorization :
+                headers: {
+                    Authorization:
                         getAuthorization()
                 }
             }
         );
 
     };
-
 
 
 // =========================================
@@ -199,8 +135,8 @@ const cancelCheckupReservationApi
             `${CHECKUP_RESERVATION_URL}/${reservationId}/cancel`,
             {},
             {
-                headers : {
-                    Authorization :
+                headers: {
+                    Authorization:
                         getAuthorization()
                 }
             }
@@ -210,23 +146,10 @@ const cancelCheckupReservationApi
 
 
 export {
-
-    selectCheckmanListApi,
-
-    selectEmployeeCheckmanListApi,
-
-    selectCheckmanApi,
-
     selectCheckmanAlertListApi,
-
     selectCheckmanAlertApi,
-
     updateCheckmanAlertApi,
-
     selectCheckupReservationListApi,
-
     approveCheckupReservationApi,
-
     cancelCheckupReservationApi
-
 };
