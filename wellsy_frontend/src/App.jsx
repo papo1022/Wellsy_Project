@@ -38,7 +38,7 @@ import MyPage from "./my/components/MyPage";
 import ChatWindow from "./ai/components/ChatWindow";
 
 import LoginForm from "./login/components/LoginForm";
-import "./login/styles/login.css";
+import "./login/styles/Login.css";
 
 
 function App() {
