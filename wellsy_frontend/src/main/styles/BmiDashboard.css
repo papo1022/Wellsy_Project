@@ -120,7 +120,7 @@
 }
 
 .bmi-card strong.bmi-down {
-  color: var(--color-grey);
+  color: var(--color-info);
 }
 
 .bmi-chart-box {
