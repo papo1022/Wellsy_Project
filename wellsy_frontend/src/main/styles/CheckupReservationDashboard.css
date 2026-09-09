@@ -2,34 +2,30 @@
   width: 100%;
   max-width: none;
   margin: 0;
-  padding: 20px;
+  padding: var(--spacing);
   box-sizing: border-box;
 }
-
 
 /* ======================================
    제목
 ====================================== */
-
 .checkup-title {
-  margin-bottom: 25px;
+  margin-bottom: var(--spacing);
 }
 
 .checkup-title h2 {
-  margin: 0 0 8px;
-  font-size: 28px;
+  margin: 0 0 var(--spacing-sm);
+  font-size: var(--font-size-h2);
 }
 
 .checkup-title p {
   margin: 0;
-  color: #777;
+  color: var(--color-grey);
 }
-
 
 /* ======================================
    검색 조건
 ====================================== */
-
 .checkup-search-box {
   display: flex;
   flex-wrap: wrap;
