@@ -4,7 +4,6 @@
   padding: var(--spacing);
   background: var(--color-white);
   border-radius: var(--radius-md);
-  cursor: pointer;
 }
 
 .health-main-card h1 {

@@ -3,7 +3,7 @@
   max-width: 1185px;
   min-width: 0;
   min-height: 0;
-  margin-top: var(--spacing);
+  margin: var(--spacing);
   box-sizing: border-box;
   background: var(--color-ivory);
 }
