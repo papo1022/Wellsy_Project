@@ -568,9 +568,9 @@ const handleEventDidMount = (info) => {
   height="auto"
 
   headerToolbar={{
-    left: "prev,next today",
+    left: "prev",
     center: "title",
-    right: ""
+    right: "next"
   }}
 
 />
