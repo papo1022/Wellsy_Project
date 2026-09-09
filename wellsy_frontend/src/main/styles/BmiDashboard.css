@@ -64,7 +64,7 @@
 .bmi-title p,
 .bmi-empty p {
   margin: 0;
-  color: var(--color-cancel);
+  color: var(--color-grey);
   font-size: var(--font-size-body);
 }
 
