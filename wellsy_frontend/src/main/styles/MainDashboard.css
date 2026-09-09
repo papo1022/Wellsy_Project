@@ -1,8 +1,9 @@
 .dashboard-container {
   width: 100%;
+  max-width: 1185px;
   min-width: 0;
   min-height: 0;
-  margin: var(--spacing);
+  margin-top: var(--spacing);
   box-sizing: border-box;
   background: var(--color-ivory);
 }

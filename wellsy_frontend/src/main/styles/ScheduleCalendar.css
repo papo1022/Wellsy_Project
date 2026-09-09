@@ -1,8 +1,8 @@
 .schedule-page {
   width: 100%;
-  max-width: 310px;
+  max-width: 400px;
   min-width: 0;
-  padding: var(--spacing-sm);
+  padding: var(--spacing);
   box-sizing: border-box;
   background: transparent;
   background-color: var(--color-white);
