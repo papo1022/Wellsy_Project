@@ -1,73 +1,55 @@
 /* =========================================================
    공통 CRUD 카드
 ========================================================= */
-
 .crud-card {
     width: 500px;
-    margin-bottom: 20px;
-    padding: 30px;
-
+    margin-bottom: var(--spacing);
+    padding: var(--spacing);
     background-color: var(--color-white);
-
     border-radius: var(--radius-md);
-
     box-sizing: border-box;
 }
 
 .crud-card h2 {
-    margin: 0 0 8px;
-
+    margin: 0 0 var(--spacing-sm);
     font-size: var(--font-size-h2);
     font-weight: 700;
-
     color: var(--color-black);
 }
 
 .crud-card-date {
     margin-bottom: var(--spacing);
-
     font-size: var(--font-size-caption);
     color: var(--color-grey);
 }
 
-
 /* =========================================================
    공통 입력
 ========================================================= */
-
 .crud-card-input {
     margin-bottom: var(--spacing);
 }
 
 .crud-card-input label {
     display: block;
-
-    margin-bottom: 8px;
-
+    margin-bottom: var(--spacing-sm);
     font-size: var(--font-size-h4);
     font-weight: 700;
-
     color: var(--color-black);
 }
 
 .crud-card-input-value {
     display: flex;
     align-items: center;
-
-    gap: 10px;
+    gap: var(--spacing-sm);
 }
-
 .crud-card-input-value input {
     flex: 1;
-
     padding: 10px var(--spacing);
-
     border: 1px solid var(--color-cancel);
     border-radius: var(--radius-sm);
-
     font-family: var(--font-family);
     font-size: var(--font-size-body);
-
     outline: none;
 }
 
@@ -77,14 +59,11 @@
 
 .crud-card-input-value span {
     width: 35px;
-
     font-size: var(--font-size-body);
     color: var(--color-grey);
 }
 
-
 /* number input 화살표 제거 */
-
 .crud-card input[type="number"]::-webkit-inner-spin-button,
 .crud-card input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -96,34 +75,25 @@
     appearance: textfield;
 }
 
-
 /* =========================================================
    공통 버튼 영역
 ========================================================= */
-
 .crud-card-buttons {
     display: flex;
     align-items: center;
-
-    gap: 10px;
-
-    margin-bottom: 40px;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
 }
-
 
 /* =========================================================
    버튼
 ========================================================= */
-
 .btn-primary {
     padding: 10px var(--spacing);
-
     background-color: var(--color-primary);
     color: var(--color-white);
-
     border: none;
     border-radius: var(--radius-round);
-
     cursor: pointer;
 }
 
@@ -133,14 +103,11 @@
 }
 
 .btn-secondary {
-    padding: 10px var(--spacing);
-
+    padding: var(--spacing-sm) var(--spacing);
     background-color: var(--color-cancel);
     color: var(--color-white);
-
     border: none;
     border-radius: var(--radius-round);
-
     cursor: pointer;
 }
 
@@ -154,30 +121,21 @@
     color: var(--color-white);
 }
 
-
 /* =========================================================
    모달
 ========================================================= */
-
 .health-modal-background {
     position: fixed;
-
     top: 0;
     left: 200px;
-
     width: calc(100vw - 200px);
     height: 100vh;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     padding: var(--spacing);
-
     background: rgba(12, 12, 12, 0.35);
-
     box-sizing: border-box;
-
     z-index: 900;
 }
 
@@ -185,36 +143,27 @@
     position: relative;
 }
 
-
 /* =========================================================
    단위 전환 / 식사 탭
 ========================================================= */
-
 .unit-toggle,
 .meal-tabs {
     display: inline-flex;
-
-    padding: 5px;
-
+    padding: var(--spacing-sm);
     background: var(--color-ivory);
-
     border-radius: var(--radius-sm);
 }
 
 .unit-toggle button,
 .meal-tabs button {
-    padding: 10px var(--spacing);
-
+    padding: var(--spacing-sm) var(--spacing);
     background: transparent;
     color: var(--color-grey);
-
     border: none;
     border-radius: var(--radius-md);
-
     font-family: var(--font-family);
     font-size: var(--font-size-button);
     font-weight: 700;
-
     cursor: pointer;
 }
 
@@ -224,11 +173,9 @@
     color: var(--color-white);
 }
 
-
 /* =========================================================
    별점
 ========================================================= */
-
 .rating {
     width: 180px;
 }
@@ -238,39 +185,29 @@
     cursor: pointer;
 }
 
-
 /* =========================================================
    식사 상세
 ========================================================= */
-
 .meal-detail {
     width: 100%;
     max-width: 1000px;
-
     margin: var(--spacing) auto;
 }
 
 .meal-tabs {
     display: flex;
-
-    gap: 10px;
-
+    gap: var(--spacing-sm);
     margin-bottom: var(--spacing);
-
     background-color: transparent;
 }
 
 .meal-tabs button {
     flex: 1;
-
-    padding: 10px;
-
+    padding: var(--spacing-sm);
     background: var(--color-white);
     color: var(--color-primary);
-
     border: 1px solid var(--color-primary);
     border-radius: var(--radius-sm);
-
     cursor: pointer;
 }
 
@@ -281,30 +218,23 @@
 
 .meal-input-method {
     display: flex;
-
     gap: var(--spacing);
-
     margin-bottom: var(--spacing);
 }
 
 .meal-input-method button {
     flex: 1;
-
     padding: var(--spacing);
-
     background-color: var(--color-ivory);
     color: var(--color-grey);
-
     border: none;
     border-radius: var(--radius-sm);
-
     cursor: pointer;
 }
 
 .meal-input-method button.active {
     background-color: var(--color-primary);
     color: var(--color-white);
-
     border: none;
 
     font-weight: 700;
@@ -320,33 +250,26 @@
     width: 100%;
     max-width: 400px;
     max-height: 300px;
-
     object-fit: cover;
-
     border-radius: var(--radius-sm);
 }
-
 
 /* =========================================================
    음식 카드
 ========================================================= */
-
 .food-info-card {
     width: 100%;
-
     padding: var(--spacing);
     margin-bottom: var(--spacing);
 }
 
 .food-info-row {
     display: flex;
-
     gap: var(--spacing);
 }
 
 .food-info-row .crud-card-input {
     flex: 1;
-
     margin-bottom: var(--spacing);
 }
 
@@ -363,41 +286,28 @@
     width: auto;
 }
 
-
 /* =========================================================
    오늘 식사 영양 요약
 ========================================================= */
-
 .meal-summary {
     display: grid;
-
     grid-template-columns: repeat(4, 1fr);
-
     gap: var(--spacing);
-
     margin-bottom: var(--spacing);
 }
 
 .meal-summary-card {
     width: auto;
-
     padding: var(--spacing);
-
     background-color: var(--color-ivory);
-
-    border: 1px solid rgba(140, 183, 145, 0.25);
     border-radius: var(--radius-sm);
-
     text-align: center;
-
     box-sizing: border-box;
 }
 
 .meal-summary-card span {
     display: block;
-
-    margin-bottom: 8px;
-
+    margin-bottom: var(--spacing-sm);
     font-size: var(--font-size-button);
     color: var(--color-grey);
 }
@@ -405,54 +315,42 @@
 .meal-summary-card strong {
     font-size: var(--font-size-h2);
     font-weight: 700;
-
     color: var(--color-black);
 }
 
 .meal-summary-card small {
-    margin-left: 4px;
-
+    margin-left: var(--spacing-sm);
     font-size: var(--font-size-caption);
     color: var(--color-grey);
 }
 
-
 /* =========================================================
    저장된 식사 기록
 ========================================================= */
-
 .saved-meal-grid {
     display: grid;
-
     grid-template-columns: repeat(3, minmax(0, 1fr));
-
-    gap: 16px;
-
+    gap: var(--spacing);
     width: 100%;
 }
 
 .saved-meal-grid .food-info-card {
     width: 100%;
     min-width: 0;
-
     margin: 0;
-
     box-sizing: border-box;
 }
 
 .saved-meal-grid .food-info-row {
     display: flex;
     flex-direction: column;
-
-    gap: 10px;
+    gap: var(--spacing-sm);
 }
 
 .saved-meal-grid .nutrition-row {
     display: grid;
-
     grid-template-columns: repeat(2, minmax(0, 1fr));
-
-    gap: 10px;
+    gap: var(--spacing-sm);
 }
 
 .saved-meal-grid .crud-card-input,
@@ -460,48 +358,39 @@
 .saved-meal-grid input {
     width: 100%;
     min-width: 0;
-
     box-sizing: border-box;
 }
-
 
 /* =========================================================
    캘린더
 ========================================================= */
-
 .calendar-detail {
     width: 1000px;
     max-width: calc(100vw - 260px);
-
-    margin: 20px auto;
+    margin: var(--spacing) auto;
 }
 
 .calendar-detail-grid {
     display: grid;
-
     grid-template-columns: repeat(2, 1fr);
-
-    gap: 15px;
-
-    margin-top: 15px;
+    gap: var(--spacing);
+    margin-top: var(--spacing);
 }
 
 .calendar-detail-grid .health-main-card {
     width: 100%;
     min-height: auto;
-
-    padding: 20px;
+    padding: var(--spacing);
     margin: 0;
-
     box-sizing: border-box;
 }
 
 .calendar-detail-grid .health-main-card h4 {
-    margin: 0 0 10px;
+    margin: 0 0 var(--spacing-sm);
 }
 
 .calendar-detail-grid .health-main-card p {
-    margin: 6px 0;
+    margin: var(--spacing-sm) 0;
 }
 
 .calendar-detail .fc {
@@ -513,214 +402,159 @@
 }
 
 .calendar-detail .fc-daygrid-day-number {
-    padding: 8px;
-
+    padding: var(--spacing-sm);
     font-size: var(--font-size-body);
 }
 
 .calendar-detail .fc-col-header-cell-cushion {
-    padding: 10px;
-
+    padding: var(--spacing);
     font-size: var(--font-size-body);
 }
 
-
 /* 일요일 */
-
 .calendar-detail .fc-day-sun .fc-col-header-cell-cushion,
 .calendar-detail .fc-day-sun .fc-daygrid-day-number {
     color: var(--color-error);
 }
 
-
 /* 토요일 */
-
 .calendar-detail .fc-day-sat .fc-col-header-cell-cushion,
 .calendar-detail .fc-day-sat .fc-daygrid-day-number {
-    color: #1976d2;
-
+    color: var(--color-info);
     transition: all 0.1s ease-in-out;
 }
-
 
 /* =========================================================
    캘린더 상세 모달
 ========================================================= */
-
 .calendar-modal-layout {
     display: flex;
-
     justify-content: center;
     align-items: flex-start;
-
-    gap: 20px;
-
+    gap: var(--spacing);
     width: 100%;
     max-width: calc(100vw - 260px);
-
     box-sizing: border-box;
 }
 
 .calendar-health-panel {
     width: 700px;
     min-width: 0;
-
     max-height: 80vh;
-
     overflow-y: auto;
-
     box-sizing: border-box;
 }
-
 
 /* =========================================================
    운동 사이드 패널
 ========================================================= */
-
 .exercise-side-panel {
     width: 440px;
     min-width: 0;
-
     max-height: 85vh;
-
-    padding: 18px 20px;
-
+    padding: var(--spacing);
     overflow-y: auto;
     overflow-x: hidden;
-
     box-sizing: border-box;
 }
 
 .exercise-form {
     width: 100%;
     min-width: 0;
-
     box-sizing: border-box;
 }
 
 .exercise-form h2 {
-    margin: 0 0 6px;
+    margin: 0 0 var(--spacing-sm);
 }
 
 .exercise-form h3 {
-    margin: 16px 0 10px;
+    margin: var(--spacing) 0 var(--spacing-sm);
 }
 
 .exercise-form .crud-card-date {
-    margin-bottom: 12px;
+    margin-bottom: var(--spacing-sm);
 }
-
 
 /* =========================================================
    운동 입력
 ========================================================= */
-
 .exercise-form .crud-card-input {
     width: 100%;
     min-width: 0;
-
-    margin-bottom: 8px;
-
+    margin-bottom: var(--spacing-sm);
     box-sizing: border-box;
 }
 
 .exercise-form .crud-card-input label {
-    margin-bottom: 4px;
+    margin-bottom: var(--spacing-sm);
 }
 
 .exercise-form .crud-card-input-value {
     width: 100%;
     min-width: 0;
-
     box-sizing: border-box;
 }
 
 .exercise-form .crud-card-input input {
     width: 100%;
     min-width: 0;
-
     min-height: 38px;
-
-    padding: 8px 10px;
-
+    padding: var(--spacing-sm);
     box-sizing: border-box;
 }
-
 
 /* =========================================================
    운동 카드
 ========================================================= */
-
 .exercise-info-card {
     width: 100%;
     min-width: 0;
-
-    padding: 12px;
-    margin-bottom: 12px;
-
-    background: #f7f7f5;
-
+    padding: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+    background: var(--color-white);
     border-radius: var(--radius-md);
-
     box-sizing: border-box;
 }
 
 .exercise-info-summary {
     display: flex;
     flex-wrap: wrap;
-
-    gap: 8px;
-
-    margin: 8px 0;
+    gap: var(--spacing-sm);
+    margin: var(--spacing-sm) 0;
 }
 
 .exercise-info-summary span {
-    padding: 5px 10px;
-
+    padding: var(--spacing-sm) var(--spacing);
     background-color: var(--color-white);
-
     border-radius: var(--radius-round);
-
     font-size: var(--font-size-caption);
 }
-
 
 /* =========================================================
    운동 결과 2 x 2
 ========================================================= */
-
 .exercise-result-grid {
     display: grid;
-
     grid-template-columns: repeat(2, minmax(0, 1fr));
-
-    gap: 8px;
-
+    gap: var(--spacing-sm);
     width: 100%;
     min-width: 0;
-
-    margin: 10px 0;
-
+    margin: var(--spacing-sm) 0;
     box-sizing: border-box;
 }
 
 .exercise-result-item {
     min-width: 0;
-
-    padding: 8px 10px;
-
+    padding: var(--spacing-sm);
     background: var(--color-white);
-
     border-radius: var(--radius-sm);
-
     box-sizing: border-box;
 }
 
 .exercise-result-item > span {
     display: block;
-
-    margin-bottom: 4px;
-
+    margin-bottom: var(--spacing-sm);
     font-size: var(--font-size-caption);
     color: var(--color-grey);
 }
@@ -728,9 +562,7 @@
 .exercise-result-value {
     display: flex;
     align-items: center;
-
-    gap: 6px;
-
+    gap: var(--spacing-sm);
     width: 100%;
     min-width: 0;
 }
@@ -738,20 +570,13 @@
 .exercise-result-value input {
     width: 100%;
     min-width: 0;
-
-    padding: 5px 7px;
-
+    padding: var(--spacing-sm);
     background: var(--color-white);
-
-    border: 1px solid rgba(140, 183, 145, 0.4);
-    border-radius: 6px;
-
+    border-radius: var(--radius-sm);
     font-family: inherit;
-    font-size: 16px;
-    font-weight: 600;
-
+    font-size: var(--font-size-body);
+    font-weight: 400;
     outline: none;
-
     box-sizing: border-box;
 }
 
@@ -761,161 +586,126 @@
 
 .exercise-result-value small {
     flex-shrink: 0;
-
     font-size: var(--font-size-caption);
     color: var(--color-grey);
 }
 
-
 /* 예상 소모 */
-
 .exercise-result-value.readonly {
     min-height: 32px;
 }
 
 .exercise-result-value.readonly strong {
-    font-size: 20px;
+    font-size: var(--font-size-h4);
     font-weight: 700;
 }
 
-
 /* 운동 버튼 */
-
 .exercise-form .crud-card-buttons {
     display: flex;
-
     justify-content: flex-end;
     align-items: center;
-
-    gap: 8px;
-
+    gap: var(--spacing-sm);
     width: 100%;
-
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
 }
-
 
 /* =========================================================
    수면 시계
 ========================================================= */
-
 .sleep-clock-wrapper {
     display: flex;
     align-items: center;
-
-    gap: 30px;
+    gap: var(--spacing);
 }
 
 .sleep-clock {
     position: relative;
-
     width: 180px;
     height: 180px;
-
     border-radius: 50%;
-
     flex-shrink: 0;
 }
 
 .sleep-clock-inner {
     position: absolute;
-
     top: 50%;
     left: 50%;
-
     width: 125px;
     height: 125px;
-
     transform: translate(-50%, -50%);
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     background: var(--color-white);
-
     border-radius: 50%;
 }
 
 .sleep-clock-inner strong {
-    font-size: 24px;
+    font-size: var(--font-size-h3);
 }
 
 .sleep-clock-inner span {
-    margin-top: 4px;
-
-    font-size: 13px;
-    color: #777;
+    margin-top: var(--spacing-sm);
+    font-size: var(--font-size-button);
+    color: var(--color-grey);
 }
 
 .sleep-clock-info {
     display: flex;
     flex-direction: column;
-
-    gap: 12px;
+    gap: var(--spacing-sm);
 }
 
 .sleep-clock-info span {
-    color: #777;
+    color: var(--color-grey)
 }
 
 .sleep-clock-info strong {
-    margin-left: 8px;
-
-    color: #333;
+    margin-left: var(--spacing-sm);
+    color: var(--color-black);
 }
-
 
 /* =========================================================
    수면 시계 라벨
 ========================================================= */
-
 .clock-label {
     position: absolute;
-
-    font-size: 11px;
-    font-weight: 600;
-
-    color: #666;
+    font-size: var(--font-size-caption);
+    font-weight: 400;
+    color: var(--color-grey);
 }
 
 .clock-00 {
-    top: 6px;
+    top: var(--spacing-sm);
     left: 50%;
-
     transform: translateX(-50%);
 }
 
 .clock-06 {
     top: 50%;
-    right: 7px;
-
+    right: var(--spacing-sm);
     transform: translateY(-50%);
 }
 
 .clock-12 {
-    bottom: 6px;
+    bottom: var(--spacing-sm);
     left: 50%;
-
     transform: translateX(-50%);
 }
 
 .clock-18 {
     top: 50%;
-    left: 7px;
-
+    left: var(--spacing-sm);
     transform: translateY(-50%);
 }
-
 
 /* =========================================================
    반응형
 ========================================================= */
-
 @media (max-width: 1200px) {
-
     .calendar-modal-layout {
         flex-direction: column;
         align-items: center;
