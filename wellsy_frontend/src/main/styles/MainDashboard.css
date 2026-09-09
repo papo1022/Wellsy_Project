@@ -1,40 +1,49 @@
-:root {
-  --dashboard-green: #f0f5f1;
-  --dashboard-green-soft: #eef6f0;
-  --dashboard-text: #17211a;
-  --dashboard-muted: #7c857f;
-}
-
 .dashboard-container {
   width: 100%;
   min-width: 0;
   min-height: 0;
-  padding: 12px 16px 0;
+  padding: var(--spacing);
   box-sizing: border-box;
-  background: #f7f9f7;
+  background: var(--color-ivory);
+}
+
+/* 카드 */
+.dashboard-widget,
+.admin-dashboard-panel,
+.bmi-dashboard,
+.exercise-dashboard,
+.health-dashboard,
+.checkup-dashboard {
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing);
 }
 
 .profile-card {
   display: flex;
   align-items: center;
-  min-height: 38px;
-  margin-bottom: 8px;
-  gap: 8px;
+  width: fit-content;
+  min-height: var(--spacing-lg);
+  margin-bottom: var(--spacing-sm);
+  gap: var(--spacing-sm);
+  padding: var(--spacing);
+  border-radius: var(--radius-round);
+  background-color: var(--color-white);
 }
 
 .profile-avatar {
-  width: 34px;
-  height: 34px;
-  flex: 0 0 34px;
+  width: 50px;
+  height: 50px;
+  flex: 0 0 50px;
   border-radius: 50%;
-  background: var(--dashboard-green);
+  background: var(--color-primary);
   cursor: pointer;
 }
 
 .profile-name {
   display: inline-flex;
   align-items: baseline;
-  gap: 5px;
+  gap: var(--spacing-sm);
   font-size: var(--font-size-body);
   color: var(--color-black);
   font-weight: 700;
@@ -58,22 +67,24 @@
   margin-left: 6px;
   padding: 5px 7px;
   border: 0;
-  background: transparent;
-  color: #556159;
+  border-radius: var(--radius-round);
+  background: var(--color-secondary);
+  color: var(--color-white);
   font-size: 10px;
   cursor: pointer;
 }
 
 .logout-btn:hover {
-  color: #6f9f79;
+  background-color: transparent;
+  color: var(--color-primary);
 }
 
 .employee-dashboard-grid {
   display: grid;
-  grid-template-columns: minmax(0, 850px) 310px !important;
-  justify-content: start !important;
-  column-gap: 12px !important;
-  row-gap: 12px;
+  grid-template-columns: minmax(0, 850px) 310px;
+  justify-content: start;
+  column-gap: var(--spacing-sm);
+  row-gap: var(--spacing-sm);
   align-items: start;
 }
 
@@ -81,13 +92,13 @@
   display: flex;
   min-width: 0;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--spacing-sm);
 }
 
 .dashboard-column-left {
   width: 100%;
-  max-width: 850px !important;
-  gap: 32px;
+  max-width: 850px;
+  gap: var(--spacing-lg);
 }
 
 .dashboard-column-right {
@@ -96,7 +107,7 @@
   min-width: 0;
   flex-direction: column;
   gap: 10px;
-  justify-self: start !important;
+  justify-self: start;
 }
 
 .dashboard-widget {
@@ -111,7 +122,7 @@
 
 @media (max-width: 1300px) {
   .employee-dashboard-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: 1fr;
   }
 
   .dashboard-column-right {
@@ -122,11 +133,11 @@
 
 @media (max-width: 600px) {
   .dashboard-container {
-    padding: 10px;
+    padding: var(--spacing-sm);
   }
 
   .profile-card {
-    margin-bottom: 4px;
+    margin-bottom: var(--spacing-sm);
   }
 }
 
@@ -141,7 +152,7 @@
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 28px 40px;
+  padding: 0 var(--spacing) var(--spacing-lg);
   box-sizing: border-box;
 }
 
@@ -151,16 +162,16 @@
   grid-template-columns:
     minmax(0, 2fr) minmax(300px, 1fr);
 
-  gap: 36px;
+  gap: var(--spacing-lg);
   width: 100%;
-  margin-top: 22px;
+  margin-top: var(--spacing);
   align-items: start;
 }
 
 .dashboard-column {
   display: flex;
   flex-direction: column;
-  gap: 36px;
+  gap: var(--spacing-lg);
   min-width: 0;
   width: 100%;
 }
@@ -173,29 +184,11 @@
 /* 화면이 좁아지면 한 줄 배치 */
 @media (max-width: 1100px) {
   .employee-dashboard-content {
-    padding: 0 20px 32px;
+    padding: 0 var(--spacing) var(--spacing-lg);
   }
 
   .employee-dashboard-grid {
     grid-template-columns: 1fr;
-    gap: 28px;
+    gap: var(--spacing);
   }
-}
-
-.dashboard-container,
-.employee-dashboard-container,
-.employee-dashboard-content,
-.employee-dashboard-grid,
-.dashboard-column,
-.dashboard-widget,
-.bmi-dashboard,
-.exercise-dashboard,
-.health-dashboard,
-.schedule-page,
-.schedule-container,
-.admin-dashboard-grid,
-.admin-dashboard-panel,
-.admin-health-dashboard,
-.checkup-dashboard {
-  background-color: #ffffff;
 }
