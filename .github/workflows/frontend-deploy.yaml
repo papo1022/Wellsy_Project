@@ -48,10 +48,10 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           script: |
             set -e
-            sudo rm -rf /var/www/html/*
-            sudo cp -r /home/ubuntu/react-upload/. /var/www/html/
-            sudo chown -R www-data:www-data /var/www/html
-            sudo chmod -R 755 /var/www/html
+            sudo rm -rf /var/www/wellsy/*
+            sudo cp -r /home/ubuntu/react-upload/. /var/www/wellsy/
+            sudo chown -R www-data:www-data /var/www/wellsy
+            sudo chmod -R 755 /var/www/wellsy
             rm -rf /home/ubuntu/react-upload/*
             sudo nginx -t
             sudo systemctl reload nginx
