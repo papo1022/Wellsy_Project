@@ -61,42 +61,36 @@ function Header({ setToken }) {
                     <div>
                         <Link to="/" className={getNavClass("/")} title="Home">
                             <i className="fi fi-sr-home"></i>
-                            <br/>
                             홈
                         </Link>
                     </div>
                     <div>
                         <Link to="/health" className={getNavClass("/health")} title="건강 관리">
                             <i className="fi fi-ss-chart-simple"></i>
-                            <br/>
                             건강 관리
                         </Link>
                     </div>
                     <div>
                         <Link to="/check" className={getNavClass("/check")} title="건강검진">
                             <i className="fi fi-sr-calendar"></i>
-                            <br/>
                             건강검진
                         </Link>
                     </div>
                     <div>
                         <Link to="/chat" className={getNavClass("/chat")} title="AI 챗봇">
                             <i className="fi-sr-comment-dots"></i>
-                            <br/>
                             AI 챗봇
                         </Link>
                     </div>
                     <div>
                         <Link to="/notice" className={getNavClass("/notice")} title="공지사항">
                             <i className="fi-sr-megaphone"></i>
-                            <br/>
                             공지사항
                         </Link>
                     </div>
                     <div>
                         <Link to="/my" className={getNavClass("/my")} title="마이페이지">
                             <i className="fi-sr-user"></i>
-                            <br/>
                             마이페이지
                         </Link>
                     </div>
