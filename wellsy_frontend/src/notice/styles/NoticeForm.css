@@ -1,184 +1,107 @@
 /* ==========================================
    공지사항 작성 / 수정
 ========================================== */
-
 .notice-form {
-
     width: 100%;
 }
 
-
 .notice-form-item {
-
-    margin-bottom: 25px;
+    margin-bottom: var(--spacing);
 }
-
 
 .notice-form-label {
-
     display: block;
-
-    margin-bottom: 10px;
-
-    font-size: 15px;
-
+    margin-bottom: var(--spacing);
+    font-size: var(--font-size-h2);
     font-weight: 700;
-
-    color: #333;
+    color: var(--color-black);
 }
-
 
 /* ==========================================
    제목 입력
 ========================================== */
-
 .notice-input {
-
     width: 100%;
-
     height: 46px;
-
     box-sizing: border-box;
-
-    padding: 0 15px;
-
-    border: 1px solid #ddd;
-
-    border-radius: 10px;
-
-    background: #f8f8f8;
-
-    font-size: 14px;
-
+    padding: 0 var(--spacing);
+    border: 1px solid var(--color-cancel);
+    border-radius: var(--radius-sm);
+    background: var(--color-ivory);
+    font-size: var(--font-size-body);
     outline: none;
 }
 
-
 .notice-input:focus {
-
-    background: #fff;
-
-    border-color: #999;
+    background: var(--color-white);
+    border-color: var(--color-grey);
 }
-
 
 /* ==========================================
    내용 입력
 ========================================== */
-
 .notice-textarea {
-
     width: 100%;
-
     min-height: 320px;
-
     box-sizing: border-box;
-
-    padding: 15px;
-
-    border: 1px solid #ddd;
-
-    border-radius: 10px;
-
-    background: #f8f8f8;
-
-    font-size: 14px;
-
-    line-height: 1.7;
-
+    padding: var(--spacing);
+    border: 1px solid var(--color-cancel);
+    border-radius: var(--radius-sm);
+    background: var(--color-ivory);
+    font-size: var(--font-size-body);
     resize: vertical;
-
     outline: none;
 }
 
-
 .notice-textarea:focus {
-
-    background: #fff;
-
-    border-color: #999;
+    background: var(--color-white);
+    border-color: var(--color-grey);
 }
-
 
 /* ==========================================
    BYTE 표시
 ========================================== */
-
 .notice-byte-count {
-
     display: flex;
-
     justify-content: flex-end;
-
     align-items: center;
-
-    gap: 4px;
-
-    margin-top: 7px;
-
-    padding-right: 2px;
-
-    color: #aaa;
-
-    font-size: 12px;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+    padding-right: var(--spacing-sm);
+    color: var(--color-cancel);
+    font-size: var(--font-size-caption);
 }
-
 
 .notice-byte-count span:first-child {
-
-    color: #555;
-
-    font-weight: 600;
+    color: var(--color-black);
+    font-weight: 700;
 }
-
 
 /* ==========================================
    상단 고정 체크박스
 ========================================== */
-
 .notice-checkbox-area {
-
     display: flex;
-
     align-items: center;
-
-    gap: 12px;
-
+    gap: var(--spacing-sm);
     width: fit-content;
 }
 
-
 /* 체크박스만 클릭 가능 */
-
 .notice-checkbox-area input[type="checkbox"] {
-
     width: 22px;
-
     height: 22px;
-
     margin: 0;
-
-    accent-color: #338967;
-
+    accent-color: var(--color-primary);
     cursor: pointer;
-
     flex-shrink: 0;
 }
 
-
 /* 안내 문구 */
-
 .notice-checkbox-text {
-
-    color: #444;
-
-    font-size: 16px;
-
-    line-height: 22px;
-
-    font-weight: 500;
-
+    color: var(--color-black);
+    font-size: var(--font-size-body);
+    font-weight: 400;
     cursor: default;
-
     user-select: none;
 }
