@@ -3,8 +3,7 @@
 ========================================== */
 .checkman-dashboard {
   width: 1200px;
-  margin: 0 auto;
-  padding: var(--spacing) var(--spacing) var(--spacing-lg);
+  margin: var(--spacing);
   box-sizing: border-box;
 }
 
@@ -20,16 +19,18 @@
 .checkman-menu-btn {
   padding: var(--spacing-sm) var(--spacing);
   border: 1px solid var(--color-ivory);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-round);
   background: var(--color-white);
   color: var(--color-grey);
+  font-size: var(--font-size-button);
   cursor: pointer;
 }
 
 .checkman-menu-active {
-  background: var(--color-black);
-  border-color: var(--color-black);
+  background: var(--color-primary);
   color: var(--color-white);
+  font-weight: 700;
+
 }
 
 .checkman-alert-count,
@@ -132,10 +133,17 @@
   height: 40px;
   padding: 0 var(--spacing);
   border: none;
-  border-radius: var(--radius-sm);
-  background: var(--color-black);
+  border-radius: var(--radius-round);
+  background: var(--color-primary);
   color: var(--color-white);
+  font-size: var(--font-size-button);
+  font-weight: 700;
   cursor: pointer;
+}
+
+.checkman-search-btn:hover {
+    background-color: var(--color-white);
+    color: var(--color-primary);
 }
 
 /* ==========================================
@@ -323,17 +331,21 @@
   border-radius: var(--radius-sm);
   cursor: pointer;
   font-size: var(--font-size-button);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .checkman-btn-primary {
-  background: var(--color-black);
+  background: var(--color-primary);
   color: var(--color-white);
+  font-size: var(--font-size-button);
+  font-weight: 700;
 }
 
 .checkman-btn-secondary {
   background: var(--color-ivory);
   color: var(--color-grey);
+  font-size: var(--font-size-button);
+  font-weight: 700;
 }
 
 .checkman-detail-btn {
@@ -343,6 +355,7 @@
   background: var(--color-white);
   cursor: pointer;
   font-size: var(--font-size-button);
+  font-weight: 700;
 }
 
 .checkman-detail-btn:hover {
@@ -356,9 +369,9 @@
   border-radius: var(--radius-sm);
   color: var(--color-white);
   font-size: var(--font-size-button);
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.15s ease;
+  transition: background 0.1s ease, transform 0.15s ease;
 }
 
 .checkman-approve-btn {
