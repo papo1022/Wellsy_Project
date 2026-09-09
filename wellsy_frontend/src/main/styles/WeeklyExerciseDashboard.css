@@ -80,7 +80,6 @@
   border: 0;
   border-left: 1px solid var(--color-ivory);
   border-radius: 0;
-  box-shadow: none;
 }
 
 .exercise-card:first-child {
@@ -112,7 +111,6 @@
   border: 0;
   border-top: 1px solid var(--color-cancel);
   border-radius: 0;
-  box-shadow: none;
   overflow: visible;
 }
 
@@ -141,7 +139,6 @@
   border: 0;
   border-top: 1px solid var(--color-ivory);
   border-radius: 0;
-  box-shadow: none;
 }
 
 .exercise-history h3 {
@@ -193,18 +190,6 @@
 
 .checkup-waiting-card {
   cursor: pointer;
-
-  transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease;
-}
-
-.checkup-waiting-card:hover {
-  transform: translateY(-2px);
-
-  box-shadow:
-    0 6px 18px
-    rgba(0, 0, 0, 0.10);
 }
 
 .checkup-waiting-guide {

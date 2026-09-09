@@ -41,7 +41,6 @@
   background: var(--color-ivory);
   border: 0;
   border-radius: var(--radius-sm);
-  box-shadow: none;
 }
 
 .health-card span {
