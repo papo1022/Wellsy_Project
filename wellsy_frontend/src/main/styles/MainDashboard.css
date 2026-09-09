@@ -32,9 +32,9 @@
 }
 
 .profile-avatar {
-  width: 50px;
-  height: 50px;
-  flex: 0 0 50px;
+  width: var(--spacing-lg);
+  height: var(--spacing-lg);
+  flex: 0 0 var(--spacing-lg);
   border-radius: 50%;
   background: var(--color-primary);
   cursor: pointer;

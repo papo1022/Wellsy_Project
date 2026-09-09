@@ -1,16 +1,7 @@
-:root {
-  --wellsy-green: #8fbc97;
-  --wellsy-green-dark: #6f9f79;
-  --wellsy-green-soft: #eef6f0;
-  --wellsy-text: #17211a;
-  --wellsy-muted: #7c857f;
-  --wellsy-line: #e8ece9;
-}
-
 .bmi-dashboard {
   width: 100%;
   min-width: 0;
-  padding: 10px 12px 12px;
+  padding: var(--spacing);
   box-sizing: border-box;
   background: transparent;
 }
@@ -19,39 +10,40 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 12px;
-  margin: 0 0 12px;
+  gap: var(--spacing-sm);
+  margin: 0 0 var(--spacing-sm);
 }
 
 .chart-toggle-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
-  flex: 0 0 34px;
+  width: var(--spacing-lg);
+  height: var(--spacing-lg);
+  flex: 0 0 var(--spacing-lg);
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background: var(--wellsy-green-soft);
-  color: var(--wellsy-green-dark);
+  background: var(--color-ivory);
+  color: var(--color-black);
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
 .chart-toggle-btn:hover {
-  background: #dcecdf;
+  background: var(--color-primary);
+  color: var(--color-white);
   transform: translateY(-1px);
 }
 
 .chart-toggle-btn.is-open {
-  background: var(--wellsy-green);
-  color: #fff;
+  background: var(--color-primary);
+  color: var(--color-white);
 }
 
 .chart-toggle-btn svg {
-  width: 18px;
-  height: 18px;
+  width: var(--spacing);
+  height: var(--spacing);
   fill: none;
   stroke: currentColor;
   stroke-width: 1.8;
@@ -59,29 +51,31 @@
   stroke-linejoin: round;
 }
 
+/* BMI 차트 */
 .bmi-title h2,
 .bmi-empty h2 {
-  margin: 0 0 4px;
+  margin: 0 0 var(--spacing);
   color: var(--wellsy-text);
-  font-size: 18px;
+  font-size: var(--font-size-h2);
+  font-weight: 700;
   line-height: 1.3;
 }
 
 .bmi-title p,
 .bmi-empty p {
   margin: 0;
-  color: var(--wellsy-muted);
-  font-size: 12px;
+  color: var(--color-cancel);
+  font-size: var(--font-size-body);
 }
 
 .bmi-empty {
-  padding: 10px 12px;
+  padding: var(--spacing);
   background: transparent;
 }
 
 .bmi-card-container {
   width: 100%;
-  margin: 0 0 10px;
+  margin: 0 0 var(--spacing);
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0;
@@ -89,10 +83,10 @@
 
 .bmi-card {
   min-width: 0;
-  padding: 8px 12px;
+  padding: var(--spacing);
   background: transparent;
   border: 0;
-  border-left: 1px solid var(--wellsy-line);
+  border-left: 1px solid var(--color-cancel);
   border-radius: 0;
   box-shadow: none;
 }
@@ -105,71 +99,67 @@
 .bmi-card span {
   display: block;
   margin-bottom: 6px;
-  color: var(--wellsy-muted);
-  font-size: 11px;
+  color: var(--color-grey);
+  font-size: var(--font-size-body);
 }
 
 .bmi-card strong {
   display: block;
-  margin-bottom: 3px;
-  color: var(--wellsy-text);
-  font-size: 19px;
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-black);
+  font-size: var(--font-size-h2);
   line-height: 1.25;
   white-space: nowrap;
 }
 
 .bmi-card p {
   margin: 0;
-  color: #9aa19c;
-  font-size: 10px;
+  color: var(--color-grey);
+  font-size: var(--font-size-caption);
 }
 
 .bmi-card strong.bmi-up {
-  color: #c65b5b;
+  color: var(--color-error);
 }
 
 .bmi-card strong.bmi-down {
-  color: var(--wellsy-green-dark);
+  color: var(--color-grey);
 }
 
 .bmi-chart-box {
   width: 100%;
   margin: 0;
-  padding: 10px 0 0;
+  padding: var(--spacing) 0 0;
   box-sizing: border-box;
   background: transparent;
   border: 0;
-  border-top: 1px solid var(--wellsy-line);
+  border-top: 1px solid var(--color-cancel);
   border-radius: 0;
   box-shadow: none;
 }
 
 .bmi-chart-box h3,
 .bmi-card-title {
-  margin: 0 0 8px;
-  color: var(--wellsy-text);
-  font-size: 13px;
+  margin: 0 0 var(--spacing);
+  color: var(--color-black);
+  font-size: var(--font-size-h4);
   font-weight: 700;
-}
-
-.bmi-chart-box .recharts-responsive-container {
-  height: 150px !important;
 }
 
 .bmi-history {
   width: 100%;
-  margin: 10px 0 0;
-  padding: 10px 0 0;
+  margin: var(--spacing) 0 0;
+  padding: var(--spacing) 0 0;
   background: transparent;
   border: 0;
-  border-top: 1px solid var(--wellsy-line);
+  border-top: 1px solid var(--color-cancel);
   border-radius: 0;
   box-shadow: none;
 }
 
 .bmi-history h3 {
-  margin: 0 0 8px;
-  font-size: 13px;
+  margin: 0 0 var(--spacing);
+  font-size: var(--font-size-body);
 }
 
 .bmi-history table {
@@ -179,34 +169,34 @@
 
 .bmi-history th,
 .bmi-history td {
-  padding: 8px;
+  padding: var(--spacing);
   text-align: center;
   border-bottom: 1px solid var(--color-cancel);
-  font-size: 12px;
+  font-size: var(--font-size-caption);
 }
 
 .bmi-history th {
-  background: var(--wellsy-green-soft);
+  background: var(--color-primary);
 }
 
 @media (max-width: 900px) {
   .bmi-card-container {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
+    gap: var(--spacing);
   }
 
   .bmi-card,
   .bmi-card:first-child {
-    padding: 10px;
+    padding: var(--spacing);
     background: var(--wellsy-green-soft);
     border: 0;
-    border-radius: 10px;
+    border-radius: var(--radius-sm);
   }
 }
 
 @media (max-width: 600px) {
   .bmi-dashboard {
-    padding: 10px 4px;
+    padding: var(--spacing) var(--spacing);
   }
 
   .bmi-card-container {
