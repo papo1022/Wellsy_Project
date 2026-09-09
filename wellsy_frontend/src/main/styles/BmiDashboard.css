@@ -11,7 +11,7 @@
   justify-content: space-between;
   align-items: flex-start;
   gap: var(--spacing-sm);
-  margin: 0 0 var(--spacing-sm);
+  margin: 0 0 var(--spacing);
 }
 
 .chart-toggle-btn {
@@ -54,11 +54,9 @@
 /* BMI 차트 */
 .bmi-title h2,
 .bmi-empty h2 {
-  margin: 0 0 var(--spacing);
   color: var(--wellsy-text);
   font-size: var(--font-size-h2);
   font-weight: 700;
-  line-height: 1.3;
 }
 
 .bmi-title p,
@@ -98,7 +96,7 @@
 
 .bmi-card span {
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: var(--spacing);
   color: var(--color-grey);
   font-size: var(--font-size-body);
 }
@@ -108,7 +106,6 @@
   margin-bottom: var(--spacing-sm);
   color: var(--color-black);
   font-size: var(--font-size-h2);
-  line-height: 1.25;
   white-space: nowrap;
 }
 

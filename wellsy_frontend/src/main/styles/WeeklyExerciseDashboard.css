@@ -56,7 +56,7 @@
   margin: 0 0 var(--spacing-sm);
   color: var(--color-black);
   font-size: var(--font-size-h2);
-  line-height: 1.3;
+  font-weight: 700;
 }
 
 .exercise-title p {
