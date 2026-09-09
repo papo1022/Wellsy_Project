@@ -3,9 +3,7 @@
 ========================================== */
 .my-page {
     width: 100%;
-    max-width: 1150px;
-    margin: 0 auto;
-    padding: var(--spacing-lg);
+    margin: var(--spacing);
     box-sizing: border-box;
     color: var(--color-black);
 }

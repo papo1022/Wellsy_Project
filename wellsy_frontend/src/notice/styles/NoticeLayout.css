@@ -2,9 +2,9 @@
    공지사항 전체 영역
 ========================================== */
 .notice-dashboard {
-    width: 1200px;
+    width: 100%;
     margin: 0 auto;
-    padding: var(--spacing) var(--spacing) var(--spacing-lg);
+    padding: var(--spacing);
     box-sizing: border-box;
 }
 
