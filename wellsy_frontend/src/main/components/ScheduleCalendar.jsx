@@ -527,7 +527,9 @@ const handleEventDidMount = (info) => {
           </div>
 
 
-          <button
+        </div>
+
+        <button
             className="schedule-add-btn"
             onClick={
               openInsertModal
@@ -537,9 +539,6 @@ const handleEventDidMount = (info) => {
             + 일정 등록
 
           </button>
-
-
-        </div>
 
 
     <FullCalendar
