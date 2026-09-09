@@ -8,7 +8,7 @@ import {
 import {
     selectCheckmanAlertApi,
     updateCheckmanAlertApi
-} from "../api/checkmanApi";
+} from "../api/CheckmanApi";
 
 import "../styles/Checkman.css";
 

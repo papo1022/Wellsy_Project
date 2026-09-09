@@ -7,7 +7,7 @@ import {
 import {
     selectStatusListApi,
     selectWarningEmployeeListApi
-} from "../api/statusApi";
+} from "../api/StatusApi";
 
 import StatusRangeChart
     from "./StatusRangeChart";

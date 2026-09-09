@@ -22,7 +22,7 @@ import {
 
     updateAlertReadApi
 
-} from "../api/statusApi";
+} from "../api/StatusApi";
 
 
 function StatusDetail() {
