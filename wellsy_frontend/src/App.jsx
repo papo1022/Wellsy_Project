@@ -31,7 +31,6 @@ import CheckmanEmployeeHealth from "./checkman/components/CheckmanEmployeeHealth
 import CheckmanHealthDetail from "./checkman/components/CheckmanHealthDetail";
 import CheckmanAlertDetail from "./checkman/components/CheckmanAlertDetail";
 
-import Footer from "./common/components/Footer";
 import Header from "./common/components/Header";
 import HealthDashboard from "./health/components/HealthDashboard";
 import MainDashboard from "./main/components/MainDashboard";
@@ -124,7 +123,6 @@ function App() {
         </Routes>
       </div>
 
-      <Footer />
     </div>
   )
 }
