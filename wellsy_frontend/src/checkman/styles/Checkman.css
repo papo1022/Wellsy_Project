@@ -1,688 +1,413 @@
 /* ==========================================
-   전체
+   전체 레이아웃
 ========================================== */
 .checkman-dashboard {
-    width: 1200px;
-    margin: 0 auto;
-    padding: var(--spacing) var(--spacing) var(--spacing-lg);
-    box-sizing: border-box;
+  width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing) var(--spacing) var(--spacing-lg);
+  box-sizing: border-box;
 }
 
 /* ==========================================
    메뉴
 ========================================== */
 .checkman-menu-area {
-    display: flex;
-    gap: var(--spacing-sm);
-    margin-bottom: var(--spacing);
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing);
 }
 
 .checkman-menu-btn {
-    padding: var(--spacing-sm) var(--spacing);
-    border: 1px solid var(--color-ivory);
-    border-radius: var(--radius-md);
-    background: var(--color-white);
-    color: var(--color-grey);
-    cursor: pointer;
+  padding: var(--spacing-sm) var(--spacing);
+  border: 1px solid var(--color-ivory);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-grey);
+  cursor: pointer;
 }
 
 .checkman-menu-active {
-    background: var(--color-black);
-    border-color: var(--color-black);
-    color: var(--color-white);
+  background: var(--color-black);
+  border-color: var(--color-black);
+  color: var(--color-white);
 }
 
-.checkman-alert-count {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 20px;
-    height: 20px;
-    margin-left: var(--spacing-sm);
-    padding: 0 var(--spacing-sm);
-    border-radius: var(--radius-sm);
-    background: var(--color-error);
-    color: var(--color-white);
-    font-size: var(--font-size-button);
+.checkman-alert-count,
+.checkman-reservation-count {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 20px;
+  height: 20px;
+  margin-left: var(--spacing-sm);
+  padding: 0 var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  background: var(--color-error);
+  color: var(--color-white);
+  font-size: var(--font-size-button);
+  box-sizing: border-box;
+}
+
+.checkman-reservation-count {
+  background: var(--color-primary);
 }
 
 /* ==========================================
    카드 영역
 ========================================== */
 .checkman-card-area {
-    display: flex;
-    gap: var(--spacing);
-    align-items: stretch;
+  display: flex;
+  gap: var(--spacing);
+  align-items: stretch;
 }
 
-/* ==========================================
-   기본 카드
-========================================== */
 .checkman-card {
-    width: 100%;
-    padding: var(--spacing);
-    background: var(--color-white);
-    border-radius: var(--radius-md);
-    box-sizing: border-box;
+  width: 100%;
+  padding: var(--spacing);
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  box-sizing: border-box;
 }
 
 /* ==========================================
-   제목
+   헤더 / 제목
 ========================================== */
-.checkman-header {
-    padding-bottom: var(--spacing);
-    border-bottom: 1px solid var(--color-ivory);
+.checkman-header,
+.checkman-detail-header {
+  padding-bottom: var(--spacing);
+  border-bottom: 1px solid var(--color-ivory);
+}
+
+.checkman-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .checkman-header h2,
 .checkman-detail-header h2 {
-    margin: 0;
-    font-size: var(--font-size-h2);
-    font-weight: 700;
+  margin: 0;
+  font-size: var(--font-size-h2);
+  font-weight: 700;
 }
 
 .checkman-header p,
 .checkman-detail-header p {
-    margin: var(--spacing-sm) 0 0;
-    color: var(--color-grey);
-    font-size: var(--font-size-button);
+  margin: var(--spacing-sm) 0 0;
+  color: var(--color-grey);
+  font-size: var(--font-size-button);
 }
 
 /* ==========================================
-   검색
+   검색 영역
 ========================================== */
 .checkman-search-area {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    margin: var(--spacing) 0;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin: var(--spacing) 0;
 }
 
 .checkman-search-area input,
 .checkman-search-area select {
-    height: 40px;
-    padding: 0 var(--spacing-sm);
-    border: 1px solid var(--color-cancel);
-    border-radius: var(--radius-sm);
-    background: var(--color-white);
-    box-sizing: border-box;
-    outline: none;
+  height: 40px;
+  padding: 0 var(--spacing-sm);
+  border: 1px solid var(--color-cancel);
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+  box-sizing: border-box;
+  outline: none;
 }
 
 .checkman-search-area input[type="text"] {
-    width: 230px;
+  width: 230px;
 }
 
 .checkman-search-area input:focus,
 .checkman-search-area select:focus {
-    border-color: var(--color-grey);
+  border-color: var(--color-grey);
 }
 
 .checkman-search-btn {
-    height: 40px;
-    padding: 0 var(--spacing);
-    border: none;
-    border-radius: var(--radius-sm);
-    background: var(--color-black);
-    color: var(--color-white);
-    cursor: pointer;
+  height: 40px;
+  padding: 0 var(--spacing);
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--color-black);
+  color: var(--color-white);
+  cursor: pointer;
 }
 
 /* ==========================================
    테이블
 ========================================== */
 .checkman-table-area {
-    width: 100%;
-    overflow-x: auto;
+  width: 100%;
+  overflow-x: auto;
 }
 
 .checkman-table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.checkman-table th,
+.checkman-table td {
+  padding: var(--spacing);
+  border-bottom: 1px solid var(--color-ivory);
+  font-size: var(--font-size-body);
+  text-align: center;
 }
 
 .checkman-table th {
-    padding: var(--spacing);
-    background: var(--color-ivory);
-    border-bottom: 1px solid var(--color-ivory);
-    color: var(--color-grey);
-    font-size: var(--font-size-body);
-    text-align: center;
-}
-
-.checkman-table td {
-    padding: var(--spacing);
-    border-bottom: 1px solid var(--color-ivory);
-    font-size: var(--font-size-body);
-    text-align: center;
+  background: var(--color-ivory);
+  color: var(--color-grey);
 }
 
 .checkman-table-row {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .checkman-table-row:hover {
-    background: var(--color-ivory);
+  background: var(--color-ivory);
 }
 
 .checkman-name-cell {
-    font-weight: 700;
+  font-weight: 700;
 }
 
-/* 미확인 알림 */
 .checkman-unread-row {
-    background: var(--color-cancel);
+  background: var(--color-cancel);
 }
 
-/* ==========================================
-   메시지
-========================================== */
 .checkman-message-cell {
-    max-width: 230px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  max-width: 230px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.checkman-empty {
+  padding: var(--spacing-lg) !important;
+  color: var(--color-grey) !important;
 }
 
 /* ==========================================
-   확인 상태
+   배지 (상태 / 심각도)
 ========================================== */
 .checkman-read,
-.checkman-unread {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 70px;
-    height: 30px;
-    padding: 0 var(--spacing-sm);
-    border-radius: var(--radius-md);
-    font-size: var(--font-size-button);
-    box-sizing: border-box;
+.checkman-unread,
+.checkman-reservation-status {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 70px;
+  height: 30px;
+  padding: 0 var(--spacing-sm);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-button);
+  box-sizing: border-box;
 }
 
 .checkman-read {
-    background: var(--color-success);
-    color: var(--color-white);
+  background: var(--color-success);
+  color: var(--color-white);
 }
 
 .checkman-unread {
-    background: var(--color-error);
-    color: var(--color-white);
+  background: var(--color-error);
+  color: var(--color-white);
 }
 
-/* ==========================================
-   심각도
-========================================== */
 .checkman-severity {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 55px;
-    padding: var(--spacing-sm) var(--spacing);
-}
-
-.checkman-detail-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: var(--spacing);
-    border-bottom: 1px solid var(--color-ivory);
-}
-
-.checkman-detail-section {
-    padding: var(--spacing) 0;
-    border-bottom: 1px solid var(--color-ivory);
-}
-
-.checkman-detail-section h3 {
-    margin: 0 0 var(--spacing);
-    font-size: var(--font-size-h3);
-    font-weight: 700;
-    border-radius: var(--radius-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 55px;
+  padding: var(--spacing-sm) var(--spacing);
 }
 
 .checkman-severity-caution {
-    background: var(--color-white);
-    color: var(--color-warning);
+  background: var(--color-white);
+  color: var(--color-warning);
 }
 
 .checkman-severity-risk {
-    background: var(--color-warning);
-    color: var(--color-white);
+  background: var(--color-warning);
+  color: var(--color-white);
 }
 
 .checkman-severity-danger {
-    background: var(--color-error);
-    color: var(--color-white);
+  background: var(--color-error);
+  color: var(--color-white);
+}
+
+/* 예약 상태 */
+.checkman-reservation-n {
+  background: var(--color-warning);
+  color: var(--color-white);
+}
+
+.checkman-reservation-y {
+  background: var(--color-success);
+  color: var(--color-white);
+}
+
+.checkman-reservation-c {
+  background: var(--color-cancel);
+  color: var(--color-white);
 }
 
 /* ==========================================
-   상세 화면
-.checkman-detail-header {
-    display: flex;
-
-.checkman-detail-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, 1fr);
-
-    padding-bottom: 20px;
-
-    border-bottom: 1px solid #eee;
-}
-
-
+   상세 페이지
+========================================== */
 .checkman-detail-section {
-    padding: 25px 0;
-
-    border-bottom: 1px solid #eee;
+  padding: var(--spacing) 0;
+  border-bottom: 1px solid var(--color-ivory);
 }
 
-    gap: 8px;
-
-
-.checkman-btn-area {
-    display: flex;
-
-    justify-content: center;
-
-    gap: 10px;
-
-    margin-top: 30px;
-}
-
-
-.checkman-btn {
-    height: 40px;
-
-    padding: 0 20px;
-
-    border: none;
-
-    border-radius: 9px;
-
-    cursor: pointer;
-
-    font-size: 13px;
-
-    font-weight: 600;
-}
-
-
-.checkman-btn-primary {
-    background: #111;
-
-    color: white;
-}
-
-
-.checkman-btn-secondary {
-    background: #eee;
-
-    color: #444;
-}
 .checkman-detail-section h3 {
-    margin: 0 0 20px;
-
-    font-size: 18px;
+  margin: 0 0 var(--spacing);
+  font-size: var(--font-size-h3);
+  font-weight: 700;
 }
-
 
 .checkman-detail-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, 1fr);
-
-    gap: 15px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing);
 }
-
 
 .checkman-detail-item {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 8px;
-
-    padding: 16px 18px;
-
-    background: #f8f8f8;
-
-    border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing);
+  background: var(--color-ivory);
+  border-radius: var(--radius-md);
 }
-
 
 .checkman-detail-item span {
-    color: #888;
-
-    font-size: 12px;
+  color: var(--color-grey);
+  font-size: var(--font-size-button);
 }
-
 
 .checkman-detail-item strong {
-    color: #222;
-
-    font-size: 16px;
+  color: var(--color-black);
+  font-size: var(--font-size-body);
 }
-
 
 .checkman-message-box {
-    margin-top: 20px;
-
-    padding: 20px;
-
-    background: #f8f8f8;
-
-    border-radius: 12px;
-
-    line-height: 1.7;
-
-    color: #555;
+  margin-top: var(--spacing);
+  padding: var(--spacing);
+  background: var(--color-ivory);
+  border-radius: var(--radius-md);
+  line-height: 1.7;
+  color: var(--color-black);
 }
-
 
 /* ==========================================
-   버튼
-
+   버튼 공통
+========================================== */
 .checkman-btn-area {
-    display: flex;
-
-    justify-content: center;
-
-    gap: 10px;
-
-    margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-lg);
 }
-
 
 .checkman-btn {
-    height: 40px;
-
-    padding: 0 20px;
-
-    border: none;
-
-    border-radius: 9px;
-
-    cursor: pointer;
-
-    font-size: 13px;
-
-    font-weight: 600;
+  height: 40px;
+  padding: 0 var(--spacing);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: var(--font-size-button);
+  font-weight: 600;
 }
-
 
 .checkman-btn-primary {
-    background: #111;
-
-    color: white;
+  background: var(--color-black);
+  color: var(--color-white);
 }
 
-    background: #fff;
-
-
-.checkman-empty {
-    padding: 50px !important;
-
-    color: #999 !important;
-}
 .checkman-btn-secondary {
-    background: #eee;
-
-    color: #444;
+  background: var(--color-ivory);
+  color: var(--color-grey);
 }
-
 
 .checkman-detail-btn {
-    padding: 7px 15px;
-
-    border: 1px solid #ddd;
-
-    border-radius: 17px;
-
-
-@media screen and (max-width: 1250px) {
-
-    .checkman-dashboard {
-        width: 95%;
-    }
-    background: #fff;
-
-    cursor: pointer;
-
-    font-size: 11px;
-}
-
+  padding: var(--spacing-sm) var(--spacing);
+  border: 1px solid var(--color-cancel);
+  border-radius: var(--radius-round);
+  background: var(--color-white);
+  cursor: pointer;
+  font-size: var(--font-size-button);
 }
 
 .checkman-detail-btn:hover {
-    background: #f5f5f5;
+  background: var(--color-ivory);
 }
-
-        align-items: stretch;
-    }
-
-/* ==========================================
-   데이터 없음
-
-.checkman-empty {
-    padding: 50px !important;
-
-    color: #999 !important;
-}
-
-/* ==========================================
-
-
-/* 예약 대기 숫자 */
-.checkman-reservation-count {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 20px;
-    height: 20px;
-    margin-left: var(--spacing-sm);
-    padding: 0 var(--spacing-sm);
-    border-radius: var(--radius-sm);
-    background: var(--color-primary);
-    color: var(--color-white);
-    font-size: var(--font-size-button);
-    box-sizing: border-box;
-}
-
-@media screen and (max-width: 1250px) {
-
-    .checkman-dashboard {
-        width: 95%;
-    }
-
-}
-
-@media screen and (max-width: 800px) {
-
-    .checkman-search-area {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .checkman-detail-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* ==========================================
-   건강검진 예약
-
-
-/* 예약 대기 숫자 */
-.checkman-reservation-count {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 20px;
-}
-
-.checkman-reservation-status {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 70px;
-    height: 30px;
-    padding: 0 var(--spacing-sm);
-    border-radius: var(--radius-md);
-    font-size: var(--font-size-button);
-    box-sizing: border-box;
-    height: 20px;
-    margin-left: var(--spacing-sm);
-    padding: 0 var(--spacing-sm);
-    border-radius: var(--radius-sm);
-    background: var(--color-primary);
-    color: var(--color-white);
-    font-size: var(--font-size-button);
-    box-sizing: border-box;
-}
-
-/* ==========================================
-   예약 상태
-
-.checkman-reservation-status {
-
-    display: inline-flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    min-width: 70px;
-
-    height: 30px;
-
-    padding: 0 12px;
-
-    border-radius: 16px;
-
-    font-size: 11px;
-
-    box-sizing: border-box;
-}
-
-
-/* 승인 대기 */
-
-.checkman-reservation-n {
-    background: var(--color-warning);
-    color: var(--color-white);
-}
-
-.checkman-complete-text {
-    color: var(--color-grey);
-    font-size: var(--font-size-button);
-}
-
-/* =========================================
-   건강검진 예약 관리 버튼 공통
 
 .checkman-approve-btn,
 .checkman-cancel-btn {
-    padding: 8px 16px;
-
-    border: none;
-    border-radius: 6px;
-
-    color: white;
-
-    font-size: 14px;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition:
-        background 0.2s ease,
-        transform 0.15s ease;
+  padding: var(--spacing-sm) var(--spacing);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--color-white);
+  font-size: var(--font-size-button);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
 }
 
-
-/* 승인 */
 .checkman-approve-btn {
-    background: var(--color-success);
-    color: var(--color-white);
+  background: var(--color-success);
 }
 
 .checkman-approve-btn:hover {
-    background: var(--color-white);
-    color: var(--color-success);
+  background: var(--color-black);
 }
 
-
-/* 취소 */
 .checkman-cancel-btn {
-    margin-left: var(--spacing-sm);
-    background: var(--color-error);
+  margin-left: var(--spacing-sm);
+  background: var(--color-error);
 }
 
 .checkman-cancel-btn:hover {
-    background: var(--color-white);
-    background-color: var(--color-error);
+  background: var(--color-black);
 }
 
-/* 클릭 */
 .checkman-approve-btn:active,
 .checkman-cancel-btn:active {
-    transform: scale(0.97);
+  transform: scale(0.97);
 }
-/* 승인 완료 */
-
-.checkman-reservation-y {
-    background: var(--color-success);
-    color: var(--color-white);
-}
-
-/* 취소 */
-.checkman-reservation-c {
-    background: var(--color-cancel);
-    color: var(--color-white);
-}
-
-
-/* ==========================================
-   승인 버튼
-
-.checkman-approve-btn {
-
-    height: 32px;
-
-    padding: 0 16px;
-
-    border: none;
-
-    border-radius: 16px;
-
-    background: #111;
-
-    color: white;
-
-    font-size: 11px;
-
-    font-weight: 600;
-
-    cursor: pointer;
-}
-
-
-.checkman-approve-btn:hover {
-
-    background: #333;
-}
-
-
-/* ==========================================
-   처리 완료
 
 .checkman-complete-text {
+  color: var(--color-grey);
+  font-size: var(--font-size-button);
+}
 
-    color: #888;
+/* ==========================================
+   반응형
+========================================== */
+@media screen and (max-width: 1250px) {
+  .checkman-dashboard {
+    width: 95%;
+  }
+}
 
-    font-size: 11px;
+@media screen and (max-width: 800px) {
+  .checkman-card-area {
+    flex-direction: column;
+  }
+
+  .checkman-search-area {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .checkman-detail-grid {
+    grid-template-columns: 1fr;
+  }
 }
