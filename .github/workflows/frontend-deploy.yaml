@@ -22,6 +22,19 @@ jobs:
           cache: "npm"
           cache-dependency-path: wellsy_frontend/package-lock.json
 
+      - name: Show build commit
+        run: |
+          echo "Current branch:"
+          git branch --show-current
+          echo "Current commit:"
+          git rev-parse HEAD
+          echo "Latest commit:"
+          git log -1 --oneline
+
+      - name: Check source content
+        run: |
+          grep -R "운동명" wellsy_frontend/src || true
+
       - name: Install dependencies
         working-directory: wellsy_frontend
         run: npm ci
