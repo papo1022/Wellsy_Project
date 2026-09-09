@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8006/wellsy/account";
+const BASE_URL = "/wellsy/account";
 
 const findIdApi = (email) =>
     axios.post(`${BASE_URL}/find-id`, { email });

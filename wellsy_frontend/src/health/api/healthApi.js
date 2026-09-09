@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8006/wellsy/health";
+const BASE_URL = "/wellsy/health";
 
 // 특정 날짜 건강 기록 조회
 const getHealthByDateApi = (
