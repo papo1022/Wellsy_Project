@@ -27,7 +27,7 @@
   min-height: var(--spacing-lg);
   margin-bottom: var(--spacing-sm);
   gap: var(--spacing-sm);
-  padding: var(--spacing);
+  padding: var(--spacing-sm);
   border-radius: var(--radius-round);
   background-color: var(--color-white);
 }
