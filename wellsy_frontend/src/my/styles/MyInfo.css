@@ -1,50 +1,31 @@
 /* ==========================================
    BASIC INFO
 ========================================== */
-
 .my-info-grid {
-
     display: grid;
-
     grid-template-columns:
         repeat(2, 1fr);
-
-    gap: 14px;
-
-    margin-top: 22px;
+    gap: var(--spacing);
+    margin-top: var(--spacing);
 }
-
 
 .my-info-item {
-
     display: flex;
-
     flex-direction: column;
-
-    gap: 8px;
-
-    padding: 18px 20px;
-
+    gap: var(--spacing-sm);
+    padding: var(--spacing);
     box-sizing: border-box;
-
-    border-radius: 12px;
-
-    background: #f8f8f7;
+    border-radius: var(--radius-sm);
+    background: var(--color-ivory);
 }
 
-
 .my-info-item span {
-
-    color: #999;
-
-    font-size: 12px;
+    color: var(--color-grey);
+    font-size: var(--font-size-caption);
 }
 
 .my-info-item strong {
-
-    color: #222;
-
-    font-size: 16px;
-
-    font-weight: 600;
+    color: var(--color-black);
+    font-size: var(--font-size-body);
+    font-weight: 400;
 }

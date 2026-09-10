@@ -1,63 +1,38 @@
 /* ==========================================
    공지사항 전체 영역
 ========================================== */
-
 .notice-dashboard {
-
     width: 1200px;
-
     margin: 0 auto;
-
-    padding: 35px 20px 60px;
-
+    padding: var(--spacing) var(--spacing) var(--spacing-lg);
     box-sizing: border-box;
 }
-
 
 /* ==========================================
    페이지 제목
 ========================================== */
-
 .notice-title-area {
-
-    margin-bottom: 25px;
+    margin-bottom: var(--spacing);
 }
-
 
 .notice-title-area h2 {
-
     margin: 0;
-
-    font-size: 26px;
-
+    font-size: var(--font-size-h1);
     font-weight: 700;
-
-    color: #111;
+    color: var(--color-black);
 }
-
 
 /* ==========================================
    공통 카드
 ========================================== */
-
 .notice-card {
-
     width: 100%;
-
-    background: #ffffff;
-
-    border-radius: 18px;
-
-    padding: 30px;
-
+    background: var(--color-white);
+    border-radius: var(--radius-md);
+    padding: var(--spacing);
     box-sizing: border-box;
-
-    box-shadow:
-        0 4px 18px rgba(0, 0, 0, 0.08);
 }
 
-
 .notice-card-content {
-
     width: 100%;
 }

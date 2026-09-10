@@ -14,7 +14,7 @@
 /* 1. 접힌 상태: 고정 폭을 차지하며 레이아웃 내 나란히 위치 */
 .chat-sidebar.closed {
     position: relative;
-    width: 40px;
+    width: var(--spacing-lg);
     padding: var(--spacing) 0;
     align-items: center;
     box-shadow: none;
@@ -29,7 +29,7 @@
     left: 0;
     width: 220px;
     padding: var(--spacing);
-    box-shadow: 8px 0 20px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--spacing-sm) 0 var(--spacing) rgba(0, 0, 0, 0.3);
 }
 
 /* 사이드바 내부 요소 */
@@ -44,7 +44,7 @@
 
 .chat-sidebar-new {
     width: 100%;
-    padding: 10px;
+    padding: var(--spacing-sm);
     background-color: var(--color-primary);
     color: var(--color-white);
     border: none;
@@ -95,8 +95,8 @@
     color: var(--color-grey);
     font-size: var(--font-size-button);
     cursor: pointer;
-    padding: 2px 6px;
-    margin-left: 8px;
+    padding: 5px var(--spacing-sm);
+    margin-left: var(--spacing-sm);
     flex-shrink: 0;
     display: inline-flex;
     align-items: center;
