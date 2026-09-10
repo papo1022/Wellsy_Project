@@ -47,6 +47,12 @@
   font-size: var(--font-size-body);
 }
 
+.health-grade-info span {
+  font-size: var(--font-size-h2);
+  font-weight: 700;
+  color: var(--color-black);
+}
+
 .health-card strong {
   display: block;
   color: var(--color-black);
@@ -60,6 +66,7 @@
   font-size: var(--font-size-caption);
 }
 
+/* 반응형 */
 @media (max-width: 700px) {
   .health-dashboard {
     padding: var(--spacing) var(--spacing-sm);
