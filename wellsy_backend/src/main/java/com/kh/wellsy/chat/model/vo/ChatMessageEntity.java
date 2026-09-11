@@ -34,6 +34,6 @@ public class ChatMessageEntity {
 	@Column(name = "MESSAGE_CONTENT")
 	private String messageContent;
 	
-	@Column(name = "CREATED_AT")
+	@Column(name = "SENT_AT")
 	private LocalDateTime sentAt;
 }

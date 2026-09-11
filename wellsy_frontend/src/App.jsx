@@ -29,7 +29,6 @@ import StatusDetail from "./status/components/StatusDetail";
 import CheckmanList from "./checkman/components/CheckmanList";
 import CheckmanAlertDetail from "./checkman/components/CheckmanAlertDetail";
 
-import Footer from "./common/components/Footer";
 import Header from "./common/components/Header";
 import HealthDashboard from "./health/components/HealthDashboard";
 import MainDashboard from "./main/components/MainDashboard";
@@ -39,7 +38,7 @@ import MyPage from "./my/components/MyPage";
 import ChatWindow from "./ai/components/ChatWindow";
 
 import LoginForm from "./login/components/LoginForm";
-import "./login/styles/login.css";
+import "./login/styles/Login.css";
 
 
 function App() {
@@ -120,7 +119,6 @@ function App() {
         </Routes>
       </div>
 
-      <Footer />
     </div>
   )
 }

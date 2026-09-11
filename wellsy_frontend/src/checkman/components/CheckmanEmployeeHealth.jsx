@@ -7,7 +7,7 @@ import {
 
 import {
     selectEmployeeCheckmanListApi
-} from "../api/checkmanApi";
+} from "../api/CheckmanApi";
 
 import "../styles/Checkman.css";
 

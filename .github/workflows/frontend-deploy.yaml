@@ -1,42 +1,48 @@
-#d 으악
-
+#배포 테스트용 편집
 name: Deploy React
 
 on:
   push:
-    branches: [jaeyoung-yamltest]
-    # paths:
-    #   - "wellsy_frontend/**"
-    #   - ".github/workflows/frontend-deploy.yml"
+    branches: 
+      - main_sub
+      - jaeyoung
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. GitHub 저장소 내려받기
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 2. Node.js 설치
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "24"
+          node-version: "22"
           cache: "npm"
           cache-dependency-path: wellsy_frontend/package-lock.json
 
-      # 3. 의존성 설치
+      - name: Show build commit
+        run: |
+          echo "Current branch:"
+          git branch --show-current
+          echo "Current commit:"
+          git rev-parse HEAD
+          echo "Latest commit:"
+          git log -1 --oneline
+
+      - name: Check source content
+        run: |
+          grep -R "운동명" wellsy_frontend/src || true
+
       - name: Install dependencies
         working-directory: wellsy_frontend
         run: npm ci
 
-      # 4. React 빌드
       - name: Build React
         working-directory: wellsy_frontend
         run: npm run build
 
-      # 5. 빌드 결과를 EC2 임시 폴더로 전송
       - name: Copy dist to EC2
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -47,32 +53,18 @@ jobs:
           target: "/home/ubuntu/react-upload/"
           strip_components: 2
 
-      # 6. Nginx 웹 루트에 배포
       - name: Deploy React with Nginx
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_KEY }}
-
           script: |
             set -e
-
-            # Nginx 웹 루트 초기화
-            sudo rm -rf /var/www/html/*
-
-            # 새 React 빌드 파일 복사
-            sudo cp -r /home/ubuntu/react-upload/. /var/www/html/
-
-            # Nginx 읽기 권한 설정
-            sudo chown -R www-data:www-data /var/www/html
-            sudo chmod -R 755 /var/www/html
-
-            # 임시 폴더 정리
+            sudo rm -rf /var/www/wellsy/*
+            sudo cp -r /home/ubuntu/react-upload/. /var/www/wellsy/
+            sudo chown -R www-data:www-data /var/www/wellsy
+            sudo chmod -R 755 /var/www/wellsy
             rm -rf /home/ubuntu/react-upload/*
-
-            # Nginx 설정 검사
             sudo nginx -t
-
-            # 설정 반영
             sudo systemctl reload nginx
