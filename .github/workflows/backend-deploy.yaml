@@ -65,7 +65,7 @@ jobs:
             PID_FILE="$APP_DIR/wellsy.pid"
             LOG_FILE="$APP_DIR/wellsy.log"
 
-            HEALTH_URL="http://127.0.0.1:8006/actuator/health"
+            HEALTH_URL="http://127.0.0.1:8006/wellsy/actuator/health"
 
             mkdir -p "$APP_DIR"
 
@@ -255,7 +255,29 @@ jobs:
 
               if kill -0 "$NEW_PID" 2>/dev/null; then
                 kill "$NEW_PID" || true
-                sleep 3
+              fi
+
+              echo "Waiting for port 8006 to become free..."
+
+              for i in {1..15}; do
+                if ! sudo fuser 8006/tcp >/dev/null 2>&1; then
+                  echo "Port 8006 is free."
+                  break
+                fi
+
+                echo "Waiting for port 8006... ($i/15)"
+                sleep 1
+              done
+
+              if sudo fuser 8006/tcp >/dev/null 2>&1; then
+                echo "Port still occupied. Force killing process..."
+
+                PORT_PID=$(sudo fuser 8006/tcp 2>/dev/null | tr -d ' ' || true)
+
+                if [ -n "$PORT_PID" ]; then
+                  sudo kill -9 "$PORT_PID" || true
+                  sleep 2
+                fi
               fi
 
               echo ""
