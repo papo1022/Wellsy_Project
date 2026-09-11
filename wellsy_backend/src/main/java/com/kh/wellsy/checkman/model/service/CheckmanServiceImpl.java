@@ -15,13 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.kh.wellsy.checkman.model.dao.CheckmanDao;
 import com.kh.wellsy.checkman.model.vo.Checkman;
 
-
 @Service
 public class CheckmanServiceImpl implements CheckmanService {
 
     @Autowired
     private CheckmanDao checkmanDao;
-
 
     // =========================================
     // 직원 건강정보 목록
@@ -34,30 +32,21 @@ public class CheckmanServiceImpl implements CheckmanService {
             LocalDate startDate,
             LocalDate endDate) {
 
-
-        List<Object[]> resultList
-            = checkmanDao.selectCheckmanList(
+        List<Object[]> resultList = checkmanDao.selectCheckmanList(
                 keyword,
                 startDate,
-                endDate
-            );
+                endDate);
 
+        List<Checkman> checkmanList = new ArrayList<>();
 
-        List<Checkman> checkmanList
-            = new ArrayList<>();
-
-
-        for(Object[] result : resultList) {
+        for (Object[] result : resultList) {
 
             checkmanList.add(
-                healthRecordToCheckman(result)
-            );
+                    healthRecordToCheckman(result));
         }
-
 
         return checkmanList;
     }
-
 
     // =========================================
     // 특정 직원 건강정보
@@ -68,29 +57,20 @@ public class CheckmanServiceImpl implements CheckmanService {
     public List<Checkman> selectEmployeeCheckmanList(
             int employeeNo) {
 
-
-        List<Object[]> resultList
-            = checkmanDao
+        List<Object[]> resultList = checkmanDao
                 .selectEmployeeCheckmanList(
-                    employeeNo
-                );
+                        employeeNo);
 
+        List<Checkman> checkmanList = new ArrayList<>();
 
-        List<Checkman> checkmanList
-            = new ArrayList<>();
-
-
-        for(Object[] result : resultList) {
+        for (Object[] result : resultList) {
 
             checkmanList.add(
-                healthRecordToCheckman(result)
-            );
+                    healthRecordToCheckman(result));
         }
-
 
         return checkmanList;
     }
-
 
     // =========================================
     // 건강정보 상세
@@ -101,24 +81,17 @@ public class CheckmanServiceImpl implements CheckmanService {
     public Checkman selectCheckman(
             int healthRecordId) {
 
+        List<Object[]> resultList = checkmanDao.selectCheckman(
+                healthRecordId);
 
-        List<Object[]> resultList
-            = checkmanDao.selectCheckman(
-                healthRecordId
-            );
-
-
-        if(resultList.isEmpty()) {
+        if (resultList.isEmpty()) {
 
             return null;
         }
 
-
         return healthRecordToCheckman(
-            resultList.get(0)
-        );
+                resultList.get(0));
     }
-
 
     // =========================================
     // 이상 알림 목록
@@ -133,95 +106,60 @@ public class CheckmanServiceImpl implements CheckmanService {
             LocalDate startDate,
             LocalDate endDate) {
 
-
-        List<Object[]> resultList
-            = checkmanDao
+        List<Object[]> resultList = checkmanDao
                 .selectCheckmanAlertList(
-                    keyword,
-                    severity,
-                    isRead,
-                    startDate,
-                    endDate
-                );
+                        keyword,
+                        severity,
+                        isRead,
+                        startDate,
+                        endDate);
 
+        List<Checkman> checkmanList = new ArrayList<>();
 
-        List<Checkman> checkmanList
-            = new ArrayList<>();
+        for (Object[] result : resultList) {
 
-
-        for(Object[] result : resultList) {
-
-
-            Checkman checkman
-                = new Checkman();
-
+            Checkman checkman = new Checkman();
 
             checkman.setAlertId(
-                toInteger(result[0])
-            );
-
+                    toInteger(result[0]));
 
             checkman.setCheckupId(
-                toInteger(result[1])
-            );
-
+                    toInteger(result[1]));
 
             checkman.setEmployeeNo(
-                toInteger(result[2])
-            );
-
+                    toInteger(result[2]));
 
             checkman.setEmployeeName(
-                (String) result[3]
-            );
-
+                    (String) result[3]);
 
             checkman.setDepartmentName(
-                (String) result[4]
-            );
-
+                    (String) result[4]);
 
             checkman.setJobName(
-                (String) result[5]
-            );
-
+                    (String) result[5]);
 
             checkman.setAlertType(
-                (String) result[6]
-            );
-
+                    (String) result[6]);
 
             checkman.setSeverity(
-                (String) result[7]
-            );
-
+                    (String) result[7]);
 
             checkman.setMessage(
-                (String) result[8]
-            );
-
+                    (String) result[8]);
 
             checkman.setIsRead(
-                (String) result[9]
-            );
-
+                    toStringValue(result[9]));
 
             checkman.setAlertCreatedAt(
-                toLocalDateTime(
-                    result[10]
-                )
-            );
-
+                    toLocalDateTime(
+                            result[10]));
 
             checkmanList.add(
-                checkman
-            );
+                    checkman);
         }
-
 
         return checkmanList;
     }
-
 
     // =========================================
     // 이상 알림 상세
@@ -232,147 +170,90 @@ public class CheckmanServiceImpl implements CheckmanService {
     public Checkman selectCheckmanAlert(
             int alertId) {
 
-
-        List<Object[]> resultList
-            = checkmanDao
+        List<Object[]> resultList = checkmanDao
                 .selectCheckmanAlert(
-                    alertId
-                );
+                        alertId);
 
-
-        if(resultList.isEmpty()) {
+        if (resultList.isEmpty()) {
 
             return null;
         }
 
+        Object[] result = resultList.get(0);
 
-        Object[] result
-            = resultList.get(0);
-
-
-        Checkman checkman
-            = new Checkman();
-
+        Checkman checkman = new Checkman();
 
         checkman.setAlertId(
-            toInteger(result[0])
-        );
-
+                toInteger(result[0]));
 
         checkman.setCheckupId(
-            toInteger(result[1])
-        );
-
+                toInteger(result[1]));
 
         checkman.setEmployeeNo(
-            toInteger(result[2])
-        );
-
+                toInteger(result[2]));
 
         checkman.setEmployeeName(
-            (String) result[3]
-        );
-
+                (String) result[3]);
 
         checkman.setDepartmentName(
-            (String) result[4]
-        );
-
+                (String) result[4]);
 
         checkman.setJobName(
-            (String) result[5]
-        );
-
+                (String) result[5]);
 
         checkman.setAlertType(
-            (String) result[6]
-        );
-
+                (String) result[6]);
 
         checkman.setSeverity(
-            (String) result[7]
-        );
-
+                (String) result[7]);
 
         checkman.setMessage(
-            (String) result[8]
-        );
-
+                (String) result[8]);
 
         checkman.setIsRead(
-            (String) result[9]
-        );
-
+                toStringValue(result[9]));
 
         checkman.setAlertCreatedAt(
-            toLocalDateTime(
-                result[10]
-            )
-        );
-
+                toLocalDateTime(
+                        result[10]));
 
         checkman.setResultGrade(
-            (String) result[11]
-        );
-
+                (String) result[11]);
 
         checkman.setCheckupSystolicBp(
-            toInteger(result[12])
-        );
-
+                toInteger(result[12]));
 
         checkman.setCheckupDiastolicBp(
-            toInteger(result[13])
-        );
-
+                toInteger(result[13]));
 
         checkman.setCheckupBloodSugar(
-            toBigDecimal(result[14])
-        );
-
+                toBigDecimal(result[14]));
 
         checkman.setTotalCholesterol(
-            toBigDecimal(result[15])
-        );
-
+                toBigDecimal(result[15]));
 
         checkman.setCheckupWeight(
-            toBigDecimal(result[16])
-        );
-
+                toBigDecimal(result[16]));
 
         checkman.setCheckupHeight(
-            toBigDecimal(result[17])
-        );
-
+                toBigDecimal(result[17]));
 
         checkman.setResultDetail(
-            (String) result[18]
-        );
-
+                (String) result[18]);
 
         checkman.setCheckupCreatedAt(
-            toLocalDateTime(
-                result[19]
-            )
-        );
-
+                toLocalDateTime(
+                        result[19]));
 
         checkman.setReservationDate(
-            toLocalDate(
-                result[20]
-            )
-        );
-
+                toLocalDate(
+                        result[20]));
 
         checkman.setHospitalName(
-            (String) result[21]
-        );
-
+                (String) result[21]);
 
         return checkman;
     }
-
 
     // =========================================
     // 알림 읽음 처리
@@ -383,13 +264,10 @@ public class CheckmanServiceImpl implements CheckmanService {
     public int updateCheckmanAlert(
             int alertId) {
 
-
         return checkmanDao
                 .updateCheckmanAlert(
-                    alertId
-                );
+                        alertId);
     }
-
 
     // =========================================
     // HEALTH_RECORD -> Checkman 변환
@@ -398,89 +276,55 @@ public class CheckmanServiceImpl implements CheckmanService {
     private Checkman healthRecordToCheckman(
             Object[] result) {
 
-
-        Checkman checkman
-            = new Checkman();
-
+        Checkman checkman = new Checkman();
 
         checkman.setHealthRecordId(
-            toInteger(result[0])
-        );
-
+                toInteger(result[0]));
 
         checkman.setEmployeeNo(
-            toInteger(result[1])
-        );
-
+                toInteger(result[1]));
 
         checkman.setEmployeeName(
-            (String) result[2]
-        );
-
+                (String) result[2]);
 
         checkman.setDepartmentName(
-            (String) result[3]
-        );
-
+                (String) result[3]);
 
         checkman.setJobName(
-            (String) result[4]
-        );
-
+                (String) result[4]);
 
         checkman.setRecordDate(
-            toLocalDate(result[5])
-        );
-
+                toLocalDate(result[5]));
 
         checkman.setHeight(
-            toBigDecimal(result[6])
-        );
-
+                toBigDecimal(result[6]));
 
         checkman.setWeight(
-            toBigDecimal(result[7])
-        );
-
+                toBigDecimal(result[7]));
 
         checkman.setBmi(
-            toBigDecimal(result[8])
-        );
-
+                toBigDecimal(result[8]));
 
         checkman.setSystolicBp(
-            toInteger(result[9])
-        );
-
+                toInteger(result[9]));
 
         checkman.setDiastolicBp(
-            toInteger(result[10])
-        );
-
+                toInteger(result[10]));
 
         checkman.setBloodSugar(
-            toBigDecimal(result[11])
-        );
-
+                toBigDecimal(result[11]));
 
         checkman.setCaffeineAmount(
-            toBigDecimal(result[12])
-        );
-
+                toBigDecimal(result[12]));
 
         checkman.setSmokingCount(
-            toInteger(result[13])
-        );
-
+                toInteger(result[13]));
 
         checkman.setAlcoholAmount(
-            toBigDecimal(result[14])
-        );
-
+                toBigDecimal(result[14]));
 
         return checkman;
     }
-
 
     // =========================================
     // Integer 변환
@@ -489,17 +333,26 @@ public class CheckmanServiceImpl implements CheckmanService {
     private Integer toInteger(
             Object value) {
 
-
-        if(value == null) {
+        if (value == null) {
 
             return null;
         }
-
 
         return ((Number) value)
                 .intValue();
     }
 
+    // =========================================
+    // String 변환
+    // =========================================
+    private String toStringValue(Object value) {
+
+        if (value == null) {
+            return null;
+        }
+
+        return value.toString();
+    }
 
     // =========================================
     // BigDecimal 변환
@@ -508,24 +361,19 @@ public class CheckmanServiceImpl implements CheckmanService {
     private BigDecimal toBigDecimal(
             Object value) {
 
-
-        if(value == null) {
+        if (value == null) {
 
             return null;
         }
 
-
-        if(value instanceof BigDecimal) {
+        if (value instanceof BigDecimal) {
 
             return (BigDecimal) value;
         }
 
-
         return new BigDecimal(
-            value.toString()
-        );
+                value.toString());
     }
-
 
     // =========================================
     // LocalDate 변환
@@ -534,31 +382,25 @@ public class CheckmanServiceImpl implements CheckmanService {
     private LocalDate toLocalDate(
             Object value) {
 
-
-        if(value == null) {
+        if (value == null) {
 
             return null;
         }
 
-
-        if(value instanceof Date) {
+        if (value instanceof Date) {
 
             return ((Date) value)
                     .toLocalDate();
         }
 
-
-        if(value instanceof LocalDate) {
+        if (value instanceof LocalDate) {
 
             return (LocalDate) value;
         }
 
-
         return LocalDate.parse(
-            value.toString()
-        );
+                value.toString());
     }
-
 
     // =========================================
     // LocalDateTime 변환
@@ -567,30 +409,25 @@ public class CheckmanServiceImpl implements CheckmanService {
     private LocalDateTime toLocalDateTime(
             Object value) {
 
-
-        if(value == null) {
+        if (value == null) {
 
             return null;
         }
 
-
-        if(value instanceof Timestamp) {
+        if (value instanceof Timestamp) {
 
             return ((Timestamp) value)
                     .toLocalDateTime();
         }
 
-
-        if(value instanceof LocalDateTime) {
+        if (value instanceof LocalDateTime) {
 
             return (LocalDateTime) value;
         }
 
-
         return LocalDateTime.parse(
-            value.toString()
-                .replace(" ", "T")
-        );
+                value.toString()
+                        .replace(" ", "T"));
     }
 
 }
