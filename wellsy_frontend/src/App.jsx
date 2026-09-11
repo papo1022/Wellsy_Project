@@ -38,6 +38,7 @@ import MyPage from "./my/components/MyPage";
 import ChatWindow from "./ai/components/ChatWindow";
 
 import LoginForm from "./login/components/LoginForm";
+import FindAccount from "./login/components/FindAccount";
 import "./login/styles/Login.css";
 
 
@@ -51,9 +52,12 @@ function App() {
 
     return (
 
-      <div>
-        <LoginForm setToken={setToken} />
-      </div>
+      <Routes>
+        <Route path="/login" element={<LoginForm setToken={setToken} />} />
+        <Route path="/find-account" element={<FindAccount />} />
+        {/* 그 외 모든 주소는 로그인 화면으로 */}
+        <Route path="*" element={<LoginForm setToken={setToken} />} />
+      </Routes>
 
     );
   }
