@@ -119,8 +119,6 @@ function App() {
           <Route path="/status/warnings/:alertId" element={<StatusDetail />} />
         </Routes>
       </div>
-
-      <Footer />
     </div>
   )
 }
