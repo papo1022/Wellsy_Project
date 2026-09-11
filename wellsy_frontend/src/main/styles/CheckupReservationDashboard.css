@@ -18,6 +18,7 @@
 .checkup-title h2 {
   margin: 0 0 var(--spacing-sm);
   font-size: var(--font-size-h2);
+  font-weight: 700;
 }
 
 .checkup-title p {
