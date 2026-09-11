@@ -4,7 +4,7 @@ import { getAuthorization } from "../../common/api/commonApi";
 
 // 공통 URL
 const BASE_URL
-    = "/wellsy/employee";
+    = "http://localhost:8006/wellsy/employee";
 
 
 // 목록

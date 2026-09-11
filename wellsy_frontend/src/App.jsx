@@ -29,6 +29,7 @@ import StatusDetail from "./status/components/StatusDetail";
 import CheckmanList from "./checkman/components/CheckmanList";
 import CheckmanAlertDetail from "./checkman/components/CheckmanAlertDetail";
 
+import Footer from "./common/components/Footer";
 import Header from "./common/components/Header";
 import HealthDashboard from "./health/components/HealthDashboard";
 import MainDashboard from "./main/components/MainDashboard";
@@ -38,8 +39,7 @@ import MyPage from "./my/components/MyPage";
 import ChatWindow from "./ai/components/ChatWindow";
 
 import LoginForm from "./login/components/LoginForm";
-import FindAccount from "./login/components/FindAccount";
-import "./login/styles/Login.css";
+import "./login/styles/login.css";
 
 
 function App() {
@@ -52,12 +52,9 @@ function App() {
 
     return (
 
-      <Routes>
-        <Route path="/login" element={<LoginForm setToken={setToken} />} />
-        <Route path="/find-account" element={<FindAccount />} />
-        {/* 그 외 모든 주소는 로그인 화면으로 */}
-        <Route path="*" element={<LoginForm setToken={setToken} />} />
-      </Routes>
+      <div>
+        <LoginForm setToken={setToken} />
+      </div>
 
     );
   }
@@ -108,7 +105,7 @@ function App() {
         <Route path="/employee/list" element={<EmployeeList />} />
         <Route path="/employee/enrollForm" element={<EmployeeEnrollForm />} />
         <Route path="/employee/detail/:employeeNo" element={<EmployeeDetail />} />
-        <Route path="/employee/updateForm" element={<EmployeeUpdateForm />} />
+        <Route path="/employee/updateForm/:employeeNo" element={<EmployeeUpdateForm />} />
 
         {/* ================================= */}
         {/* 관리자 직원 건강관리 */}
@@ -123,6 +120,7 @@ function App() {
         </Routes>
       </div>
 
+      <Footer />
     </div>
   )
 }

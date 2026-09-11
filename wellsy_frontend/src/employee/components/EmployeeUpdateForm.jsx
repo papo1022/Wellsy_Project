@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 
 import {
     useLocation,
-    useNavigate
+    useNavigate,
+    useParams
 } from "react-router-dom";
 
 import {
@@ -22,8 +23,15 @@ function EmployeeUpdateForm() {
     // 상세페이지에서 전달받은 사번
     const location = useLocation();
 
+    const { employeeNo: paramEmployeeNo } = useParams();
+
     const employeeNo
-        = location.state?.employeeNo;
+    = paramEmployeeNo
+    ??
+    location.state?.employeeNo;
+
+    const [isRetiredEmployee, setIsRetiredEmployee]
+    = useState(false);
 
 
     // =========================================
@@ -45,29 +53,31 @@ function EmployeeUpdateForm() {
     // =========================================
     const [employee, setEmployee] = useState({
 
-        employeeNo : "",
+    employeeNo : "",
 
-        loginId : "",
+    loginId : "",
 
-        email : "",
+    email : "",
 
-        password : "",
+    password : "",
 
-        name : "",
+    name : "",
 
-        phone : "",
+    phone : "",
 
-        gender : "",
+    gender : "",
 
-        birthDate : "",
+    birthDate : "",
 
-        role : "EMPLOYEE",
+    role : "EMPLOYEE",
 
-        departmentId : "",
+    departmentId : "",
 
-        jobId : ""
+    jobId : "",
 
-    });
+    status : "Y"
+
+});
 
 
     // =========================================
@@ -157,9 +167,16 @@ function EmployeeUpdateForm() {
                         employeeResponse.data.departmentId ?? "",
 
                     jobId :
-                        employeeResponse.data.jobId ?? ""
+                        employeeResponse.data.jobId ?? "",
+                    
+                    status :
+                        employeeResponse.data.status ?? "Y"
 
                 });
+
+                setIsRetiredEmployee(
+                    employeeResponse.data.status === "N"
+                );
 
 
                 setDepartmentList(
@@ -245,58 +262,73 @@ function EmployeeUpdateForm() {
 
         e.preventDefault();
 
+        if(!isRetiredEmployee) {
 
-        // 아이디
-        if(employee.loginId.trim() === "") {
+            // 아이디
+            if(employee.loginId.trim() === "") {
 
-            alert("아이디를 입력해주세요.");
+                alert(
+                    "아이디를 입력해주세요."
+                );
 
-            return;
-        }
-
-
-        // 이름
-        if(employee.name.trim() === "") {
-
-            alert("이름을 입력해주세요.");
-
-            return;
-        }
+                return;
+            }
 
 
-        // 이메일
-        if(employee.email.trim() === "") {
+            // 이름
+            if(employee.name.trim() === "") {
 
-            alert("이메일을 입력해주세요.");
+                alert(
+                    "이름을 입력해주세요."
+                );
 
-            return;
-        }
-
-
-        // 성별
-        if(employee.gender === "") {
-
-            alert("성별을 선택해주세요.");
-
-            return;
-        }
+                return;
+            }
 
 
-        // 부서
-        if(employee.departmentId === "") {
+            // 이메일
+            if(employee.email.trim() === "") {
 
-            alert("부서를 선택해주세요.");
+                alert(
+                    "이메일을 입력해주세요."
+                );
 
-            return;
-        }
+                return;
+            }
 
 
-        // 직급
-        if(employee.jobId === "") {
+            // 성별
+            if(employee.gender === "") {
 
-            alert("직급을 선택해주세요.");
+                alert(
+                    "성별을 선택해주세요."
+                );
 
-            return;
+                return;
+            }
+
+
+            // 부서
+            if(employee.departmentId === "") {
+
+                alert(
+                    "부서를 선택해주세요."
+                );
+
+                return;
+            }
+
+
+            // 직급
+            if(employee.jobId === "") {
+
+                alert(
+                    "직급을 선택해주세요."
+                );
+
+                return;
+            }
+
         }
 
 
@@ -389,6 +421,16 @@ function EmployeeUpdateForm() {
                             등록된 사원의 정보를 수정합니다.
                         </p>
 
+                        {
+                            isRetiredEmployee
+                            &&
+                            (
+                                <p className="employee-retired-message">
+                                    퇴사한 사원은 재직 상태만 변경할 수 있습니다.
+                                </p>
+                            )
+                        }
+
                     </div>
 
 
@@ -448,6 +490,9 @@ function EmployeeUpdateForm() {
                                         onChange={
                                             handleChange
                                         }
+                                        disabled={
+                                            isRetiredEmployee
+                                        }
                                     />
 
                                 </div>
@@ -472,6 +517,10 @@ function EmployeeUpdateForm() {
                                         onChange={
                                             handleChange
                                         }
+
+                                        disabled={
+                                            isRetiredEmployee
+                                        }
                                     />
 
                                 </div>
@@ -495,6 +544,10 @@ function EmployeeUpdateForm() {
 
                                         onChange={
                                             handleChange
+                                        }
+                                        
+                                        disabled={
+                                            isRetiredEmployee
                                         }
 
                                         placeholder="변경할 경우에만 입력해주세요."
@@ -541,6 +594,10 @@ function EmployeeUpdateForm() {
                                         onChange={
                                             handleChange
                                         }
+
+                                        disabled={
+                                            isRetiredEmployee
+                                        }
                                     />
 
                                 </div>
@@ -566,6 +623,10 @@ function EmployeeUpdateForm() {
                                             handleChange
                                         }
 
+                                        disabled={
+                                            isRetiredEmployee
+                                        }
+
                                         placeholder="010-1234-5678"
                                     />
 
@@ -588,6 +649,10 @@ function EmployeeUpdateForm() {
 
                                         onChange={
                                             handleChange
+                                        }
+
+                                        disabled={
+                                            isRetiredEmployee
                                         }
                                     >
 
@@ -626,6 +691,10 @@ function EmployeeUpdateForm() {
 
                                         onChange={
                                             handleChange
+                                        }
+
+                                        disabled={
+                                            isRetiredEmployee
                                         }
                                     />
 
@@ -667,6 +736,10 @@ function EmployeeUpdateForm() {
 
                                         onChange={
                                             handleChange
+                                        }
+
+                                        disabled={
+                                            isRetiredEmployee
                                         }
                                     >
 
@@ -723,6 +796,10 @@ function EmployeeUpdateForm() {
                                         onChange={
                                             handleChange
                                         }
+
+                                        disabled={
+                                            isRetiredEmployee
+                                        }
                                     >
 
                                         <option value="">
@@ -776,6 +853,10 @@ function EmployeeUpdateForm() {
                                         onChange={
                                             handleChange
                                         }
+
+                                        disabled={
+                                            isRetiredEmployee
+                                        }
                                     >
 
                                         <option value="EMPLOYEE">
@@ -790,6 +871,39 @@ function EmployeeUpdateForm() {
 
                                 </div>
 
+                                {/* 재직 상태 */}
+                                <div className="employee-form-item">
+
+                                    <label>
+                                        재직 상태
+                                    </label>
+
+
+                                    <select
+
+                                        name="status"
+
+                                        value={
+                                            employee.status
+                                        }
+
+                                        onChange={
+                                            handleChange
+                                        }
+
+                                    >
+
+                                        <option value="Y">
+                                            재직
+                                        </option>
+
+                                        <option value="N">
+                                            퇴사
+                                        </option>
+
+                                    </select>
+
+                                </div>
 
                             </div>
 
