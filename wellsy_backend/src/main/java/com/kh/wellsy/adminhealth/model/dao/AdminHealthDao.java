@@ -1,7 +1,7 @@
 package com.kh.wellsy.adminhealth.model.dao;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,7 +12,8 @@ import com.kh.wellsy.adminhealth.model.vo.AdminHealthView;
 public interface AdminHealthDao
         extends JpaRepository<Bmi, Integer> {
 
-    @Query(value = """
+    @Query(
+        value = """
         SELECT
             e.EMPLOYEE_NO AS employeeNo,
             e.NAME AS name,
@@ -59,10 +60,26 @@ public interface AdminHealthDao
 
         ORDER BY e.NAME
         """,
+        countQuery = """
+        SELECT COUNT(*)
+        FROM EMPLOYEE e
+        WHERE
+            (:departmentId IS NULL
+                OR e.DEPARTMENT_ID = :departmentId)
+        AND
+            (:jobId IS NULL
+                OR e.JOB_ID = :jobId)
+        AND
+            (:name IS NULL
+                OR :name = ''
+                OR e.NAME LIKE CONCAT('%', :name, '%'))
+        AND e.STATUS = 'Y'
+        """,
         nativeQuery = true)
-    List<AdminHealthView> searchEmployees(
+    Page<AdminHealthView> searchEmployees(
             @Param("departmentId") Integer departmentId,
             @Param("jobId") Integer jobId,
-            @Param("name") String name
+            @Param("name") String name,
+            Pageable pageable
     );
 }

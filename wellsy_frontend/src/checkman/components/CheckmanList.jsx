@@ -202,7 +202,13 @@ function CheckmanList() {
 
         try {
 
-            const params = {};
+            const params = {
+
+                page : 0,
+
+                size : 1000
+
+            };
 
 
             // 직원 이름
@@ -233,8 +239,16 @@ function CheckmanList() {
                 );
 
 
+            const reservationData =
+                Array.isArray(response.data)
+                    ? response.data
+                    : response.data?.content;
+
+
             setReservationList(
-                response.data
+                Array.isArray(reservationData)
+                    ? reservationData
+                    : []
             );
 
 
@@ -492,8 +506,14 @@ function CheckmanList() {
     // 승인 대기 예약 수
     // =========================================
 
+    const safeReservationList =
+        Array.isArray(reservationList)
+            ? reservationList
+            : [];
+
+
     const waitingReservationCount
-        = reservationList.filter(
+        = safeReservationList.filter(
             reservation =>
                 reservation.status === "N"
         ).length;
@@ -1142,9 +1162,9 @@ function CheckmanList() {
                                     <tbody>
 
                                         {
-                                            reservationList.length > 0
+                                            safeReservationList.length > 0
                                             ?
-                                            reservationList.map(
+                                            safeReservationList.map(
                                                 reservation => (
 
                                                     <tr

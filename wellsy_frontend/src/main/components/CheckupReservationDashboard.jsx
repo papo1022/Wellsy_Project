@@ -15,6 +15,8 @@ import "../styles/CheckupReservationDashboard.css";
 const API_URL =
   "/wellsy/api/checkup-reservation-dashboard";
 
+const PAGE_SIZE = 10;
+
 
 function CheckupReservationDashboard() {
 
@@ -58,8 +60,20 @@ function CheckupReservationDashboard() {
   const [reservationList, setReservationList] =
     useState([]);
 
+  const [summaryList, setSummaryList] =
+    useState([]);
+
   const [loading, setLoading] =
     useState(true);
+
+  const [page, setPage] =
+    useState(0);
+
+  const [totalPages, setTotalPages] =
+    useState(0);
+
+  const [totalElements, setTotalElements] =
+    useState(0);
 
 
   // ======================================
@@ -75,42 +89,75 @@ function CheckupReservationDashboard() {
   // ======================================
 
   const selectReservationList =
-    async () => {
+    async (targetPage = 0) => {
 
       try {
 
         setLoading(true);
 
-        const response =
-          await axios.get(
-            API_URL,
-            {
-              params: {
+        const commonParams = {
+          year:
+            year,
 
-                year:
-                  year,
+          month:
+            month,
 
-                month:
-                  month,
+          departmentId:
+            departmentId || undefined,
 
-                departmentId:
-                  departmentId || undefined,
+          jobId:
+            jobId || undefined,
 
-                jobId:
-                  jobId || undefined,
+          name:
+            name || undefined
+        };
 
-                name:
-                  name || undefined,
+        const [pageResponse, summaryResponse] =
+          await Promise.all([
+            axios.get(
+              API_URL,
+              {
+                params: {
+                  ...commonParams,
 
-                status:
-                  status || undefined
+                  status:
+                    status || undefined,
 
+                  page:
+                    targetPage,
+
+                  size:
+                    PAGE_SIZE
+                }
               }
-            }
-          );
+            ),
+
+            axios.get(
+              `${API_URL}/summary`,
+              {
+                params: commonParams
+              }
+            )
+          ]);
 
         setReservationList(
-          response.data
+          pageResponse.data.content ?? []
+        );
+
+        setSummaryList(
+          summaryResponse.data ?? []
+        );
+
+        setPage(
+          pageResponse.data.number ?? targetPage
+        );
+
+        setTotalPages(
+          pageResponse.data.totalPages ?? 0
+        );
+
+        setTotalElements(
+          pageResponse.data.totalElements ?? 0
         );
 
       } catch (error) {
@@ -119,6 +166,11 @@ function CheckupReservationDashboard() {
           "건강검진 예약 현황 조회 실패",
           error
         );
+
+        setReservationList([]);
+        setSummaryList([]);
+        setTotalPages(0);
+        setTotalElements(0);
 
       } finally {
 
@@ -135,9 +187,28 @@ function CheckupReservationDashboard() {
 
   useEffect(() => {
 
-    selectReservationList();
+    selectReservationList(0);
 
   }, []);
+
+
+  // ======================================
+  // 페이지 이동
+  // ======================================
+
+  const movePage = (nextPage) => {
+
+    if (
+      nextPage < 0 ||
+      nextPage >= totalPages ||
+      nextPage === page
+    ) {
+      return;
+    }
+
+    selectReservationList(nextPage);
+
+  };
 
 
   // ======================================
@@ -145,7 +216,7 @@ function CheckupReservationDashboard() {
   // ======================================
 
   const reservationCount =
-    reservationList.filter(
+    summaryList.filter(
       (item) =>
         item.status === "Y"
     ).length;
@@ -156,7 +227,7 @@ function CheckupReservationDashboard() {
   // ======================================
 
   const notCompletedCount =
-    reservationList.filter(
+    summaryList.filter(
       (item) =>
         item.status === "N"
     ).length;
@@ -167,7 +238,7 @@ function CheckupReservationDashboard() {
   // ======================================
 
   const cancelList =
-    reservationList.filter(
+    summaryList.filter(
       (item) =>
         item.status === "C"
     );
@@ -418,7 +489,8 @@ function CheckupReservationDashboard() {
         <button
           className="checkup-search-btn"
           onClick={
-            selectReservationList
+            () =>
+              selectReservationList(0)
           }
         >
           조회
@@ -526,6 +598,10 @@ function CheckupReservationDashboard() {
         <h3>
           {year}년 {month}월 예약 직원
         </h3>
+
+        <p className="checkup-total-count">
+          전체 {totalElements}건
+        </p>
 
 
         {
@@ -668,6 +744,67 @@ function CheckupReservationDashboard() {
                 </table>
 
               )
+        }
+
+
+        {
+          totalPages > 0
+          &&
+          (
+
+            <div className="checkup-pagination">
+
+              <button
+                type="button"
+                disabled={page === 0}
+                onClick={
+                  () => movePage(page - 1)
+                }
+              >
+                &lt;
+              </button>
+
+
+              {
+                Array.from(
+                  { length: totalPages },
+                  (_, index) => (
+
+                    <button
+                      type="button"
+                      key={index}
+                      className={
+                        page === index
+                          ? "active"
+                          : ""
+                      }
+                      onClick={
+                        () => movePage(index)
+                      }
+                    >
+                      {index + 1}
+                    </button>
+
+                  )
+                )
+              }
+
+
+              <button
+                type="button"
+                disabled={
+                  page === totalPages - 1
+                }
+                onClick={
+                  () => movePage(page + 1)
+                }
+              >
+                &gt;
+              </button>
+
+            </div>
+
+          )
         }
 
       </div>

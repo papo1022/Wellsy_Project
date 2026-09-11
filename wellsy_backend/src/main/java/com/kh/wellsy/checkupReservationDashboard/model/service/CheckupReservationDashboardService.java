@@ -3,6 +3,9 @@ package com.kh.wellsy.checkupReservationDashboard.model.service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,13 +24,34 @@ public class CheckupReservationDashboardService {
     private final CheckupReservationDashboardDao checkupReservationDashboardDao;
     private final ScheduleDao scheduleDao;
 
-    public List<CheckupReservationDashboard> selectReservationList(
+    public Page<CheckupReservationDashboard> selectReservationList(
             Integer year, Integer month, Integer departmentId,
-            Integer jobId, String name, String status) {
+            Integer jobId, String name, String status,
+            int page, int size) {
+
+        page = Math.max(page, 0);
+        size = Math.max(size, 1);
+
+        Pageable pageable = PageRequest.of(page, size);
 
         return checkupReservationDashboardDao.selectReservationList(
-                year, month, departmentId, jobId, name, status
+                year, month, departmentId, jobId, name, status, pageable
         );
+    }
+
+    public List<CheckupReservationDashboard> selectReservationSummaryList(
+            Integer year, Integer month, Integer departmentId,
+            Integer jobId, String name) {
+
+        return checkupReservationDashboardDao.selectReservationList(
+                year,
+                month,
+                departmentId,
+                jobId,
+                name,
+                "ALL",
+                Pageable.unpaged()
+        ).getContent();
     }
 
     @Transactional
