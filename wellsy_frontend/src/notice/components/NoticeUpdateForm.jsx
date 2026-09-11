@@ -131,22 +131,21 @@ useEffect(() => {
 // 입력값 변경 시 실행
 const handleChange = e => {
 
-    const newNotice = {...notice};
+    const {
+        name,
+        value
+    } = e.target;
 
-    newNotice[e.target.name] = e.target.value;
 
-    const inputValue
-        = value.trimStart();
-
-        // 제목
+    // 제목
     if(name === "title") {
 
         setNotice({
 
             ...notice,
 
-            title : limitByByte(
-                inputValue,
+            title: limitByByte(
+                value,
                 TITLE_MAX_BYTE
             )
 
@@ -163,8 +162,8 @@ const handleChange = e => {
 
             ...notice,
 
-            content : limitByByte(
-                inputValue,
+            content: limitByByte(
+                value,
                 CONTENT_MAX_BYTE
             )
 
@@ -173,11 +172,12 @@ const handleChange = e => {
         return;
     }
 
-     setNotice({
+
+    setNotice({
 
         ...notice,
 
-        [name] : inputValue
+        [name]: value
 
     });
 };

@@ -29,6 +29,7 @@ import StatusDetail from "./status/components/StatusDetail";
 import CheckmanList from "./checkman/components/CheckmanList";
 import CheckmanAlertDetail from "./checkman/components/CheckmanAlertDetail";
 
+import Footer from "./common/components/Footer";
 import Header from "./common/components/Header";
 import HealthDashboard from "./health/components/HealthDashboard";
 import MainDashboard from "./main/components/MainDashboard";
@@ -38,7 +39,6 @@ import MyPage from "./my/components/MyPage";
 import ChatWindow from "./ai/components/ChatWindow";
 
 import LoginForm from "./login/components/LoginForm";
-import FindAccount from "./login/components/FindAccount";
 import "./login/styles/Login.css";
 
 
@@ -48,16 +48,13 @@ function App() {
   const [token, setToken] = useState(sessionStorage.getItem("token"));
 
   // 로그인 안 한 상태: 로그인 화면만 보여줌
-  if (token == null) {
+  if(token == null) {
 
     return (
 
-      <Routes>
-        <Route path="/login" element={<LoginForm setToken={setToken} />} />
-        <Route path="/find-account" element={<FindAccount />} />
-        {/* 그 외 모든 주소는 로그인 화면으로 */}
-        <Route path="*" element={<LoginForm setToken={setToken} />} />
-      </Routes>
+      <div>
+        <LoginForm setToken={setToken} />
+      </div>
 
     );
   }
@@ -83,7 +80,7 @@ function App() {
 
           <Route path="/health/sleep" element={<SleepForm />} />
 
-
+  
 
           {/* 사원 - 건강검진 */}
           <Route path="/check" element={<CheckupReservation />} />
@@ -100,22 +97,22 @@ function App() {
           <Route path="/notice/updateForm" element={<NoticeUpdateForm />} />
 
           {/* 공통 - 마이페이지 */}
-          <Route path="/my" element={<MyPage />} />
+          <Route path="/my" element={ <MyPage />} />
 
 
-          {/* 관리자 - 사원관리 */}
-          <Route path="/employee" element={<EmployeeList />} />
-          <Route path="/employee/list" element={<EmployeeList />} />
-          <Route path="/employee/enrollForm" element={<EmployeeEnrollForm />} />
-          <Route path="/employee/detail/:employeeNo" element={<EmployeeDetail />} />
-          <Route path="/employee/updateForm" element={<EmployeeUpdateForm />} />
+        {/* 관리자 - 사원관리 */}
+        <Route path="/employee" element={<EmployeeList />} />
+        <Route path="/employee/list" element={<EmployeeList />} />
+        <Route path="/employee/enrollForm" element={<EmployeeEnrollForm />} />
+        <Route path="/employee/detail/:employeeNo" element={<EmployeeDetail />} />
+        <Route path="/employee/updateForm/:employeeNo" element={<EmployeeUpdateForm />} />
 
-          {/* ================================= */}
-          {/* 관리자 직원 건강관리 */}
-          {/* ================================= */}
+        {/* ================================= */}
+        {/* 관리자 직원 건강관리 */}
+        {/* ================================= */}
 
-          <Route path="/checkman" element={<CheckmanList />} />
-          <Route path="/checkman/alerts/:alertId" element={<CheckmanAlertDetail />} />
+        <Route path="/checkman" element={ <CheckmanList /> } />
+        <Route path="/checkman/alerts/:alertId" element={ <CheckmanAlertDetail /> } />
 
           {/* 관리자 - 통계 / 건강 리포트 */}
           <Route path="/status" element={<StatusList />} />
@@ -123,6 +120,7 @@ function App() {
         </Routes>
       </div>
 
+      <Footer />
     </div>
   )
 }
