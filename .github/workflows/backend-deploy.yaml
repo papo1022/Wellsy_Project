@@ -6,6 +6,10 @@ on:
       - main_sub
       - jaeyoung
 
+concurrency:
+  group: wellsy-backend-deploy
+  cancel-in-progress: false
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -70,7 +74,7 @@ jobs:
             mkdir -p "$APP_DIR"
 
             echo "=========================================="
-            echo "       Starting backend deployment"
+            echo "       BACKEND DEPLOY START"
             echo "=========================================="
 
             echo ""
@@ -79,76 +83,103 @@ jobs:
             NEW_JAR=$(find "$UPLOAD_DIR" -maxdepth 1 -type f -name "*.jar" | head -n 1)
 
             if [ -z "$NEW_JAR" ]; then
-              echo "ERROR: JAR file not found in $UPLOAD_DIR"
+              echo "ERROR: No JAR file found in $UPLOAD_DIR"
               exit 1
             fi
 
-            echo "New JAR found:"
+            echo "Uploaded JAR:"
             echo "$NEW_JAR"
 
             echo ""
-            echo "===== Backing up current JAR ====="
+            echo "===== Backup current JAR ====="
 
             if [ -f "$JAR_FILE" ]; then
               cp "$JAR_FILE" "$BACKUP_JAR"
-              echo "Current JAR backed up."
+              echo "Backup created:"
+              echo "$BACKUP_JAR"
             else
-              echo "No existing JAR to back up."
+              echo "No current JAR found. Skipping backup."
             fi
 
             echo ""
-            echo "===== Stopping existing Spring Boot ====="
+            echo "===== Stop existing Spring Boot ====="
 
             OLD_PID=$(sudo fuser 8006/tcp 2>/dev/null | tr -d ' ' || true)
 
             if [ -n "$OLD_PID" ]; then
-              echo "Port 8006 is currently used by PID: $OLD_PID"
+              echo "Port 8006 currently used by PID: $OLD_PID"
 
               sudo kill "$OLD_PID" || true
 
-              for i in {1..15}; do
+              for i in {1..20}; do
+
                 if ! sudo kill -0 "$OLD_PID" 2>/dev/null; then
-                  echo "Old Spring Boot process stopped."
+                  echo "Old process stopped."
                   break
                 fi
 
-                echo "Waiting for PID $OLD_PID to stop... ($i/15)"
+                echo "Waiting for old PID $OLD_PID... ($i/20)"
                 sleep 1
+
               done
 
               if sudo kill -0 "$OLD_PID" 2>/dev/null; then
-                echo "PID $OLD_PID is still alive. Force killing..."
+                echo "Old process still alive. Force killing PID $OLD_PID"
                 sudo kill -9 "$OLD_PID" || true
-                sleep 3
+                sleep 2
               fi
             else
-              echo "No process is using port 8006."
+              echo "No process currently using port 8006."
             fi
 
             rm -f "$PID_FILE"
 
             echo ""
-            echo "===== Checking port 8006 ====="
+            echo "===== Waiting for port 8006 to become free ====="
+
+            for i in {1..20}; do
+
+              if ! sudo fuser 8006/tcp >/dev/null 2>&1; then
+                echo "Port 8006 is free."
+                break
+              fi
+
+              echo "Waiting for port 8006... ($i/20)"
+              sleep 1
+
+            done
 
             if sudo fuser 8006/tcp >/dev/null 2>&1; then
-              echo "ERROR: Port 8006 is STILL occupied."
+
+              echo "Port 8006 is still occupied."
+
+              PORT_PID=$(sudo fuser 8006/tcp 2>/dev/null | tr -d ' ' || true)
+
+              if [ -n "$PORT_PID" ]; then
+                echo "Force killing process using port 8006: $PORT_PID"
+                sudo kill -9 "$PORT_PID" || true
+                sleep 2
+              fi
+
+            fi
+
+            if sudo fuser 8006/tcp >/dev/null 2>&1; then
+              echo "ERROR: Port 8006 could not be released."
               sudo fuser -v 8006/tcp || true
               exit 1
             fi
 
-            echo "Port 8006 is free."
-
             echo ""
-            echo "===== Deploying new JAR ====="
+            echo "===== Deploy new JAR ====="
 
             rm -f "$JAR_FILE"
             mv "$NEW_JAR" "$JAR_FILE"
 
-            echo "New JAR deployed to:"
+            echo "New JAR installed:"
             echo "$JAR_FILE"
 
             echo ""
-            echo "===== Loading environment variables ====="
+            echo "===== Export environment variables ====="
 
             export DB_URL='${{ secrets.DB_URL }}'
             export DB_USERNAME='${{ secrets.DB_USERNAME }}'
@@ -162,7 +193,7 @@ jobs:
             cd "$APP_DIR"
 
             echo ""
-            echo "===== Starting Spring Boot ====="
+            echo "===== Start Spring Boot ====="
 
             rm -f "$LOG_FILE"
 
@@ -175,38 +206,24 @@ jobs:
             echo "New Spring Boot PID: $NEW_PID"
 
             echo ""
-            echo "===== Waiting for Spring Boot health check ====="
+            echo "===== Wait for health check ====="
 
-            STARTED=false
+            HEALTH_OK=false
 
             for i in {1..60}; do
 
               if ! kill -0 "$NEW_PID" 2>/dev/null; then
-                echo ""
-                echo "ERROR: Spring Boot process terminated unexpectedly."
 
                 echo ""
-                echo "===== Spring Boot Log ====="
+                echo "ERROR: New Spring Boot process terminated."
+
+                echo ""
+                echo "===== Spring Boot log ====="
                 tail -n 200 "$LOG_FILE" || true
 
-                echo ""
-                echo "===== Attempting rollback ====="
+                HEALTH_OK=false
+                break
 
-                if [ -f "$BACKUP_JAR" ]; then
-                  cp "$BACKUP_JAR" "$JAR_FILE"
-
-                  nohup java -jar "$JAR_FILE" > "$LOG_FILE" 2>&1 &
-
-                  ROLLBACK_PID=$!
-
-                  echo "$ROLLBACK_PID" > "$PID_FILE"
-
-                  echo "Rollback started. PID: $ROLLBACK_PID"
-                else
-                  echo "No backup JAR available."
-                fi
-
-                exit 1
               fi
 
               HTTP_CODE=$(curl \
@@ -220,140 +237,213 @@ jobs:
               if [ "$HTTP_CODE" = "200" ]; then
 
                 echo ""
-                echo "Spring Boot health check passed."
+                echo "Health check passed."
 
-                echo "Health response:"
+                echo ""
+                echo "===== Health response ====="
                 cat /tmp/wellsy-health-response.txt || true
                 echo ""
 
-                STARTED=true
+                HEALTH_OK=true
                 break
+
               fi
 
               sleep 2
+
             done
 
-            if [ "$STARTED" != "true" ]; then
+            if [ "$HEALTH_OK" = "true" ]; then
 
               echo ""
-              echo "ERROR: Spring Boot did not become healthy within 120 seconds."
+              echo "=========================================="
+              echo "       DEPLOYMENT SUCCESSFUL"
+              echo "=========================================="
+
+              echo "Spring Boot PID: $NEW_PID"
+              echo "Health check: OK"
 
               echo ""
-              echo "===== Port 8006 status ====="
+              echo "===== Port 8006 ====="
               sudo ss -lntp | grep 8006 || true
 
               echo ""
-              echo "===== Health response ====="
-              cat /tmp/wellsy-health-response.txt || true
+              echo "===== Last 50 log lines ====="
+              tail -n 50 "$LOG_FILE" || true
 
-              echo ""
-              echo "===== Spring Boot Log ====="
-              tail -n 200 "$LOG_FILE" || true
+              exit 0
 
-              echo ""
-              echo "===== Stopping failed Spring Boot ====="
-
-              if kill -0 "$NEW_PID" 2>/dev/null; then
-                kill "$NEW_PID" || true
-              fi
-
-              echo "Waiting for port 8006 to become free..."
-
-              for i in {1..15}; do
-                if ! sudo fuser 8006/tcp >/dev/null 2>&1; then
-                  echo "Port 8006 is free."
-                  break
-                fi
-
-                echo "Waiting for port 8006... ($i/15)"
-                sleep 1
-              done
-
-              if sudo fuser 8006/tcp >/dev/null 2>&1; then
-                echo "Port still occupied. Force killing process..."
-
-                PORT_PID=$(sudo fuser 8006/tcp 2>/dev/null | tr -d ' ' || true)
-
-                if [ -n "$PORT_PID" ]; then
-                  sudo kill -9 "$PORT_PID" || true
-                  sleep 2
-                fi
-              fi
-
-              echo ""
-              echo "===== Attempting rollback ====="
-
-              if [ -f "$BACKUP_JAR" ]; then
-
-                cp "$BACKUP_JAR" "$JAR_FILE"
-
-                nohup java -jar "$JAR_FILE" > "$LOG_FILE" 2>&1 &
-
-                ROLLBACK_PID=$!
-
-                echo "$ROLLBACK_PID" > "$PID_FILE"
-
-                echo "Rollback Spring Boot PID: $ROLLBACK_PID"
-
-                echo ""
-                echo "===== Waiting for rollback health check ====="
-
-                ROLLBACK_OK=false
-
-                for i in {1..30}; do
-
-                  if ! kill -0 "$ROLLBACK_PID" 2>/dev/null; then
-                    echo "Rollback process terminated."
-                    break
-                  fi
-
-                  HTTP_CODE=$(curl \
-                    -s \
-                    -o /tmp/wellsy-rollback-health.txt \
-                    -w "%{http_code}" \
-                    "$HEALTH_URL" || true)
-
-                  echo "Rollback health check ($i/30): HTTP $HTTP_CODE"
-
-                  if [ "$HTTP_CODE" = "200" ]; then
-                    ROLLBACK_OK=true
-                    break
-                  fi
-
-                  sleep 2
-                done
-
-                if [ "$ROLLBACK_OK" = "true" ]; then
-                  echo "Rollback completed successfully."
-                else
-                  echo "ERROR: Rollback also failed."
-
-                  echo ""
-                  echo "===== Rollback log ====="
-                  tail -n 200 "$LOG_FILE" || true
-                fi
-
-              else
-                echo "No backup JAR available."
-              fi
-
-              exit 1
             fi
 
             echo ""
             echo "=========================================="
-            echo "       Deployment successful"
+            echo "       DEPLOYMENT FAILED"
             echo "=========================================="
 
-            echo "Spring Boot PID: $NEW_PID"
-            echo "Health check: OK"
+            echo ""
+            echo "===== Stop failed Spring Boot ====="
+
+            if kill -0 "$NEW_PID" 2>/dev/null; then
+
+              kill "$NEW_PID" || true
+
+              for i in {1..15}; do
+
+                if ! kill -0 "$NEW_PID" 2>/dev/null; then
+                  echo "Failed process stopped."
+                  break
+                fi
+
+                echo "Waiting for failed process... ($i/15)"
+                sleep 1
+
+              done
+
+              if kill -0 "$NEW_PID" 2>/dev/null; then
+                echo "Force killing failed process."
+                kill -9 "$NEW_PID" || true
+                sleep 2
+              fi
+
+            fi
 
             echo ""
-            echo "===== Port 8006 status ====="
-            sudo ss -lntp | grep 8006 || true
+            echo "===== Wait for port 8006 before rollback ====="
+
+            for i in {1..20}; do
+
+              if ! sudo fuser 8006/tcp >/dev/null 2>&1; then
+                echo "Port 8006 is free."
+                break
+              fi
+
+              echo "Waiting for port 8006... ($i/20)"
+              sleep 1
+
+            done
+
+            if sudo fuser 8006/tcp >/dev/null 2>&1; then
+
+              PORT_PID=$(sudo fuser 8006/tcp 2>/dev/null | tr -d ' ' || true)
+
+              if [ -n "$PORT_PID" ]; then
+
+                echo "Force killing remaining process on port 8006:"
+                echo "$PORT_PID"
+
+                sudo kill -9 "$PORT_PID" || true
+                sleep 2
+
+              fi
+
+            fi
+
+            if sudo fuser 8006/tcp >/dev/null 2>&1; then
+              echo "ERROR: Port 8006 still occupied. Rollback cannot continue."
+              sudo fuser -v 8006/tcp || true
+              exit 1
+            fi
 
             echo ""
-            echo "===== Last 50 log lines ====="
-            tail -n 50 "$LOG_FILE" || true
+            echo "===== Rollback ====="
 
-            exit 0
+            if [ ! -f "$BACKUP_JAR" ]; then
+
+              echo "ERROR: Backup JAR does not exist."
+              echo "Rollback unavailable."
+
+              echo ""
+              echo "===== Failed Spring log ====="
+              tail -n 200 "$LOG_FILE" || true
+
+              exit 1
+
+            fi
+
+            cp "$BACKUP_JAR" "$JAR_FILE"
+
+            echo "Backup restored."
+
+            rm -f "$LOG_FILE"
+
+            nohup java -jar "$JAR_FILE" > "$LOG_FILE" 2>&1 &
+
+            ROLLBACK_PID=$!
+
+            echo "$ROLLBACK_PID" > "$PID_FILE"
+
+            echo "Rollback Spring Boot PID: $ROLLBACK_PID"
+
+            echo ""
+            echo "===== Wait for rollback health check ====="
+
+            ROLLBACK_OK=false
+
+            for i in {1..60}; do
+
+              if ! kill -0 "$ROLLBACK_PID" 2>/dev/null; then
+
+                echo "ERROR: Rollback process terminated."
+
+                echo ""
+                echo "===== Rollback log ====="
+                tail -n 200 "$LOG_FILE" || true
+
+                break
+
+              fi
+
+              HTTP_CODE=$(curl \
+                -s \
+                -o /tmp/wellsy-rollback-health.txt \
+                -w "%{http_code}" \
+                "$HEALTH_URL" || true)
+
+              echo "Rollback health check ($i/60): HTTP $HTTP_CODE"
+
+              if [ "$HTTP_CODE" = "200" ]; then
+
+                ROLLBACK_OK=true
+
+                echo ""
+                echo "Rollback health check passed."
+
+                break
+
+              fi
+
+              sleep 2
+
+            done
+
+            if [ "$ROLLBACK_OK" = "true" ]; then
+
+              echo ""
+              echo "=========================================="
+              echo "       ROLLBACK SUCCESSFUL"
+              echo "=========================================="
+
+              echo "Rollback PID: $ROLLBACK_PID"
+
+              echo ""
+              echo "===== Port 8006 ====="
+              sudo ss -lntp | grep 8006 || true
+
+              echo ""
+              echo "===== Last rollback log lines ====="
+              tail -n 50 "$LOG_FILE" || true
+
+              exit 1
+
+            fi
+
+            echo ""
+            echo "=========================================="
+            echo "       ROLLBACK FAILED"
+            echo "=========================================="
+
+            echo ""
+            echo "===== Rollback log ====="
+            tail -n 200 "$LOG_FILE" || true
+
+            exit 1
