@@ -2,6 +2,7 @@ package com.kh.wellsy.checkupReservationDashboard.controller;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,16 +26,31 @@ public class CheckupReservationDashboardController {
     private final CheckupReservationDashboardService checkupReservationDashboardService;
 
     @GetMapping
-    public List<CheckupReservationDashboard> selectReservationList(
+    public Page<CheckupReservationDashboard> selectReservationList(
             @RequestParam(required = false) Integer year,
             @RequestParam(required = false) Integer month,
             @RequestParam(required = false) Integer departmentId,
             @RequestParam(required = false) Integer jobId,
             @RequestParam(required = false) String name,
-            @RequestParam(required = false) String status) {
+            @RequestParam(required = false) String status,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
 
         return checkupReservationDashboardService.selectReservationList(
-                year, month, departmentId, jobId, name, status
+                year, month, departmentId, jobId, name, status, page, size
+        );
+    }
+
+    @GetMapping("/summary")
+    public List<CheckupReservationDashboard> selectReservationSummaryList(
+            @RequestParam(required = false) Integer year,
+            @RequestParam(required = false) Integer month,
+            @RequestParam(required = false) Integer departmentId,
+            @RequestParam(required = false) Integer jobId,
+            @RequestParam(required = false) String name) {
+
+        return checkupReservationDashboardService.selectReservationSummaryList(
+                year, month, departmentId, jobId, name
         );
     }
 

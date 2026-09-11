@@ -1,7 +1,7 @@
 package com.kh.wellsy.checkupReservationDashboard.model.dao;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -61,18 +61,71 @@ public interface CheckupReservationDashboardDao
 
             AND
                 (
-                    :status IS NULL
-                    OR :status = ''
-                    OR cr.STATUS = :status
+                    :status = 'ALL'
+                    OR (
+                        (:status IS NULL OR :status = '')
+                        AND cr.STATUS != 'C'
+                    )
+                    OR (
+                        :status IS NOT NULL
+                        AND :status != ''
+                        AND :status != 'ALL'
+                        AND cr.STATUS = :status
+                    )
                 )
 
             ORDER BY
                 cr.RESERVATION_DATE ASC,
                 cr.RESERVATION_ID ASC
             """,
+        countQuery = """
+            SELECT COUNT(*)
+            FROM CHECKUP_RESERVATION cr
+
+            JOIN EMPLOYEE e
+                ON cr.EMPLOYEE_NO = e.EMPLOYEE_NO
+
+            WHERE
+                (:year IS NULL
+                    OR YEAR(cr.RESERVATION_DATE) = :year)
+
+            AND
+                (:month IS NULL
+                    OR MONTH(cr.RESERVATION_DATE) = :month)
+
+            AND
+                (:departmentId IS NULL
+                    OR e.DEPARTMENT_ID = :departmentId)
+
+            AND
+                (:jobId IS NULL
+                    OR e.JOB_ID = :jobId)
+
+            AND
+                (
+                    :name IS NULL
+                    OR :name = ''
+                    OR e.NAME LIKE CONCAT('%', :name, '%')
+                )
+
+            AND
+                (
+                    :status = 'ALL'
+                    OR (
+                        (:status IS NULL OR :status = '')
+                        AND cr.STATUS != 'C'
+                    )
+                    OR (
+                        :status IS NOT NULL
+                        AND :status != ''
+                        AND :status != 'ALL'
+                        AND cr.STATUS = :status
+                    )
+                )
+            """,
         nativeQuery = true
     )
-    List<CheckupReservationDashboard> selectReservationList(
+    Page<CheckupReservationDashboard> selectReservationList(
 
             @Param("year")
             Integer year,
@@ -90,6 +143,8 @@ public interface CheckupReservationDashboardDao
             String name,
 
             @Param("status")
-            String status
+            String status,
+
+            Pageable pageable
     );
 }

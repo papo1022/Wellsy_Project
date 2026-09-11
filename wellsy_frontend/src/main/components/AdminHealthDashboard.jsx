@@ -11,9 +11,10 @@ import CheckupReservationDashboard
 import "../styles/AdminHealthDashboard.css";
 
 
-
 const API_URL =
   "/wellsy/api/admin/health";
+
+const PAGE_SIZE = 10;
 
 
 function AdminHealthDashboard() {
@@ -33,9 +34,18 @@ function AdminHealthDashboard() {
   const [selectedEmployee, setSelectedEmployee] =
     useState(null);
 
+  const [page, setPage] =
+    useState(0);
+
+  const [totalPages, setTotalPages] =
+    useState(0);
+
+  const [totalElements, setTotalElements] =
+    useState(0);
+
 
   const searchEmployees =
-    async () => {
+    async (targetPage = 0) => {
 
       try {
 
@@ -51,12 +61,30 @@ function AdminHealthDashboard() {
                   jobId || undefined,
 
                 name:
-                  name || undefined
+                  name || undefined,
+
+                page: targetPage,
+
+                size: PAGE_SIZE
               }
             }
           );
 
-        setEmployees(response.data);
+        setEmployees(
+          response.data.content ?? []
+        );
+
+        setPage(
+          response.data.number ?? targetPage
+        );
+
+        setTotalPages(
+          response.data.totalPages ?? 0
+        );
+
+        setTotalElements(
+          response.data.totalElements ?? 0
+        );
 
       } catch (error) {
 
@@ -65,14 +93,41 @@ function AdminHealthDashboard() {
           error
         );
 
+        setEmployees([]);
+        setTotalPages(0);
+        setTotalElements(0);
+
       }
 
     };
 
 
+  const handleSearch = () => {
+
+    setSelectedEmployee(null);
+    searchEmployees(0);
+
+  };
+
+
+  const movePage = (nextPage) => {
+
+    if (
+      nextPage < 0 ||
+      nextPage >= totalPages ||
+      nextPage === page
+    ) {
+      return;
+    }
+
+    searchEmployees(nextPage);
+
+  };
+
+
   useEffect(() => {
 
-    searchEmployees();
+    searchEmployees(0);
 
   }, []);
 
@@ -84,238 +139,290 @@ function AdminHealthDashboard() {
 
         <div className="admin-health-dashboard">
 
-      <h2>
-        직원 건강정보 조회
-      </h2>
+          <h2>
+            직원 건강정보 조회
+          </h2>
 
 
-      <div className="admin-health-search">
+          <div className="admin-health-search">
+
+            <select
+              value={departmentId}
+              onChange={(e) =>
+                setDepartmentId(e.target.value)
+              }
+            >
+
+              <option value="">
+                전체 부서
+              </option>
+
+              <option value="1">
+                개발부
+              </option>
+
+              <option value="2">
+                인사부
+              </option>
+
+              <option value="3">
+                영업부
+              </option>
+
+            </select>
 
 
-        <select
-          value={departmentId}
-          onChange={(e) =>
-            setDepartmentId(e.target.value)
-          }
-        >
+            <select
+              value={jobId}
+              onChange={(e) =>
+                setJobId(e.target.value)
+              }
+            >
 
-          <option value="">
-            전체 부서
-          </option>
+              <option value="">
+                전체 직급
+              </option>
 
-          <option value="1">
-            개발부
-          </option>
+              <option value="1">
+                사원
+              </option>
 
-          <option value="2">
-            인사부
-          </option>
+              <option value="2">
+                대리
+              </option>
 
-          <option value="3">
-            영업부
-          </option>
+              <option value="3">
+                과장
+              </option>
 
-        </select>
-
-
-        <select
-          value={jobId}
-          onChange={(e) =>
-            setJobId(e.target.value)
-          }
-        >
-
-          <option value="">
-            전체 직급
-          </option>
-
-          <option value="1">
-            사원
-          </option>
-
-          <option value="2">
-            대리
-          </option>
-
-          <option value="3">
-            과장
-          </option>
-
-        </select>
+            </select>
 
 
-        <input
-          type="text"
-          value={name}
-          placeholder="직원 이름"
-          onChange={(e) =>
-            setName(e.target.value)
-          }
-        />
+            <input
+              type="text"
+              value={name}
+              placeholder="직원 이름"
+              onChange={(e) =>
+                setName(e.target.value)
+              }
+              onKeyDown={(e) => {
+
+                if (e.key === "Enter") {
+                  handleSearch();
+                }
+
+              }}
+            />
 
 
-        <button
-          onClick={searchEmployees}
-        >
-          조회
-        </button>
+            <button
+              onClick={handleSearch}
+            >
+              조회
+            </button>
 
-      </div>
-
-
-      <table className="admin-health-table">
+          </div>
 
 
+          <div className="admin-health-count">
+            전체 {totalElements}명
+          </div>
 
 
-        <tbody>
+          <table className="admin-health-table">
 
-          {employees.map(
-            (employee) => (
+            <tbody>
 
-              <tr
-                key={employee.employeeNo}
+              {employees.map(
+                (employee) => (
+
+                  <tr
+                    key={employee.employeeNo}
+                  >
+
+                    <td>
+                      {employee.employeeNo}
+                    </td>
+
+                    <td>
+                      {employee.name}
+                    </td>
+
+                    <td>
+                      {employee.departmentName ?? "-"}
+                    </td>
+
+                    <td>
+                      {employee.jobName ?? "-"}
+                    </td>
+
+                    <td>
+                      {employee.recordDate ?? "-"}
+                    </td>
+
+                    <td>
+
+                      <button
+                        className="health-detail-btn"
+                        onClick={() =>
+                          setSelectedEmployee(employee)
+                        }
+                      >
+                        건강정보
+                      </button>
+
+                    </td>
+
+                  </tr>
+
+                )
+              )}
+
+              {employees.length === 0 && (
+
+                <tr>
+                  <td colSpan="6">
+                    조회된 직원이 없습니다.
+                  </td>
+                </tr>
+
+              )}
+
+            </tbody>
+
+          </table>
+
+
+          {totalPages > 0 && (
+
+            <div className="admin-health-pagination">
+
+              <button
+                type="button"
+                disabled={page === 0}
+                onClick={() => movePage(page - 1)}
               >
+                &lt;
+              </button>
 
-                <td>
-                  {employee.employeeNo}
-                </td>
 
-                <td>
-                  {employee.name}
-                </td>
-
-                <td>
-                  {employee.departmentName ?? "-"}
-                </td>
-
-                <td>
-                  {employee.jobName ?? "-"}
-                </td>
-
-                <td>
-                  {employee.recordDate ?? "-"}
-                </td>
-
-                <td>
+              {Array.from(
+                { length: totalPages },
+                (_, index) => (
 
                   <button
-                    className="health-detail-btn"
-                    onClick={() =>
-                      setSelectedEmployee(
-                        employee
-                      )
+                    type="button"
+                    key={index}
+                    className={
+                      page === index ? "active" : ""
                     }
+                    onClick={() => movePage(index)}
                   >
-                    건강정보
+                    {index + 1}
                   </button>
 
-                </td>
-
-              </tr>
-
-            )
-          )}
-
-        </tbody>
-
-      </table>
-
-
-      {
-        selectedEmployee &&
-        (
-
-          <div
-            className="admin-health-modal-background"
-            onMouseDown={(e) => {
-
-              if (
-                e.target ===
-                e.currentTarget
-              ) {
-
-                setSelectedEmployee(null);
-
-              }
-
-            }}
-          >
-
-            <div className="admin-health-modal">
-
-              <h3>
-                {selectedEmployee.name}
-                님 건강정보
-              </h3>
-
-
-              <p>
-                부서 :
-                {" "}
-                {selectedEmployee.departmentName ?? "-"}
-              </p>
-
-              <p>
-                직급 :
-                {" "}
-                {selectedEmployee.jobName ?? "-"}
-              </p>
-
-              <hr />
-
-
-              <p>
-                키 :
-                {" "}
-                {selectedEmployee.height ?? "-"} cm
-              </p>
-
-              <p>
-                체중 :
-                {" "}
-                {selectedEmployee.weight ?? "-"} kg
-              </p>
-
-              <p>
-                BMI :
-                {" "}
-                {selectedEmployee.bmi ?? "-"}
-              </p>
-
-              <p>
-                혈압 :
-                {" "}
-                {selectedEmployee.systolicBp ?? "-"}
-                /
-                {selectedEmployee.diastolicBp ?? "-"}
-                {" "}
-                mmHg
-              </p>
-
-              <p>
-                혈당 :
-                {" "}
-                {selectedEmployee.bloodSugar ?? "-"}
-                {" "}
-                mg/dL
-              </p>
+                )
+              )}
 
 
               <button
-                onClick={() =>
-                  setSelectedEmployee(null)
-                }
+                type="button"
+                disabled={page === totalPages - 1}
+                onClick={() => movePage(page + 1)}
               >
-                닫기
+                &gt;
               </button>
 
             </div>
 
-          </div>
+          )}
 
-        )
-      }
+
+          {
+            selectedEmployee &&
+            (
+
+              <div
+                className="admin-health-modal-background"
+                onMouseDown={(e) => {
+
+                  if (
+                    e.target ===
+                    e.currentTarget
+                  ) {
+
+                    setSelectedEmployee(null);
+
+                  }
+
+                }}
+              >
+
+                <div className="admin-health-modal">
+
+                  <h3>
+                    {selectedEmployee.name}
+                    님 건강정보
+                  </h3>
+
+
+                  <p>
+                    부서 :{" "}
+                    {selectedEmployee.departmentName ?? "-"}
+                  </p>
+
+                  <p>
+                    직급 :{" "}
+                    {selectedEmployee.jobName ?? "-"}
+                  </p>
+
+                  <hr />
+
+
+                  <p>
+                    키 :{" "}
+                    {selectedEmployee.height ?? "-"} cm
+                  </p>
+
+                  <p>
+                    체중 :{" "}
+                    {selectedEmployee.weight ?? "-"} kg
+                  </p>
+
+                  <p>
+                    BMI :{" "}
+                    {selectedEmployee.bmi ?? "-"}
+                  </p>
+
+                  <p>
+                    혈압 :{" "}
+                    {selectedEmployee.systolicBp ?? "-"}
+                    /
+                    {selectedEmployee.diastolicBp ?? "-"}
+                    {" "}mmHg
+                  </p>
+
+                  <p>
+                    혈당 :{" "}
+                    {selectedEmployee.bloodSugar ?? "-"}
+                    {" "}mg/dL
+                  </p>
+
+
+                  <button
+                    onClick={() =>
+                      setSelectedEmployee(null)
+                    }
+                  >
+                    닫기
+                  </button>
+
+                </div>
+
+              </div>
+
+            )
+          }
 
         </div>
 

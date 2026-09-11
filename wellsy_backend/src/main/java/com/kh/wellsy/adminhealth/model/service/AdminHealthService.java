@@ -1,7 +1,8 @@
 package com.kh.wellsy.adminhealth.model.service;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.kh.wellsy.adminhealth.model.dao.AdminHealthDao;
@@ -15,15 +16,23 @@ public class AdminHealthService {
 
     private final AdminHealthDao adminHealthDao;
 
-    public List<AdminHealthView> searchEmployees(
+    public Page<AdminHealthView> searchEmployees(
             Integer departmentId,
             Integer jobId,
-            String name) {
+            String name,
+            int page,
+            int size) {
+
+        page = Math.max(page, 0);
+        size = Math.max(size, 1);
+
+        Pageable pageable = PageRequest.of(page, size);
 
         return adminHealthDao.searchEmployees(
                 departmentId,
                 jobId,
-                name
+                name,
+                pageable
         );
     }
 }

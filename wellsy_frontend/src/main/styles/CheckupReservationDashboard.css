@@ -18,6 +18,7 @@
 .checkup-title h2 {
   margin: 0 0 var(--spacing-sm);
   font-size: var(--font-size-h2);
+  font-weight: 700;
 }
 
 .checkup-title p {
@@ -288,4 +289,156 @@
   .checkup-card-container {
     grid-template-columns: 1fr;
   }
+}
+
+/* ======================================
+   건강검진 예약 현황 너비 확장
+====================================== */
+
+@media (min-width: 1200px) {
+
+  .admin-dashboard-grid {
+    width: calc(100vw - 220px);
+    max-width: none;
+
+    grid-template-columns:
+      minmax(520px, 0.8fr)
+      minmax(850px, 1.2fr);
+  }
+
+  .admin-dashboard-panel {
+    min-width: 0;
+  }
+}
+
+
+/* ======================================
+   예약 테이블 가로 스크롤 제거
+====================================== */
+
+.checkup-table-box {
+  width: 100%;
+  overflow-x: visible;
+}
+
+.checkup-table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.checkup-table th,
+.checkup-table td {
+  padding: 12px 6px;
+
+  white-space: normal;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+
+  font-size: 13px;
+}
+/* ======================================
+   페이징
+====================================== */
+.checkup-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing);
+}
+
+.checkup-pagination button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 var(--spacing-sm);
+  box-sizing: border-box;
+  border: 1px solid var(--color-cancel);
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+  color: var(--color-black);
+  font-size: var(--font-size-button);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.checkup-pagination button:hover:not(:disabled) {
+  border-color: var(--color-grey);
+  background: var(--color-ivory);
+  color: var(--color-black);
+}
+
+.checkup-pagination button.active {
+  border: none;
+  background: var(--color-secondary);
+  color: var(--color-white);
+  font-weight: 700;
+}
+
+.checkup-pagination button.active:hover:not(:disabled) {
+  border: 1px solid var(--color-secondary);
+  background: var(--color-white);
+  color: var(--color-secondary);
+}
+
+.checkup-pagination button:disabled {
+  border-color: var(--color-cancel);
+  background: var(--color-ivory);
+  color: var(--color-cancel);
+  cursor: default;
+}
+
+
+/* 테이블 열 너비 */
+
+.checkup-table th:nth-child(1),
+.checkup-table td:nth-child(1) {
+  width: 8%;
+}
+
+.checkup-table th:nth-child(2),
+.checkup-table td:nth-child(2) {
+  width: 8%;
+}
+
+.checkup-table th:nth-child(3),
+.checkup-table td:nth-child(3) {
+  width: 8%;
+}
+
+.checkup-table th:nth-child(4),
+.checkup-table td:nth-child(4) {
+  width: 9%;
+}
+
+.checkup-table th:nth-child(5),
+.checkup-table td:nth-child(5) {
+  width: 8%;
+}
+
+.checkup-table th:nth-child(6),
+.checkup-table td:nth-child(6) {
+  width: 12%;
+}
+
+.checkup-table th:nth-child(7),
+.checkup-table td:nth-child(7) {
+  width: 12%;
+}
+
+.checkup-table th:nth-child(8),
+.checkup-table td:nth-child(8) {
+  width: 13%;
+}
+
+.checkup-table th:nth-child(9),
+.checkup-table td:nth-child(9) {
+  width: 10%;
+}
+
+.checkup-table th:nth-child(10),
+.checkup-table td:nth-child(10) {
+  width: 12%;
 }

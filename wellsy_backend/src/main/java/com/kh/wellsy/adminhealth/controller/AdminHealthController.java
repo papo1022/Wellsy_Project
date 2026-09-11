@@ -1,7 +1,6 @@
 package com.kh.wellsy.adminhealth.controller;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,15 +21,19 @@ public class AdminHealthController {
     private final AdminHealthService adminHealthService;
 
     @GetMapping
-    public List<AdminHealthView> searchEmployees(
+    public Page<AdminHealthView> searchEmployees(
             @RequestParam(required = false) Integer departmentId,
             @RequestParam(required = false) Integer jobId,
-            @RequestParam(required = false) String name) {
+            @RequestParam(required = false) String name,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
 
         return adminHealthService.searchEmployees(
                 departmentId,
                 jobId,
-                name
+                name,
+                page,
+                size
         );
     }
 }

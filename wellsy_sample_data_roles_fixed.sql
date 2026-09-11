@@ -40,19 +40,195 @@ INSERT INTO EXERCISE (EXERCISE_ID, EXERCISE_NAME, EXERCISE_TYPE, DESCRIPTION, DI
 INSERT INTO EXERCISE (EXERCISE_ID, EXERCISE_NAME, EXERCISE_TYPE, DESCRIPTION, DIFFICULTY, CALORIES_PER_MINUTE, THUMBNAIL_IMAGE_URL, GUIDE_IMAGE_URL) VALUES (12, '계단 오르기', '유산소', '계단을 활용한 고강도 유산소 운동', 'HARD', 9.00, 'https://example.com/exercise/12/thumb.jpg', 'https://example.com/exercise/12/guide.jpg');
 
 -- 건강 기준
-INSERT INTO HEALTH_STANDARD (STANDARD_ID, METRIC_TYPE, GENDER, MIN_AGE, MAX_AGE, MIN_VALUE, MAX_VALUE, UNIT, GRADE, DESCRIPTION) VALUES (1, 'BMI', NULL, 18, 120, 0.00, 18.49, 'kg/m2', '저체중', '정상 범위보다 낮은 BMI');
-INSERT INTO HEALTH_STANDARD (STANDARD_ID, METRIC_TYPE, GENDER, MIN_AGE, MAX_AGE, MIN_VALUE, MAX_VALUE, UNIT, GRADE, DESCRIPTION) VALUES (2, 'BMI', NULL, 18, 120, 18.50, 22.99, 'kg/m2', '정상', '정상 BMI 범위');
-INSERT INTO HEALTH_STANDARD (STANDARD_ID, METRIC_TYPE, GENDER, MIN_AGE, MAX_AGE, MIN_VALUE, MAX_VALUE, UNIT, GRADE, DESCRIPTION) VALUES (3, 'BMI', NULL, 18, 120, 23.00, 24.99, 'kg/m2', '주의', '과체중 전단계');
-INSERT INTO HEALTH_STANDARD (STANDARD_ID, METRIC_TYPE, GENDER, MIN_AGE, MAX_AGE, MIN_VALUE, MAX_VALUE, UNIT, GRADE, DESCRIPTION) VALUES (4, 'BMI', NULL, 18, 120, 25.00, 29.99, 'kg/m2', '경고', '비만 단계');
-INSERT INTO HEALTH_STANDARD (STANDARD_ID, METRIC_TYPE, GENDER, MIN_AGE, MAX_AGE, MIN_VALUE, MAX_VALUE, UNIT, GRADE, DESCRIPTION) VALUES (5, 'BMI', NULL, 18, 120, 30.00, 99.99, 'kg/m2', '위험', '고도 비만 가능');
-INSERT INTO HEALTH_STANDARD (STANDARD_ID, METRIC_TYPE, GENDER, MIN_AGE, MAX_AGE, MIN_VALUE, MAX_VALUE, UNIT, GRADE, DESCRIPTION) VALUES (6, 'SYSTOLIC_BP', NULL, 18, 120, 0.00, 119.00, 'mmHg', '정상', '정상 수축기 혈압');
-INSERT INTO HEALTH_STANDARD (STANDARD_ID, METRIC_TYPE, GENDER, MIN_AGE, MAX_AGE, MIN_VALUE, MAX_VALUE, UNIT, GRADE, DESCRIPTION) VALUES (7, 'SYSTOLIC_BP', NULL, 18, 120, 120.00, 129.00, 'mmHg', '관심', '혈압 관리 필요');
-INSERT INTO HEALTH_STANDARD (STANDARD_ID, METRIC_TYPE, GENDER, MIN_AGE, MAX_AGE, MIN_VALUE, MAX_VALUE, UNIT, GRADE, DESCRIPTION) VALUES (8, 'SYSTOLIC_BP', NULL, 18, 120, 130.00, 139.00, 'mmHg', '주의', '고혈압 전단계');
-INSERT INTO HEALTH_STANDARD (STANDARD_ID, METRIC_TYPE, GENDER, MIN_AGE, MAX_AGE, MIN_VALUE, MAX_VALUE, UNIT, GRADE, DESCRIPTION) VALUES (9, 'SYSTOLIC_BP', NULL, 18, 120, 140.00, 159.00, 'mmHg', '경고', '고혈압 의심');
-INSERT INTO HEALTH_STANDARD (STANDARD_ID, METRIC_TYPE, GENDER, MIN_AGE, MAX_AGE, MIN_VALUE, MAX_VALUE, UNIT, GRADE, DESCRIPTION) VALUES (10, 'SYSTOLIC_BP', NULL, 18, 120, 160.00, 300.00, 'mmHg', '위험', '높은 혈압');
-INSERT INTO HEALTH_STANDARD (STANDARD_ID, METRIC_TYPE, GENDER, MIN_AGE, MAX_AGE, MIN_VALUE, MAX_VALUE, UNIT, GRADE, DESCRIPTION) VALUES (11, 'BLOOD_SUGAR', NULL, 18, 120, 0.00, 99.00, 'mg/dL', '정상', '정상 공복 혈당');
-INSERT INTO HEALTH_STANDARD (STANDARD_ID, METRIC_TYPE, GENDER, MIN_AGE, MAX_AGE, MIN_VALUE, MAX_VALUE, UNIT, GRADE, DESCRIPTION) VALUES (12, 'BLOOD_SUGAR', NULL, 18, 120, 100.00, 125.00, 'mg/dL', '주의', '공복혈당장애 가능');
-INSERT INTO HEALTH_STANDARD (STANDARD_ID, METRIC_TYPE, GENDER, MIN_AGE, MAX_AGE, MIN_VALUE, MAX_VALUE, UNIT, GRADE, DESCRIPTION) VALUES (13, 'BLOOD_SUGAR', NULL, 18, 120, 126.00, 500.00, 'mg/dL', '경고', '당뇨 의심');
+INSERT INTO HEALTH_STANDARD
+(
+    METRIC_TYPE,
+    GENDER,
+    MIN_AGE,
+    MAX_AGE,
+    MIN_VALUE,
+    MAX_VALUE,
+    UNIT,
+    GRADE,
+    DESCRIPTION
+)
+VALUES
+('BMI', 'ALL', 20, 999, 0, 15, 'kg/m²', 'danger',
+ 'BMI 15 미만'),
+
+('BMI', 'ALL', 20, 999, 15, 16, 'kg/m²', 'warning',
+ 'BMI 15 이상 16 미만'),
+
+('BMI', 'ALL', 20, 999, 16, 17, 'kg/m²', 'caution',
+ 'BMI 16 이상 17 미만'),
+
+('BMI', 'ALL', 20, 999, 17, 18.5, 'kg/m²', 'interest',
+ 'BMI 17 이상 18.5 미만'),
+
+('BMI', 'ALL', 20, 999, 18.5, 25, 'kg/m²', 'normal',
+ 'BMI 18.5 이상 25 미만'),
+
+('BMI', 'ALL', 20, 999, 25, 30, 'kg/m²', 'interest',
+ 'BMI 25 이상 30 미만'),
+
+('BMI', 'ALL', 20, 999, 30, 35, 'kg/m²', 'caution',
+ 'BMI 30 이상 35 미만'),
+
+('BMI', 'ALL', 20, 999, 35, 40, 'kg/m²', 'warning',
+ 'BMI 35 이상 40 미만'),
+
+('BMI', 'ALL', 20, 999, 40, NULL, 'kg/m²', 'danger',
+ 'BMI 40 이상');
+
+
+-- =========================================
+-- 수축기 혈압
+-- =========================================
+
+INSERT INTO HEALTH_STANDARD
+(
+    METRIC_TYPE,
+    GENDER,
+    MIN_AGE,
+    MAX_AGE,
+    MIN_VALUE,
+    MAX_VALUE,
+    UNIT,
+    GRADE,
+    DESCRIPTION
+)
+VALUES
+('SYSTOLIC_BP', 'ALL', 20, 999, 0, 120, 'mmHg', 'normal',
+ '수축기 혈압 120 미만'),
+
+('SYSTOLIC_BP', 'ALL', 20, 999, 120, 130, 'mmHg', 'interest',
+ '수축기 혈압 120 이상 130 미만'),
+
+('SYSTOLIC_BP', 'ALL', 20, 999, 130, 140, 'mmHg', 'caution',
+ '수축기 혈압 130 이상 140 미만'),
+
+('SYSTOLIC_BP', 'ALL', 20, 999, 140, 180, 'mmHg', 'warning',
+ '수축기 혈압 140 이상 180 미만'),
+
+('SYSTOLIC_BP', 'ALL', 20, 999, 180, NULL, 'mmHg', 'danger',
+ '수축기 혈압 180 이상');
+
+
+-- =========================================
+-- 이완기 혈압
+-- =========================================
+
+INSERT INTO HEALTH_STANDARD
+(
+    METRIC_TYPE,
+    GENDER,
+    MIN_AGE,
+    MAX_AGE,
+    MIN_VALUE,
+    MAX_VALUE,
+    UNIT,
+    GRADE,
+    DESCRIPTION
+)
+VALUES
+('DIASTOLIC_BP', 'ALL', 20, 999, 0, 80, 'mmHg', 'normal',
+ '이완기 혈압 80 미만'),
+
+('DIASTOLIC_BP', 'ALL', 20, 999, 80, 85, 'mmHg', 'interest',
+ '이완기 혈압 80 이상 85 미만'),
+
+('DIASTOLIC_BP', 'ALL', 20, 999, 85, 90, 'mmHg', 'caution',
+ '이완기 혈압 85 이상 90 미만'),
+
+('DIASTOLIC_BP', 'ALL', 20, 999, 90, 120, 'mmHg', 'warning',
+ '이완기 혈압 90 이상 120 미만'),
+
+('DIASTOLIC_BP', 'ALL', 20, 999, 120, NULL, 'mmHg', 'danger',
+ '이완기 혈압 120 이상');
+
+
+-- =========================================
+-- 혈당
+-- =========================================
+
+INSERT INTO HEALTH_STANDARD
+(
+    METRIC_TYPE,
+    GENDER,
+    MIN_AGE,
+    MAX_AGE,
+    MIN_VALUE,
+    MAX_VALUE,
+    UNIT,
+    GRADE,
+    DESCRIPTION
+)
+VALUES
+('BLOOD_SUGAR', 'ALL', 20, 999, 0, 54, 'mg/dL', 'danger',
+ '혈당 54 미만'),
+
+('BLOOD_SUGAR', 'ALL', 20, 999, 54, 70, 'mg/dL', 'warning',
+ '혈당 54 이상 70 미만'),
+
+('BLOOD_SUGAR', 'ALL', 20, 999, 70, 100, 'mg/dL', 'normal',
+ '혈당 70 이상 100 미만'),
+
+('BLOOD_SUGAR', 'ALL', 20, 999, 100, 110, 'mg/dL', 'interest',
+ '혈당 100 이상 110 미만'),
+
+('BLOOD_SUGAR', 'ALL', 20, 999, 110, 126, 'mg/dL', 'caution',
+ '혈당 110 이상 126 미만'),
+
+('BLOOD_SUGAR', 'ALL', 20, 999, 126, 200, 'mg/dL', 'warning',
+ '혈당 126 이상 200 미만'),
+
+('BLOOD_SUGAR', 'ALL', 20, 999, 200, NULL, 'mg/dL', 'danger',
+ '혈당 200 이상');
+
+
+-- =========================================
+-- 수면 시간
+-- =========================================
+
+INSERT INTO HEALTH_STANDARD
+(
+    METRIC_TYPE,
+    GENDER,
+    MIN_AGE,
+    MAX_AGE,
+    MIN_VALUE,
+    MAX_VALUE,
+    UNIT,
+    GRADE,
+    DESCRIPTION
+)
+VALUES
+('SLEEP_TIME', 'ALL', 20, 999, 0, 4, 'hour', 'danger',
+ '수면시간 4시간 미만'),
+
+('SLEEP_TIME', 'ALL', 20, 999, 4, 5, 'hour', 'warning',
+ '수면시간 4시간 이상 5시간 미만'),
+
+('SLEEP_TIME', 'ALL', 20, 999, 5, 6, 'hour', 'caution',
+ '수면시간 5시간 이상 6시간 미만'),
+
+('SLEEP_TIME', 'ALL', 20, 999, 6, 7, 'hour', 'interest',
+ '수면시간 6시간 이상 7시간 미만'),
+
+('SLEEP_TIME', 'ALL', 20, 999, 7, 9, 'hour', 'normal',
+ '수면시간 7시간 이상 9시간 미만'),
+
+('SLEEP_TIME', 'ALL', 20, 999, 9, 10, 'hour', 'interest',
+ '수면시간 9시간 이상 10시간 미만'),
+
+('SLEEP_TIME', 'ALL', 20, 999, 10, 11, 'hour', 'caution',
+ '수면시간 10시간 이상 11시간 미만'),
+
+('SLEEP_TIME', 'ALL', 20, 999, 11, 12, 'hour', 'warning',
+ '수면시간 11시간 이상 12시간 미만'),
+
+('SLEEP_TIME', 'ALL', 20, 999, 12, NULL, 'hour', 'danger',
+ '수면시간 12시간 이상');
 
 -- 직원 60명
 INSERT INTO EMPLOYEE (EMPLOYEE_NO, LOGIN_ID, EMAIL, PASSWORD, NAME, PHONE, GENDER, BIRTH_DATE, ROLE, HIRE_DATE, STATUS, RESIGN_DATE, DEPARTMENT_ID, JOB_ID) VALUES (1, 'admin001', 'admin001@wellsy-demo.com', '$2a$10$sQfYaS7bZW/FkQUEAwYBnetRA2xbN3.4htpwHX8HuCa5v7zJvo1Ty', '한예준', '010-9935-2424', 'M', '1975-12-09', 'ADMIN', '2017-04-05', 'Y', NULL, 2, 4);
