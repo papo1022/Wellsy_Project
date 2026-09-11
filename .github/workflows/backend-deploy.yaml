@@ -30,14 +30,13 @@ jobs:
         working-directory: wellsy_backend
         run: mvn clean package -DskipTests
 
-      - name: Prepare EC2 directories
+      - name: Prepare EC2 upload directory
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_KEY }}
           script: |
-            mkdir -p /home/ubuntu/app
             mkdir -p /home/ubuntu/upload
             rm -f /home/ubuntu/upload/*.jar
 
@@ -60,85 +59,64 @@ jobs:
           script: |
             set -e
 
-            APP_DIR="/home/ubuntu/app"
+            SERVICE_NAME="wellsy.service"
+
             UPLOAD_DIR="/home/ubuntu/upload"
 
-            JAR_FILE="$APP_DIR/wellsy.jar"
-            BACKUP_JAR="$APP_DIR/wellsy-backup.jar"
-
-            PID_FILE="$APP_DIR/wellsy.pid"
-            LOG_FILE="$APP_DIR/wellsy.log"
+            JAR_FILE="/home/ubuntu/wellsy_backend.jar"
+            BACKUP_JAR="/home/ubuntu/wellsy_backend-backup.jar"
 
             HEALTH_URL="http://127.0.0.1:8006/wellsy/actuator/health"
 
-            mkdir -p "$APP_DIR"
-
             echo "=========================================="
-            echo "       BACKEND DEPLOY START"
+            echo "       WELLSY BACKEND DEPLOY START"
             echo "=========================================="
 
             echo ""
-            echo "===== Finding uploaded JAR ====="
+            echo "===== Find uploaded JAR ====="
 
-            NEW_JAR=$(find "$UPLOAD_DIR" -maxdepth 1 -type f -name "*.jar" | head -n 1)
+            NEW_JAR=$(find "$UPLOAD_DIR" \
+              -maxdepth 1 \
+              -type f \
+              -name "*.jar" \
+              | head -n 1)
 
             if [ -z "$NEW_JAR" ]; then
-              echo "ERROR: No JAR file found in $UPLOAD_DIR"
+              echo "ERROR: Uploaded JAR not found."
               exit 1
             fi
 
-            echo "Uploaded JAR:"
-            echo "$NEW_JAR"
+            echo "Uploaded JAR: $NEW_JAR"
 
             echo ""
-            echo "===== Backup current JAR ====="
+            echo "===== Stop service ====="
 
-            if [ -f "$JAR_FILE" ]; then
-              cp "$JAR_FILE" "$BACKUP_JAR"
-              echo "Backup created:"
-              echo "$BACKUP_JAR"
-            else
-              echo "No current JAR found. Skipping backup."
-            fi
-
-            echo ""
-            echo "===== Stop existing Spring Boot ====="
-
-            OLD_PID=$(sudo fuser 8006/tcp 2>/dev/null | tr -d ' ' || true)
-
-            if [ -n "$OLD_PID" ]; then
-              echo "Port 8006 currently used by PID: $OLD_PID"
-
-              sudo kill "$OLD_PID" || true
-
-              for i in {1..20}; do
-
-                if ! sudo kill -0 "$OLD_PID" 2>/dev/null; then
-                  echo "Old process stopped."
-                  break
-                fi
-
-                echo "Waiting for old PID $OLD_PID... ($i/20)"
-                sleep 1
-
-              done
-
-              if sudo kill -0 "$OLD_PID" 2>/dev/null; then
-                echo "Old process still alive. Force killing PID $OLD_PID"
-                sudo kill -9 "$OLD_PID" || true
-                sleep 2
-              fi
-            else
-              echo "No process currently using port 8006."
-            fi
-
-            rm -f "$PID_FILE"
-
-            echo ""
-            echo "===== Waiting for port 8006 to become free ====="
+            sudo systemctl stop "$SERVICE_NAME"
 
             for i in {1..20}; do
+              STATUS=$(sudo systemctl is-active "$SERVICE_NAME" || true)
 
+              if [ "$STATUS" != "active" ]; then
+                echo "Service stopped."
+                break
+              fi
+
+              echo "Waiting for service to stop... ($i/20)"
+              sleep 1
+            done
+
+            STATUS=$(sudo systemctl is-active "$SERVICE_NAME" || true)
+
+            if [ "$STATUS" = "active" ]; then
+              echo "ERROR: Service did not stop."
+              sudo systemctl status "$SERVICE_NAME" --no-pager || true
+              exit 1
+            fi
+
+            echo ""
+            echo "===== Check port 8006 ====="
+
+            for i in {1..20}; do
               if ! sudo fuser 8006/tcp >/dev/null 2>&1; then
                 echo "Port 8006 is free."
                 break
@@ -146,111 +124,74 @@ jobs:
 
               echo "Waiting for port 8006... ($i/20)"
               sleep 1
-
             done
 
             if sudo fuser 8006/tcp >/dev/null 2>&1; then
-
-              echo "Port 8006 is still occupied."
-
-              PORT_PID=$(sudo fuser 8006/tcp 2>/dev/null | tr -d ' ' || true)
-
-              if [ -n "$PORT_PID" ]; then
-                echo "Force killing process using port 8006: $PORT_PID"
-                sudo kill -9 "$PORT_PID" || true
-                sleep 2
-              fi
-
-            fi
-
-            if sudo fuser 8006/tcp >/dev/null 2>&1; then
-              echo "ERROR: Port 8006 could not be released."
+              echo "ERROR: Port 8006 is still occupied."
               sudo fuser -v 8006/tcp || true
               exit 1
             fi
 
             echo ""
-            echo "===== Deploy new JAR ====="
+            echo "===== Backup current JAR ====="
 
-            rm -f "$JAR_FILE"
+            if [ -f "$JAR_FILE" ]; then
+              cp "$JAR_FILE" "$BACKUP_JAR"
+              echo "Backup created: $BACKUP_JAR"
+            else
+              echo "No current JAR found. Skipping backup."
+            fi
+
+            echo ""
+            echo "===== Replace JAR ====="
+
             mv "$NEW_JAR" "$JAR_FILE"
+            chmod 755 "$JAR_FILE"
 
-            echo "New JAR installed:"
-            echo "$JAR_FILE"
-
-            echo ""
-            echo "===== Export environment variables ====="
-
-            export DB_URL='${{ secrets.DB_URL }}'
-            export DB_USERNAME='${{ secrets.DB_USERNAME }}'
-            export DB_PASSWORD='${{ secrets.DB_PASSWORD }}'
-
-            export GEMINI_API_KEY='${{ secrets.GEMINI_API_KEY }}'
-
-            export MAIL_USERNAME='${{ secrets.MAIL_USERNAME }}'
-            export MAIL_PASSWORD='${{ secrets.MAIL_PASSWORD }}'
-
-            cd "$APP_DIR"
+            echo "New JAR installed: $JAR_FILE"
 
             echo ""
-            echo "===== Start Spring Boot ====="
+            echo "===== Start service ====="
 
-            rm -f "$LOG_FILE"
-
-            nohup java -jar "$JAR_FILE" > "$LOG_FILE" 2>&1 &
-
-            NEW_PID=$!
-
-            echo "$NEW_PID" > "$PID_FILE"
-
-            echo "New Spring Boot PID: $NEW_PID"
+            sudo systemctl start "$SERVICE_NAME"
 
             echo ""
-            echo "===== Wait for health check ====="
+            echo "===== Health check ====="
 
             HEALTH_OK=false
 
             for i in {1..60}; do
 
-              if ! kill -0 "$NEW_PID" 2>/dev/null; then
+              STATUS=$(sudo systemctl is-active "$SERVICE_NAME" || true)
 
-                echo ""
-                echo "ERROR: New Spring Boot process terminated."
+              if [ "$STATUS" != "active" ]; then
+                echo "ERROR: Service stopped during startup."
 
-                echo ""
-                echo "===== Spring Boot log ====="
-                tail -n 200 "$LOG_FILE" || true
+                sudo systemctl status "$SERVICE_NAME" \
+                  --no-pager || true
 
-                HEALTH_OK=false
+                sudo journalctl \
+                  -u "$SERVICE_NAME" \
+                  -n 200 \
+                  --no-pager || true
+
                 break
-
               fi
 
               HTTP_CODE=$(curl \
                 -s \
-                -o /tmp/wellsy-health-response.txt \
+                -o /tmp/wellsy-health.txt \
                 -w "%{http_code}" \
                 "$HEALTH_URL" || true)
 
               echo "Health check ($i/60): HTTP $HTTP_CODE"
 
               if [ "$HTTP_CODE" = "200" ]; then
-
-                echo ""
-                echo "Health check passed."
-
-                echo ""
-                echo "===== Health response ====="
-                cat /tmp/wellsy-health-response.txt || true
-                echo ""
-
                 HEALTH_OK=true
                 break
-
               fi
 
               sleep 2
-
             done
 
             if [ "$HEALTH_OK" = "true" ]; then
@@ -260,19 +201,30 @@ jobs:
               echo "       DEPLOYMENT SUCCESSFUL"
               echo "=========================================="
 
-              echo "Spring Boot PID: $NEW_PID"
-              echo "Health check: OK"
+              echo ""
+              echo "===== Health response ====="
+              cat /tmp/wellsy-health.txt || true
+              echo ""
+
+              echo ""
+              echo "===== Service status ====="
+              sudo systemctl status "$SERVICE_NAME" \
+                --no-pager || true
 
               echo ""
               echo "===== Port 8006 ====="
               sudo ss -lntp | grep 8006 || true
 
               echo ""
-              echo "===== Last 50 log lines ====="
-              tail -n 50 "$LOG_FILE" || true
+              echo "===== Recent logs ====="
+              sudo journalctl \
+                -u "$SERVICE_NAME" \
+                -n 50 \
+                --no-pager || true
+
+              rm -f "$UPLOAD_DIR"/*.jar
 
               exit 0
-
             fi
 
             echo ""
@@ -281,37 +233,11 @@ jobs:
             echo "=========================================="
 
             echo ""
-            echo "===== Stop failed Spring Boot ====="
+            echo "===== Stop failed service ====="
 
-            if kill -0 "$NEW_PID" 2>/dev/null; then
-
-              kill "$NEW_PID" || true
-
-              for i in {1..15}; do
-
-                if ! kill -0 "$NEW_PID" 2>/dev/null; then
-                  echo "Failed process stopped."
-                  break
-                fi
-
-                echo "Waiting for failed process... ($i/15)"
-                sleep 1
-
-              done
-
-              if kill -0 "$NEW_PID" 2>/dev/null; then
-                echo "Force killing failed process."
-                kill -9 "$NEW_PID" || true
-                sleep 2
-              fi
-
-            fi
-
-            echo ""
-            echo "===== Wait for port 8006 before rollback ====="
+            sudo systemctl stop "$SERVICE_NAME" || true
 
             for i in {1..20}; do
-
               if ! sudo fuser 8006/tcp >/dev/null 2>&1; then
                 echo "Port 8006 is free."
                 break
@@ -319,27 +245,10 @@ jobs:
 
               echo "Waiting for port 8006... ($i/20)"
               sleep 1
-
             done
 
             if sudo fuser 8006/tcp >/dev/null 2>&1; then
-
-              PORT_PID=$(sudo fuser 8006/tcp 2>/dev/null | tr -d ' ' || true)
-
-              if [ -n "$PORT_PID" ]; then
-
-                echo "Force killing remaining process on port 8006:"
-                echo "$PORT_PID"
-
-                sudo kill -9 "$PORT_PID" || true
-                sleep 2
-
-              fi
-
-            fi
-
-            if sudo fuser 8006/tcp >/dev/null 2>&1; then
-              echo "ERROR: Port 8006 still occupied. Rollback cannot continue."
+              echo "ERROR: Port 8006 is still occupied."
               sudo fuser -v 8006/tcp || true
               exit 1
             fi
@@ -348,49 +257,41 @@ jobs:
             echo "===== Rollback ====="
 
             if [ ! -f "$BACKUP_JAR" ]; then
-
               echo "ERROR: Backup JAR does not exist."
-              echo "Rollback unavailable."
 
-              echo ""
-              echo "===== Failed Spring log ====="
-              tail -n 200 "$LOG_FILE" || true
+              sudo journalctl \
+                -u "$SERVICE_NAME" \
+                -n 200 \
+                --no-pager || true
 
               exit 1
-
             fi
 
             cp "$BACKUP_JAR" "$JAR_FILE"
+            chmod 755 "$JAR_FILE"
 
             echo "Backup restored."
 
-            rm -f "$LOG_FILE"
-
-            nohup java -jar "$JAR_FILE" > "$LOG_FILE" 2>&1 &
-
-            ROLLBACK_PID=$!
-
-            echo "$ROLLBACK_PID" > "$PID_FILE"
-
-            echo "Rollback Spring Boot PID: $ROLLBACK_PID"
+            sudo systemctl start "$SERVICE_NAME"
 
             echo ""
-            echo "===== Wait for rollback health check ====="
+            echo "===== Rollback health check ====="
 
             ROLLBACK_OK=false
 
             for i in {1..60}; do
 
-              if ! kill -0 "$ROLLBACK_PID" 2>/dev/null; then
+              STATUS=$(sudo systemctl is-active "$SERVICE_NAME" || true)
 
-                echo "ERROR: Rollback process terminated."
+              if [ "$STATUS" != "active" ]; then
+                echo "ERROR: Rollback service stopped."
 
-                echo ""
-                echo "===== Rollback log ====="
-                tail -n 200 "$LOG_FILE" || true
+                sudo journalctl \
+                  -u "$SERVICE_NAME" \
+                  -n 200 \
+                  --no-pager || true
 
                 break
-
               fi
 
               HTTP_CODE=$(curl \
@@ -402,18 +303,11 @@ jobs:
               echo "Rollback health check ($i/60): HTTP $HTTP_CODE"
 
               if [ "$HTTP_CODE" = "200" ]; then
-
                 ROLLBACK_OK=true
-
-                echo ""
-                echo "Rollback health check passed."
-
                 break
-
               fi
 
               sleep 2
-
             done
 
             if [ "$ROLLBACK_OK" = "true" ]; then
@@ -423,18 +317,15 @@ jobs:
               echo "       ROLLBACK SUCCESSFUL"
               echo "=========================================="
 
-              echo "Rollback PID: $ROLLBACK_PID"
+              sudo systemctl status "$SERVICE_NAME" \
+                --no-pager || true
 
-              echo ""
-              echo "===== Port 8006 ====="
-              sudo ss -lntp | grep 8006 || true
-
-              echo ""
-              echo "===== Last rollback log lines ====="
-              tail -n 50 "$LOG_FILE" || true
+              sudo journalctl \
+                -u "$SERVICE_NAME" \
+                -n 50 \
+                --no-pager || true
 
               exit 1
-
             fi
 
             echo ""
@@ -442,8 +333,12 @@ jobs:
             echo "       ROLLBACK FAILED"
             echo "=========================================="
 
-            echo ""
-            echo "===== Rollback log ====="
-            tail -n 200 "$LOG_FILE" || true
+            sudo systemctl status "$SERVICE_NAME" \
+              --no-pager || true
+
+            sudo journalctl \
+              -u "$SERVICE_NAME" \
+              -n 200 \
+              --no-pager || true
 
             exit 1
