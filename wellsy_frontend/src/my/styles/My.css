@@ -3,9 +3,8 @@
 ========================================== */
 .my-page {
     width: 100%;
-    max-width: 1150px;
-    margin: 0 auto;
-    padding: var(--spacing-lg);
+    max-width: 1185px;
+    margin: var(--spacing);
     box-sizing: border-box;
     color: var(--color-black);
 }

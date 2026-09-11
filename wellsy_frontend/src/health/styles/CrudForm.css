@@ -8,6 +8,7 @@
     background-color: var(--color-white);
     border-radius: var(--radius-md);
     box-sizing: border-box;
+    cursor: pointer;
 }
 
 .crud-card h2 {
@@ -368,7 +369,7 @@
 .calendar-detail {
     width: 1000px;
     max-width: calc(100vw - 260px);
-    margin: var(--spacing) auto;
+    margin: var(--spacing);
 }
 
 .calendar-detail-grid {
@@ -396,10 +397,6 @@
 
 .calendar-detail .fc {
     width: 100%;
-}
-
-.calendar-detail .fc-daygrid-day-frame {
-    min-height: 120px;
 }
 
 .calendar-detail .fc-daygrid-day-number {

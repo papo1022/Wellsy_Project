@@ -1,278 +1,167 @@
 /* =========================================
    검색 영역
 ========================================= */
-
 .employee-search-area {
-
     display: flex;
-
     align-items: center;
-
-    margin-bottom: 30px;
-
-    font-weight: 600;
+    margin-bottom: var(--spacing);
+    font-weight: 700;
 }
-
 
 /* =========================================
    검색창
 ========================================= */
-
 .employee-search-box {
-
     position: relative;
-
     width: 360px;
 }
 
-
 .employee-search-box input {
-
     width: 100%;
-
     height: 40px;
-
-    padding: 0 48px 0 18px;
-
+    padding: 0 var(--spacing-lg) 0 var(--spacing);
     box-sizing: border-box;
-
-    border: 1px solid #d9d9d9;
-
-    border-radius: 22px;
-
-    background: #fff;
-
-    color: #333;
-
-    font-size: 13px;
-
+    border: 1px solid var(--color-cancel);
+    border-radius: var(--radius-md);
+    background: var(--color-white);
+    color: var(--color-black);
+    font-size: var(--font-size-button);
     outline: none;
-
     transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
+        border-color 0.1s ease,
 }
-
 
 .employee-search-box input::placeholder {
-
-    color: #bbb;
+    color: var(--color-grey);
 }
-
 
 .employee-search-box input:focus {
-
-    border-color: #aaa;
+    border: 2px solid var(--color-primary);
 }
-
 
 /* =========================================
    검색 아이콘
 ========================================= */
-
 .employee-search-icon {
-
     position: absolute;
-
-    right: 16px;
-
+    right: var(--spacing);
     top: 50%;
-
     transform: translateY(-50%);
-
-    color: #aaa;
-
-    font-size: 23px;
-
+    color: var(--color-grey);
+    font-size: var(--font-size-h4);
     pointer-events: none;
 }
-
 
 /* =========================================
    목록 상단
 ========================================= */
-
 .employee-list-header {
-
     display: flex;
-
     justify-content: space-between;
-
     align-items: flex-end;
-
-    padding: 10px 10px 15px;
-
-    border-bottom: 1px solid #ddd;
+    padding: var(--spacing-sm) var(--spacing-sm) var(--spacing);
+    border-bottom: 1px solid var(--color-cancel);
 }
 
-
 .employee-list-header h2 {
-
     margin: 0;
-
-    font-size: 25px;
-
+    font-size: var(--font-size-h2);
     font-weight: 700;
 }
 
-
 .employee-list-header p {
-
-    margin: 7px 0 0;
-
-    color: #999;
-
-    font-size: 12px;
+    margin: var(--spacing-sm) 0 0;
+    color: var(--color-grey);
+    font-size: var(--font-size-button);
 }
-
 
 /* =========================================
    정렬 영역
 ========================================= */
-
 .employee-sort-area {
-
     display: flex;
-
     align-items: center;
-
-    gap: 6px;
-
-    padding-bottom: 4px;
+    gap: var(--spacing-sm);
+    padding-bottom: var(--spacing-sm);
 }
-
 
 .employee-sort-area span {
-
-    color: #ccc;
-
-    font-size: 10px;
+    color: var(--color-cancel);
+    font-size: var(--font-size-caption);
 }
-
 
 /* =========================================
    정렬 버튼
 ========================================= */
-
 .employee-sort-btn {
-
     padding: 0;
-
     border: none;
-
     background: transparent;
-
-    color: #888;
-
-    font-size: 11px;
-
+    color: var(--color-grey);
+    font-size: var(--font-size-button);
     cursor: pointer;
 }
 
-
 .employee-sort-btn:hover {
-
-    color: #222;
+    color: var(--color-black);
 }
-
 
 .employee-sort-active {
-
-    color: #222;
-
-    font-weight: 600;
+    color: var(--color-black);
+    font-weight: 700;
 }
-
 
 /* =========================================
    사원 등록 버튼 영역
 ========================================= */
-
 .employee-list-btn-area {
-
     display: flex;
-
     justify-content: flex-end;
-
-    margin-top: 20px;
+    margin-top: var(--spacing);
 }
-
 
 /* =========================================
    권한
 ========================================= */
-
 .employee-role {
-
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
-
     min-width: 70px;
-
     height: 32px;
-
-    padding: 0 14px;
-
+    padding: 0 var(--spacing);
     box-sizing: border-box;
-
-    border-radius: 18px;
-
-    font-size: 12px;
-
-    font-weight: 500;
+    border-radius: var(--radius-round);
+    font-size: var(--font-size-button);
+    font-weight: 400;
 }
-
 
 /* 일반 사원 */
-
 .employee-role-user {
-
-    border: 1px solid #ddd;
-
-    background: #fff;
-
-    color: #444;
+    border: 1px solid var(--color-cancel);
+    background: var(--color-white);
+    color: var(--color-black);
 }
-
 
 /* 관리자 */
-
 .employee-role-admin {
-
-    border: 1px solid #91c39c;
-
-    background: #91c39c;
-
-    color: #fff;
+    border: 1px solid var(--color-primary);
+    background: var(--color-primary);
+    color: var(--color-white);
 }
-
 
 /* =========================================
    퇴사 표시
 ========================================= */
-
 .employee-resigned-badge {
-
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
-
-    margin-left: 8px;
-
-    padding: 3px 8px;
-
-    border-radius: 10px;
-
-    background: #f3f3f3;
-
-    color: #999;
-
-    font-size: 10px;
-
-    font-weight: 500;
+    margin-left: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing);
+    border-radius: var(--radius-round);
+    background: var(--color-ivory);
+    color: var(--color-grey);
+    font-size: var(--font-size-button);
+    font-weight: 400;
 }

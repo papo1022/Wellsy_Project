@@ -1,8 +1,9 @@
 .dashboard-container {
   width: 100%;
+  max-width: 1185px;
   min-width: 0;
   min-height: 0;
-  padding: var(--spacing);
+  margin: var(--spacing);
   box-sizing: border-box;
   background: var(--color-ivory);
 }
@@ -26,7 +27,7 @@
   min-height: var(--spacing-lg);
   margin-bottom: var(--spacing-sm);
   gap: var(--spacing-sm);
-  padding: var(--spacing);
+  padding: var(--spacing-sm);
   border-radius: var(--radius-round);
   background-color: var(--color-white);
 }
@@ -117,7 +118,6 @@
   background: transparent;
   border: 0;
   border-radius: 0;
-  box-shadow: none;
 }
 
 @media (max-width: 1300px) {

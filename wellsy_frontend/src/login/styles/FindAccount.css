@@ -3,7 +3,7 @@
     margin: 60px auto;
     background-color: var(--color-white);
     border-radius: var(--radius-lg);
-    padding: 40px;
+    padding: var(--spacing-lg);
     display: flex;
     flex-direction: column;
 }

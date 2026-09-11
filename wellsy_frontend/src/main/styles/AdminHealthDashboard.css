@@ -1,39 +1,43 @@
+/* =========================================================
+   관리자 대시보드 레이아웃 (수직 1열 배치로 수정)
+========================================================= */
 .admin-dashboard-grid {
   display: grid;
-  grid-template-columns:
-    minmax(0, 0.9fr) minmax(0, 1.1fr);
-  gap: 20px;
+  grid-template-columns: 1fr; /* 2열 제거 -> 위아래 1열 배치 */
+  gap: var(--spacing);
   width: 100%;
   align-items: start;
   box-sizing: border-box;
 }
 
 .admin-dashboard-panel {
+  width: 100%;
   min-width: 0;
   overflow: hidden;
 }
 
+/* =========================================================
+   직원 건강정보 조회
+========================================================= */
 .admin-health-dashboard {
   width: 100%;
   max-width: none;
   margin: 0;
-  padding: 20px;
+  padding: var(--spacing);
   box-sizing: border-box;
 }
 
 .admin-health-dashboard h2 {
-  margin-bottom: 25px;
+  margin-bottom: var(--spacing);
 }
 
-/* 검색 */
+/* 검색 조건 */
 .admin-health-search {
   display: flex;
   flex-wrap: wrap;
   gap: var(--spacing);
   margin-bottom: var(--spacing);
-  padding: var(--spacing);
-
-  background: #ffffff;
+  background: var(--color-white);
   border-radius: var(--radius-md);
 }
 
@@ -57,20 +61,18 @@
   border-radius: var(--radius-round);
   background: var(--color-primary);
   color: var(--color-white);
+  font-size: var(--font-size-button);
+  font-weight: 700;
   cursor: pointer;
 }
 
-.admin-health-search button:hover {
-  background-color: var(--color-white);
-  color: var(--color-black);
-}
-
+.admin-health-search button:hover,
 .health-detail-btn:hover {
   background-color: var(--color-white);
-  color: var(--color-black);
+  color: var(--color-primary);
 }
 
-/* 직원 목록 */
+/* 직원 목록 테이블 */
 .admin-health-table {
   width: 100%;
   min-width: 620px;
@@ -101,7 +103,9 @@
   cursor: pointer;
 }
 
-/* 모달 배경 */
+/* =========================================================
+   모달
+========================================================= */
 .admin-health-modal-background {
   position: fixed;
   top: 0;
@@ -115,7 +119,6 @@
   z-index: 1000;
 }
 
-/* 모달 */
 .admin-health-modal {
   width: 500px;
   max-width: 90%;
@@ -135,16 +138,13 @@
   border-top: 1px solid var(--color-cancel);
 }
 
-/* 직원 정보 */
 .employee-info {
   line-height: 1.8;
 }
 
-/* 건강 정보 */
 .health-info {
   display: grid;
-  grid-template-columns:
-    repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--spacing);
 }
 
@@ -155,8 +155,7 @@
   border-radius: var(--radius-round);
 }
 
-/* 닫기 버튼 */
-.admin-health-modal>button {
+.admin-health-modal > button {
   width: 100%;
   margin-top: var(--spacing);
   padding: var(--spacing);
@@ -164,18 +163,20 @@
   border-radius: var(--radius-round);
   background: var(--color-primary);
   color: var(--color-white);
-  font-size: var(--font-size-body);
+  font-size: var(--font-siz-button);
+  font-weight: 700;
   cursor: pointer;
 }
 
-.admin-health-modal>button:hover {
+.admin-health-modal > button:hover {
   background-color: var(--color-white);
   color: var(--color-black);
 }
 
-/* 반응형 */
+/* =========================================================
+   반응형
+========================================================= */
 @media (max-width: 900px) {
-
   .admin-health-search {
     flex-direction: column;
   }
@@ -187,16 +188,4 @@
   .health-info {
     grid-template-columns: 1fr;
   }
-}
-
-@media (max-width: 1250px) {
-
-  .admin-dashboard-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .admin-dashboard-panel {
-    overflow-x: auto;
-  }
-
 }

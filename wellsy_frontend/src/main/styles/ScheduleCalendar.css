@@ -1,8 +1,8 @@
 .schedule-page {
   width: 100%;
-  max-width: 310px;
+  max-width: 400px;
   min-width: 0;
-  padding: var(--spacing-sm);
+  padding: var(--spacing);
   box-sizing: border-box;
   background: transparent;
   background-color: var(--color-white);
@@ -111,7 +111,6 @@ a {
   border: 0;
   border-radius: var(--radius-sm);
   background: transparent;
-  box-shadow: none;
   color: var(--color-grey);
   font-size: var(--font-size-button);
 }
@@ -121,7 +120,6 @@ a {
 .schedule-container .fc .fc-button-primary:not(:disabled).fc-button-active {
   border: 0;
   background: var(--color-ivory);
-  box-shadow: none;
   color: var(--color-primary);
 }
 
