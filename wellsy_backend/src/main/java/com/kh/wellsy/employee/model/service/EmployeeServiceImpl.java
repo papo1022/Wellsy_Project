@@ -41,8 +41,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public Employee selectEmployee(int employeeNo) {
 
 		return employeeDao
-				.findById(employeeNo)
-		        .orElse(null);
+				.findByEmployeeNoAndStatus(employeeNo, "Y");
 	}
 
 	// =========================================
@@ -86,37 +85,14 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public Employee updateEmployee(Employee employee) {
 
 		// 기존 사원 조회
-		Employee originEmployee = employeeDao.findById(employee.getEmployeeNo())
-		        .orElse(null);
+		Employee originEmployee = employeeDao.findByEmployeeNoAndStatus(
+				employee.getEmployeeNo(),
+				"Y");
 
 		// 사원이 존재하지 않는 경우
 		if (originEmployee == null) {
 			return null;
 		}
-		
-		// =========================================
-	    // 기존 퇴사자
-	    // 퇴사자는 재직 상태만 수정 가능
-	    // =========================================
-	    if("N".equals(originEmployee.getStatus())) {
-
-	        // 퇴사 → 재직
-	        if("Y".equals(employee.getStatus())) {
-
-	            originEmployee.setStatus("Y");
-
-	            // 재직 복구 시 퇴사일 제거
-	            originEmployee.setResignDate(null);
-
-	        } else {
-
-	            // 계속 퇴사 상태
-	            originEmployee.setStatus("N");
-	        }
-
-
-	        return employeeDao.save(originEmployee);
-	    }
 
 		// 로그인 ID 중복 확인
 		if (employeeDao.existsByLoginIdAndEmployeeNoNot(
@@ -152,7 +128,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 		originEmployee.setDepartmentId(employee.getDepartmentId());
 
 		originEmployee.setJobId(employee.getJobId());
-		
+
 		/*
 		 * 비밀번호가 전달된 경우에만 수정
 		 *

@@ -417,8 +417,14 @@ function EmployeeDetail() {
                             onClick={ () => {
 
                                 navigate(
-                                    `/employee/updateForm/${employee.employeeNo}`
+                                    "/employee/updateForm",
+                                    {
+                                        state : {
+                                            employeeNo : employee.employeeNo
+                                        }
+                                    }
                                 );
+
                             }}
                         >
                             수정하기
