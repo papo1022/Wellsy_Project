@@ -567,15 +567,6 @@ function EmployeeEnrollForm() {
 
                         <div className="employee-btn-area">
 
-
-                            <button
-                                type="submit"
-                                className="employee-btn employee-btn-primary"
-                            >
-                                등록하기
-                            </button>
-
-
                             <button
                                 type="button"
                                 className="employee-btn employee-btn-secondary"
@@ -587,6 +578,13 @@ function EmployeeEnrollForm() {
                                 }}
                             >
                                 목록으로
+                            </button>
+
+                            <button
+                                type="submit"
+                                className="employee-btn employee-btn-primary"
+                            >
+                                등록하기
                             </button>
 
 

@@ -4,7 +4,7 @@
 .checkup-page {
     width: 100%;
     min-height: 100vh;
-    padding: var(--spacing-lg);
+    padding: var(--spacing);
     box-sizing: border-box;
     background-color: var(--color-ivory);
 }

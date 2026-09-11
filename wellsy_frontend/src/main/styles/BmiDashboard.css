@@ -1,7 +1,11 @@
+/* ==========================================
+   BMI 대시보드
+========================================== */
 .bmi-dashboard {
   width: 100%;
   min-width: 0;
-  padding: var(--spacing);
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
   background: transparent;
 }
@@ -51,7 +55,6 @@
   stroke-linejoin: round;
 }
 
-/* BMI 차트 */
 .bmi-title h2,
 .bmi-empty h2 {
   color: var(--wellsy-text);
@@ -192,10 +195,6 @@
 }
 
 @media (max-width: 600px) {
-  .bmi-dashboard {
-    padding: var(--spacing) var(--spacing);
-  }
-
   .bmi-card-container {
     grid-template-columns: 1fr 1fr;
   }

@@ -1,143 +1,92 @@
 /* =========================================
    Form 카드
 ========================================= */
-
 .employee-form-card {
-
     width: 100%;
 }
-
 
 /* =========================================
    Form 상단
 ========================================= */
-
 .employee-form-header {
-
-    margin-bottom: 25px;
-
-    padding-bottom: 20px;
-
-    border-bottom: 1px solid #eee;
+    margin-bottom: var(--spacing);
+    padding-bottom: var(--spacing);
+    border-bottom: 1px solid var(--color-ivory);
 }
-
 
 .employee-form-header h2 {
-
     margin: 0;
-
-    font-size: 26px;
+    font-size: var(--font-size-h2);
+    font-weight: 700;
 }
-
 
 .employee-form-header p {
-
-    margin: 8px 0 0;
-
-    color: #999;
-
-    font-size: 13px;
+    margin: var(--spacing-sm) 0 0;
+    color: var(--color-grey);
+    font-size: var(--font-size-button);
 }
-
 
 /* =========================================
    Form Section
 ========================================= */
-
 .employee-form-section {
-
-    padding: 25px 0;
-
-    border-bottom: 1px solid #eee;
+    padding: var(--spacing) 0;
+    border-bottom: 1px solid var(--color-ivory);
 }
-
 
 .employee-form-section h3 {
-
-    margin: 0 0 20px;
-
-    font-size: 18px;
+    margin: 0 0 var(--spacing);
+    font-size: var(--font-size-body);
 }
-
 
 /* =========================================
    Form Grid
 ========================================= */
-
 .employee-form-grid {
-
     display: grid;
-
     grid-template-columns:
         repeat(2, 1fr);
-
-    gap: 20px;
+    gap: var(--spacing);
 }
-
 
 /* =========================================
    입력 항목
 ========================================= */
-
 .employee-form-item {
-
     display: flex;
-
     flex-direction: column;
-
-    gap: 8px;
+    gap: var(--spacing-sm);
 }
-
 
 .employee-form-item label {
-
-    color: #555;
-
-    font-size: 13px;
-
-    font-weight: 600;
+    color: var(--color-black);
+    font-size: var(--font-size-h4);
+    font-weight: 700;
 }
-
 
 .employee-form-item input,
 .employee-form-item select {
-
     width: 100%;
-
     height: 44px;
-
-    padding: 0 14px;
-
+    padding: 0 var(--spacing-sm);
     box-sizing: border-box;
-
-    border: 1px solid #ddd;
-
-    border-radius: 9px;
-
-    background: #fafafa;
-
-    font-size: 14px;
-
+    border: 1px solid var(--color-cancel);
+    border-radius: var(--radius-sm);
+    background: var(--color-ivory);
+    font-size: var(--font-size-button);
     outline: none;
-
     transition:
-        background 0.2s ease,
-        border-color 0.2s ease;
+        background 0.1s ease,
+        border-color 0.1s ease;
 }
-
 
 .employee-form-item input:focus,
 .employee-form-item select:focus {
-
-    border-color: #999;
-
-    background: #fff;
+    border-color: var(--color-cancel);
+    background: var(--color-white);
 }
 
-
 .employee-form-item input:disabled {
-
-    background: #eee;
-
-    color: #888;
+    background: var(--color-cancel);
+    color: var(--color-grey);
 }
