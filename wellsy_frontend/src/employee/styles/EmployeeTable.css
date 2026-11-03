@@ -1,0 +1,53 @@
+/* =========================================
+   테이블
+========================================= */
+.employee-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.employee-table thead {
+    background: var(--color-ivory);
+}
+
+.employee-table th {
+    padding: var(--spacing) var(--spacing-sm);
+    border-top: 1px solid var(--color-ivory);
+    border-bottom: 1px solid var(--color-ivory);
+    color: var(--color-grey);
+    font-size: var(--font-size-body);
+    font-weight: 700;
+    text-align: center;
+}
+
+.employee-table td {
+    height: 68px;
+    padding: var(--spacing);
+    box-sizing: border-box;
+    border-bottom: 1px solid var(--color-ivory);
+    color: var(--color-black);
+    font-size: var(--font-size-body);
+    text-align: center;
+}
+
+/* =========================================
+   테이블 행
+========================================= */
+.employee-table-row {
+    cursor: pointer;
+    transition:
+        background 0.1s ease;
+}
+
+.employee-table-row:hover {
+    background: var(--color-ivory);
+}
+
+/* =========================================
+   이름 강조
+========================================= */
+.employee-name-cell {
+    font-size: var(--font-size-body);
+    font-weight: 700;
+}

@@ -1,0 +1,5 @@
+package com.kh.wellsy.login.model.dao;
+
+public class LoginDao {
+
+}

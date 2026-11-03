@@ -9,5 +9,4 @@ public class WellsyBackendApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(WellsyBackendApplication.class, args);
 	}
-
 }

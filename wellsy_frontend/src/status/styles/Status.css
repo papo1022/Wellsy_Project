@@ -1,0 +1,453 @@
+/* ==========================================
+   전체 화면
+========================================== */
+.status-dashboard {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--spacing) var(--spacing) var(--spacing-lg);
+    box-sizing: border-box;
+    color: var(--color-black);
+}
+
+/* ==========================================
+   REPORT DOWNLOAD
+========================================== */
+.status-report-download {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing);
+}
+
+.status-report-download button {
+    min-width: 110px;
+    height: 42px;
+    padding: 0 var(--spacing);
+    box-sizing: border-box;
+    border-radius: var(--radius-round);
+    font-size: var(--font-size-button);
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+/* PNG */
+.status-png-download-btn {
+    border: 1px solid var(--color-cancel);
+    background: var(--color-white);
+    color: var(--color-black);
+}
+
+.status-png-download-btn:hover {
+    background: var(--color-cancel);
+    color: var(--color-white);
+}
+
+/* PDF */
+.status-pdf-download-btn {
+    border: none;
+    background: var(--color-primary);
+    color: var(--color-white);
+}
+
+.status-pdf-download-btn:hover {
+    background: var(--color-white);
+    color: var(--color-primary);
+}
+
+.status-report-download button:disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
+/* ==========================================
+   PDF / PNG CAPTURE AREA
+========================================== */
+.status-report-capture {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing);
+    box-sizing: border-box;
+    background: var(--color-ivory);
+}
+
+/* ==========================================
+   페이지 제목
+========================================== */
+.status-title-area {
+    width: 100%;
+    margin: 0;
+    padding: 0 var(--spacing-sm) var(--spacing-sm);
+    box-sizing: border-box;
+}
+
+.status-title-area h2 {
+    margin: 0;
+    color: var(--color-black);
+    font-size: var(--font-size-h2);
+    font-weight: 700;
+}
+
+.status-title-area p {
+    margin: var(--spacing-sm) 0 0;
+    color: var(--color-grey);
+    font-size: var(--font-size-button);
+}
+
+/* ==========================================
+   검색 조건 카드
+========================================== */
+.status-filter-card {
+    width: 100%;
+    padding: var(--spacing);
+    box-sizing: border-box;
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+}
+
+.status-filter-content {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: var(--spacing);
+}
+
+/* ==========================================
+   검색 개별 항목
+========================================== */
+.status-filter-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.status-filter-item span {
+    color: var(--color-grey);
+    font-size: var(--font-size-button);
+    font-weight: 400;
+}
+
+.status-filter-item select,
+.status-filter-item input {
+    height: 44px;
+    padding: 0 var(--spacing);
+    box-sizing: border-box;
+    border: 1px solid var(--color-cancel);
+    border-radius: var(--radius-sm);
+    background: var(--color-white);
+    color: var(--color-black);
+    font-size: var(--font-size-button);
+    outline: none;
+    transition: 0.1s;
+}
+
+.status-filter-item select {
+    min-width: 150px;
+}
+
+.status-filter-item input {
+    min-width: 180px;
+}
+
+.status-filter-item select:focus,
+.status-filter-item input:focus {
+    border: 2px solid var(--color-primary);
+}
+
+/* ==========================================
+   조회 버튼
+========================================== */
+.status-search-btn {
+    min-width: 72px;
+    height: 44px;
+    padding: var(--spacing-sm) var(--spacing);
+    box-sizing: border-box;
+    border: none;
+    border-radius: var(--radius-round);
+    background: var(--color-primary);
+    color: var(--color-white);
+    font-size: var(--font-size-button);
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+.status-search-btn:hover {
+    background: var(--color-white);
+    color: var(--color-primary)
+}
+
+/* ==========================================
+   부서별 카드 영역
+========================================== */
+.status-card-area {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing);
+}
+
+/* ==========================================
+   기본 통계 카드
+========================================== */
+.status-card {
+    width: 100%;
+    min-height: 170px;
+    padding: var(--spacing);
+    box-sizing: border-box;
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+}
+
+/* ==========================================
+   카드 제목
+========================================== */
+.status-card-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing);
+}
+
+.status-card-title h3 {
+    margin: 0;
+    color: var(--color-black);
+    font-size: var(--font-size-h3);
+    font-weight: 700;
+}
+
+.status-card-title span {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 44px;
+    height: 31px;
+    padding: 0 var(--spacing-sm);
+    box-sizing: border-box;
+    border-radius: var(--radius-md);
+    background: var(--color-ivory);
+    color: var(--color-grey);
+    font-size: var(--font-size-button);
+    font-weight: 400;
+}
+
+/* ==========================================
+   카드 콘텐츠
+========================================== */
+.status-card-content {
+    display: grid;
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+    align-items: center;
+    gap: var(--spacing);
+}
+
+/* ==========================================
+   카드 개별 항목
+========================================== */
+.status-card-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.status-card-item span {
+    color: var(--color-grey);
+    font-size: var(--font-size-button);
+}
+
+.status-card-item strong {
+    margin-top: var(--spacing);
+    color: var(--color-black);
+    font-size: var(--font-size-h2);
+    font-weight: 700;
+}
+
+.status-card-item small {
+    margin-top: 0;
+    color: var(--color-grey);
+    font-size: var(--font-size-caption);
+}
+
+/* ==========================================
+   데이터 없음
+========================================== */
+.status-empty-card {
+    width: 100%;
+    padding: var(--spacing-lg) var(--spacing);
+    box-sizing: border-box;
+    background: var(--color-white);
+    border-radius: var(--radius-md);
+    color: var(--color-grey);
+    font-size: var(--font-size-body);
+    text-align: center;
+}
+
+/* ==========================================
+   상세 테이블 카드
+========================================== */
+.status-table-card {
+    width: 100%;
+    padding: var(--spacing);
+    box-sizing: border-box;
+    background: var(--color-white);
+    border-radius: var(--radius-md);
+}
+
+.status-table-card h3 {
+    margin: 0 0 var(--radius-md);
+    color: var(--color-black);
+    font-size: var(--font-size-h3);
+    font-weight: 700;
+}
+
+/* ==========================================
+   상세 테이블
+========================================== */
+.status-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.status-table thead {
+    background: var(--color-ivory);
+}
+.status-table th {
+    height: 58px;
+    padding: var(--spacing-sm) var(--spacing);
+    border-bottom: 1px solid var(--color-ivory);
+    color: var(--color-grey);
+    font-size: var(--font-size-body);
+    font-weight: 700;
+    text-align: center;
+}
+
+.status-table td {
+    height: 58px;
+    padding: 0 var(--spacing);
+    border-bottom: 1px solid var(--color-ivory);
+    color: var(--color-black);
+    font-size: var(--font-size-body);
+    text-align: center;
+}
+
+.status-table tbody tr {
+    transition: background 0.1s;
+}
+
+.status-table tbody tr:hover {
+    background: var(--color-ivory);
+}
+
+.status-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.status-department-name {
+    font-weight: 700;
+}
+
+.status-table-empty {
+    height: 100px !important;
+    padding: var(--spacing) !important;
+    color: var(--color-grey) !important;
+    text-align: center;
+}
+
+/* ==========================================
+   반응형 - 1200
+========================================== */
+@media screen and (max-width: 1200px) {
+    .status-dashboard {
+        width: 100%;
+        padding:
+            var(--spacing) var(--spacing)
+            var(--spacing-lg);
+    }
+
+    .status-card-content {
+        gap: var(--spacing);
+    }
+}
+
+/* ==========================================
+   반응형 - 900
+========================================== */
+@media screen and (max-width: 900px) {
+
+    .status-dashboard {
+        padding:
+            var(--spacing) var(--spacing)
+            var(--spacing-lg);
+    }
+
+    .status-card-content {
+        grid-template-columns:
+            repeat(2, 1fr);
+        row-gap: var(--spacing);
+    }
+
+    .status-filter-content {
+        align-items: stretch;
+    }
+}
+
+/* ==========================================
+   반응형 - 650
+========================================== */
+@media screen and (max-width: 650px) {
+    .status-title-area h2 {
+        font-size: var(--font-size-h2);
+    }
+
+    .status-report-download {
+        width: 100%;
+        justify-content: stretch;
+    }
+
+    .status-report-download button {
+        flex: 1;
+    }
+
+    .status-filter-content {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .status-filter-item {
+        width: 100%;
+    }
+
+    .status-filter-item select,
+    .status-filter-item input {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .status-search-btn {
+        width: 100%;
+    }
+
+    .status-card {
+        padding: var(--spacing) var(--spacing);
+    }
+
+    .status-card-content {
+        grid-template-columns:
+            1fr;
+    }
+
+    .status-table-card {
+        overflow-x: auto;
+    }
+
+    .status-table {
+        min-width: 750px;
+    }
+}

@@ -1,0 +1,76 @@
+/* ==========================================
+   버튼 영역
+========================================== */
+.notice-btn-area {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing);
+}
+
+/* ==========================================
+   공통 버튼
+========================================== */
+.notice-btn {
+    padding: var(--spacing-sm) var(--spacing);
+    border: none;
+    border-radius: var(--radius-round);
+    font-size: var(--font-size-button);
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+        background 0.2s,
+        color 0.2s;
+}
+
+/* ==========================================
+   주요 버튼
+========================================== */
+.notice-btn-primary {
+    background: var(--color-primary);
+    color: var(--color-white);
+}
+
+.notice-btn-primary:hover {
+    background: var(--color-white);
+    color: var(--color-primary);
+}
+
+/* ==========================================
+   일반 버튼
+========================================== */
+.notice-btn-secondary {
+    background: var(--color-cancel);
+    color: var(--color-white);
+}
+
+.notice-btn-secondary:hover {
+    background: var(--color-white);
+    color: var(--color-cancel);
+}
+
+/* ==========================================
+   수정 버튼
+========================================== */
+.notice-btn-warning {
+    background: var(--color-warning);
+    color: var(--color-white);
+}
+
+.notice-btn-warning:hover {
+    background: var(--color-white);
+    color: var(--color-warning);
+}
+
+/* ==========================================
+   삭제 버튼
+========================================== */
+.notice-btn-danger {
+    background: var(--color-error);
+    color: var(--color-white);
+}
+
+.notice-btn-danger:hover {
+    background: var(--color-white);
+    color: var(--color-error)
+}

@@ -1,0 +1,401 @@
+/* =========================================
+   전체 페이지
+========================================= */
+.checkup-page {
+    width: 100%;
+    min-height: 100vh;
+    padding: var(--spacing);
+    box-sizing: border-box;
+    background-color: var(--color-ivory);
+}
+
+/* =========================================
+   페이지 제목
+========================================= */
+.checkup-page-header {
+    margin-bottom: var(--spacing);
+}
+
+.checkup-page-header h1 {
+    margin: 0 0 var(--spacing-sm);
+    font-size: var(--font-size-h1);
+    font-weight: 700;
+    color: var(--color-black);
+}
+
+.checkup-page-header p {
+    margin: 0;
+    font-size: var(--font-size-button);
+    color: var(--color-grey);
+}
+
+/* =========================================
+   공통 Section
+========================================= */
+.checkup-section {
+    margin-bottom: var(--spacing);
+    padding: var(--spacing);
+    background-color: var(--color-white);
+    border-radius: var(--radius-lg);
+}
+
+.checkup-section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing);
+}
+
+.checkup-section-title h2 {
+    margin: 0 0 var(--spacing-sm);
+    font-size: var(--font-size-h2);
+    font-weight: 700;
+    color: var(--color-black);
+}
+
+.checkup-section-title p {
+    margin: 0;
+    font-size: var(--font-size-button);
+    color: var(--color-grey);
+}
+
+/* =========================================
+   입력 폼
+========================================= */
+.checkup-form {
+    width: 100%;
+}
+
+.checkup-form-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+    gap: var(--spacing);
+}
+
+.checkup-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.checkup-form-wide {
+    grid-column: 1 / -1;
+}
+
+.checkup-form-group label {
+    font-size: var(--font-size-h4);
+    font-weight: 700;
+    color: var(--color-black);
+}
+
+.checkup-form-group label span {
+    margin-left: var(--spacing-sm);
+    color: var(--color-error);
+}
+
+.checkup-form-group input,
+.checkup-form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid var(--color-cancel);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-ivory);
+    outline: none;
+    font-family: inherit;
+    font-size: var(--font-size-button);
+    color: var(--color-grey);
+    transition:
+        border-color 0.15s,
+        background-color 0.15s;
+}
+
+.checkup-form-group input {
+    height: 42px;
+    padding: 0 var(--spacing);
+}
+
+.checkup-form-group textarea {
+    min-height: 90px;
+    padding: var(--spacing-sm) var(--spacing);
+    resize: vertical;
+}
+
+.checkup-form-group input:focus,
+.checkup-form-group textarea:focus {
+    border-color: var(--color-primary);
+    background-color: var(--color-white);
+}
+
+.checkup-form-group input::placeholder,
+.checkup-form-group textarea::placeholder {
+    color: var(--color-cancel);
+}
+
+/* 메모 글자 수 */
+.memo-count {
+    text-align: right;
+    font-size: var(--font-size-caption);
+    color: var(--color-grey);
+}
+
+/* =========================================
+   신청 버튼
+========================================= */
+.checkup-form-button-area {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: var(--spacing);
+}
+
+.checkup-submit-button {
+    min-width: 110px;
+    padding: var(--spacing-sm) var(--spacing);
+    border: none;
+    border-radius: var(--radius-round);
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    font-size: var(--font-size-button);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.checkup-submit-button:hover {
+    background-color: var(--color-white);
+    color: var(--color-primary);
+}
+
+.checkup-submit-button:active {
+    transform: scale(0.98);
+}
+
+
+/* =========================================
+   예약 개수
+========================================= */
+.reservation-count {
+    padding: var(--spacing-sm) var(--spacing);
+    border-radius: var(--radius-round);
+    background-color: var(--color-ivory);
+    color: var(--color-grey);
+    font-size: var(--font-size-button);
+    font-weight: 400;
+}
+
+/* =========================================
+   예약 목록
+========================================= */
+.reservation-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.reservation-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing);
+    padding: var(--spacing);
+    border: 1px solid var(--color-cancel);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-white);
+    transition:
+        border-color 0.15s,
+        transform 0.15s;
+}
+
+.reservation-card:hover {
+    border-color: var(--color-cancel);
+    transform: translateY(-1px);
+}
+
+.reservation-main {
+    flex: 1;
+    min-width: 0;
+}
+
+/* =========================================
+   예약 상태
+========================================= */
+.reservation-top {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+.reservation-status {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--spacing-sm) var(--spacing);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-body);
+    font-weight: 400;
+}
+
+/* N */
+.status-waiting {
+    background-color: var(--color-warning);
+    color: var(--color-white);
+}
+
+/* Y */
+.status-approved {
+    background-color: var(--color-success);
+    color: var(--color-white);
+}
+
+/* C */
+.status-canceled {
+    background-color: var(--color-cancel);
+    color: var(--color-white);
+}
+
+.reservation-number {
+    font-size: var(--font-size-button);
+    color: var(--color-grey);
+}
+
+/* =========================================
+   병원명
+========================================= */
+.reservation-card h3 {
+    margin: 0 0 var(--spacing-sm);
+    font-size: var(--font-size-body);
+    font-weight: 400;
+    color: var(--color-black);
+}
+
+/* =========================================
+   예약 정보
+========================================= */
+.reservation-info {
+    display: flex;
+    gap: var(--spacing-lg);
+}
+
+.reservation-info div {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.reservation-info span {
+    font-size: var(--font-size-button);
+    color: var(--color-grey);
+}
+
+.reservation-info strong {
+    font-size: var(--font-size-button);
+    font-weight: 700;
+    color: var(--color-black);
+}
+
+/* =========================================
+   메모
+========================================= */
+.reservation-memo {
+    margin-top: var(--spacing);
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-white);
+    color: var(--color-grey);
+    font-size: var(--font-size-body);
+}
+
+/* =========================================
+   예약 취소 버튼
+========================================= */
+.reservation-action {
+    flex-shrink: 0;
+}
+
+.cancel-button {
+    padding: var(--spacing-sm) var(--spacing);
+    border-radius: 8px;
+    background-color: var(--color-cancel);
+    color: var(--color-white);
+    font-size: var(--font-size-button);
+    cursor: pointer;
+    transition:
+        background-color 0.15s,
+        color 0.15s;
+}
+
+.cancel-button:hover {
+    background-color: var(--color-white);
+    color: var(--color-grey);
+}
+
+/* =========================================
+   예약 없음
+========================================= */
+.checkup-empty {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 170px;
+    color: var(--color-grey);
+    text-align: center;
+}
+
+.empty-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    margin-bottom: var(--spacing);
+    border-radius: 50%;
+    background-color: var(--color-ivory);
+    color: var(--color-primary);
+    font-size: var(--font-size-h3);
+}
+
+.checkup-empty strong {
+    margin-bottom: var(--spacing-sm);
+    font-size: var(--font-size-body);
+    color: var(--color-grey);
+}
+
+.checkup-empty p {
+    margin: 0;
+    font-size: var(--font-size-caption);
+    color: var(--color-cancel);
+}
+
+/* =========================================
+   반응형
+========================================= */
+@media (max-width: 800px) {
+    .checkup-page {
+        padding: var(--spacing);
+    }
+
+    .checkup-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .checkup-form-wide {
+        grid-column: auto;
+    }
+
+    .reservation-card {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .reservation-info {
+        gap: var(--spacing);
+    }
+
+    .reservation-action {
+        width: 100%;
+    }
+
+    .cancel-button {
+        width: 100%;
+    }
+}

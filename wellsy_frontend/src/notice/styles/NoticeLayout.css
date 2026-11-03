@@ -1,0 +1,38 @@
+/* ==========================================
+   공지사항 전체 영역
+========================================== */
+.notice-dashboard {
+    width: 100%;
+    margin: 0 auto;
+    padding: var(--spacing);
+    box-sizing: border-box;
+}
+
+/* ==========================================
+   페이지 제목
+========================================== */
+.notice-title-area {
+    margin-bottom: var(--spacing);
+}
+
+.notice-title-area h2 {
+    margin: 0;
+    font-size: var(--font-size-h1);
+    font-weight: 700;
+    color: var(--color-black);
+}
+
+/* ==========================================
+   공통 카드
+========================================== */
+.notice-card {
+    width: 100%;
+    background: var(--color-white);
+    border-radius: var(--radius-md);
+    padding: var(--spacing);
+    box-sizing: border-box;
+}
+
+.notice-card-content {
+    width: 100%;
+}

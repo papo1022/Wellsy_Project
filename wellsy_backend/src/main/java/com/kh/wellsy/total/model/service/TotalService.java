@@ -1,0 +1,5 @@
+package com.kh.wellsy.total.model.service;
+
+public interface TotalService {
+
+}

@@ -1,0 +1,100 @@
+package com.kh.wellsy.notice.model.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.kh.wellsy.notice.model.dao.NoticeDao;
+import com.kh.wellsy.notice.model.vo.Notice;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class NoticeServiceImpl implements NoticeService{
+
+	@Autowired
+	private NoticeDao noticeDao;
+	
+	// 공지사항 목록 조회
+	@Transactional(readOnly=true)
+	@Override
+	public List<Notice> selectNoticeList() {
+		
+		return noticeDao.findByStatusOrderByIsPinnedDescNoticeIdDesc("Y");
+	}
+	
+	// 공지사항 상세 조회
+	@Transactional
+	@Override
+	public Notice selectNotice(int noticeId) {
+		
+		noticeDao.increaseViewCount(noticeId);
+		
+		return noticeDao.findByNoticeIdAndStatus(noticeId, "Y").orElse(null);
+	}
+	
+	// 공지사항 작성
+	@Transactional
+	@Override
+	public Notice insertNotice(Notice notice) {
+		
+		notice.setViewCount(0);
+		notice.setStatus("Y");
+	
+		return noticeDao.save(notice);
+	}
+	
+	// 공지사항 수정
+	@Transactional
+	@Override
+	public Notice updateNotice(Notice notice) {
+		
+		return noticeDao.save(notice);
+	}
+	
+	// 공지사항 삭제
+	@Transactional
+	@Override
+	public int deleteNotice(int noticeId) {
+		
+		return noticeDao.deleteNotice(noticeId);
+	}
+	
+	@Override
+	public Page<Notice> selectNoticePage(
+	        int page,
+	        int size
+	) {
+
+
+	    // =========================================
+	    // 정렬
+	    //
+	    // 고정 공지 먼저
+	    // 그 다음 최신 공지
+	    // =========================================
+
+	    Sort sort
+	        = Sort.by(
+	            Sort.Order.desc("isPinned"),
+	            Sort.Order.desc("noticeId")
+	        );
+
+
+	    Pageable pageable
+	        = PageRequest.of(
+	            page,
+	            size,
+	            sort
+	        );
+
+	    return noticeDao.findByStatus("Y", pageable);
+	}
+}

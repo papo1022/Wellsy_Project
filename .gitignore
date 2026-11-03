@@ -1,0 +1,9 @@
+.metadata/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+/node_modules
+/.metadata
+/.metadata/.plugins
+.env

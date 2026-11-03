@@ -1,0 +1,267 @@
+/* ==========================================
+   MY PAGE
+========================================== */
+.my-page {
+    width: 100%;
+    max-width: 1185px;
+    margin: var(--spacing);
+    box-sizing: border-box;
+    color: var(--color-black);
+}
+
+/* ==========================================
+   TITLE
+========================================== */
+.my-title-area {
+    margin-bottom: var(--spacing);
+}
+
+.my-title-area h1 {
+    margin: 0;
+    font-size: var(--font-size-h1);
+    font-weight: 700;
+}
+
+.my-title-area p {
+    margin: var(--spacing-sm) 0 0;
+    color: var(--color-grey);
+    font-size: var(--font-size-button);
+}
+
+/* ==========================================
+   PROFILE
+========================================== */
+.my-profile-card {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing);
+    margin-bottom: var(--spacing);
+    padding: var(--spacing);
+    box-sizing: border-box;
+    border-radius: var(--radius-md);
+    background: var(--color-white);
+}
+
+.my-profile-circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: var(--color-white);
+    font-size: var(--font-h2);
+    font-weight: 700;
+}
+
+.my-profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.my-profile-name {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.my-profile-name strong {
+    font-size: var(--font-h4);
+}
+
+.my-profile-name span {
+    padding: var(--spacing-sm) var(--spacing);
+    border-radius: var(--radius-md);
+    color: var(--color-grey);
+    font-size: var(--font-size-button);
+    font-weight: 400;
+}
+
+.my-profile-info p {
+    margin: 0;
+    color: var(--color-grey);
+    font-size: var(--font-size-body);
+}
+
+/* ==========================================
+   CARD
+========================================== */
+.my-card {
+    margin-bottom: var(--spacing);
+    padding: var(--spacing);
+    box-sizing: border-box;
+    border-radius: var(--radius-md);
+    background: var(--color-white);
+}
+
+.my-card-header {
+    padding-bottom: var(--spacing);
+    border-bottom: 1px solid var(--color-cancel);
+}
+
+.my-card-header h2 {
+    margin: 0;
+    font-size: var(--font-h2);
+    font-weight: 700;
+}
+
+.my-card-header p {
+    margin: var(--spacing-sm) 0 0;
+    color: var(--color-grey);
+    font-size: var(--font-size-body);
+}
+
+/* ==========================================
+   기본 정보
+========================================== */
+.my-info-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(2, 1fr);
+    gap: var(--spacing);
+    margin-top: var(--spacing);
+}
+
+.my-info-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    padding: var(--spacing);
+    box-sizing: border-box;
+    border-radius: var(--radius-sm);
+    background: var(--color-ivory);
+}
+
+.my-info-item span {
+    color: var(--color-grey);
+    font-size: var(--font-size-body);
+}
+
+.my-info-item strong {
+    color: var(--color-black);
+    font-size: var(--font-size-body);
+    font-weight: 400;
+}
+
+/* ==========================================
+   개인정보 수정
+========================================== */
+.my-form-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(2, 1fr);
+    gap: var(--spacing);
+    margin-top: var(--spacing);
+}
+
+.my-form-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.my-form-item label {
+    color: var(--color-black);
+    font-size: var(--font-size-button);
+    font-weight: 400;
+}
+
+.my-form-item input {
+    width: 100%;
+    height: 46px;
+    padding: 0 var(--spacing);
+    box-sizing: border-box;
+    border: 1px solid var(--color-cancel);
+    border-radius: var(--radius-md);
+    background: var(--color-white);
+    color: var(--color-black);
+    font-size: var(--font-size-button);
+    outline: none;
+    transition: .1s;
+}
+
+.my-form-item input:focus {
+    border-color: var(--color-primary);
+}
+
+.my-form-item input::placeholder {
+    color: var(--color-grey);
+}
+
+/* ==========================================
+   PASSWORD
+========================================== */
+.my-password-area {
+    display: grid;
+    grid-template-columns:
+        repeat(3, 1fr);
+    gap: var(--spacing);
+    margin-top: var(--spacing);
+}
+
+.my-password-guide {
+    margin-top: var(--spacing);
+    color: var(--color-grey);
+    font-size: var(--font-size-caption);
+}
+
+/* ==========================================
+   BUTTON
+========================================== */
+.my-button-area {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: var(--spacing);
+}
+
+.my-main-btn {
+    height: 43px;
+    padding: 0 var(--spacing);
+    border: none;
+    border-radius: var(--radius-md);
+    background: var(--color-success);
+    color: var(--color-white);
+    font-size: var(--font-size-button);
+    font-weight: 400;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.my-main-btn:hover {
+    background: var(--color-success);
+}
+
+/* ==========================================
+   LOADING
+========================================== */
+.my-loading {
+    margin-top: 80px;
+    padding: 60px;
+    color: var(--color-grey);
+    text-align: center;
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+@media screen and (max-width: 900px) {
+    .my-page {
+        padding:
+            var(--spacing)
+            var(--spacing-lg);
+    }
+
+    .my-info-grid,
+    .my-form-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+    .my-password-area {
+        grid-template-columns:
+            1fr;
+    }
+}

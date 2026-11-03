@@ -1,0 +1,173 @@
+name: Deploy React
+
+on:
+  push:
+    branches:
+      - main_sub
+      - jaeyoung
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: wellsy_frontend/package-lock.json
+
+      - name: Show build commit
+        run: |
+          echo "Current branch:"
+          git branch --show-current
+
+          echo "Current commit:"
+          git rev-parse HEAD
+
+          echo "Latest commit:"
+          git log -1 --oneline
+
+      - name: Install dependencies
+        working-directory: wellsy_frontend
+        run: npm ci
+
+      - name: Build React
+        working-directory: wellsy_frontend
+        run: npm run build
+
+      - name: Prepare EC2 upload directory
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            rm -rf /home/ubuntu/react-upload
+            mkdir -p /home/ubuntu/react-upload
+
+      - name: Copy dist to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_KEY }}
+          source: "wellsy_frontend/dist/*"
+          target: "/home/ubuntu/react-upload/"
+          strip_components: 2
+
+      - name: Deploy React with Nginx
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            set -e
+
+            WEB_ROOT="/var/www/wellsy"
+            NEW_ROOT="/var/www/wellsy-new"
+            BACKUP_ROOT="/var/www/wellsy-backup"
+            UPLOAD_ROOT="/home/ubuntu/react-upload"
+
+            echo "=========================================="
+            echo "       Starting frontend deployment"
+            echo "=========================================="
+
+            echo ""
+            echo "===== Checking uploaded frontend ====="
+
+            if [ ! -f "$UPLOAD_ROOT/index.html" ]; then
+              echo "ERROR: index.html not found."
+              exit 1
+            fi
+
+            echo "Frontend build exists."
+
+            echo ""
+            echo "===== Preparing new frontend ====="
+
+            sudo rm -rf "$NEW_ROOT"
+            sudo mkdir -p "$NEW_ROOT"
+
+            sudo cp -r "$UPLOAD_ROOT"/. "$NEW_ROOT"/
+
+            if [ ! -f "$NEW_ROOT/index.html" ]; then
+              echo "ERROR: Failed to copy frontend."
+              exit 1
+            fi
+
+            sudo chown -R www-data:www-data "$NEW_ROOT"
+            sudo chmod -R 755 "$NEW_ROOT"
+
+            echo ""
+            echo "===== Checking nginx configuration ====="
+
+            sudo nginx -t
+
+            echo ""
+            echo "===== Backing up current frontend ====="
+
+            sudo rm -rf "$BACKUP_ROOT"
+
+            if [ -d "$WEB_ROOT" ]; then
+              sudo mv "$WEB_ROOT" "$BACKUP_ROOT"
+              echo "Existing frontend backed up."
+            fi
+
+            echo ""
+            echo "===== Activating new frontend ====="
+
+            sudo mv "$NEW_ROOT" "$WEB_ROOT"
+
+            echo ""
+            echo "===== Reloading nginx ====="
+
+            if sudo systemctl reload nginx; then
+
+              echo "Nginx reload successful."
+
+            else
+
+              echo "ERROR: Nginx reload failed."
+
+              sudo rm -rf "$WEB_ROOT"
+
+              if [ -d "$BACKUP_ROOT" ]; then
+                sudo mv "$BACKUP_ROOT" "$WEB_ROOT"
+                echo "Frontend rollback completed."
+              fi
+
+              exit 1
+            fi
+
+            echo ""
+            echo "===== Checking deployed index.html ====="
+
+            if [ ! -f "$WEB_ROOT/index.html" ]; then
+
+              echo "ERROR: index.html missing after deployment."
+
+              sudo rm -rf "$WEB_ROOT"
+
+              if [ -d "$BACKUP_ROOT" ]; then
+                sudo mv "$BACKUP_ROOT" "$WEB_ROOT"
+                echo "Frontend rollback completed."
+              fi
+
+              exit 1
+            fi
+
+            echo ""
+            echo "===== Cleaning upload directory ====="
+
+            rm -rf "$UPLOAD_ROOT"/*
+
+            echo ""
+            echo "=========================================="
+            echo "       Frontend deployment successful"
+            echo "=========================================="

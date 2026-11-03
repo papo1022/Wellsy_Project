@@ -1,0 +1,444 @@
+/* ======================================
+   체크업 대시보드
+====================================== */
+.checkup-dashboard {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* ======================================
+   제목
+====================================== */
+.checkup-title {
+  margin-bottom: var(--spacing);
+}
+
+.checkup-title h2 {
+  margin: 0 0 var(--spacing-sm);
+  font-size: var(--font-size-h2);
+  font-weight: 700;
+}
+
+.checkup-title p {
+  margin: 0;
+  color: var(--color-grey);
+}
+
+/* ======================================
+   검색 조건
+====================================== */
+.checkup-search-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing);
+  margin-bottom: var(--spacing);
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+}
+
+.checkup-search-box select,
+.checkup-search-box input,
+.checkup-search-btn {
+  height: 42px;
+  padding: 0 var(--spacing);
+  font-size: var(--font-size-button);
+  box-sizing: border-box;
+}
+
+.checkup-search-box select,
+.checkup-search-box input {
+  border: 1px solid var(--color-cancel);
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+}
+
+.checkup-search-box input {
+  width: 180px;
+}
+
+.checkup-search-btn {
+  border: none;
+  border-radius: var(--radius-round);
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.checkup-search-btn:hover {
+  background-color: var(--color-white);
+  color: var(--color-primary);
+}
+
+/* ======================================
+   요약 카드
+====================================== */
+.checkup-card-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing);
+  margin-bottom: var(--spacing);
+}
+
+.checkup-card {
+  background: var(--color-white);
+  border-radius: var(--radius-sm);
+  margin-top: var(--spacing);
+}
+
+.checkup-card span {
+  display: block;
+  margin-bottom: var(--spacing);
+  color: var(--color-grey);
+}
+
+.checkup-card strong {
+  display: inline-block;
+  font-size: var(--font-size-h2);
+}
+
+.checkup-card p {
+  display: inline-block;
+  margin: 0 0 0 var(--spacing-sm);
+  color: var(--color-grey);
+}
+
+/* ======================================
+   테이블
+====================================== */
+.checkup-table-box {
+  background: var(--color-white);
+  border-radius: var(--radius-sm);
+  overflow-x: auto;
+}
+
+.checkup-table-box h3 {
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing);
+  font-size: var(--font-size-h3);
+  font-weight: 700;
+}
+
+.checkup-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.checkup-table th,
+.checkup-table td {
+  padding: var(--spacing);
+  border-bottom: 1px solid var(--color-cancel);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.checkup-table th {
+  background: var(--color-ivory);
+  font-weight: 700;
+}
+
+.checkup-table tbody tr:hover {
+  background: var(--color-ivory);
+}
+
+/* ======================================
+   메시지
+====================================== */
+.checkup-message {
+  padding: var(--spacing);
+  text-align: center;
+  color: var(--color-grey);
+}
+
+/* ==========================================
+   취소 / 승인 대기 카드
+========================================== */
+.checkup-cancel-card,
+.checkup-waiting-card {
+  cursor: pointer;
+}
+
+.checkup-cancel-card-guide,
+.checkup-waiting-card-guide {
+  display: block;
+  margin-top: var(--spacing-sm);
+  color: var(--color-grey);
+  font-size: var(--font-size-button);
+}
+
+/* ==========================================
+   취소 모달 배경 오버레이
+========================================== */
+.checkup-cancel-modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing);
+  /* var(--color-grey) 기반 0.45(45%) 오퍼시티 배경 오버레이 적용 */
+  background-color: rgba(var(--color-grey-rgb, 0, 0, 0), 0.45);
+  z-index: 9999;
+  box-sizing: border-box;
+}
+
+/* ==========================================
+   취소 모달
+========================================== */
+.checkup-cancel-modal {
+  width: 100%;
+  max-width: 1000px;
+  max-height: 80vh;
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.checkup-cancel-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing);
+  border-bottom: 1px solid var(--color-ivory);
+}
+
+.checkup-cancel-modal-header h3 {
+  margin: 0 0 var(--spacing-sm) 0;
+  font-size: var(--font-size-h3);
+  font-weight: 700;
+}
+
+.checkup-cancel-modal-header p {
+  margin: 0;
+  color: var(--color-grey);
+  font-size: var(--font-size-button);
+}
+
+.checkup-cancel-modal-x {
+  width: 35px;
+  height: 35px;
+  border: none;
+  background: transparent;
+  color: var(--color-grey);
+  font-size: var(--font-size-h2);
+  cursor: pointer;
+}
+
+.checkup-cancel-modal-x:hover {
+  color: var(--color-black);
+}
+
+.checkup-cancel-modal-content {
+  max-height: 55vh;
+  padding: var(--spacing);
+  overflow: auto;
+}
+
+.checkup-cancel-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: var(--spacing);
+  border-top: 1px solid var(--color-cancel);
+}
+
+.checkup-cancel-modal-footer button {
+  min-width: 80px;
+  height: 38px;
+  padding: 0 var(--spacing);
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--color-black);
+  color: var(--color-white);
+  font-size: var(--font-size-button);
+  cursor: pointer;
+}
+
+.checkup-cancel-modal-footer button:hover {
+  opacity: 0.9;
+}
+
+/* ======================================
+   반응형
+====================================== */
+@media (max-width: 900px) {
+  .checkup-card-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .checkup-dashboard {
+    padding: var(--spacing);
+  }
+
+  .checkup-search-box {
+    flex-direction: column;
+  }
+
+  .checkup-search-box select,
+  .checkup-search-box input,
+  .checkup-search-btn {
+    width: 100%;
+  }
+
+  .checkup-card-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ======================================
+   건강검진 예약 현황 너비 확장
+====================================== */
+
+@media (min-width: 1200px) {
+
+  .admin-dashboard-grid {
+    width: calc(100vw - 220px);
+    max-width: none;
+
+    grid-template-columns:
+      minmax(520px, 0.8fr)
+      minmax(850px, 1.2fr);
+  }
+
+  .admin-dashboard-panel {
+    min-width: 0;
+  }
+}
+
+
+/* ======================================
+   예약 테이블 가로 스크롤 제거
+====================================== */
+
+.checkup-table-box {
+  width: 100%;
+  overflow-x: visible;
+}
+
+.checkup-table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.checkup-table th,
+.checkup-table td {
+  padding: 12px 6px;
+
+  white-space: normal;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+
+  font-size: 13px;
+}
+/* ======================================
+   페이징
+====================================== */
+.checkup-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing);
+}
+
+.checkup-pagination button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 var(--spacing-sm);
+  box-sizing: border-box;
+  border: 1px solid var(--color-cancel);
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+  color: var(--color-black);
+  font-size: var(--font-size-button);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.checkup-pagination button:hover:not(:disabled) {
+  border-color: var(--color-grey);
+  background: var(--color-ivory);
+  color: var(--color-black);
+}
+
+.checkup-pagination button.active {
+  border: none;
+  background: var(--color-secondary);
+  color: var(--color-white);
+  font-weight: 700;
+}
+
+.checkup-pagination button.active:hover:not(:disabled) {
+  border: 1px solid var(--color-secondary);
+  background: var(--color-white);
+  color: var(--color-secondary);
+}
+
+.checkup-pagination button:disabled {
+  border-color: var(--color-cancel);
+  background: var(--color-ivory);
+  color: var(--color-cancel);
+  cursor: default;
+}
+
+
+/* 테이블 열 너비 */
+
+.checkup-table th:nth-child(1),
+.checkup-table td:nth-child(1) {
+  width: 8%;
+}
+
+.checkup-table th:nth-child(2),
+.checkup-table td:nth-child(2) {
+  width: 8%;
+}
+
+.checkup-table th:nth-child(3),
+.checkup-table td:nth-child(3) {
+  width: 8%;
+}
+
+.checkup-table th:nth-child(4),
+.checkup-table td:nth-child(4) {
+  width: 9%;
+}
+
+.checkup-table th:nth-child(5),
+.checkup-table td:nth-child(5) {
+  width: 8%;
+}
+
+.checkup-table th:nth-child(6),
+.checkup-table td:nth-child(6) {
+  width: 12%;
+}
+
+.checkup-table th:nth-child(7),
+.checkup-table td:nth-child(7) {
+  width: 12%;
+}
+
+.checkup-table th:nth-child(8),
+.checkup-table td:nth-child(8) {
+  width: 13%;
+}
+
+.checkup-table th:nth-child(9),
+.checkup-table td:nth-child(9) {
+  width: 10%;
+}
+
+.checkup-table th:nth-child(10),
+.checkup-table td:nth-child(10) {
+  width: 12%;
+}

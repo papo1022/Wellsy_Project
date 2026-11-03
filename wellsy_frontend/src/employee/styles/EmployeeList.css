@@ -1,0 +1,167 @@
+/* =========================================
+   검색 영역
+========================================= */
+.employee-search-area {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--spacing);
+    font-weight: 700;
+}
+
+/* =========================================
+   검색창
+========================================= */
+.employee-search-box {
+    position: relative;
+    width: 360px;
+}
+
+.employee-search-box input {
+    width: 100%;
+    height: 40px;
+    padding: 0 var(--spacing-lg) 0 var(--spacing);
+    box-sizing: border-box;
+    border: 1px solid var(--color-cancel);
+    border-radius: var(--radius-md);
+    background: var(--color-white);
+    color: var(--color-black);
+    font-size: var(--font-size-button);
+    outline: none;
+    transition:
+        border-color 0.1s ease,
+}
+
+.employee-search-box input::placeholder {
+    color: var(--color-grey);
+}
+
+.employee-search-box input:focus {
+    border: 2px solid var(--color-primary);
+}
+
+/* =========================================
+   검색 아이콘
+========================================= */
+.employee-search-icon {
+    position: absolute;
+    right: var(--spacing);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-grey);
+    font-size: var(--font-size-h4);
+    pointer-events: none;
+}
+
+/* =========================================
+   목록 상단
+========================================= */
+.employee-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: var(--spacing-sm) var(--spacing-sm) var(--spacing);
+    border-bottom: 1px solid var(--color-cancel);
+}
+
+.employee-list-header h2 {
+    margin: 0;
+    font-size: var(--font-size-h2);
+    font-weight: 700;
+}
+
+.employee-list-header p {
+    margin: var(--spacing-sm) 0 0;
+    color: var(--color-grey);
+    font-size: var(--font-size-button);
+}
+
+/* =========================================
+   정렬 영역
+========================================= */
+.employee-sort-area {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding-bottom: var(--spacing-sm);
+}
+
+.employee-sort-area span {
+    color: var(--color-cancel);
+    font-size: var(--font-size-caption);
+}
+
+/* =========================================
+   정렬 버튼
+========================================= */
+.employee-sort-btn {
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--color-grey);
+    font-size: var(--font-size-button);
+    cursor: pointer;
+}
+
+.employee-sort-btn:hover {
+    color: var(--color-black);
+}
+
+.employee-sort-active {
+    color: var(--color-black);
+    font-weight: 700;
+}
+
+/* =========================================
+   사원 등록 버튼 영역
+========================================= */
+.employee-list-btn-area {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: var(--spacing);
+}
+
+/* =========================================
+   권한
+========================================= */
+.employee-role {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 70px;
+    height: 32px;
+    padding: 0 var(--spacing);
+    box-sizing: border-box;
+    border-radius: var(--radius-round);
+    font-size: var(--font-size-button);
+    font-weight: 400;
+}
+
+/* 일반 사원 */
+.employee-role-user {
+    border: 1px solid var(--color-cancel);
+    background: var(--color-white);
+    color: var(--color-black);
+}
+
+/* 관리자 */
+.employee-role-admin {
+    border: 1px solid var(--color-primary);
+    background: var(--color-primary);
+    color: var(--color-white);
+}
+
+/* =========================================
+   퇴사 표시
+========================================= */
+.employee-resigned-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing);
+    border-radius: var(--radius-round);
+    background: var(--color-ivory);
+    color: var(--color-grey);
+    font-size: var(--font-size-button);
+    font-weight: 400;
+}

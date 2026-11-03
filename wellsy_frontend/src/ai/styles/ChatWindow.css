@@ -1,0 +1,152 @@
+/* 사이드바와 채팅창을 나란히 감싸는 영역 */
+.chat-page {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+/* 메인 채팅 컨테이너 */
+.chat-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: var(--spacing);
+    padding: var(--spacing);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.chat-title {
+    margin: 0;
+    font-size: var(--font-size-h1);
+    font-weight: 700;
+    margin-bottom: var(--spacing);
+}
+
+/* 대화 메시지 영역 */
+.chat-message {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: var(--spacing);
+    padding: var(--spacing);
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* 말풍선 공통 스타일 */
+.chat-bubble {
+    max-width: 65%;
+    padding: var(--spacing);
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-body);
+    word-break: break-word;
+}
+
+/* AI 메시지 */
+.chat-bubble.ai {
+    align-self: flex-start;
+    background-color: var(--color-white);
+    color: var(--color-black);
+    border-top-left-radius: 0px;
+}
+
+/* 사용자 메시지 */
+.chat-bubble.user {
+    align-self: flex-end;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border-top-right-radius: 0px;
+}
+
+/* 카드형 버튼 */
+.chat-apply-button {
+    display: block;
+    width: 200px;
+    height: 100px;
+    margin-top: 10px;
+    font-size: var(--font-size-body);
+    color: var(--color-black);
+    padding: 10px var(--spacing);
+    border: none;
+    border-radius: var(--radius-md);
+    background-color: var(--color-ivory);
+    cursor: pointer;
+    transition: 0.1s ease-in;
+}
+
+.chat-apply-button:hover {
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+}
+
+/* 하단 입력 영역 */
+.chat-input-area {
+    display: flex;
+    gap: 10px;
+    padding: var(--spacing);
+}
+
+.chat-input {
+    flex: 1;
+    padding: 10px var(--spacing);
+    border: 1px solid var(--color-cancel);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-body);
+}
+
+.chat-input:focus {
+    outline: none;
+    border: 2px solid var(--color-primary);
+}
+
+.chat-send-button {
+    padding: 10px var(--spacing);
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-button);
+    cursor: pointer;
+    transition: 0.1s ease-in;
+}
+
+.chat-send-button:hover {
+    background-color: var(--color-secondary);
+}
+
+/* AI 말풍선 내 마크다운 스타일 */
+.chat-bubble.ai p {
+    margin: 0 0 8px 0;
+}
+
+.chat-bubble.ai p:last-child {
+    margin-bottom: 0;
+}
+
+.chat-bubble.ai ul, 
+.chat-bubble.ai ol {
+    margin: 5px 0 10px var(--spacing);
+    padding: 0;
+}
+
+.chat-bubble.ai li {
+    margin-bottom: 4px;
+}
+
+.chat-bubble.ai strong {
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
+.chat-bubble.ai h1, 
+.chat-bubble.ai h2, 
+.chat-bubble.ai h3 {
+    margin: 10px 0 5px 0;
+    font-size: var(--font-size-body);
+    font-weight: bold;
+}
